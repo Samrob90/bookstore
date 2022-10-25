@@ -1,2 +1,0 @@
-# newtonbookshop
-E-commerce bookstore
