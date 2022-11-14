@@ -1,0 +1,46 @@
+{
+    "name": "bookworm",
+    "version": "0.0.1",
+    "description": "Bookstore WooCommerce Theme",
+    "main": "gulpfile.js",
+    "startDate": "13-March-2020",
+    "scripts": {
+        "gulp": "gulp"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/madrasthemes/redesigned-octo-fiesta.git"
+    },
+    "author": "MadrasThemes",
+    "license": "GPL-2.0",
+    "bugs": {
+        "url": "https://github.com/madrasthemes/redesigned-octo-fiesta/issues"
+    },
+    "homepage": "https://github.com/madrasthemes/redesigned-octo-fiesta#readme",
+    "devDependencies": {
+        "browser-sync": "^2.26.7",
+        "del": "^5.0.0",
+        "grunt": "^1.0.4",
+        "gulp": "github:gulpjs/gulp",
+        "gulp-autoprefixer": "^6.1.0",
+        "gulp-cache": "^1.1.2",
+        "gulp-changed": "^4.0.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-cssnano": "^2.1.3",
+        "gulp-htmlmin": "^5.0.1",
+        "gulp-imagemin": "^6.0.0",
+        "gulp-rename": "^1.4.0",
+        "gulp-sass": "^4.0.2",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglifyjs": "^0.6.2",
+        "imagemin-jpeg-recompress": "^6.0.0",
+        "imagemin-pngquant": "^8.0.0"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.1.0",
+        "animate.css": "^3.7.2",
+        "bootstrap": "^4.4.1",
+        "bootstrap-select": "^1.13.2",
+        "jquery": "^3.3.1"
+    }
+}
