@@ -1,0 +1,35 @@
+
+{% if messages %}
+    <div class="django_messages_error" id="django_messages_error">
+
+        <div class="message_content">
+            
+            {% for message in messages %}
+
+            
+                {% if message.tags == "error" %}
+                <div class="rounded-1 shadow-lg alert alert-danger " role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/error.png" /><strong> Error !</strong> <span>{{message}} </span>
+                </div>
+                {% elif message.tags == "success" %}
+                <div class="rounded-1 shadow-lg alert alert-success" role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/success.png" /> <strong>success ! </strong><span>{{message}} </span>
+                </div>
+                {% elif message.tags == "warning"%}
+                <div class="rounded-1 shadow-lg alert alert-warning" role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/warning.png" /> <strong>warning ! </strong><span>{{message}} </span>
+                </div>
+                {% elif message.tags == "info" %}
+                <div class="rounded-1 shadow-lg alert alert-info" role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/info.png" /> <strong>Info ! </strong><span>{{message}} </span>
+                </div>
+                {% endif %}
+            
+                
+            {% endfor %}
+                
+        </div>
+
+    </div>
+{% endif %}
+    

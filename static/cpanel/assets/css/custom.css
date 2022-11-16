@@ -1,0 +1,57 @@
+.django_messages_error {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 2%;
+    margin-top: 4vh;
+    z-index: 90;
+    width: 30%;
+
+}
+
+.django_messages_error .alert {
+    text-align: left !important;
+}
+
+.preview_book {
+    height: 320px;
+    width: 100%;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid lightgray;
+
+}
+
+.preview_book img {
+    height: 100%;
+    width: 280px !important;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.preview_details ul {
+    padding: 0px;
+    padding-left: 4px;
+    list-style: none;
+}
+
+.preview_details ul li {
+    font-size: 15px;
+    line-height: 2em;
+}
+
+.preview_book ul li strong {
+    font-weight: bolder;
+    color: black;
+
+}
+
+@media screen and (max-width: 600px) {
+    .django_messages_error {
+        width: 90% !important;
+        margin-top: 1vh;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+}

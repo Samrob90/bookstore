@@ -1,0 +1,229 @@
+{% extends "cpanel/layouts/base.html" %}
+
+{% block title %} UI Forms {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="py-4">
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item">
+                <a href="{% url 'cpanel_dashboard' %}">
+                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'cpanel_books' %}">books</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Forms</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">Add book</h1>
+            <p class="mb-0">Do not refresh this page while in process of adding new record , You migth loose your
+                progress if you do so </p>
+
+        </div>
+        <div>
+            {% comment %} <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components-forms/"
+                class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a> {% endcomment %}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card border-0 shadow components-section">
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-lg-4 col-sm-4">
+                        <!-- Form -->
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <!-- first part -->
+                            <div class="first_">
+                                <div class="mb-4">
+                                    <label for="title">Book Title</label>
+                                    {{form.title}}
+
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="quaity">Book author</label>
+                                    {{form.author}}
+
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="quatiy">Book quantity</label>
+                                    {{form.quantity}}
+
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="image">Book images</label>
+                                    <input type="file" id="files" name="files" class="form-control" multiple>
+
+
+                                </div>
+                            </div>
+
+
+
+                            <!-- second part -->
+                            <div class="second" style="display:none ;" id="second">
+
+                                <button class="btn btn-sm btn-gray-800 d-inline-flex  align-items-center"
+                                    data-bs-toggle="modal" data-bs-target="#modal-form"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg> Add Booktype
+                                </button>
+
+                                <div id="booktypecover">
+
+                                </div>
+
+
+
+
+                                <div class="col-lg-8">
+
+                                    <!-- Modal Content -->
+                                    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog"
+                                        aria-labelledby="modal-form" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body p-0">
+                                                    <div class="card p-3 p-lg-4">
+                                                        <button type="button" class="btn-close ms-auto closemodal"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <!-- <div class="text-center text-md-center mb-4 mt-md-0">
+                                                            <h1 class="mb-0 h4">Add book Type</h1>
+                                                        </div> -->
+
+                                                        <!-- Form -->
+                                                        <div class="form-group mb-2">
+                                                            <label for="id_booktype">Select book Type</label>
+                                                            {{form.booktype}}
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <label for="id_booktypeprice">book Type price</label>
+                                                            {{form.booktypeprice}}
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="description">book Type Description</label>
+                                                            <textarea name="description" id="description"
+                                                                class="form-control" cols="30" rows="15"></textarea>
+                                                        </div>
+
+
+                                                        <div class="d-grid">
+                                                            <button type="submit "
+                                                                class="btn btn-gray-800 addbooktype">Add</button>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Modal Content -->
+                                </div>
+
+
+                                <div class="nextstep mt-5">
+                                    <div class=" row">
+                                        <div class="col-lg-6">
+                                            <button
+                                                class="btn btn-sm btn-gray-800 d-inline-flex  align-items-center"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M15 18l-6-6 6-6" /></svg> Previous
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-6 float-right">
+                                            <button
+                                                class="btn btn-sm btn-gray-800 d-inline-flex   align-items-center">Next
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M9 18l6-6-6-6" /></svg> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <button id="continue"
+                                class="btn btn-sm btn-gray-800 d-inline-flex  continue align-items-center">Continue
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M13 17l5-5-5-5M6 17l5-5-5-5" /></svg> </button>
+                        </form>
+
+
+                    </div>
+
+                    <div class="col-lg-8 col-sm-8 " style="border-left:1px solid lightgray;">
+
+                        <div class="row preview d-none">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="preview_book shadow rounded">
+                                    <img src="{{ASSETS_ROOT}}/static/cpanel/assets/img/default-book.png"
+                                        alt="bookimages" id="outputimage">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8 col-sm-6">
+                                <div class="preview_details ">
+
+                                    <ul id="details_ul">
+                                        <!-- <li><strong>Title:</strong><span> Lorem ipsum dolor sit amet consectetur adipisicing
+                                            elit. .</span></li>
+                                    <li><strong>Author:</strong> <span>David Becakm</span></li>
+
+                                    <li><strong>Qty:</strong><span>230</span></li> -->
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+    integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+
+<script src="{{ ASSETS_ROOT }}/static/cpanel/assets/js/book.js"></script>
+{% endblock javascripts %}

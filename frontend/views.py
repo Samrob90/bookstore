@@ -12,3 +12,15 @@ class ShopView(TemplateView):
     template_name = "frontend/shop.html"
     # model = None
     # paginate_by = 100
+
+
+class AboutView(TemplateView):
+    template_name = "frontend/about.html"
+
+
+class ContactView(TemplateView):
+    template_name = "frontend/contact.html"
+
+
+class FaqView(TemplateView):
+    template_name = "frontend/faq.html"
