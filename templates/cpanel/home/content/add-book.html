@@ -45,9 +45,9 @@
         <div class="card border-0 shadow components-section">
             <div class="card-body">
                 <div class="row mb-4">
-                    <div class="col-lg-4 col-sm-4">
+                    <div class="col-lg-4 col-sm-4 col-md-8">
                         <!-- Form -->
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data" id="form">
                             {% csrf_token %}
 
                             <!-- first part -->
@@ -100,7 +100,7 @@
 
 
 
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 col-sm-8 col-md-8">
 
                                     <!-- Modal Content -->
                                     <div class="modal fade" id="modal-form" tabindex="-1" role="dialog"
@@ -152,7 +152,7 @@
                                     <div class=" row">
                                         <div class="col-lg-6">
                                             <button
-                                                class="btn btn-sm btn-gray-800 d-inline-flex  align-items-center"><svg
+                                                class="btn btn-sm btn-gray-800 d-inline-flex  align-items-center previous"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="col-lg-6 float-right">
                                             <button
-                                                class="btn btn-sm btn-gray-800 d-inline-flex   align-items-center">Next
+                                                class="btn btn-sm btn-gray-800 d-inline-flex   align-items-center next">Next
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -222,8 +222,11 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
-    integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
 
 <script src="{{ ASSETS_ROOT }}/static/cpanel/assets/js/book.js"></script>
 {% endblock javascripts %}
