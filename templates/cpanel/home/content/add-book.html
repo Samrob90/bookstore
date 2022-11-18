@@ -7,8 +7,10 @@
 <link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
 {% endblock stylesheets %}
 
+
 {% block content %}
 
+{% include 'cpanel/includes/error.html' %}
 <div class="py-4">
     <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
         <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -229,4 +231,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
 
 <script src="{{ ASSETS_ROOT }}/static/cpanel/assets/js/book.js"></script>
+<script src="{{ ASSETS_ROOT }}/static/cpanel/assets/js/custom.js"></script>
 {% endblock javascripts %}

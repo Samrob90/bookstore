@@ -90,7 +90,9 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (data, textStatus, jqXHR) {
-                    alert(data)
+                    if (data.result === "success") {
+                        window.location.replace("/cpanel/add-book")
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     //if fails     

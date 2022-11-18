@@ -4,12 +4,13 @@ from . import form
 from django.contrib.auth import authenticate, login, logout
 from authentications.models import Account
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from . import models
 from PIL import Image
-from random import Random, random
+
+# from random import Random, random
 from bookstore.settings import BASE_DIR
-import uuid, os, json
+import uuid, os
 from django.template.defaultfilters import slugify
 
 # Create your views here.
@@ -79,7 +80,7 @@ class CpanelAddbookView(TemplateView):
         if request.POST:
             default_price = 0
             default_type = ""
-            booktype = []
+            booktype = {}
             booktype_sample = ["PAPERBACK", "EBOOK", "AUDIOBOOK", "HARDCOVER"]
 
             # hard coded to be changed later
@@ -91,14 +92,19 @@ class CpanelAddbookView(TemplateView):
             quantity = request.POST["quantity"]
             slug = slugify(booktitle)
             images = request.FILES.getlist("files")
-
+            # return HttpResponse("none")
             for index, value in enumerate(request.POST):
                 if value in booktype_sample:
-                    booktype.append({value: request.POST[value]})
+                    booktype.update({value: request.POST[value].split(",")})
 
             if booktype:
-                default_price = booktype[0][1]
-                default_type = booktype[0][0]
+                if "PAPERBACK" in booktype:
+                    default_price = booktype["PAPERBACK"][1]
+                    default_type = booktype["PAPERBACK"][0]
+                else:
+                    first_element = next(iter(booktype))
+                    default_price = booktype[first_element][1]
+                    default_type = booktype[first_element][0]
 
             # create product object
             product = models.product.objects.create(
@@ -108,7 +114,7 @@ class CpanelAddbookView(TemplateView):
             # create images thumbnail
             for index, image in enumerate(images):
                 path = os.path.join(BASE_DIR, "media/thumbnail/")
-                thumbnail = thumbnail(image, path)
+                thumbnail = self.thumbnail(image, path)
                 thumbnail_url.append(thumbnail)
 
             # create book object
@@ -124,21 +130,32 @@ class CpanelAddbookView(TemplateView):
             )
             # insert image
             thumbnail_image_url = " ".join(thumbnail_url)
-            for i in image:
+            print(thumbnail)
+            for i in images:
                 models.bookimages.objects.create(
                     book=book,
                     thumbnail=thumbnail_image_url,
                     images=i,
                 )
 
-            return HttpResponse("done")
+            # insert bookdetials
+            for key in booktype:
+                models.bookdetails.objects.create(
+                    book=book,
+                    booktype=key,
+                    price=booktype[key][1],
+                    description=booktype[key][2],
+                )
+
+            messages.success(request, "Book added successfully")
+
+            return JsonResponse({"result": "success"})
 
     def thumbnail(self, image, path):
         images = Image.open(image)
         MAX_SIZE = (150, 200)
         images.thumbnail(MAX_SIZE)
         image_name = f"{uuid.uuid4()}thumbnail.webp"
-
         full_name = f"{path}/{image_name}"
         # imag
         images.save(full_name)

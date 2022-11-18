@@ -118,8 +118,8 @@ ASSETS_ROOT = "static"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = "static/"
-MEDIA_URL = "/MEDIA/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "MEDIA")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type

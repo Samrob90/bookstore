@@ -31,8 +31,11 @@ class book(models.Model):
     quantity = models.IntegerField(default=None)
     author = models.CharField(max_length=250, default=None, null=True, blank=True)
     review = models.IntegerField(default=None, null=True, blank=True)
+    slug = models.SlugField(
+        default=None,
+    )
     default_price = models.DecimalField(decimal_places=2, max_digits=9)
-    deault_booktype = models.CharField(
+    default_type = models.CharField(
         choices=bookchoice, default=PAPERBACK, max_length=250
     )
     thumbnail = models.CharField(max_length=250, default=None)
@@ -51,3 +54,4 @@ class bookdetails(models.Model):
     booktype = models.CharField(max_length=150, default=None)
     price = models.DecimalField(decimal_places=2, max_digits=9)
     description = models.TextField(default=None)
+    # details = jsonfield.JSONField()
