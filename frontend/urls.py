@@ -9,5 +9,10 @@ urlpatterns = [
     path("about/", views.AboutView.as_view(), name="about"),
     path("contact/", views.ContactView.as_view(), name="contact"),
     path("faq/", views.FaqView.as_view(), name="faq"),
-    path("book/<slug:slug>/", views.ProductView.as_view(), name="book-detail"),
+    path(
+        "book/<slug:slug>/<uuid>/<type>/",
+        views.ProductView.as_view(),
+        name="book-detail",
+    ),
+    path("shopacc/", views.shopCart.as_view(), name="shopacc"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

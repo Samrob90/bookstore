@@ -57,6 +57,42 @@
     height: 444px !important;
 }
 
+.booktype_active {
+    border: 1px solid black !important;
+    /* background-color: lightgrey !important; */
+}
+
+.booktypeshop {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.booktypeshop:hover {
+    border: 1px solid black !important;
+}
+
+.preload-image-bookstrap .ccs_child {
+    /* background-color: red !important;
+    z-index: 299; */
+    text-align: center;
+    padding-top: 50%;
+    /* background-image: image("/static/assets/img/loader/loading.gif"); */
+}
+
+.preload-image-bookstrap .preloader-newtonbookshop {
+
+    display: none;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 @media screen and (max-width: 600px) {
     .django_messages_error {
         width: 90% !important;

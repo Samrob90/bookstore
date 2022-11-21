@@ -507,25 +507,25 @@
                             <div class="product__inner overflow-hidden p-3 p-md-4d875">
                                 <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                     <div class="woocommerce-loop-product__thumbnail img-thumbnail-shop-newtonbookshop">
-                                        <a href="{% url 'book-detail' book.slug %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description" width="150" height="200"></a>
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description" width="150" height="200"></a>
                                     </div>
                                     <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' book.slug %}">{{book.default_type}}</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="{% url 'book-detail' book.slug %}">{{book.title}}</a></h2>
+                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}">{{book.default_type}}</a></div>
+                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}">{{book.title}}</a></h2>
                                         <div class="font-size-2  mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{book.author}}</a></div>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                             <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS </span>{{book.default_price}}</span>
                                         </div>
                                     </div>
                                     <div class="product__hover d-flex align-items-center">
-                                        <a href="{% url 'book-detail' book.slug %}" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
                                         </a>
-                                        <a href="{% url 'book-detail' book.slug %}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-switch"></i>
                                         </a>
-                                        <a href="{% url 'book-detail' book.slug %}" class="h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
@@ -546,11 +546,11 @@
                             <div class="product__inner overflow-hidden p-3 p-md-4d875">
                                 <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative ">
                                     <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0 img-thumbnail-shop-newtonbookshop">
-                                        <a href="{% url 'book-detail' book.slug %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
                                     </div>
                                     <div class="col-md woocommerce-loop-product__body product__body pt-3 bg-white mb-3 mb-md-0">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' book.slug %}">{{bookt.default_type}}</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark"><a href="{% url 'book-detail' book.slug %}" tabindex="0">{{book.title}}</a></h2>
+                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}">{{bookt.default_type}}</a></div>
+                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark"><a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" tabindex="0">{{book.title}}</a></h2>
                                         <div class="font-size-2  mb-2 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
                                         <p class="font-size-2 mb-2 crop-text-2">After disappearing for three years, Artemis Fowl has returned to a life different from the one he left. And spends his days teaching his twin siblings the</p>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
@@ -558,14 +558,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-auto d-flex align-items-center">
-                                        <a href="{% url 'book-detail' book.slug %}" class="text-uppercase text-dark h-dark font-weight-medium mr-4" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="text-uppercase text-dark h-dark font-weight-medium mr-4" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
                                         </a>
-                                        <a href="{% url 'book-detail' book.slug %}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-switch"></i>
                                         </a>
-                                        <a href="{% url 'book-detail' book.slug %}" class="h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
