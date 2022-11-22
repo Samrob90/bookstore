@@ -19,6 +19,8 @@ newtonbookshop | {{book.title}}
 
 
 {% block content %}
+
+{% include 'cpanel/includes/error.html' %}
 <!-- ====== MAIN CONTENT ====== -->
 <div class="page-header border-bottom">
     <div class="container">
@@ -993,12 +995,12 @@ newtonbookshop | {{book.title}}
 
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
-
+<!-- 
 <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.fancybox.js"></script>
-<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.onscroll-animation.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.onscroll-animation.js"></script> -->
 <!-- <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.quantity-counter.js"></script> -->
 
-<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.scroll-nav.js"></script>
+<!-- <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.scroll-nav.js"></script> -->
 <script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script>
 
 {% endblock javascripts %}

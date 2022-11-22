@@ -7,6 +7,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from . import models
+from django.utils import timezone
 
 
 class HomeVIew(TemplateView):
@@ -48,33 +50,6 @@ class ProductView(DetailView):
 
         return context
 
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            return HttpResponse("hello world")
-        # Qty = request.POST["quantity"]
-        # product_id = kwargs["uuid"]
-        # product = cpanel_model.product.objects.get(product_id=product_id)
-        # book = cpanel_model.book.objects.get(product=product)
-        # book_detail = cpanel_model.bookdetails.objects.get(
-        #     book=book, booktype=kwargs["type"]
-        # )
-
-        # cart = {
-        #     "product_id": kwargs["uuid"],
-        #     "book_title": book.title,
-        #     "book_quantity": Qty,
-        #     "book_thumbnail": book.thumbnail,
-        #     "book_price": book_detail.price,
-        #     "book_type": book_detail.booktype,
-        # }
-        # result = self.store_cart(request, cart)
-        # if result:
-        #     messages.success(request, f"{{book.title}} added to cart ")
-        # # context =
-        # # return render(
-        # #     request, self.template_name, context=self.get_context_data(kwargs)
-        # # )
-
 
 class shopCart(TemplateView):
     def get(self, request, *args, **kwargs):
@@ -95,6 +70,8 @@ class shopCart(TemplateView):
                 "book_thumbnail": book.thumbnail,
                 "book_price": bookprice,
                 "book_type": booktype,
+                "book_author": book.author,
+                "book_slug": book.slug,
             }
             result = self.store_cart(request, cart)
             if result:
@@ -102,6 +79,34 @@ class shopCart(TemplateView):
                 return JsonResponse({"result": "success"})
             else:
                 return JsonResponse({"result": "failed"})
+
+        # remove cart from session
+        if self.is_ajax(request) and "removeCartItem" in request.POST:
+            product_id = request.POST.get("product_id")
+            booktype = request.POST.get("booktype")
+            print(product_id)
+            if request.user.is_authenticated:
+                pass
+            else:
+                if request.session["cart"]:
+
+                    if product_id in request.session["cart"]:
+                        for index, value in enumerate(
+                            request.session["cart"][str(product_id)]
+                        ):
+                            if (
+                                value["book_type"] == booktype
+                                and product_id == value["product_id"]
+                            ):
+                                if len(request.session["cart"][str(product_id)]) == 1:
+                                    del request.session["cart"][str(product_id)]
+                                else:
+                                    request.session["cart"][str(product_id)].pop(index)
+                                request.session.modified = True
+                                messages.info(
+                                    request, "Product remove from cart successfuly"
+                                )
+                                return JsonResponse({"result": "success"})
 
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"
@@ -112,39 +117,59 @@ class shopCart(TemplateView):
         else:
             if "cart" in request.session:
                 session = request.session["cart"]
+                # del request.session["cart"]
+                # request.session.modified = True
+                # return
+                print(session)
+
+                # return None
                 # is this product already in cart session increase book quantiy
                 if str(data["product_id"]) in request.session["cart"]:
                     session_product_data = session[str(data["product_id"])]
                     # check if book type is the same
 
                     # print(len(session_product_data))
-                    for index, value in enumerate(session_product_data, start=0):
-                        if value["book_type"] == data["book_type"]:
-                            # local data copie
-                            new_data = data
+                    if len(session_product_data) > 0:
+                        for index, value in enumerate(session_product_data, start=0):
+                            if value:
+                                print("there is value")
+                            else:
+                                print("no value here")
+                            if (
+                                value["book_type"] == data["book_type"]
+                                and value["product_id"] == data["product_id"]
+                            ):
+                                # local data copie
+                                new_data = data
 
-                            current_dict = int(value["book_quantity"])
-                            # del session_product_data[index]
-                            session_product_data.pop(index)
-                            data.update(
-                                {
-                                    "book_quantity": current_dict
-                                    + int(new_data["book_quantity"])
-                                }
-                            )
-                            session_product_data.insert(index, new_data)
+                                current_dict = int(value["book_quantity"])
+                                # del session_product_data[index]
+                                session_product_data.pop(index)
+                                data.update(
+                                    {
+                                        "book_quantity": current_dict
+                                        + int(new_data["book_quantity"])
+                                    }
+                                )
+                                session_product_data.insert(index, new_data)
 
-                            request.session.modified = True
-                            # print(session_product_data)
-                        else:
-                            session_product_data.append(data)
-                            request.session.modified = True
+                                request.session.modified = True
+                                # print(session_product_data)
+                            else:
+                                session_product_data.append(data)
+                                request.session.modified = True
+                    else:
+                        print("in herer")
+                        session_product_data.append(data)
+                        request.session.modified = True
+
                 else:
-                    request.session["cart"][str(data.product_id)] = data
+                    request.session["cart"][str(data["product_id"])] = [data]
+                    request.session.modified = True
             else:
                 cart_session = request.session["cart"] = {}
                 cart_session[str(data["product_id"])] = [data]
-                request.session.modifed = True
+                request.session.modified = True
             return True
 
 
@@ -158,6 +183,18 @@ class ContactView(TemplateView):
 
 class FaqView(TemplateView):
     template_name = "frontend/faq.html"
+
+
+class CartViews(TemplateView):
+    model: models.cart
+    template_name = "frontend/cart.html"
+    context_object_name = "cart_page"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["now"] = timezone.now()
+        return context
 
 
 # cart

@@ -435,74 +435,43 @@
                         <div class="u-sidebar__content u-header-sidebar__content">
                             <!-- Title -->
                             <header class="border-bottom px-4 px-md-6 py-4">
-                                <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-icon-126515 mr-3 font-size-5"></i>Your shopping bag (3)</h2>
+                                <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-icon-126515 mr-3 font-size-5"></i>Your shopping bag ( {{cart_total}} )</h2>
                             </header>
                             <!-- End Title -->
 
-                            <div class="px-4 py-5 px-md-6 border-bottom">
-                                <div class="media">
-                                    <a href="#" class="d-block"><img src="https://placehold.it/100x153" class="img-fluid" alt="image-description"></a>
-                                    <div class="media-body ml-4d875">
-                                        <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a href="#">Hard Cover</a></div>
-                                        <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
-                                            <a href="#" class="text-dark">The Ride of a Lifetime: Lessons Learned  from 15 Years as CEO</a>
-                                        </h2>
-                                        <div class="font-size-2 mb-1 text-truncate"><a href="#" class="text-gray-700">Robert Iger</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount">1 x <span class="woocommerce-Price-currencySymbol">$</span>125.30</span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 ml-3">
-                                        <a href="#" class="text-dark"><i class="fas fa-times"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="px-4 py-5 px-md-6 border-bottom">
-                                <div class="media">
-                                    <a href="#" class="d-block"><img src="https://placehold.it/100x153" class="img-fluid" alt="image-description"></a>
-                                    <div class="media-body ml-4d875">
-                                        <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a href="#">Hard Cover</a></div>
-                                        <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
-                                            <a href="#" class="text-dark">The Rural Diaries: Love, Livestock, and  Big Life Lessons Down</a>
-                                        </h2>
-                                        <div class="font-size-2 mb-1 text-truncate"><a href="#" class="text-gray-700">Hillary Burton</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount">2 x <span class="woocommerce-Price-currencySymbol">$</span>200</span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 ml-3">
-                                        <a href="#" class="text-dark"><i class="fas fa-times"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="px-4 py-5 px-md-6 border-bottom">
-                                <div class="media">
-                                    <a href="#" class="d-block"><img src="https://placehold.it/100x153" class="img-fluid" alt="image-description"></a>
-                                    <div class="media-body ml-4d875">
-                                        <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a href="#">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
-                                            <a href="#" class="text-dark">Russians Among Us: Sleeper Cells,  Ghost Stories, and the Hunt.</a>
-                                        </h2>
-                                        <div class="font-size-2 mb-1 text-truncate"><a href="#" class="text-gray-700">Gordon Corera</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount">6 x <span class="woocommerce-Price-currencySymbol">$</span>100</span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 ml-3">
-                                        <a href="#" class="text-dark"><i class="fas fa-times"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                         {% for cart_value in cart %}
+                         
+                          <div class="px-4 py-5 px-md-6 border-bottom">
+                             <div class="media">
+                                 <a href="{% url 'book-detail' cart_value.book_slug cart_value.product_id cart_value.book_type %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{cart_value.book_thumbnail}}" class="img-fluid" alt="image-description" style="height:150px!important; width:100px!important;"></a>
+                                 <div class="media-body ml-4d875">
+                                     <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' cart_value.book_slug cart_value.product_id cart_value.book_type %}">{{cart_value.book_type}}</a></div>
+                                     <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
+                                         <a href="{% url 'book-detail' cart_value.book_slug cart_value.product_id cart_value.book_type %}" class="text-dark">{{cart_value.book_title}}</a>
+                                     </h2>
+                                     <div class="font-size-2 mb-1 text-truncate"><a href="{% url 'book-detail' cart_value.book_slug cart_value.product_id cart_value.book_type %}" class="text-gray-700">{{cart_value.book_author}}</a></div>
+                                     <div class="price d-flex align-items-center font-weight-medium font-size-3">
+                                         <span class="woocommerce-Price-amount amount">{{cart_value.book_quantity}} x <span class="woocommerce-Price-currencySymbol">GHS </span>{{cart_value.book_price}}</span>
+                                     </div>
+                                 </div>
+                                 <div class="mt-3 ml-3">
+                                     <a href="#" class="text-dark removeCartItem" id="{{cart_value.product_id}}" booktype="{{cart_value.book_type}}"><i class="fas fa-times"></i></a>
+                                 </div>
+                             </div>
+                         </div>
+                            
+                         {% endfor %}
+                            
 
                             <div class="px-4 py-5 px-md-6 d-flex justify-content-between align-items-center font-size-3">
                                 <h4 class="mb-0 font-size-3">Subtotal:</h4>
-                                <div class="font-weight-medium">$750.00</div>
+                                <div class="font-weight-medium">GHS {{cart_price_total}}</div>
                             </div>
 
                             <div class="px-4 mb-8 px-md-6">
-                                <button type="submit" class="btn btn-block py-4 rounded-0 btn-outline-dark mb-4">View Cart</button>
+                                {% comment %} <button type="submit" class=""></button> {% endcomment %}
+                                 <a href="{% url 'cart' %}" class="btn btn-block py-4 rounded-0 btn-outline-dark mb-4">View Cart</a>
                                 <button type="submit" class="btn btn-block py-4 rounded-0 btn-dark">Checkout</button>
                             </div>
                         </div>
@@ -1251,7 +1220,8 @@
 
      
      {% block javascripts %}
-        
+     {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
+     <script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script> {% endcomment %}
      {% endblock javascripts %}
         
 </body>

@@ -15,4 +15,5 @@ urlpatterns = [
         name="book-detail",
     ),
     path("shopacc/", views.shopCart.as_view(), name="shopacc"),
+    path("cart/", views.CartViews.as_view(), name="cart"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
