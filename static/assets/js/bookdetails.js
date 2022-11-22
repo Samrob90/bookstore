@@ -73,8 +73,8 @@ $(document).ready(function () {
         e.preventDefault();
         const product_id = $(this).attr("id")
         const booktype = $(this).attr("booktype")
-        let pathname = window.location.pathname
-        alert(pathname)
+        const pathname = window.location.pathname
+
         const data = {
             "removeCartItem": true,
             "product_id": product_id,
@@ -83,8 +83,12 @@ $(document).ready(function () {
         $.post("/shopacc/", data,
             function (data, textStatus, jqXHR) {
                 if (data.result === "success") {
+                    if (pathname === "/cart/") {
 
-                    location.reload()
+                        location.reload()
+                    } else {
+
+                    }
                 }
             },
             "json"

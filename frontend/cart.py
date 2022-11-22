@@ -4,12 +4,13 @@ from django.template.context_processors import request
 
 
 def shopping_cart(request):
-
+    cart = dict()
     if request.user.is_authenticated:
-        pass
+        cart["cart_price_total"] = 0
+        cart["cart_total"] = 0
+        return cart
     else:
 
-        cart = dict()
         cart_dic = []
         if "cart" in request.session:
             cart_session = request.session["cart"]
@@ -29,5 +30,6 @@ def shopping_cart(request):
             # print(len(cart_dic))
             return cart
         else:
-            cart["cart"] = None
+            cart["cart_total"] = len(cart_dic)
+            cart["cart_price_total"] = 0
             return cart
