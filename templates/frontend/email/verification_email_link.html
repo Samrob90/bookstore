@@ -1,5 +1,6 @@
 {% autoescape off %}
-{% comment %} Hi {{ user.first_name }}, {% endcomment %}
+Hi {{ data.user.first_name }},
 Please click on the link to confirm your registration,
-{% comment %} https://{{ domain }}{% url 'activate' uidb64=uid token=token %} {% endcomment %}
+https://{{ data.domain }}{% url 'activate' uidb64=data.uid token=data.token %}
+
 {% endautoescape %}

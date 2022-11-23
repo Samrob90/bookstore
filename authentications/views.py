@@ -46,7 +46,12 @@ class SignUpView(TemplateView):
                 "template_name": "frontend/email/verification_email_link.html",
                 "send_from": os.getenv("SECURITY_EMAIL_SENDER"),
             }
-            SendMail(mail_data)
+            mail = SendMail(data=mail_data)
+            mail.send()
             return redirect("/verify_email")
 
         return render(request, self.template_name, {"form": form})
+
+
+class ActivateView(TemplateView):
+    template_name = "frontend/account/activate.html"
