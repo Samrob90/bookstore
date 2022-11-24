@@ -1,0 +1,44 @@
+[2022-11-24 02:26:39,967: INFO/SpawnPoolWorker-2] child process 37916 calling self.run()
+[2022-11-24 02:26:39,971: INFO/SpawnPoolWorker-1] child process 35012 calling self.run()
+[2022-11-24 02:26:39,998: INFO/SpawnPoolWorker-4] child process 36780 calling self.run()
+[2022-11-24 02:26:40,014: INFO/SpawnPoolWorker-5] child process 32000 calling self.run()
+[2022-11-24 02:26:40,032: INFO/SpawnPoolWorker-8] child process 38668 calling self.run()
+[2022-11-24 02:26:40,032: INFO/SpawnPoolWorker-3] child process 14268 calling self.run()
+[2022-11-24 02:26:40,055: INFO/SpawnPoolWorker-12] child process 35940 calling self.run()
+[2022-11-24 02:26:40,055: INFO/SpawnPoolWorker-10] child process 37172 calling self.run()
+[2022-11-24 02:26:40,058: INFO/SpawnPoolWorker-6] child process 35440 calling self.run()
+[2022-11-24 02:26:40,059: INFO/SpawnPoolWorker-9] child process 28540 calling self.run()
+[2022-11-24 02:26:40,063: INFO/SpawnPoolWorker-7] child process 34652 calling self.run()
+[2022-11-24 02:26:40,134: INFO/SpawnPoolWorker-11] child process 38008 calling self.run()
+[2022-11-24 02:26:41,290: INFO/MainProcess] Connected to redis://localhost:6379//
+[2022-11-24 02:26:42,352: INFO/SpawnPoolWorker-13] child process 34452 calling self.run()
+[2022-11-24 02:26:45,334: INFO/MainProcess] mingle: searching for neighbors
+[2022-11-24 02:26:52,426: INFO/MainProcess] mingle: all alone
+[2022-11-24 02:27:00,552: WARNING/MainProcess] c:\work\ecommerce\env\lib\site-packages\celery\fixups\django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+
+[2022-11-24 02:27:00,552: INFO/MainProcess] celery@LAPTOP-RE4NS9LS ready.
+[2022-11-24 02:27:00,595: INFO/MainProcess] Task authentications.tasks.registration_verify_email[e176ba2e-62b4-43ad-8183-fbf85b011a05] received
+[2022-11-24 02:27:00,596: INFO/MainProcess] Task authentications.tasks.test_func[05fb518b-e580-46c2-91bc-fc7f6d0644ac] received
+[2022-11-24 02:27:02,077: INFO/SpawnPoolWorker-15] child process 29496 calling self.run()
+[2022-11-24 02:27:02,102: INFO/SpawnPoolWorker-14] child process 13788 calling self.run()
+[2022-11-24 02:27:02,108: INFO/SpawnPoolWorker-20] child process 35492 calling self.run()
+[2022-11-24 02:27:02,127: INFO/SpawnPoolWorker-21] child process 148 calling self.run()
+[2022-11-24 02:27:02,130: INFO/SpawnPoolWorker-22] child process 34696 calling self.run()
+[2022-11-24 02:27:02,135: INFO/SpawnPoolWorker-19] child process 34384 calling self.run()
+[2022-11-24 02:27:02,138: INFO/SpawnPoolWorker-24] child process 12752 calling self.run()
+[2022-11-24 02:27:02,184: INFO/SpawnPoolWorker-17] child process 15668 calling self.run()
+[2022-11-24 02:27:02,222: INFO/SpawnPoolWorker-23] child process 12336 calling self.run()
+[2022-11-24 02:27:02,234: INFO/SpawnPoolWorker-18] child process 37168 calling self.run()
+[2022-11-24 02:27:02,278: INFO/SpawnPoolWorker-16] child process 36500 calling self.run()
+[2022-11-24 02:27:04,441: INFO/MainProcess] Task authentications.tasks.registration_verify_email[4a6c1dc2-7777-46f2-91a8-63698f3469f7] received
+[2022-11-24 02:27:04,443: INFO/MainProcess] Task authentications.tasks.test_func[90240c34-1c20-407f-8b66-fdcd3800f7bb] received
+[2022-11-24 02:27:05,320: INFO/SpawnPoolWorker-26] child process 35660 calling self.run()
+[2022-11-24 02:27:05,363: INFO/SpawnPoolWorker-25] child process 37992 calling self.run()
+[2022-11-24 02:27:05,379: INFO/SpawnPoolWorker-28] child process 33176 calling self.run()
+[2022-11-24 02:27:05,384: INFO/SpawnPoolWorker-30] child process 36132 calling self.run()
+[2022-11-24 02:27:05,430: INFO/SpawnPoolWorker-27] child process 37384 calling self.run()
+[2022-11-24 02:27:05,439: INFO/SpawnPoolWorker-31] child process 33200 calling self.run()
+[2022-11-24 02:27:05,446: INFO/SpawnPoolWorker-29] child process 27860 calling self.run()
+[2022-11-24 02:27:05,458: INFO/SpawnPoolWorker-32] child process 32896 calling self.run()

@@ -12,6 +12,7 @@ class SendMail:
         self.template_name = kwargs["data"]["template_name"]
         self.content = render_to_string(self.template_name, {"data": self.data})
         self.send_from = f"Newtonbookshop <{kwargs['data']['send_from']}>"
+        self.send()
 
     def Imsend(self):
         text_tags = strip_tags(self.content)

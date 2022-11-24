@@ -2,19 +2,19 @@
 
 
 {% block title %}
-    newtonbookshop | Activate your account
+newtonbookshop | Email address verification
 {% endblock title %}
-    
+
 
 
 {% block header %}
-    {% include 'frontend/components/header.html' %}
+{% include 'frontend/components/header.html' %}
 {% endblock header %}
-    
+
 
 {% block content %}
-    <br>
-<div class="col-lg-4 col-md-6 col-sm-4 shadow mb-8" style="margin: 0 auto;">
+<br>
+<div class="col-lg-4 col-md-6 col-sm-6 shadow mb-8 mt-6" style="margin: 0 auto;">
 
 
     <div class="u-header-sidebar__footer-offset">
@@ -25,71 +25,78 @@
                 <form class="">
                     <!-- Login -->
                     <div id="login" data-target-group="idForm">
-                        <!-- Title -->
-                        <header class="border-bottom px-4 px-md-6 py-4">
-                            <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
-                                    class="flaticon-user mr-3 font-size-5"></i>Account</h2>
-                        </header>
-                        <!-- End Title -->
 
+
+                        {% if account_verify  == True %}
                         <div class="p-4 p-md-6">
-                            <!-- Form Group -->
-                            <div class="form-group mb-2">
-                                <div class="js-form-message js-focus-state">
-                                    <label id="signinEmailLabel" class="form-label" for="signinEmail">Email
-                                        *</label>
-                                    <input type="email" class="form-control rounded-0 height-4 px-4" name="email"
-                                        id="signinEmail" placeholder="Enter your email"
-                                        aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel"
-                                        required>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
 
-                            <!-- Form Group -->
-                            <div class="form-group mb-2">
-                                <div class="js-form-message js-focus-state">
-                                    <label id="signinPasswordLabel" class="form-label" for="signinPassword">Password
-                                        *</label>
-                                    <input type="password" class="form-control rounded-0 height-4 px-4" name="password"
-                                        id="signinPassword" placeholder="Enter your password" aria-label=""
-                                        aria-describedby="signinPasswordLabel" required>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
+                            <div class="text-center activate-account">
+                                <img src="{{ASSETS_ROUTE}}/static/assets/img/error/success2.png" class="mb-4"
+                                    alt="success">
 
-                            <div class="d-flex justify-content-between mb-5 align-items-center">
-                                <!-- Checkbox -->
-                                <div class="js-form-message">
-                                    <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                                        <input type="checkbox" class="custom-control-input" id="termsCheckbox"
-                                            name="termsCheckbox" required>
-                                        <label class="custom-control-label" for="termsCheckbox">
-                                            <span class="font-size-2 text-secondary-gray-700">
-                                                Remember me
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- End Checkbox -->
 
-                                <a class="js-animation-link text-dark font-size-2 t-d-u link-muted font-weight-medium"
-                                    href="#" data-target="#forgotPassword" data-link-group="idForm"
-                                    data-animation-in="fadeIn">Forgot Password?</a>
+
+                                <h4 class="">Congratution ! </h4>
+                                <p>Your email address has been confirmed successfuly. You may now login</p>
                             </div>
 
-                            <div class="mb-4d75">
-                                <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Sign In</button>
+
+                            <div class="mb-4d75 text-center">
+                                <a href="{% url 'login' %}" class="btn btn-block py-3 rounded-0 btn-dark"> Login</a>
                             </div>
 
-                            <div class="mb-2">
-                                Don't have an account ?<a href="{% url 'signup' %}"
-                                    class=""
-                                    data-target="{% url 'signup' %}" data-link-group="idForm" data-animation-in="fadeIn"> Create
-                                    Account</a>
-                            </div>
-                           
                         </div>
+
+                        {% endif %}
+
+                        {% if account_invalide == True %}
+                        <div class="p-4 p-md-6">
+
+                            <div class="text-center activate-account">
+                                <img src="{{ASSETS_ROUTE}}/static/assets/img/error/failed.png" class="mb-4"
+                                    alt="success">
+
+
+                                <h4 class="">Email verification failed ! </h4>
+
+                                <p>It seems like this activation link sent to your email address is expired or
+                                    invalide. </p>
+                            </div>
+
+
+                            <div class="mb-4d75 text-center">
+                                <a href="{% url 'login' %}" class="btn btn-block py-3 rounded-0 btn-dark"> Login</a>
+                            </div>
+
+
+
+                        </div>
+                        {% endif %}
+
+
+                        {% if account_already_verify == True %}
+                        <div class="p-4 p-md-6">
+
+                            <div class="text-center activate-account">
+                                <img src="{{ASSETS_ROUTE}}/static/assets/img/error/completed.png" class="mb-4"
+                                    alt="success">
+
+                                <h4 class="">Email verification ! </h4>
+
+                                <p>Oops ! It seems this email address is already confirmed. You may now Login
+                                </p>
+                            </div>
+
+
+                            <div class="mb-4d75 text-center">
+                                <a href="{% url 'login' %}" class="btn btn-block py-3 rounded-0 btn-dark"> Login</a>
+                            </div>
+
+
+
+                        </div>
+                        {% endif %}
+
                     </div>
 
 
@@ -106,6 +113,5 @@
 
 
 {% block javascripts %}
-    
+
 {% endblock javascripts %}
-    

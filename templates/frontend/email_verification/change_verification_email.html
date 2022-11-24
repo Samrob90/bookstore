@@ -1,0 +1,88 @@
+{% extends 'frontend/base/base.html' %}
+
+
+{% block title %}
+newtonbookshop | Change verification email
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+
+{% block content %}
+
+<br>
+<div class="col-lg-4 col-md-6 col-sm-6 shadow mb-8 mt-6" style="margin: 0 auto;">
+    <br>
+
+
+
+    <div class="u-header-sidebar__footer-offset">
+        {% include 'cpanel/includes/error.html' %}
+
+        <!-- Toggle Button -->
+        <!-- Content -->
+        <div class="">
+            <div class="u-sidebar__content u-header-sidebar__content">
+                <!-- Login -->
+                <div id="login" data-target-group="idForm">
+
+
+                    <div class="p-4 p-md-6">
+
+                        <div class=" activate-account">
+                            {% comment %} <img src="{{ASSETS_ROUTE}}/static/assets/img/error/email.png" class="mb-4"
+                                alt="success"> {% endcomment %}
+
+                            <form action="{% url 'change_email' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group mb-2">
+                                    <div class="js-form-message js-focus-state">
+                                        <label id="signinEmailLabel" class="form-label " for="signinEmail">
+                                            Email*</label>
+
+                                        {{form.email}}
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-4d75 text-center mt-4">
+                                    <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Change
+                                        email</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+        <!-- End Content -->
+    </div>
+
+</div>
+
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+
+{% endblock javascripts %}

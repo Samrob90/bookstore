@@ -1,5 +1,5 @@
 {% autoescape off %}
-Hi {{ data.user.first_name }},
+Hi {{ data.last_name }},
 Please click on the link to confirm your registration,
 https://{{ data.domain }}{% url 'activate' uidb64=data.uid token=data.token %}
 

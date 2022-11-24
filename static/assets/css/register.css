@@ -1,0 +1,50 @@
+#id_first_name,
+#id_last_name,
+#id_email,
+#id_password1,
+#id_password2 {
+    height: calc(1.5em + (1rem * 1.5) + 2px);
+    display: block;
+    width: 100%;
+    padding: .30rem .70rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+}
+
+
+.form_error {
+    color: red;
+
+    margin-top: 5px !important;
+
+}
+
+.form_error ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.form_error ul li {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.form_help_text ul {
+    margin-top: 5px;
+
+}
+
+.form_help_text ul li {
+    font-size: 12px;
+}

@@ -51,11 +51,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
+    first_name = models.CharField(max_length=60, null=True, blank=True)
+    last_name = models.CharField(max_length=60, null=True, blank=True)
     phone_number = models.CharField(max_length=9, null=True, blank=True)
     email_verify = models.BooleanField(default=False)
     is_number_verify = models.BooleanField(default=False, null=True, blank=True)
+    last_updated = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELD = ["first_name, last_name, email"]
