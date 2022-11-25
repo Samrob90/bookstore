@@ -22,10 +22,9 @@ newtonbookshop | login
 
 {% block content %}
 
-{% include 'cpanel/includes/error.html' %}
 
-<br>
-<div class="col-lg-4 col-md-6 col-sm-4 shadow mb-8" style="margin: 0 auto;overflow-y:hidden;">
+
+<div class="col-lg-4 col-md-6 col-sm-4 shadow mb-8 mt-4" style="margin: 0 auto;overflow-y:hidden;">
 
 
     <div class="u-header-sidebar__footer-offset">
@@ -33,7 +32,14 @@ newtonbookshop | login
         <!-- Content -->
         <div class="">
             <div class="u-sidebar__content u-header-sidebar__content">
-                <form class="">
+                 
+
+                
+                
+                    
+
+                <form class="" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
                     <!-- Login -->
                     <div id="login" data-target-group="idForm">
                         <!-- Title -->
@@ -44,15 +50,27 @@ newtonbookshop | login
                         <!-- End Title -->
 
                         <div class="p-4 p-md-6">
+
+                            {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="alert alert-primary" role="alert">
+                                        
+                        <i class="flaticon-error"></i>
+                        {{message}}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
                             <!-- Form Group -->
                             <div class="form-group mb-2">
                                 <div class="js-form-message js-focus-state">
                                     <label id="signinEmailLabel" class="form-label" for="signinEmail">Email
                                         *</label>
-                                    <input type="email" class="form-control rounded-0 height-4 px-4" name="email"
+                                        {{form.email}}
+                                    {% comment %} <input type="email" class="form-control rounded-0 height-4 px-4" name="email"
                                         id="signinEmail" placeholder="Enter your email"
                                         aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel"
-                                        required>
+                                        required> {% endcomment %}
+
                                 </div>
                             </div>
                             <!-- End Form Group -->
@@ -62,9 +80,10 @@ newtonbookshop | login
                                 <div class="js-form-message js-focus-state">
                                     <label id="signinPasswordLabel" class="form-label" for="signinPassword">Password
                                         *</label>
-                                    <input type="password" class="form-control rounded-0 height-4 px-4" name="password"
+                                    {% comment %} <input type="password" class="form-control rounded-0 height-4 px-4" name="password"
                                         id="signinPassword" placeholder="Enter your password" aria-label=""
-                                        aria-describedby="signinPasswordLabel" required>
+                                        aria-describedby="signinPasswordLabel" required> {% endcomment %}
+                                        {{form.password}}
                                 </div>
                             </div>
                             <!-- End Form Group -->

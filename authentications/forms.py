@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 class LoginForm(forms.Form):
 
-    username = forms.CharField(
+    email = forms.CharField(
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Email",
