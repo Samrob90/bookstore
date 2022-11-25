@@ -159,3 +159,5 @@ CELERY_TIME_ZONE = "UTC"
 # result_serializer = "json"
 # accept_content = ["json"]
 # CELERY_RESULT_BACKEND = "django-db"
+
+LOGIN_URL = "login"

@@ -1,0 +1,59 @@
+{% extends 'frontend/base/base.html' %}
+
+
+{% block title %}
+newtonbookshop | FAQ
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+
+
+
+
+{% block content %}
+
+
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script>
+{% endblock javascripts %}
+
+
+{% comment %} account temp {% endcomment %}
+
+
+
+
+{% extends 'frontend/account/account_base.html' %}
+
+
+{% block account_title %}
+newtonbookshop | Account
+{% endblock account_title %}
+
+
+{% block account_content %}
+
+<div class="col-md-9">
+    <div class="tab-content" id="pills-tabContent">
+        
+    </div>
+</div>
+
+{% endblock account_content %}
+

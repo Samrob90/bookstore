@@ -1,0 +1,55 @@
+
+{% extends 'frontend/account/account_base.html' %}
+
+
+{% block account_title %}
+newtonbookshop | Addresses
+{% endblock account_title %}
+
+
+{% block account_content %}
+
+<div class="col-md-9">
+    <div class="tab-content" id="pills-tabContent">
+        <div >
+            <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-2 mb-lg-4">
+                <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-5 mb-lg-8 pb-xl-1">Addresses</h6>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <div class="mb-6 mb-md-0">
+                            <h6 class="font-weight-medium font-size-22 mb-3">Billing Address
+                            </h6>
+                            <address class="d-flex flex-column mb-4">
+                                <span class="text-gray-600 font-size-2">Ali Tufan</span>
+                                <span class="text-gray-600 font-size-2">Bedford St,</span>
+                                <span class="text-gray-600 font-size-2">Covent Garden, </span>
+                                <span class="text-gray-600 font-size-2">London WC2E 9ED</span>
+                                <span class="text-gray-600 font-size-2">United Kingdom</span>
+                            </address>
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-dark width-150 rounded-0 btn-wide font-weight-medium">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h6 class="font-weight-medium font-size-22 mb-3">Shipping Address
+                        </h6>
+                        <address class="d-flex flex-column mb-4">
+                            <span class="text-gray-600 font-size-2">Ali Tufan</span>
+                            <span class="text-gray-600 font-size-2">Bedford St,</span>
+                            <span class="text-gray-600 font-size-2">Covent Garden, </span>
+                            <span class="text-gray-600 font-size-2">London WC2E 9ED</span>
+                            <span class="text-gray-600 font-size-2">United Kingdom</span>
+                        </address>
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-dark width-150 rounded-0 btn-wide font-weight-medium">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock account_content %}
+
