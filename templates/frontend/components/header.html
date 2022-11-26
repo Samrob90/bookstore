@@ -10,8 +10,39 @@
                 <ul class="topbar__nav--right nav mr-md-n3">
                     <li class="nav-item"><a href="#" class="nav-link link-black-100"><i class="glph-icon flaticon-pin"></i></a></li>
                     <li class="nav-item"><a href="#" class="nav-link link-black-100"><i class="glph-icon flaticon-switch"></i></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link link-black-100"><i class="glph-icon flaticon-heart"></i></a></li>
-                    <li class="nav-item">
+                    
+                    {% if request.user %}
+                    <li class="nav-item"><a href="{% url 'wishlist' %}" class="nav-link link-black-100"><i class="glph-icon flaticon-heart"></i></a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link link-black-100"><i class="glph-icon flaticon-heart"></i></a></li>
+                    {% endif %}
+                        
+                     
+                     {% if request.user %}
+                     <li class="nav-item">
+                        <!-- Account Sidebar Toggle Button -->
+                        <a id="sidebarNavToggler" href="{% url 'account' %}" role="button" class="nav-link link-black-100"
+                            aria-controls="sidebarContent"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            data-unfold-event="click"
+                            data-unfold-hide-on-scroll="false"
+                            data-unfold-target="#sidebarContent"
+                            data-unfold-type="css-animation"
+                            data-unfold-overlay='{
+                                "className": "u-sidebar-bg-overlay",
+                                "background": "rgba(0, 0, 0, .7)",
+                                "animationSpeed": 500
+                            }'
+                            data-unfold-animation-in="fadeInRight"
+                            data-unfold-animation-out="fadeOutRight"
+                            data-unfold-duration="500">
+                            <i class="glph-icon flaticon-user"></i>
+                        </a>
+                        <!-- End Account Sidebar Toggle Button -->
+                    </li>
+                      {% else %}
+                      <li class="nav-item">
                         <!-- Account Sidebar Toggle Button -->
                         <a id="sidebarNavToggler" href="javascript:;" role="button" class="nav-link link-black-100"
                             aria-controls="sidebarContent"
@@ -33,6 +64,8 @@
                         </a>
                         <!-- End Account Sidebar Toggle Button -->
                     </li>
+                     {% endif %}
+                        
                     <li class="nav-item">
                         <!-- Cart Sidebar Toggle Button -->
                         <a id="sidebarNavToggler1" href="javascript:;" role="button" class="nav-link link-black-100 position-relative"

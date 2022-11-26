@@ -24,3 +24,9 @@ class AccountDetails(TemplateView):
 
 class WishlistView(TemplateView):
     template_name: str = "frontend/account/wishlist.html"
+
+
+class LogoutVIew(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            log

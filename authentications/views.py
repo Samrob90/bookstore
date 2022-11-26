@@ -18,13 +18,17 @@ from . import tasks
 from django.utils import timezone
 from datetime import timedelta
 
+
 load_dotenv()
 # Create your views here.
 class LoginView(TemplateView):
     template_name = "frontend/authentication/login.html"
     class_form = forms.LoginForm()
+    next = ""
 
     def get(self, request, *args, **kwargs):
+        global next
+        next = request.GET.get("next", None)
         return render(request, self.template_name, {"form": self.class_form})
 
     def post(self, request, *args, **kwargs):
@@ -35,7 +39,11 @@ class LoginView(TemplateView):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 if user.email_verify:
+                    if "cart" in request.session:
+                        tasks.check_cart.delay(request.session["cart"], user.pk)
                     login(request, user)
+
+                    return redirect(self.next_redirect(request, next))
                 else:
                     return redirect("verify_email")
             else:
@@ -44,16 +52,29 @@ class LoginView(TemplateView):
             messages.error(request, "Incorrect email or password")
         return render(request, self.template_name, {"form": form})
 
+    # check for vulbability here before production
+    def next_redirect(self, request, next):
+
+        if next is not None:
+            next_ = next[:-1]
+            next_array = next.split("/")
+            print(next_array.pop())
+            return next_array.pop()
+        else:
+            return "account"
+
 
 class SignUpView(TemplateView):
     template_name = "frontend/authentication/signup.html"
     class_form = forms.RegisterForm()
 
     def get(self, request, *args, **kwargs):
+        print(print(request.GET.get("next")))
         return render(request, self.template_name, {"form": forms.RegisterForm()})
 
     def post(self, request, *args, **kwargs):
         form = forms.RegisterForm(request.POST)
+
         if form.is_valid():
             user = form.save()
             email = form.cleaned_data.get("email")
@@ -194,3 +215,9 @@ class ChangeEmail(TemplateView):
                 )
                 return redirect("verify_email")
         return render(request, self.template_name, {"form": form})
+
+
+class LogoutView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect("login")

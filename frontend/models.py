@@ -13,4 +13,5 @@ class cart(models.Model):
     bookprice = models.DecimalField(decimal_places=2, max_digits=9)
     booktype = models.CharField(max_length=250, default=None)
     bookauthor = models.CharField(max_length=250, default=None)
+    bookslug = models.CharField(max_length=250, default=None, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)

@@ -53,11 +53,96 @@ newtonbookshop | FAQ
 
                                             <tbody>
 
-                                                {% if cart_page is not None %}
+                                                {% if request.user and cart_type == "db" %}
+                                                {% for cart_ in cart %}
+                                                <tr class="woocommerce-cart-form__cart-item cart_item">
+                                                    <td class="product-name" data-title="Product">
+                                                        <div class="d-flex align-items-center">
+                                                            <a href="#">
+                                                                <img src="https://placehold.it/80x120"
+                                                                    class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"
+                                                                    alt="">
+                                                            </a>
+                                                            <div class="ml-3 m-w-200-lg-down">
+                                                                <a
+                                                                    href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}">{{cart_.book_title}}</a>
+                                                                <a href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}"
+                                                                    class="text-gray-700 font-size-2 d-block"
+                                                                    tabindex="0">{{cart_.bookauthor}}</a>
 
-                                                {% else %}
-                                                {% if cart is not None %}
+                                                                <a href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}"
+                                                                    class="text-gray-700 font-size-2 d-block"
+                                                                    tabindex="0">{{cart_.booktype}}</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
 
+                                                    <td class="product-price" data-title="Price">
+                                                        <span class="woocommerce-Price-amount amount"><span
+                                                                class="woocommerce-Price-currencySymbol">GHS
+                                                            </span>{{cart_.bookprice}}</span>
+                                                    </td>
+
+                                                    <td class="product-quantity" data-title="Quantity">
+                                                        <div class="quantity d-flex align-items-center">
+                                                            <!-- Quantity -->
+                                                            <div class="border px-3 width-120">
+                                                                <div class="js-quantity">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <label
+                                                                            class="screen-reader-text sr-only qty">Quantity</label>
+                                                                        <a class="js-minus text-dark"
+                                                                            href="javascript:;">
+                                                                            <!-- <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                                width="10px" height="1px">
+                                                                                <path fill-rule="evenodd"
+                                                                                    fill="rgb(22, 22, 25)"
+                                                                                    d="M-0.000,-0.000 L10.000,-0.000 L10.000,1.000 L-0.000,1.000 L-0.000,-0.000 Z" />
+                                                                            </svg> -->
+                                                                        </a>
+                                                                        <input type="number"
+                                                                            class="input-text qty text js-result form-control text-center border-0"
+                                                                            step="1" min="1" max="100" name="quantity"
+                                                                            value="{{cart_.bookquantity}}" title="Qty">
+                                                                        <a class="js-plus text-dark"
+                                                                            href="javascript:;">
+                                                                            <!-- <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                                width="10px" height="10px">
+                                                                                <path fill-rule="evenodd"
+                                                                                    fill="rgb(22, 22, 25)"
+                                                                                    d="M10.000,5.000 L6.000,5.000 L6.000,10.000 L5.000,10.000 L5.000,5.000 L-0.000,5.000 L-0.000,4.000 L5.000,4.000 L5.000,-0.000 L6.000,-0.000 L6.000,4.000 L10.000,4.000 L10.000,5.000 Z" />
+                                                                            </svg> -->
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Quantity -->
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="product-subtotal" data-title="Total">
+                                                        <span class="woocommerce-Price-amount amount"><span
+                                                                class="woocommerce-Price-currencySymbol">GHS
+                                                                {% load poll_extras %}
+                                                            </span>{{cart_.bookprice|total_:cart_.bookquantity }}</span>
+                                                    </td>
+                                                    <td class="product-remove">
+                                                        <a href="#" class="remove removeCartItem"
+                                                            aria-label="Remove this item" id="{{cart_.product_id}}"
+                                                            booktype="{{cart_.booktype}}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="15px"
+                                                                height="15px">
+                                                                <path fill-rule="evenodd" fill="rgb(22, 22, 25)"
+                                                                    d="M15.011,13.899 L13.899,15.012 L7.500,8.613 L1.101,15.012 L-0.012,13.899 L6.387,7.500 L-0.012,1.101 L1.101,-0.012 L7.500,6.387 L13.899,-0.012 L15.011,1.101 L8.613,7.500 L15.011,13.899 Z" />
+                                                            </svg>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% elif "cart" in request.session  %}
 
                                                 {% for cart_ in cart %}
                                                 <tr class="woocommerce-cart-form__cart-item cart_item">
@@ -148,7 +233,6 @@ newtonbookshop | FAQ
                                                 </tr>
                                                 {% endfor %}
 
-                                                {% endif %}
                                                 {% endif %}
 
 

@@ -84,9 +84,16 @@ class shopCart(TemplateView):
         if self.is_ajax(request) and "removeCartItem" in request.POST:
             product_id = request.POST.get("product_id")
             booktype = request.POST.get("booktype")
-            print(product_id)
+
             if request.user.is_authenticated:
-                pass
+                delete = models.cart.objects.filter(
+                    product_id=product_id, booktype=booktype
+                )
+                delete.delete()
+
+                messages.info(request, "Product remove from cart successfuly")
+                return JsonResponse({"result": "success"})
+
             else:
                 if request.session["cart"]:
 
@@ -108,33 +115,49 @@ class shopCart(TemplateView):
                                 )
                                 return JsonResponse({"result": "success"})
 
+    # check if request is ajax
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"
 
+    # store cart to session or db
     def store_cart(self, request, data, add_to_recent_view=False):
         if request.user.is_authenticated:
-            pass
+            # check if the same cart already existe in db
+            cart_id = models.cart.objects.filter(
+                product_id=data["product_id"], booktype=data["book_type"]
+            )
+            if cart_id.exists():
+                # increase book quanitty if book already existe in db
+                print(cart_id.first())
+                quantity = float(cart_id.first().bookquantity) + float(
+                    data["book_quantity"]
+                )
+                cart_id.update(bookquantity=quantity)
+                return True
+            else:
+
+                models.cart.objects.create(
+                    user=request.user,
+                    product_id=data["product_id"],
+                    booktitle=data["book_title"],
+                    bookquantity=data["book_quantity"],
+                    bookthumbnail=data["book_thumbnail"],
+                    bookprice=data["book_price"],
+                    booktype=data["book_type"],
+                    bookauthor=data["book_author"],
+                    bookslug=data["book_slug"],
+                )
+                return True
+
         else:
             if "cart" in request.session:
                 session = request.session["cart"]
-                # del request.session["cart"]
-                # request.session.modified = True
-                # return
-                print(session)
-
-                # return None
                 # is this product already in cart session increase book quantiy
                 if str(data["product_id"]) in request.session["cart"]:
                     session_product_data = session[str(data["product_id"])]
                     # check if book type is the same
-
-                    # print(len(session_product_data))
                     if len(session_product_data) > 0:
                         for index, value in enumerate(session_product_data, start=0):
-                            if value:
-                                print("there is value")
-                            else:
-                                print("no value here")
                             if (
                                 value["book_type"] == data["book_type"]
                                 and value["product_id"] == data["product_id"]

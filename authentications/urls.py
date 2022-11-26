@@ -16,4 +16,5 @@ urlpatterns = [
         login_required(views.ChangeEmail.as_view(), login_url="login"),
         name="change_email",
     ),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
 ]
