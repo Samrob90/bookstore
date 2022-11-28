@@ -18,6 +18,7 @@ def user_context(request):
             for i in value:
                 total_price += float(i.bookprice)
         get_cart(cart, value, total_price, "db")
+        cart["login_form"] = forms.LoginForm()
         return cart
 
     elif "cart" in request.session:

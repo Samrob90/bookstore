@@ -2,7 +2,7 @@
 {% load poll_extras %}
 
 {% block title %}
-    newtonbookshop | home
+    newtonbookshop | shop
 {% endblock title %}
     
 
@@ -518,7 +518,7 @@
                                         </div>
                                     </div>
                                     <div class="product__hover d-flex align-items-center">
-                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
+                                        <a href="#" class="text-uppercase text-dark h-dark font-weight-medium mr-auto shop_add_to_cart" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
                                         </a>
@@ -558,7 +558,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-auto d-flex align-items-center">
-                                        <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}" class="text-uppercase text-dark h-dark font-weight-medium mr-4" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
+                                        <a href="#" class="text-uppercase text-dark h-dark font-weight-medium mr-4 shop_add_to_cart" data-toggle="tooltip" data-placement="right" title="" data-original-title="ADD TO CART">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
                                         </a>
@@ -613,6 +613,6 @@
 
 
 {% block javascripts %}
-    
+<script src="{{ASSETS_ROOT}}/static/assets/js/shop.js"></script>
 {% endblock javascripts %}
     

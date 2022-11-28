@@ -67,27 +67,17 @@
                      {% endif %}
                         
                     <li class="nav-item">
-                        <!-- Cart Sidebar Toggle Button -->
-                        <a id="sidebarNavToggler1" href="javascript:;" role="button" class="nav-link link-black-100 position-relative"
-                            aria-controls="sidebarContent1"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            data-unfold-event="click"
-                            data-unfold-hide-on-scroll="false"
-                            data-unfold-target="#sidebarContent1"
-                            data-unfold-type="css-animation"
-                            data-unfold-overlay='{
-                                "className": "u-sidebar-bg-overlay",
-                                "background": "rgba(0, 0, 0, .7)",
-                                "animationSpeed": 500
-                            }'
-                            data-unfold-animation-in="fadeInRight"
-                            data-unfold-animation-out="fadeOutRight"
-                            data-unfold-duration="500">
-                            <span class="position-absolute bg-dark width-16 height-16 rounded-circle d-flex align-items-center justify-content-center text-white font-size-n9 right-0">{{cart_total}}</span>
-                            <i class="glph-icon flaticon-icon-126515"></i>
+                        <a id="sidebarNavToggler-my_cart" href="javascript:;" role="button" aria-controls="offcanvasCart" aria-haspopup="true" aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false" data-unfold-target="#offcanvasCart" data-unfold-type="css-animation" data-unfold-overlay="{
+                            &quot;className&quot;: &quot;u-sidebar-bg-overlay&quot;,
+                            &quot;background&quot;: &quot;rgba(0, 0, 0, .7)&quot;,
+                            &quot;animationSpeed&quot;: 500
+                        }" data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight" data-unfold-duration="500" class="d-block nav-link text-dark pr-0 position-relative target-of-invoker-has-unfolds">
+                        <span class="position-absolute width-16 height-16 rounded-circle d-flex align-items-center justify-content-center font-size-n9 text-white bg-dark right-0">
+                        <span class="cart-contents-count">
+                            {{cart_total}}    
+                                </span> </span>
+                        <i class="flaticon-icon-126515 font-size-3"></i>
                         </a>
-                        <!-- End Cart Sidebar Toggle Button -->
                     </li>
                 </ul>
             </div>

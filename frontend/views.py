@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from . import models
 from django.utils import timezone
+import json
+from django.forms.models import model_to_dict
 
 
 class HomeVIew(TemplateView):
@@ -17,9 +19,9 @@ class HomeVIew(TemplateView):
 
 # change to list view when model is ready
 class ShopView(ListView):
-    template_name = "frontend/shop.html"
+    template_name = "frontend/shop_2.html"
     model = cpanel_model.book
-    paginate_by = 4
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,6 +81,24 @@ class shopCart(TemplateView):
                 return JsonResponse({"result": "success"})
             else:
                 return JsonResponse({"result": "failed"})
+
+        # add to cart from shop page
+        if self.is_ajax(request) and "shop_add_top_cart" in request.POST:
+            action_type = request.POST.get("shop_add_top_cart")
+            product_id = request.POST.get("product_id")
+            product = cpanel_model.product.objects.get(product_id=product_id)
+
+            book = cpanel_model.book.objects.get(product=product)
+            cart = self.cart_format(book)
+
+            if action_type == "cart":
+                result = self.store_cart(request, cart)
+                # return cart
+                cart_ = models.cart.objects.get(product_id=product_id)
+                if result:
+                    return JsonResponse({"result": model_to_dict(cart_)})
+                else:
+                    return JsonResponse({"result": "failed"})
 
         # remove cart from session
         if self.is_ajax(request) and "removeCartItem" in request.POST:
@@ -194,6 +214,18 @@ class shopCart(TemplateView):
                 cart_session[str(data["product_id"])] = [data]
                 request.session.modified = True
             return True
+
+    def cart_format(self, book):
+        return {
+            "product_id": book.product.product_id,
+            "book_title": book.title,
+            "book_quantity": 1,
+            "book_thumbnail": book.thumbnail,
+            "book_price": book.default_price,
+            "book_type": book.default_type,
+            "book_author": book.author,
+            "book_slug": book.slug,
+        }
 
 
 class AboutView(TemplateView):
