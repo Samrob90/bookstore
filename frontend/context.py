@@ -18,14 +18,16 @@ def user_context(request):
             for i in value:
                 total_price += float(i.bookprice)
         get_cart(cart, value, total_price, "db")
-        cart["login_form"] = forms.LoginForm()
+
         return cart
 
     elif "cart" in request.session:
         result = grabe_children(request.session["cart"])
         get_cart(cart, result[0], result[1], "session")
+        cart["login_form"] = forms.LoginForm()
         return cart
     else:
+        cart["login_form"] = forms.LoginForm()
         cart["cart_total"] = 0
         return cart
 

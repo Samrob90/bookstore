@@ -24,7 +24,7 @@ load_dotenv()
 class LoginView(TemplateView):
     template_name = "frontend/authentication/login.html"
     class_form = forms.LoginForm()
-    next = ""
+    next = None
 
     def get(self, request, *args, **kwargs):
         global next
@@ -58,7 +58,7 @@ class LoginView(TemplateView):
         if next is not None:
             next_ = next[:-1]
             next_array = next.split("/")
-            print(next_array.pop())
+            next = None
             return next_array.pop()
         else:
             return "account"

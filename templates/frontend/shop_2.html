@@ -884,7 +884,7 @@ newtonbookshop | shop
                                             <a href=""
                                                 class="text-uppercase text-dark h-dark font-weight-medium mr-auto shop_add_to_cart"
                                                 data-toggle="tooltip" data-placement="right" title=""
-                                                data-original-title="ADD TO CART" price="{{book.default_price}}" product_id ="{{book.product.product_id}}">
+                                                data-original-title="ADD TO CART"  product_id ="{{book.product.product_id}}">
 
                                                 <span class="product__add-to-cart">ADD TO CART</span>
                                                 <span class="product__add-to-cart-icon font-size-4"><i
@@ -896,8 +896,8 @@ newtonbookshop | shop
                                                 <i class="flaticon-switch"></i>
                                             </a>
                                             <a href="{% url 'book-detail' book.slug book.product.product_id 'PAPERBACK' %}"
-                                                class="h-p-bg btn btn-outline-primary border-0">
-                                                <i class="flaticon-heart"></i>
+                                                class="h-p-bg btn btn-outline-primary border-0 shop_add_to_wishlist" product_id ="{{book.product.product_id}}">
+                                                <i class="flaticon-heart" ></i>
                                             </a>
                                         </div>
                                     </div>
@@ -1068,39 +1068,88 @@ newtonbookshop | shop
                 </button>
             </div> {% endcomment %}
             <div class="modal-body pl-2 pr-2 pt-0 pb-0">
-                <ul class="p-0 list-group">
-                    <li class="product product__list border-0">
-                        <div class="product__inner overflow-hidden p-md-4d875">
-                            <div
-                                class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative border-0">
-                                <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
-                                    <a href="../shop/single-product-v1.html" class="d-block"><img
-                                            src="3
-                                            class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                            alt="image-description" id="product_added_img" style="width:80px!important; height:120px!important;"></a>
-                                </div>
+               <!--- item in cart --->
+                <div class="cart_pop_up">
+                    <ul class="p-0 list-group">
+                        <li class="product product__list border-0">
+                            <div class="product__inner overflow-hidden p-md-4d875">
                                 <div
-                                    class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">
-                                    <h4 >Added to your cart  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                    </h4>
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                            href="../shop/single-product-v1.html" id="booktype_"></a></div>
-                                    <h2
-                                        class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
-                                        <a href="../shop/single-product-v1.html" tabindex="0" id="title"></a></h2>
-                                    {% comment %} <div class="font-size-2  mb-2 text-truncate"><a
-                                            href="../others/authors-single.html" class="text-gray-700">Jay
-                                            Shetty</a></div> {% endcomment %}
-                                   
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <span class="woocommerce-Price-amount amount text-muted" id="bookprice_" ></span>
+                                    class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative border-0">
+                                    <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
+                                        <a href="../shop/single-product-v1.html" class="d-block"><img
+                                                src="3
+                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
+                                                alt="image-description" id="product_added_img" style="width:80px!important; height:120px!important;"></a>
                                     </div>
+                                    <div class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">
+    
+                                        {% comment %} error {% endcomment %}
+    
+                                
+                                        
+                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
+                                                href="../shop/single-product-v1.html" id="booktype_"></a></div>
+                                        <h2
+                                            class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
+                                            <a href="../shop/single-product-v1.html" tabindex="0" id="title"></a></h2>
+                                        {% comment %} <div class="font-size-2  mb-2 text-truncate"><a
+                                                href="../others/authors-single.html" class="text-gray-700">Jay
+                                                Shetty</a></div> {% endcomment %}
+                                       
+                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
+                                            <span class="woocommerce-Price-amount amount text-muted" id="bookprice_" ></span>
+                                        </div>
+                                    </div>
+                               
                                 </div>
-                           
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
+               <!--- End cart item --->
+
+
+               <!--start item in wishlist --->
+
+                <div class="wishlist_pop_up d-none">
+                    <ul class="p-0 list-group">
+                        <li class="product product__list border-0">
+                            <div class="product__inner overflow-hidden p-md-4d875">
+                                <div
+                                    class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative border-0">
+                                    <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
+                                        <a href="../shop/single-product-v1.html" class="d-block"><img
+                                                src="3
+                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
+                                                alt="image-description" id="product_added_img" style="width:80px!important; height:120px!important;"></a>
+                                    </div>
+                                    <div class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">
+    
+                                        {% comment %} error {% endcomment %}
+    
+                                
+                                        
+                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
+                                                href="../shop/single-product-v1.html" id="booktype_"></a></div>
+                                        <h2
+                                            class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
+                                            <a href="../shop/single-product-v1.html" tabindex="0" id="title"></a></h2>
+                                        {% comment %} <div class="font-size-2  mb-2 text-truncate"><a
+                                                href="../others/authors-single.html" class="text-gray-700">Jay
+                                                Shetty</a></div> {% endcomment %}
+                                       
+                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
+                                            <span class="woocommerce-Price-amount amount text-muted" id="bookprice_" ></span>
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+               <!-- end wishlist items --->
             </div>
             <div class="modal-footer border-0">
               

@@ -86,8 +86,7 @@ class shopCart(TemplateView):
         if self.is_ajax(request) and "shop_add_top_cart" in request.POST:
             action_type = request.POST.get("shop_add_top_cart")
             product_id = request.POST.get("product_id")
-            product = cpanel_model.product.objects.get(product_id=product_id)
-
+            product = cpanel_model.product.objects.get(product_id=str(product_id))
             book = cpanel_model.book.objects.get(product=product)
             cart = self.cart_format(book)
 
@@ -99,6 +98,30 @@ class shopCart(TemplateView):
                     return JsonResponse({"result": model_to_dict(cart_)})
                 else:
                     return JsonResponse({"result": "failed"})
+            else:
+                # store item in wishlist
+                if request.user.is_authenticated:
+                    product_id = request.POST.get("product_id")
+                    product = cpanel_model.product.objects.get(product_id=product_id)
+                    book = cpanel_model.book.objects.get(product=product)
+                    wishlist = self.cart_format(book)
+                    db_format = self.change_cart_dormat_to_db_format(
+                        request.user, wishlist
+                    )
+
+                    result = self.store_wishlist(request, db_format)
+                    if not result:
+                        return JsonResponse({"result": "failed"})
+                    else:
+                        return JsonResponse(
+                            {
+                                "result": model_to_dict(
+                                    models.wishlist.objects.get(product_id=product_id)
+                                )
+                            }
+                        )
+                else:
+                    return JsonResponse({"result": "notauth"})
 
         # remove cart from session
         if self.is_ajax(request) and "removeCartItem" in request.POST:
@@ -202,7 +225,6 @@ class shopCart(TemplateView):
                                 session_product_data.append(data)
                                 request.session.modified = True
                     else:
-                        print("in herer")
                         session_product_data.append(data)
                         request.session.modified = True
 
@@ -215,17 +237,40 @@ class shopCart(TemplateView):
                 request.session.modified = True
             return True
 
+    def store_wishlist(self, request, data):
+        # check if item exist in wishlist
+        item_in_wishlist = models.wishlist.objects.filter(
+            user=request.user, product_id=data["product_id"]
+        )
+        if item_in_wishlist.exists():
+            return False
+        else:
+            models.wishlist.objects.create(**data)
+            return True
+
     def cart_format(self, book):
         return {
-            "product_id": book.product.product_id,
+            "product_id": str(book.product.product_id),
             "book_title": book.title,
             "book_quantity": 1,
             "book_thumbnail": book.thumbnail,
-            "book_price": book.default_price,
+            "book_price": float(book.default_price),
             "book_type": book.default_type,
             "book_author": book.author,
             "book_slug": book.slug,
         }
+
+    def change_cart_dormat_to_db_format(self, user, cart):
+        db_format = {"user": user}
+        for key, value in cart.items():
+            if key == "product_id":
+                db_format[key] = value
+            elif key == "book_quantity":
+                continue
+            else:
+                db_format[key.replace("_", "")] = value
+
+        return db_format
 
 
 class AboutView(TemplateView):

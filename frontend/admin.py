@@ -17,3 +17,11 @@ class ShoppingCart(admin.ModelAdmin):
 
 
 admin.site.register(models.cart, ShoppingCart)
+
+
+class register_wishlist(admin.ModelAdmin):
+    model = models.wishlist
+    list_display = ("product_id", "booktitle", "booktype", "bookauthor", "created_at")
+
+
+admin.site.register(models.wishlist, register_wishlist)
