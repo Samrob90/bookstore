@@ -19,7 +19,7 @@ class HomeVIew(TemplateView):
 
 # change to list view when model is ready
 class ShopView(ListView):
-    template_name = "frontend/shop_2.html"
+    template_name = "frontend/shop.html"
     model = cpanel_model.book
     paginate_by = 5
 
@@ -60,9 +60,10 @@ class shopCart(TemplateView):
     def post(self, request, *args, **kwargs):
         if self.is_ajax(request) and "bookdetails_page" in request.POST:
             Qty = request.POST.get("quantity")
-            bookid = request.POST.get("bookid")
-            booktype = request.POST.get("booktype")
-            bookprice = request.POST.get("bookprice")
+            bookid = request.POST.get("book_id")
+            print(bookid)
+            booktype = request.POST.get("book_type")
+            bookprice = request.POST.get("book_price")
             product = cpanel_model.product.objects.get(product_id=bookid)
             book = cpanel_model.book.objects.get(product=product)
             cart = {
@@ -77,7 +78,7 @@ class shopCart(TemplateView):
             }
             result = self.store_cart(request, cart)
             if result:
-                messages.success(request, f"{book.title} added to cart successfully !")
+                messages.success(request, f"{book.title} ")
                 return JsonResponse({"result": "success"})
             else:
                 return JsonResponse({"result": "failed"})
@@ -134,9 +135,10 @@ class shopCart(TemplateView):
                 delete = models.cart.objects.filter(
                     product_id=product_id, booktype=booktype
                 )
+                book_title = delete.first().title
                 delete.delete()
 
-                messages.info(request, "Product remove from cart successfuly")
+                messages.info(request, f"{book_title}")
                 return JsonResponse({"result": "success"})
 
             else:
@@ -150,14 +152,15 @@ class shopCart(TemplateView):
                                 value["booktype"] == booktype
                                 and product_id == value["product_id"]
                             ):
-                                if len(request.session["cart"][str(product_id)]) == 1:
+                                product_title = request.session["cart"][
+                                    str(product_id)
+                                ][0]["booktitle"]
+                                if len(request.session["cart"][str(product_id)]) >= 1:
                                     del request.session["cart"][str(product_id)]
                                 else:
                                     request.session["cart"][str(product_id)].pop(index)
                                 request.session.modified = True
-                                messages.info(
-                                    request, "Product remove from cart successfuly"
-                                )
+                                messages.info(request, f"{product_title}")
                                 return JsonResponse({"result": "success"})
 
     # check if request is ajax

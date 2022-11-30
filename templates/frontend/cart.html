@@ -20,18 +20,30 @@ newtonbookshop | FAQ
 
 
 
-{% block content %}
-
-{% include 'cpanel/includes/error.html' %}
-
 <div class="site-content bg-punch-light overflow-hidden" id="content">
+    
+    {% block content %}
+    
+    {% if messages %}
+    {% for message in messages%}
+        
+        {% if message.tags == "info" %}
+       
+        <div class="alert alert-success text-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d6d06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>{{message}}.</strong> removed from cart successfully!
+              {% comment %} <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/success.png" /> <strong>success ! </strong><span>{{message}} </span> {% endcomment %}
+           </div>
+        {% endif %}
+            
+    {% endfor %}
+    {% endif %}
     <div class="container">
         <header class="entry-header space-top-2 space-bottom-1 mb-2">
             <h1 class="entry-title font-size-7">Your cart: {{cart_total}} items</h1>
         </header>
 
         <div class="row pb-8">
-            <div class="col-lg-9 col-sm-9 col-md-9">
+            <div class="col-lg-9 col-sm-8 col-md-8">
                 <div id="primary" class="content-area">
                     <main id="main" class="site-main ">
                         <div class="page type-page status-publish hentry">
@@ -246,7 +258,7 @@ newtonbookshop | FAQ
                     </main>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-2 col-md-2">
+            <div class="col-lg-3 col-sm-4 col-md-4">
                 <div id="secondary" class="sidebar cart-collaterals order-1" role="complementary">
                     <div id="cartAccordion" class="border border-gray-900 bg-white mb-5">
                         <div class="p-4d875 border">
