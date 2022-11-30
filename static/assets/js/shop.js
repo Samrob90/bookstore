@@ -28,13 +28,24 @@ $(document).ready(function () {
             data: data,
             dataType: "json",
             success: function (response) {
+
+                $("#svg").show()
+                if (Number(response.result['bookquantity']) > 1) {
+                    $("#bookprice_").html("Qty:" + response.result['bookquantity'] + " X " + "<span class='woocommerce-Price-currencySymbol'>GHS </span>" + response.result['bookprice'])
+                } else {
+                    $("#bookprice_").html("<span class='woocommerce-Price-currencySymbol'>GHS </span>" + response.result['bookprice'])
+                }
+                $(".cart-contents-count").html(Number($(".cart-contents-count").html()) + 1)
                 $("#exampleModalCenter").modal("show")
+                $(".view__").html("View cart")
+                $(".view__").attr("href", "/cart/")
                 this_.parent().find(".shop_add_to_cart_spinner").addClass("d-none")
                 let img = "/media/thumbnail/" + response.result['bookthumbnail']
                 $(".action_added").html("Added to cart ")
+
                 $("#product_added_img").attr("src", img)
                 $("#title").html(response.result['booktitle'])
-                $("#bookprice_").html("Qty:" + response.result['bookquantity'] + "x " + "<span class='woocommerce-Price-currencySymbol'>GHS </span>" + response.result['bookprice'])
+
                 $("#booktype_").html(response.result['booktype'])
 
             }
@@ -51,29 +62,39 @@ $(document).ready(function () {
     $(".shop_add_to_wishlist").click(function (e) {
         e.preventDefault();
         // alert("hwlwlo")
-        // $("#exampleModalCenter").modal("show")
+        $("#exampleModalCenter").modal("show")
         const product_id = $(this).attr("product_id")
         const data = {
             "product_id": product_id,
             "shop_add_top_cart": "wishlist"
         }
-        $(".account_side_bar").click();
         let this_ = $(this)
         $.post(url, data,
             function (data, ) {
+
+
                 $("#exampleModalCenter").modal("show")
+                $(".view__").html("View wishlist")
+                $(".view__").attr("href", "/account/wishlist/")
+
+
                 if (data.result === "failed") {
-
+                    $("#svg").hide()
+                    let img = "/media/thumbnail/" + data.data['bookthumbnail']
+                    $(".action_added").html("This item is already in your wishlist")
+                    $("#product_added_img").attr("src", img)
+                    $("#title").html(data.data['booktitle'])
+                    $("#bookprice_").html("<span class='woocommerce-Price-currencySymbol'>GHS </span>" + data.data['bookprice'])
+                    $("#booktype_").html(data.data['booktype'])
                 } else if (data.result === "notauth") {
-
+                    window.location.href = "/login"
                 } else {
-
-                    let img = "/media/thumbnail/" + response.result['bookthumbnail']
+                    let img = "/media/thumbnail/" + data.data['bookthumbnail']
                     $(".action_added").html("Added to cart ")
                     $("#product_added_img").attr("src", img)
-                    $("#title").html(response.result['booktitle'])
-                    $("#bookprice_").html("<span class='woocommerce-Price-currencySymbol'>GHS </span>" + response.result['bookprice'])
-                    $("#booktype_").html(response.result['booktype'])
+                    $("#title").html(data.data['booktitle'])
+                    $("#bookprice_").html("<span class='woocommerce-Price-currencySymbol'>GHS </span>" + data.data['bookprice'])
+                    $("#booktype_").html(data.data['booktype'])
                 }
 
             },

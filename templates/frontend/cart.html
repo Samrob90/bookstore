@@ -65,7 +65,7 @@ newtonbookshop | FAQ
                                                             </a>
                                                             <div class="ml-3 m-w-200-lg-down">
                                                                 <a
-                                                                    href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}">{{cart_.book_title}}</a>
+                                                                    href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}">{{cart_.booktitle}}</a>
                                                                 <a href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}"
                                                                     class="text-gray-700 font-size-2 d-block"
                                                                     tabindex="0">{{cart_.bookauthor}}</a>
@@ -155,14 +155,14 @@ newtonbookshop | FAQ
                                                             </a>
                                                             <div class="ml-3 m-w-200-lg-down">
                                                                 <a
-                                                                    href="{% url 'book-detail' cart_.book_slug cart_.product_id cart_.book_type %}">{{cart_.book_title}}</a>
-                                                                <a href="{% url 'book-detail' cart_.book_slug cart_.product_id cart_.book_type %}"
+                                                                    href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}">{{cart_.booktitle}}</a>
+                                                                <a href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}"
                                                                     class="text-gray-700 font-size-2 d-block"
-                                                                    tabindex="0">{{cart_.book_author}}</a>
+                                                                    tabindex="0">{{cart_.bookauthor}}</a>
 
-                                                                <a href="{% url 'book-detail' cart_.book_slug cart_.product_id cart_.book_type %}"
+                                                                <a href="{% url 'book-detail' cart_.bookslug cart_.product_id cart_.booktype %}"
                                                                     class="text-gray-700 font-size-2 d-block"
-                                                                    tabindex="0">{{cart_.book_type}}</a>
+                                                                    tabindex="0">{{cart_.booktype}}</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -170,7 +170,7 @@ newtonbookshop | FAQ
                                                     <td class="product-price" data-title="Price">
                                                         <span class="woocommerce-Price-amount amount"><span
                                                                 class="woocommerce-Price-currencySymbol">GHS
-                                                            </span>{{cart_.book_price}}</span>
+                                                            </span>{{cart_.bookprice}}</span>
                                                     </td>
 
                                                     <td class="product-quantity" data-title="Quantity">
@@ -194,7 +194,7 @@ newtonbookshop | FAQ
                                                                         <input type="number"
                                                                             class="input-text qty text js-result form-control text-center border-0"
                                                                             step="1" min="1" max="100" name="quantity"
-                                                                            value="{{cart_.book_quantity}}" title="Qty">
+                                                                            value="{{cart_.bookquantity}}" title="Qty">
                                                                         <a class="js-plus text-dark"
                                                                             href="javascript:;">
                                                                             <!-- <svg xmlns="http://www.w3.org/2000/svg"
@@ -216,12 +216,12 @@ newtonbookshop | FAQ
                                                         <span class="woocommerce-Price-amount amount"><span
                                                                 class="woocommerce-Price-currencySymbol">GHS
                                                                 {% load poll_extras %}
-                                                            </span>{{cart_.book_price|total_:cart_.book_quantity }}</span>
+                                                            </span>{{cart_.bookprice|total_:cart_.bookquantity }}</span>
                                                     </td>
                                                     <td class="product-remove">
                                                         <a href="#" class="remove removeCartItem"
                                                             aria-label="Remove this item" id="{{cart_.product_id}}"
-                                                            booktype="{{cart_.book_type}}">
+                                                            booktype="{{cart_.booktype}}">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="15px"
                                                                 height="15px">

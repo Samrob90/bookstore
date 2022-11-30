@@ -45,6 +45,6 @@ def grabe_children(item):
     for item_id in item:
         for items in item[item_id]:
             local_list.append(items)
-            localtotal += float(items["book_price"]) * float(items["book_quantity"])
+            localtotal += float(items["bookprice"]) * float(items["bookquantity"])
 
     return [local_list, localtotal]

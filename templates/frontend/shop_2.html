@@ -1083,8 +1083,8 @@ newtonbookshop | shop
                                     </div>
                                     <div class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">
     
-                                        {% comment %} error {% endcomment %}
-    
+                                        <h4 > <span class="action_added"></span> <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d6d06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                        </h4>
                                 
                                         
                                         <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
@@ -1111,51 +1111,13 @@ newtonbookshop | shop
 
                <!--start item in wishlist --->
 
-                <div class="wishlist_pop_up d-none">
-                    <ul class="p-0 list-group">
-                        <li class="product product__list border-0">
-                            <div class="product__inner overflow-hidden p-md-4d875">
-                                <div
-                                    class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative border-0">
-                                    <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img
-                                                src="3
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description" id="product_added_img" style="width:80px!important; height:120px!important;"></a>
-                                    </div>
-                                    <div class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">
-    
-                                        {% comment %} error {% endcomment %}
-    
-                                
-                                        
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="../shop/single-product-v1.html" id="booktype_"></a></div>
-                                        <h2
-                                            class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
-                                            <a href="../shop/single-product-v1.html" tabindex="0" id="title"></a></h2>
-                                        {% comment %} <div class="font-size-2  mb-2 text-truncate"><a
-                                                href="../others/authors-single.html" class="text-gray-700">Jay
-                                                Shetty</a></div> {% endcomment %}
-                                       
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount text-muted" id="bookprice_" ></span>
-                                        </div>
-                                    </div>
-                               
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
                <!-- end wishlist items --->
             </div>
             <div class="modal-footer border-0">
               
-                <a href="{% url 'cart' %}" data-dismiss="modal" style="text-decoration:underline;color:black;"> Continuer shopping</a>
+                <a href="{% url 'cart' %}" data-dismiss="modal" style="text-decoration:underline;color:black;" class="Continuer_shopping"> Continuer shopping</a>
 
-                <a href="{% url 'cart' %}" class="btn btn-secondary p-2 "> view cart</a>
+                <a href="{% url 'cart' %}" class="btn btn-secondary p-2 view__"> view cart</a>
         
             </div>
         </div>
