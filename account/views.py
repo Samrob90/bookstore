@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
+from frontend import models as frontend_model
 
 # Create your views here.
 class AccountHomeView(TemplateView):
@@ -22,11 +24,7 @@ class AccountDetails(TemplateView):
     template_name: str = "frontend/account/account-detailes.html"
 
 
-class WishlistView(TemplateView):
+class WishlistView(ListView):
+    model = frontend_model.wishlist
     template_name: str = "frontend/account/wishlist.html"
-
-
-class LogoutVIew(TemplateView):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            log
+    context_object_name = "wishlist"
