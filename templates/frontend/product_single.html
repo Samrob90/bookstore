@@ -40,20 +40,30 @@ newtonbookshop | {{book.title}}
 
 <div id="primary" class="content-area">
     <main id="main" class="site-main ">
-        
+
         {% if messages %}
-            {% for message in messages%}
-                
-                {% if message.tags == "success" %}
-                <div class="alert alert-success text-center" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d6d06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>{{message}}.</strong> added to cart successfully!
-                      {% comment %} <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/success.png" /> <strong>success ! </strong><span>{{message}} </span> {% endcomment %}
-                   </div>
-                {% endif %}
-                    
-            {% endfor %}
+        {% for message in messages%}
+
+        {% if message.tags == "success" %}
+        <div class="alert alert-success text-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="#3d6d06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>{{message}}.
+        </div>
+
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger text-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="#d0021b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3h18v18H3zM15 9l-6 6m0-6l6 6" /></svg> {{message}}
+
+        </div>
         {% endif %}
-            
+
+        {% endfor %}
+        {% endif %}
+
         <div class="product">
             <div class="container">
                 <div class="row">
@@ -195,8 +205,14 @@ newtonbookshop | {{book.title}}
                         <div class="px-4 px-xl-7 py-5 d-flex align-items-center">
                             <ul class="list-unstyled nav">
                                 <li class="mr-6 mb-4 mb-md-0">
-                                    <a href="#" class="h-primary"><i class="flaticon-heart mr-2"></i> Add to
-                                        Wishlist</a>
+                                    {% if request.user.email %}
+                                    <a href="" class="h-primary add_to_wish_list" bookid="{{book.pk}}"><i
+                                            class="flaticon-heart mr-2"></i>
+                                        Add to Wishlist</a>
+                                    {% else %}
+                                    <a href="{% url 'login' %}" class="h-primary"><i class="flaticon-heart mr-2"></i>
+                                        Add to Wishlist</a>
+                                    {% endif %}
                                 </li>
                                 <li class="mr-6">
                                     <a href="#" class="h-primary"><i class="flaticon-share mr-2"></i> Share</a>

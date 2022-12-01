@@ -16,23 +16,18 @@ def user_context(request):
         value = frontend_cart.objects.filter(user=request.user)
         if value is not None:
             for i in value:
-                total_price += float(i.bookprice)
-        get_cart(cart, value, total_price, "db")
-
-        return cart
-
-    elif "cart" in request.session:
-        result = grabe_children(request.session["cart"])
-        get_cart(cart, result[0], result[1], "session")
-        cart["login_form"] = forms.LoginForm()
-        return cart
+                total_price += float(i.bookprice) * float(i.bookquantity)
+        get_cart(cart, value, total_price)
     else:
-        cart["login_form"] = forms.LoginForm()
-        cart["cart_total"] = 0
-        return cart
+        if "cart" in request.session:
+            result = grabe_children(request.session["cart"])
+            get_cart(cart, result[0], result[1])
+            cart["login_form"] = forms.LoginForm()
+
+    return cart
 
 
-def get_cart(cart, cart_data, total_, type):
+def get_cart(cart, cart_data, total_):
     cart["cart"] = cart_data
     cart["cart_total"] = len(cart_data)
     cart["cart_price_total"] = total_

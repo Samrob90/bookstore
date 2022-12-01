@@ -33,9 +33,10 @@ $(document).ready(function () {
                 if (Number(response.result['bookquantity']) > 1) {
                     $("#bookprice_").html("Qty:" + response.result['bookquantity'] + " X " + "<span class='woocommerce-Price-currencySymbol'>GHS </span>" + response.result['bookprice'])
                 } else {
+                    $(".cart-contents-count").html(Number($(".cart-contents-count").html()) + 1)
                     $("#bookprice_").html("<span class='woocommerce-Price-currencySymbol'>GHS </span>" + response.result['bookprice'])
                 }
-                $(".cart-contents-count").html(Number($(".cart-contents-count").html()) + 1)
+
                 $("#exampleModalCenter").modal("show")
                 $(".view__").html("View cart")
                 $(".view__").attr("href", "/cart/")

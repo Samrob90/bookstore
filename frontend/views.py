@@ -78,7 +78,9 @@ class shopCart(TemplateView):
             }
             result = self.store_cart(request, cart)
             if result:
-                messages.success(request, f"{book.title} ")
+                messages.success(
+                    request, f"{book.title}. Added to your cart successfully "
+                )
                 return JsonResponse({"result": "success"})
             else:
                 return JsonResponse({"result": "failed"})
@@ -126,22 +128,38 @@ class shopCart(TemplateView):
                 else:
                     return JsonResponse({"result": "notauth"})
 
-        # remove cart from session
+        # store in wish list from detailspage (This section should be removed with improving the code )
+        if self.is_ajax(request) and "add_to_wishlist_bookdetails_page" in request.POST:
+            bookid = request.POST.get("bookid")
+            book = cpanel_model.book.objects.get(pk=bookid)
+            # check if this book already existe in wishlist
+            wishlist = self.cart_format(book)
+            db_format = self.change_cart_dormat_to_db_format(request.user, wishlist)
+            result = self.store_wishlist(request, db_format)
+            if result:
+                messages.success(request, f"{book.title}. added to your wishlist")
+                return JsonResponse({"result": "success"})
+            else:
+                messages.error(request, f"{book.title}. is already in your wishlist")
+                return JsonResponse({"result": "failed"})
+
+        # remove cart
         if self.is_ajax(request) and "removeCartItem" in request.POST:
             product_id = request.POST.get("product_id")
             booktype = request.POST.get("booktype")
-
+            # remove cart from  database
             if request.user.is_authenticated:
                 delete = models.cart.objects.filter(
-                    product_id=product_id, booktype=booktype
+                    user=request.user, product_id=product_id, booktype=booktype
                 )
-                book_title = delete.first().title
+                book_title = delete.first().booktitle
                 delete.delete()
 
                 messages.info(request, f"{book_title}")
                 return JsonResponse({"result": "success"})
 
             else:
+                # remove cart from session
                 if request.session["cart"]:
 
                     if product_id in request.session["cart"]:
@@ -172,12 +190,12 @@ class shopCart(TemplateView):
         if request.user.is_authenticated:
             # check if the same cart already existe in db
             cart_id = models.cart.objects.filter(
-                product_id=data["product_id"], booktype=data["book_type"]
+                product_id=data["product_id"], booktype=data["booktype"]
             )
             if cart_id.exists():
                 # increase book quanitty if book already existe in db
                 quantity = float(cart_id.first().bookquantity) + float(
-                    data["book_quantity"]
+                    data["bookquantity"]
                 )
                 cart_id.update(bookquantity=quantity)
                 return True
@@ -187,13 +205,13 @@ class shopCart(TemplateView):
                 models.cart.objects.create(
                     user=request.user,
                     product_id=data["product_id"],
-                    booktitle=data["book_title"],
-                    bookquantity=data["book_quantity"],
-                    bookthumbnail=data["book_thumbnail"],
-                    bookprice=data["book_price"],
-                    booktype=data["book_type"],
-                    bookauthor=data["book_author"],
-                    bookslug=data["book_slug"],
+                    booktitle=data["booktitle"],
+                    bookquantity=data["bookquantity"],
+                    bookthumbnail=data["bookthumbnail"],
+                    bookprice=data["bookprice"],
+                    booktype=data["booktype"],
+                    bookauthor=data["bookauthor"],
+                    bookslug=data["bookslug"],
                 )
                 return True
 

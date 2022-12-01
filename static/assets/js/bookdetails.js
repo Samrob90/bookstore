@@ -7,7 +7,6 @@ $(document).ready(function () {
         window.location.href = url
 
     });
-    closeerror()
 
 
 
@@ -51,6 +50,7 @@ $(document).ready(function () {
     $(".single_add_to_cart_button_detail_page").click(function (e) {
         e.preventDefault();
         let data = $("#details_product_form").serialize()
+        $(this).html("ADDING ..")
         $.ajax({
             type: "post",
             url: "/shopacc/",
@@ -96,14 +96,22 @@ $(document).ready(function () {
 
     });
 
-
-    function closeerror() {
-        if ($("#django_messages_error").length > 0) {
-            setTimeout(() => {
-                document.getElementById("django_messages_error").style.display = "none"
-            }, 5000);
-
+    // =================================================
+    // Add to wish list
+    // ================================================
+    $(".add_to_wish_list").click(function (e) {
+        e.preventDefault();
+        const bookid = $(this).attr("bookid")
+        let data = {
+            "add_to_wishlist_bookdetails_page": "wishlist",
+            "bookid": bookid
         }
-    }
-
+        $.post("/shopacc/", data,
+            function (data, ) {
+                location.reload()
+                // print(data.result)
+            },
+            "json"
+        );
+    });
 });

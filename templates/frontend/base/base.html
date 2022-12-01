@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Title -->
     <title>
-    {% block title %}
-        
-    {% endblock title %}
-        </title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
 
     <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
@@ -22,26 +23,29 @@
     <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/animate.css/animate.css">
-    <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/slick-carousel/slick/slick.css"/>
-    <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet"
+        href="{{ASSETS_ROOT}}/static/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/vendor/slick-carousel/slick/slick.css" />
+    <link rel="stylesheet"
+        href="{{ASSETS_ROOT}}/static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
 
     <!-- CSS Bookworm Template -->
     <link rel="stylesheet" href="{{ASSETS_ROOT}}/static/assets/css/theme.css">
 
-    
+
     {% block stylesheets %}
-        
+
     {% endblock stylesheets %}
-        
+
 </head>
+
 <body>
-     
-    
+
+
     {% block header %}
-        
+
     {% endblock header %}
-        
+
 
     <!-- Account Sidebar Navigation - Mobile -->
     <aside id="sidebarContent9" class="u-sidebar u-sidebar__lg" aria-labelledby="sidebarNavToggler9">
@@ -50,16 +54,10 @@
                 <div class="u-header-sidebar__footer-offset">
                     <!-- Toggle Button -->
                     <div class="d-flex align-items-center position-absolute top-0 right-0 z-index-2 mt-5 mr-md-6 mr-4">
-                        <button type="button" class="close ml-auto"
-                            aria-controls="sidebarContent9"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            data-unfold-event="click"
-                            data-unfold-hide-on-scroll="false"
-                            data-unfold-target="#sidebarContent9"
-                            data-unfold-type="css-animation"
-                            data-unfold-animation-in="fadeInRight"
-                            data-unfold-animation-out="fadeOutRight"
+                        <button type="button" class="close ml-auto" aria-controls="sidebarContent9" aria-haspopup="true"
+                            aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false"
+                            data-unfold-target="#sidebarContent9" data-unfold-type="css-animation"
+                            data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight"
                             data-unfold-duration="500">
                             <span aria-hidden="true">Close <i class="fas fa-times ml-2"></i></span>
                         </button>
@@ -74,7 +72,8 @@
                                 <div id="login1" data-target-group="idForm1">
                                     <!-- Title -->
                                     <header class="border-bottom px-4 px-md-6 py-4">
-                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-user mr-3 font-size-5"></i>Account</h2>
+                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                                class="flaticon-user mr-3 font-size-5"></i>Account</h2>
                                     </header>
                                     <!-- End Title -->
 
@@ -82,8 +81,13 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinEmailLabel9" class="form-label" for="signinEmail9">Email *</label>
-                                                {% comment %} <input type="email" class="form-control rounded-0 height-4 px-4" name="email" id="signinEmail9" placeholder="creativelayers088@gmail.com" aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel9" required> {% endcomment %}
+                                                <label id="signinEmailLabel9" class="form-label"
+                                                    for="signinEmail9">Email *</label>
+                                                {% comment %} <input type="email"
+                                                    class="form-control rounded-0 height-4 px-4" name="email"
+                                                    id="signinEmail9" placeholder="creativelayers088@gmail.com"
+                                                    aria-label="creativelayers088@gmail.com"
+                                                    aria-describedby="signinEmailLabel9" required> {% endcomment %}
                                                 {{form.email}}
                                             </div>
                                         </div>
@@ -92,8 +96,12 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinPasswordLabel9" class="form-label" for="signinPassword9">Password *</label>
-                                                {% comment %} <input type="password" class="form-control rounded-0 height-4 px-4" name="password" id="signinPassword9" placeholder="" aria-label="" aria-describedby="signinPasswordLabel9" required> {% endcomment %}
+                                                <label id="signinPasswordLabel9" class="form-label"
+                                                    for="signinPassword9">Password *</label>
+                                                {% comment %} <input type="password"
+                                                    class="form-control rounded-0 height-4 px-4" name="password"
+                                                    id="signinPassword9" placeholder="" aria-label=""
+                                                    aria-describedby="signinPasswordLabel9" required> {% endcomment %}
                                                 {{form.password}}
                                             </div>
                                         </div>
@@ -102,8 +110,10 @@
                                         <div class="d-flex justify-content-between mb-5 align-items-center">
                                             <!-- Checkbox -->
                                             <div class="js-form-message">
-                                                <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                                                    <input type="checkbox" class="custom-control-input" id="termsCheckbox1" name="termsCheckbox1" required>
+                                                <div
+                                                    class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="termsCheckbox1" name="termsCheckbox1" required>
                                                     <label class="custom-control-label" for="termsCheckbox1">
                                                         <span class="font-size-2 text-secondary-gray-700">
                                                             Remember me
@@ -113,21 +123,22 @@
                                             </div>
                                             <!-- End Checkbox -->
 
-                                            <a class="js-animation-link text-dark font-size-2 t-d-u link-muted font-weight-medium" href="javascript:;"
-                                            data-target="#forgotPassword1"
-                                            data-link-group="idForm1"
-                                            data-animation-in="fadeIn">Forgot Password?</a>
+                                            <a class="js-animation-link text-dark font-size-2 t-d-u link-muted font-weight-medium"
+                                                href="javascript:;" data-target="#forgotPassword1"
+                                                data-link-group="idForm1" data-animation-in="fadeIn">Forgot
+                                                Password?</a>
                                         </div>
 
                                         <div class="mb-4d75">
-                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Sign In</button>
+                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Sign
+                                                In</button>
                                         </div>
 
                                         <div class="mb-2">
-                                            <a href="javascript:;" class="js-animation-link btn btn-block py-3 rounded-0 btn-outline-dark font-weight-medium"
-                                            data-target="#signup1"
-                                            data-link-group="idForm1"
-                                            data-animation-in="fadeIn">Create Account</a>
+                                            <a href="javascript:;"
+                                                class="js-animation-link btn btn-block py-3 rounded-0 btn-outline-dark font-weight-medium"
+                                                data-target="#signup1" data-link-group="idForm1"
+                                                data-animation-in="fadeIn">Create Account</a>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +147,8 @@
                                 <div id="signup1" style="display: none; opacity: 0;" data-target-group="idForm1">
                                     <!-- Title -->
                                     <header class="border-bottom px-4 px-md-6 py-4">
-                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-resume mr-3 font-size-5"></i>Create Account</h2>
+                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                                class="flaticon-resume mr-3 font-size-5"></i>Create Account</h2>
                                     </header>
                                     <!-- End Title -->
 
@@ -144,8 +156,13 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinEmailLabel11" class="form-label" for="signinEmail11">Email *</label>
-                                                <input type="email" class="form-control rounded-0 height-4 px-4" name="email" id="signinEmail11" placeholder="creativelayers088@gmail.com" aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel11" required>
+                                                <label id="signinEmailLabel11" class="form-label"
+                                                    for="signinEmail11">Email *</label>
+                                                <input type="email" class="form-control rounded-0 height-4 px-4"
+                                                    name="email" id="signinEmail11"
+                                                    placeholder="creativelayers088@gmail.com"
+                                                    aria-label="creativelayers088@gmail.com"
+                                                    aria-describedby="signinEmailLabel11" required>
                                             </div>
                                         </div>
                                         <!-- End Form Group -->
@@ -153,8 +170,11 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinPasswordLabel11" class="form-label" for="signinPassword11">Password *</label>
-                                                <input type="password" class="form-control rounded-0 height-4 px-4" name="password" id="signinPassword11" placeholder="" aria-label="" aria-describedby="signinPasswordLabel11" required>
+                                                <label id="signinPasswordLabel11" class="form-label"
+                                                    for="signinPassword11">Password *</label>
+                                                <input type="password" class="form-control rounded-0 height-4 px-4"
+                                                    name="password" id="signinPassword11" placeholder="" aria-label=""
+                                                    aria-describedby="signinPasswordLabel11" required>
                                             </div>
                                         </div>
                                         <!-- End Form Group -->
@@ -162,22 +182,25 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signupConfirmPasswordLabel9" class="form-label" for="signupConfirmPassword9">Confirm Password *</label>
-                                                <input type="password" class="form-control rounded-0 height-4 px-4" name="confirmPassword" id="signupConfirmPassword9" placeholder="" aria-label="" aria-describedby="signupConfirmPasswordLabel9" required>
+                                                <label id="signupConfirmPasswordLabel9" class="form-label"
+                                                    for="signupConfirmPassword9">Confirm Password *</label>
+                                                <input type="password" class="form-control rounded-0 height-4 px-4"
+                                                    name="confirmPassword" id="signupConfirmPassword9" placeholder=""
+                                                    aria-label="" aria-describedby="signupConfirmPasswordLabel9"
+                                                    required>
                                             </div>
                                         </div>
                                         <!-- End Input -->
 
                                         <div class="mb-3">
-                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create Account</button>
+                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create
+                                                Account</button>
                                         </div>
 
                                         <div class="text-center mb-4">
                                             <span class="small text-muted">Already have an account?</span>
-                                            <a class="js-animation-link small" href="javascript:;"
-                                                data-target="#login1"
-                                                data-link-group="idForm1"
-                                                data-animation-in="fadeIn">Login
+                                            <a class="js-animation-link small" href="javascript:;" data-target="#login1"
+                                                data-link-group="idForm1" data-animation-in="fadeIn">Login
                                             </a>
                                         </div>
                                     </div>
@@ -185,10 +208,12 @@
                                 <!-- End Signup -->
 
                                 <!-- Forgot Password -->
-                                <div id="forgotPassword1" style="display: none; opacity: 0;" data-target-group="idForm1">
+                                <div id="forgotPassword1" style="display: none; opacity: 0;"
+                                    data-target-group="idForm1">
                                     <!-- Title -->
                                     <header class="border-bottom px-4 px-md-6 py-4">
-                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-question mr-3 font-size-5"></i>Forgot Password?</h2>
+                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                                class="flaticon-question mr-3 font-size-5"></i>Forgot Password?</h2>
                                     </header>
                                     <!-- End Title -->
 
@@ -196,22 +221,26 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinEmailLabel33" class="form-label" for="signinEmail33">Email *</label>
-                                                <input type="email" class="form-control rounded-0 height-4 px-4" name="email" id="signinEmail33" placeholder="creativelayers088@gmail.com" aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel33" required>
+                                                <label id="signinEmailLabel33" class="form-label"
+                                                    for="signinEmail33">Email *</label>
+                                                <input type="email" class="form-control rounded-0 height-4 px-4"
+                                                    name="email" id="signinEmail33"
+                                                    placeholder="creativelayers088@gmail.com"
+                                                    aria-label="creativelayers088@gmail.com"
+                                                    aria-describedby="signinEmailLabel33" required>
                                             </div>
                                         </div>
                                         <!-- End Form Group -->
 
                                         <div class="mb-3">
-                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Recover Password</button>
+                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Recover
+                                                Password</button>
                                         </div>
 
                                         <div class="text-center mb-4">
                                             <span class="small text-muted">Remember your password?</span>
-                                            <a class="js-animation-link small" href="javascript:;"
-                                                data-target="#login1"
-                                                data-link-group="idForm1"
-                                                data-animation-in="fadeIn">Login
+                                            <a class="js-animation-link small" href="javascript:;" data-target="#login1"
+                                                data-link-group="idForm1" data-animation-in="fadeIn">Login
                                             </a>
                                         </div>
                                     </div>
@@ -234,16 +263,10 @@
                 <div class="u-header-sidebar__footer-offset">
                     <!-- Toggle Button -->
                     <div class="d-flex align-items-center position-absolute top-0 right-0 z-index-2 mt-5 mr-md-6 mr-4">
-                        <button type="button" class="close ml-auto"
-                            aria-controls="sidebarContent"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            data-unfold-event="click"
-                            data-unfold-hide-on-scroll="false"
-                            data-unfold-target="#sidebarContent"
-                            data-unfold-type="css-animation"
-                            data-unfold-animation-in="fadeInRight"
-                            data-unfold-animation-out="fadeOutRight"
+                        <button type="button" class="close ml-auto" aria-controls="sidebarContent" aria-haspopup="true"
+                            aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false"
+                            data-unfold-target="#sidebarContent" data-unfold-type="css-animation"
+                            data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight"
                             data-unfold-duration="500">
                             <span aria-hidden="true">Close <i class="fas fa-times ml-2"></i></span>
                         </button>
@@ -259,7 +282,8 @@
                                 <div id="login" data-target-group="idForm">
                                     <!-- Title -->
                                     <header class="border-bottom px-4 px-md-6 py-4">
-                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-user mr-3 font-size-5"></i>Account</h2>
+                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                                class="flaticon-user mr-3 font-size-5"></i>Account</h2>
                                     </header>
                                     <!-- End Title -->
 
@@ -268,17 +292,22 @@
                                         {% if messages %}
                                         {% for message in messages %}
                                         <div class="alert alert-primary" role="alert">
-                                            
+
                                             <i class="flaticon-error"></i>
                                             {{message}}
-                                                        </div>
+                                        </div>
                                         {% endfor %}
                                         {% endif %}
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinEmailLabel" class="form-label" for="signinEmail">Email *</label>
-                                                {% comment %} <input type="email" class="form-control rounded-0 height-4 px-4" name="email" id="signinEmail" placeholder="creativelayers088@gmail.com" aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel" required> {% endcomment %}
+                                                <label id="signinEmailLabel" class="form-label" for="signinEmail">Email
+                                                    *</label>
+                                                {% comment %} <input type="email"
+                                                    class="form-control rounded-0 height-4 px-4" name="email"
+                                                    id="signinEmail" placeholder="creativelayers088@gmail.com"
+                                                    aria-label="creativelayers088@gmail.com"
+                                                    aria-describedby="signinEmailLabel" required> {% endcomment %}
                                                 {{login_form.email}}
                                             </div>
                                         </div>
@@ -287,8 +316,12 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinPasswordLabel" class="form-label" for="signinPassword">Password *</label>
-                                                {% comment %} <input type="password" class="form-control rounded-0 height-4 px-4" name="password" id="signinPassword" placeholder="" aria-label="" aria-describedby="signinPasswordLabel" required> {% endcomment %}
+                                                <label id="signinPasswordLabel" class="form-label"
+                                                    for="signinPassword">Password *</label>
+                                                {% comment %} <input type="password"
+                                                    class="form-control rounded-0 height-4 px-4" name="password"
+                                                    id="signinPassword" placeholder="" aria-label=""
+                                                    aria-describedby="signinPasswordLabel" required> {% endcomment %}
                                                 {{login_form.password}}
                                             </div>
                                         </div>
@@ -297,8 +330,10 @@
                                         <div class="d-flex justify-content-between mb-5 align-items-center">
                                             <!-- Checkbox -->
                                             <div class="js-form-message">
-                                                <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                                                    <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox" >
+                                                <div
+                                                    class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="termsCheckbox" name="termsCheckbox">
                                                     <label class="custom-control-label" for="termsCheckbox">
                                                         <span class="font-size-2 text-secondary-gray-700">
                                                             Remember me
@@ -308,21 +343,21 @@
                                             </div>
                                             <!-- End Checkbox -->
 
-                                            <a class="js-animation-link text-dark font-size-2 t-d-u link-muted font-weight-medium" href="javascript:;"
-                                            data-target="#forgotPassword"
-                                            data-link-group="idForm"
-                                            data-animation-in="fadeIn">Forgot Password?</a>
+                                            <a class="js-animation-link text-dark font-size-2 t-d-u link-muted font-weight-medium"
+                                                href="javascript:;" data-target="#forgotPassword"
+                                                data-link-group="idForm" data-animation-in="fadeIn">Forgot Password?</a>
                                         </div>
 
                                         <div class="mb-4d75">
-                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Sign In</button>
+                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Sign
+                                                In</button>
                                         </div>
 
                                         <div class="mb-2">
-                                            <a href="javascript:;" class="js-animation-link btn btn-block py-3 rounded-0 btn-outline-dark font-weight-medium"
-                                            data-target="#signup"
-                                            data-link-group="idForm"
-                                            data-animation-in="fadeIn">Create Account</a>
+                                            <a href="javascript:;"
+                                                class="js-animation-link btn btn-block py-3 rounded-0 btn-outline-dark font-weight-medium"
+                                                data-target="#signup" data-link-group="idForm"
+                                                data-animation-in="fadeIn">Create Account</a>
                                         </div>
                                     </div>
                                 </div>
@@ -332,7 +367,8 @@
                                 <div id="signup" style="display: none; opacity: 0;" data-target-group="idForm">
                                     <!-- Title -->
                                     <header class="border-bottom px-4 px-md-6 py-4">
-                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-resume mr-3 font-size-5"></i>Create Account</h2>
+                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                                class="flaticon-resume mr-3 font-size-5"></i>Create Account</h2>
                                     </header>
                                     <!-- End Title -->
 
@@ -340,8 +376,13 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinEmailLabel1" class="form-label" for="signinEmail1">Email *</label>
-                                                <input type="email" class="form-control rounded-0 height-4 px-4" name="email" id="signinEmail1" placeholder="creativelayers088@gmail.com" aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel1" required>
+                                                <label id="signinEmailLabel1" class="form-label"
+                                                    for="signinEmail1">Email *</label>
+                                                <input type="email" class="form-control rounded-0 height-4 px-4"
+                                                    name="email" id="signinEmail1"
+                                                    placeholder="creativelayers088@gmail.com"
+                                                    aria-label="creativelayers088@gmail.com"
+                                                    aria-describedby="signinEmailLabel1" required>
                                             </div>
                                         </div>
                                         <!-- End Form Group -->
@@ -349,8 +390,11 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinPasswordLabel1" class="form-label" for="signinPassword1">Password *</label>
-                                                <input type="password" class="form-control rounded-0 height-4 px-4" name="password" id="signinPassword1" placeholder="" aria-label="" aria-describedby="signinPasswordLabel1" required>
+                                                <label id="signinPasswordLabel1" class="form-label"
+                                                    for="signinPassword1">Password *</label>
+                                                <input type="password" class="form-control rounded-0 height-4 px-4"
+                                                    name="password" id="signinPassword1" placeholder="" aria-label=""
+                                                    aria-describedby="signinPasswordLabel1" required>
                                             </div>
                                         </div>
                                         <!-- End Form Group -->
@@ -358,22 +402,25 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signupConfirmPasswordLabel" class="form-label" for="signupConfirmPassword">Confirm Password *</label>
-                                                <input type="password" class="form-control rounded-0 height-4 px-4" name="confirmPassword" id="signupConfirmPassword" placeholder="" aria-label="" aria-describedby="signupConfirmPasswordLabel" required>
+                                                <label id="signupConfirmPasswordLabel" class="form-label"
+                                                    for="signupConfirmPassword">Confirm Password *</label>
+                                                <input type="password" class="form-control rounded-0 height-4 px-4"
+                                                    name="confirmPassword" id="signupConfirmPassword" placeholder=""
+                                                    aria-label="" aria-describedby="signupConfirmPasswordLabel"
+                                                    required>
                                             </div>
                                         </div>
                                         <!-- End Input -->
 
                                         <div class="mb-3">
-                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create Account</button>
+                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create
+                                                Account</button>
                                         </div>
 
                                         <div class="text-center mb-4">
                                             <span class="small text-muted">Already have an account?</span>
-                                            <a class="js-animation-link small" href="javascript:;"
-                                                data-target="#login"
-                                                data-link-group="idForm"
-                                                data-animation-in="fadeIn">Login
+                                            <a class="js-animation-link small" href="javascript:;" data-target="#login"
+                                                data-link-group="idForm" data-animation-in="fadeIn">Login
                                             </a>
                                         </div>
                                     </div>
@@ -384,7 +431,8 @@
                                 <div id="forgotPassword" style="display: none; opacity: 0;" data-target-group="idForm">
                                     <!-- Title -->
                                     <header class="border-bottom px-4 px-md-6 py-4">
-                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i class="flaticon-question mr-3 font-size-5"></i>Forgot Password?</h2>
+                                        <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                                class="flaticon-question mr-3 font-size-5"></i>Forgot Password?</h2>
                                     </header>
                                     <!-- End Title -->
 
@@ -392,22 +440,26 @@
                                         <!-- Form Group -->
                                         <div class="form-group mb-4">
                                             <div class="js-form-message js-focus-state">
-                                                <label id="signinEmailLabel3" class="form-label" for="signinEmail3">Email *</label>
-                                                <input type="email" class="form-control rounded-0 height-4 px-4" name="email" id="signinEmail3" placeholder="creativelayers088@gmail.com" aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel3" required>
+                                                <label id="signinEmailLabel3" class="form-label"
+                                                    for="signinEmail3">Email *</label>
+                                                <input type="email" class="form-control rounded-0 height-4 px-4"
+                                                    name="email" id="signinEmail3"
+                                                    placeholder="creativelayers088@gmail.com"
+                                                    aria-label="creativelayers088@gmail.com"
+                                                    aria-describedby="signinEmailLabel3" required>
                                             </div>
                                         </div>
                                         <!-- End Form Group -->
 
                                         <div class="mb-3">
-                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Recover Password</button>
+                                            <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Recover
+                                                Password</button>
                                         </div>
 
                                         <div class="text-center mb-4">
                                             <span class="small text-muted">Remember your password?</span>
-                                            <a class="js-animation-link small" href="javascript:;"
-                                                data-target="#login"
-                                                data-link-group="idForm"
-                                                data-animation-in="fadeIn">Login
+                                            <a class="js-animation-link small" href="javascript:;" data-target="#login"
+                                                data-link-group="idForm" data-animation-in="fadeIn">Login
                                             </a>
                                         </div>
                                     </div>
@@ -430,16 +482,10 @@
                 <div class="u-header-sidebar__footer-offset">
                     <!-- Toggle Button -->
                     <div class="d-flex align-items-center position-absolute top-0 right-0 z-index-2 mt-5 mr-md-6 mr-4">
-                        <button type="button" class="close ml-auto"
-                            aria-controls="sidebarContent1"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            data-unfold-event="click"
-                            data-unfold-hide-on-scroll="false"
-                            data-unfold-target="#sidebarContent1"
-                            data-unfold-type="css-animation"
-                            data-unfold-animation-in="fadeInRight"
-                            data-unfold-animation-out="fadeOutRight"
+                        <button type="button" class="close ml-auto" aria-controls="sidebarContent1" aria-haspopup="true"
+                            aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false"
+                            data-unfold-target="#sidebarContent1" data-unfold-type="css-animation"
+                            data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight"
                             data-unfold-duration="500">
                             <span aria-hidden="true">Close <i class="fas fa-times ml-2"></i></span>
                         </button>
@@ -451,84 +497,76 @@
                         <div class="u-sidebar__content u-header-sidebar__content">
                             <!-- Title -->
                             <header class="border-bottom px-4 px-md-6 py-4">
-                                <h2 class="font-size-3 mb-0 d-flex align-items-center" ><i class="flaticon-icon-126515 mr-3 font-size-5" ></i>Your shopping bag ( {{cart_total}} )</h2>
+                                <h2 class="font-size-3 mb-0 d-flex align-items-center"><i
+                                        class="flaticon-icon-126515 mr-3 font-size-5"></i>Your shopping bag (
+                                    {{cart_total}} )</h2>
                             </header>
                             <!-- End Title -->
 
-                        
-                        {% if request.user.email and cart_type == "db" %}
-                            
+
+
+                            {% if cart is not None and cart_total > 0 %}
+
                             {% for cart_value in cart  %}
                             <div class="px-4 py-5 px-md-6 border-bottom">
                                 <div class="media">
-                                    <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{cart_value.bookthumbnail}}" class="img-fluid" alt="image-description" style="height:150px!important; width:100px!important;"></a>
+                                    <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}"
+                                        class="d-block"><img
+                                            src="{{ASSETS_ROOT}}/media/thumbnail/{{cart_value.bookthumbnail}}"
+                                            class="img-fluid" alt="image-description"
+                                            style="height:150px!important; width:100px!important;"></a>
                                     <div class="media-body ml-4d875">
-                                        <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}">{{cart_value.booktype}}</a></div>
-                                        <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
-                                            <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}" class="text-dark">{{cart_value.booktitle}}</a>
+                                        <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a
+                                                href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}">{{cart_value.booktype}}</a>
+                                        </div>
+                                        <h2
+                                            class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
+                                            <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}"
+                                                class="text-dark">{{cart_value.booktitle}}</a>
                                         </h2>
-                                        <div class="font-size-2 mb-1 text-truncate"><a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}" class="text-gray-700">{{cart_value.bookauthor}}</a></div>
+                                        <div class="font-size-2 mb-1 text-truncate"><a
+                                                href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}"
+                                                class="text-gray-700">{{cart_value.bookauthor}}</a></div>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount">{{cart_value.bookquantity}} x <span class="woocommerce-Price-currencySymbol">GHS </span>{{cart_value.bookprice}}</span>
+                                            <span class="woocommerce-Price-amount amount">{{cart_value.bookquantity}} x
+                                                <span class="woocommerce-Price-currencySymbol">GHS
+                                                </span>{{cart_value.bookprice}}</span>
                                         </div>
                                     </div>
-                                    <div class="mt-3 ml-3">
-                                        <a href="#" class="text-dark removeCartItem" id="{{cart_value.product_id}}" booktype="{{cart_value.booktype}}"><i class="fas fa-times"></i></a>
-                                    </div>
+                                    {% comment %} <div class="mt-3 ml-3">
+                                        <a href="#" class="text-dark removeCartItem" id="{{cart_value.product_id}}"
+                                            booktype="{{cart_value.booktype}}"><i class="fas fa-times"></i></a>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
-    
-                          
+
+
                             {% endfor %}
-                            <div class="px-4 py-5 px-md-6 d-flex justify-content-between align-items-center font-size-3">
+                            <div
+                                class="px-4 py-5 px-md-6 d-flex justify-content-between align-items-center font-size-3">
                                 <h4 class="mb-0 font-size-3">Subtotal:</h4>
                                 <div class="font-weight-medium">GHS {{cart_price_total}}</div>
                             </div>
-    
+
                             <div class="px-4 mb-8 px-md-6">
                                 {% comment %} <button type="submit" class=""></button> {% endcomment %}
-                                 <a href="{% url 'cart' %}" class="btn btn-block py-4 rounded-0 btn-outline-dark mb-4">View Cart</a>
+                                <a href="{% url 'cart' %}"
+                                    class="btn btn-block py-4 rounded-0 btn-outline-dark mb-4">View Cart</a>
                                 <button type="submit" class="btn btn-block py-4 rounded-0 btn-dark">Checkout</button>
                             </div>
-                                
-                        {% elif "cart" in request.session %}
-                                
-                         {% for cart_value in cart %}
-                         
-                         <div class="px-4 py-5 px-md-6 border-bottom">
-                            <div class="media">
-                                <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{cart_value.bookthumbnail}}" class="img-fluid" alt="image-description" style="height:150px!important; width:100px!important;"></a>
-                                <div class="media-body ml-4d875">
-                                    <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}">{{cart_value.booktype}}</a></div>
-                                    <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
-                                        <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}" class="text-dark">{{cart_value.booktitle}}</a>
-                                    </h2>
-                                    <div class="font-size-2 mb-1 text-truncate"><a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}" class="text-gray-700">{{cart_value.bookauthor}}</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <span class="woocommerce-Price-amount amount">{{cart_value.bookquantity}} x <span class="woocommerce-Price-currencySymbol">GHS </span>{{cart_value.bookprice}}</span>
-                                    </div>
-                                </div>
-                                <div class="mt-3 ml-3">
-                                    <a href="#" class="text-dark removeCartItem" id="{{cart_value.product_id}}" booktype="{{cart_value.booktype}}"><i class="fas fa-times"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                           
-                       
-                        {% endfor %}
-                        <div class="px-4 py-5 px-md-6 d-flex justify-content-between align-items-center font-size-3">
-                            <h4 class="mb-0 font-size-3">Subtotal:</h4>
-                            <div class="font-weight-medium">GHS {{cart_price_total}}</div>
-                        </div>
+                            {% else %}
 
-                        <div class="px-4 mb-8 px-md-6">
-                            {% comment %} <button type="submit" class=""></button> {% endcomment %}
-                             <a href="{% url 'cart' %}" class="btn btn-block py-4 rounded-0 btn-outline-dark mb-4">View Cart</a>
-                            <button type="submit" class="btn btn-block py-4 rounded-0 btn-dark">Checkout</button>
-                        </div>
+
+                            <div class="text-center mt-5">
+
+                                <img src="{{ASSETS_ROUTE}}/static/assets/img/icon/shopping-bag.png"
+                                    alt="empty shopping page">
+                                <p class="text-muted pt-3">No products in the cart.</p>
+                            </div>
+
                             {% endif %}
-                                
-                            
+
+
 
                         </div>
                     </div>
@@ -548,22 +586,17 @@
                     <div class="u-sidebar__body">
                         <div class="u-sidebar__content u-header-sidebar__content">
                             <!-- Title -->
-                            <header class="border-bottom px-4 px-md-5 py-4 d-flex align-items-center justify-content-between">
+                            <header
+                                class="border-bottom px-4 px-md-5 py-4 d-flex align-items-center justify-content-between">
                                 <h2 class="font-size-3 mb-0">SHOP BY CATEGORY</h2>
 
                                 <!-- Toggle Button -->
                                 <div class="d-flex align-items-center">
-                                    <button type="button" class="close ml-auto"
-                                        aria-controls="sidebarContent2"
-                                        aria-haspopup="true"
-                                        aria-expanded="false"
-                                        data-unfold-event="click"
-                                        data-unfold-hide-on-scroll="false"
-                                        data-unfold-target="#sidebarContent2"
-                                        data-unfold-type="css-animation"
-                                        data-unfold-animation-in="fadeInLeft"
-                                        data-unfold-animation-out="fadeOutLeft"
-                                        data-unfold-duration="500">
+                                    <button type="button" class="close ml-auto" aria-controls="sidebarContent2"
+                                        aria-haspopup="true" aria-expanded="false" data-unfold-event="click"
+                                        data-unfold-hide-on-scroll="false" data-unfold-target="#sidebarContent2"
+                                        data-unfold-type="css-animation" data-unfold-animation-in="fadeInLeft"
+                                        data-unfold-animation-out="fadeOutLeft" data-unfold-duration="500">
                                         <span aria-hidden="true"><i class="fas fa-times ml-2"></i></span>
                                     </button>
                                 </div>
@@ -655,37 +688,45 @@
                                                         <a href="#" data-submenu="off-single-product">Single Product</a>
 
                                                         <div id="off-single-product" class="submenu js-scrollbar">
-                                                            <div class="submenu-header" data-submenu-close="off-single-product">
+                                                            <div class="submenu-header"
+                                                                data-submenu-close="off-single-product">
                                                                 <a href="#">Single Product</a>
                                                             </div>
 
                                                             <ul class="">
                                                                 <li>
-                                                                    <a href="../shop/single-product-v1.html">Single Product v1</a>
+                                                                    <a href="../shop/single-product-v1.html">Single
+                                                                        Product v1</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/single-product-v2.html">Single Product v2</a>
+                                                                    <a href="../shop/single-product-v2.html">Single
+                                                                        Product v2</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/single-product-v3.html">Single Product v3</a>
+                                                                    <a href="../shop/single-product-v3.html">Single
+                                                                        Product v3</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/single-product-v4.html">Single Product v4</a>
+                                                                    <a href="../shop/single-product-v4.html">Single
+                                                                        Product v4</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/single-product-v5.html">Single Product v5</a>
+                                                                    <a href="../shop/single-product-v5.html">Single
+                                                                        Product v5</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/single-product-v6.html">Single Product v6</a>
+                                                                    <a href="../shop/single-product-v6.html">Single
+                                                                        Product v6</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/single-product-v7.html">Single Product v7</a>
+                                                                    <a href="../shop/single-product-v7.html">Single
+                                                                        Product v7</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -695,7 +736,8 @@
                                                         <a href="#" data-submenu="off-shop-pages">Shop Pages</a>
 
                                                         <div id="off-shop-pages" class="submenu js-scrollbar">
-                                                            <div class="submenu-header" data-submenu-close="off-shop-pages">
+                                                            <div class="submenu-header"
+                                                                data-submenu-close="off-shop-pages">
                                                                 <a href="#">Shop Pages</a>
                                                             </div>
 
@@ -709,19 +751,23 @@
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/my-account.html">Shop My Account</a>
+                                                                    <a href="../shop/my-account.html">Shop My
+                                                                        Account</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/order-received.html">Shop Order Received</a>
+                                                                    <a href="../shop/order-received.html">Shop Order
+                                                                        Received</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/order-tracking.html">Shop Order Tracking</a>
+                                                                    <a href="../shop/order-tracking.html">Shop Order
+                                                                        Tracking</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../shop/store-location.html">Shop Store Location</a>
+                                                                    <a href="../shop/store-location.html">Shop Store
+                                                                        Location</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -731,7 +777,8 @@
                                                         <a href="#" data-submenu="off-shop-list">Shop List</a>
 
                                                         <div id="off-shop-list" class="submenu js-scrollbar">
-                                                            <div class="submenu-header" data-submenu-close="off-shop-list">
+                                                            <div class="submenu-header"
+                                                                data-submenu-close="off-shop-list">
                                                                 <a href="#">Shop List</a>
                                                             </div>
 
@@ -821,11 +868,13 @@
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../others/authors-list.html">Authors List</a>
+                                                                    <a href="../others/authors-list.html">Authors
+                                                                        List</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../others/authors-single.html">Authors Single</a>
+                                                                    <a href="../others/authors-single.html">Authors
+                                                                        Single</a>
                                                                 </li>
 
                                                                 <li>
@@ -841,22 +890,26 @@
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../others/pricing-table.html">Pricing Table</a>
+                                                                    <a href="../others/pricing-table.html">Pricing
+                                                                        Table</a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="../others/terms-conditions.html">Terms Conditions</a>
+                                                                    <a href="../others/terms-conditions.html">Terms
+                                                                        Conditions</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </li>
 
                                                     <li class="px-5">
-                                                        <a href="{{ASSETS_ROOT}}/static/documentation/index.html" class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a>
+                                                        <a href="{{ASSETS_ROOT}}/static/documentation/index.html"
+                                                            class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a>
                                                     </li>
 
                                                     <li class="px-5 mb-4">
-                                                        <a href="{{ASSETS_ROOT}}/static/starter/index.html" class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a>
+                                                        <a href="{{ASSETS_ROOT}}/static/starter/index.html"
+                                                            class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -939,7 +992,8 @@
                                                         <a href="#" data-submenu="electronics">Electronics</a>
 
                                                         <div id="electronics" class="submenu js-scrollbar">
-                                                            <div class="submenu-header" data-submenu-close="electronics">
+                                                            <div class="submenu-header"
+                                                                data-submenu-close="electronics">
                                                                 <a href="#">Electronics</a>
                                                             </div>
 
@@ -1208,9 +1262,13 @@
                             <div class="px-4 px-md-5 pt-5 pb-4 border-bottom">
                                 <h2 class="font-size-3 mb-3">HELP & SETTINGS </h2>
                                 <ul class="list-group list-group-flush list-group-borderless">
-                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Your Account</a></li>
-                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Help</a></li>
-                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Sign In</a></li>
+                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Your
+                                            Account</a></li>
+                                    <li class="list-group-item px-0 py-2 border-0"><a href="#"
+                                            class="h-primary">Help</a></li>
+                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Sign
+                                            In</a>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -1262,23 +1320,25 @@
     <!-- End Categories Sidebar Navigation -->
 
     <!--===== END HEADER CONTENT =====-->
-    
+
     {% block content %}
-        
+
     {% endblock content %}
-        
-   {% include 'frontend/components/footer.html' %}
-     {% comment %} 
-     include scripts here
-     {% endcomment %}
 
-     {% include 'frontend/components/scripts.html' %}
+    {% include 'frontend/components/footer.html' %}
+    {% comment %}
+    include scripts here
+    {% endcomment %}
 
-     
-     {% block javascripts %}
-     {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
-     <script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script> {% endcomment %}
-     {% endblock javascripts %}
-        
+    {% include 'frontend/components/scripts.html' %}
+
+
+    {% block javascripts %}
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
+        type="text/javascript"></script>
+    <script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script> {% endcomment %}
+    {% endblock javascripts %}
+
 </body>
+
 </html>
