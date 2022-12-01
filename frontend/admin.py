@@ -25,3 +25,21 @@ class register_wishlist(admin.ModelAdmin):
 
 
 admin.site.register(models.wishlist, register_wishlist)
+
+
+# register categry table
+class r_category(admin.ModelAdmin):
+    model = models.category
+    list_display = ("category", "tag")
+
+
+admin.site.register(models.category, r_category)
+
+# register subcategory
+class r_subcategory(admin.ModelAdmin):
+    model = models.subcategory
+    list_display = ("category", "subcategory")
+    list_filter = ("category",)
+
+
+admin.site.register(models.subcategory, r_subcategory)

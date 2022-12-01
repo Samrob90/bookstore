@@ -27,3 +27,19 @@ class wishlist(models.Model):
     bookauthor = models.CharField(max_length=250, default=None)
     bookslug = models.CharField(max_length=250, default=None, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
+
+
+class category(models.Model):
+    category = models.CharField(max_length=250, default=None)
+    tag = models.CharField(max_length=250, default=None, null=True, blank=True)
+    description = models.TextField(default=None, null=True, blank=True)
+
+    def __str__(self):
+        return self.category
+
+
+class subcategory(models.Model):
+    category = models.ForeignKey(
+        "category", verbose_name="category", on_delete=models.CASCADE
+    )
+    subcategory = models.CharField(max_length=150, default=None)
