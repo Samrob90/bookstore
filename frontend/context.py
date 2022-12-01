@@ -3,6 +3,7 @@ from authentications import forms
 from functools import reduce
 from frontend.models import cart as frontend_cart
 from django.db.models import Sum
+from frontend import models
 
 # from . import models
 
@@ -10,6 +11,7 @@ from django.db.models import Sum
 def user_context(request):
     cart = dict()
     value = []
+    categorie = models.category.objects.all()[:6]
 
     if request.user.is_authenticated:
         total_price = 0
@@ -22,8 +24,13 @@ def user_context(request):
         if "cart" in request.session:
             result = grabe_children(request.session["cart"])
             get_cart(cart, result[0], result[1])
-            cart["login_form"] = forms.LoginForm()
+        else:
+            cart["cart_total"] = 0
 
+        cart["login_form"] = forms.LoginForm()
+
+    cart["categories"] = categorie
+    # cart["subcategory"] = categorie.subcategory_set.all()
     return cart
 
 

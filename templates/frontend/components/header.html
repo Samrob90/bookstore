@@ -227,78 +227,53 @@
                                     <div class="col-8 px-1">
                                         <div class="px-5 py-2 pb-5">
                                             <div class="row">
+
                                                 <div class="col-3">
                                                     <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">Home</span></li>
-                                                        <li><a href="../home/index.html" class="d-block link-black-100 py-1">Home v1</a></li>
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">Home v2</a></li>
-                                                        <li><a href="../home/home-v3.html" class="d-block link-black-100 py-1">Home v3</a></li>
-                                                        <li><a href="../home/home-v4.html" class="d-block link-black-100 py-1">Home v4</a></li>
-                                                        <li><a href="../home/home-v5.html" class="d-block link-black-100 py-1">Home v5</a></li>
-                                                        <li><a href="../home/home-v6.html" class="d-block link-black-100 py-1">Home v6</a></li>
-                                                        <li><a href="../home/home-v7.html" class="d-block link-black-100 py-1">Home v7</a></li>
-                                                        <li><a href="../home/home-v8.html" class="d-block link-black-100 py-1">Home v8</a></li>
-                                                        <li><a href="../home/home-v9.html" class="d-block link-black-100 py-1">Home v9</a></li>
-                                                        <li><a href="../home/home-v10.html" class="d-block link-black-100 py-1">Home v10</a></li>
-                                                        <li><a href="../home/home-v11.html" class="d-block link-black-100 py-1">Home v11</a></li>
-                                                        <li><a href="../home/home-v12.html" class="d-block link-black-100 py-1">Home v12</a></li>
-                                                        <li><a href="../home/home-v13.html" class="d-block link-black-100 py-1">Home v13</a></li>
+                                                        
+                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.3}}</span></li>
+                                                        {% for sub in categories.3.subcategory_set.all %}
+                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        {% endfor %}
+                                                            
+                                                    </ul>
+                                                </div>
+                                                
+                                              <div class="col-3">
+                                                    <ul class="menu list-unstyled">
+                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.1}}</span></li>
+                                                        {% for sub in categories.1.subcategory_set.all %}
+                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        {% endfor %}
+
+                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.0}}</span></li>
+                                                        {% for sub in categories.0.subcategory_set.all %}
+                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        {% endfor %}
                                                     </ul>
                                                 </div>
                                                 <div class="col-3">
                                                     <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">Single Product</span></li>
-                                                        <li><a href="../shop/single-product-v1.html" class="d-block link-black-100 py-1">Single Product v1</a></li>
-                                                        <li><a href="../shop/single-product-v2.html" class="d-block link-black-100 py-1">Single Product v2</a></li>
-                                                        <li><a href="../shop/single-product-v3.html" class="d-block link-black-100 py-1">Single Product v3</a></li>
-                                                        <li><a href="../shop/single-product-v4.html" class="d-block link-black-100 py-1">Single Product v4</a></li>
-                                                        <li><a href="../shop/single-product-v5.html" class="d-block link-black-100 py-1">Single Product v5</a></li>
-                                                        <li><a href="../shop/single-product-v6.html" class="d-block link-black-100 py-1">Single Product v6</a></li>
-                                                        <li><a href="../shop/single-product-v7.html" class="d-block link-black-100 py-1">Single Product v7</a></li>
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">Shop Pages</span></li>
-                                                        <li><a href="../shop/cart.html" class="d-block link-black-100 py-1">Shop cart</a></li>
-                                                        <li><a href="../shop/checkout.html" class="d-block link-black-100 py-1">Shop checkout</a></li>
-                                                        <li><a href="../shop/my-account.html" class="d-block link-black-100 py-1">Shop My Account</a></li>
-                                                        <li><a href="../shop/order-received.html" class="d-block link-black-100 py-1">Shop Order Received</a></li>
-                                                        <li><a href="../shop/order-tracking.html" class="d-block link-black-100 py-1">Shop Order Tracking</a></li>
-                                                        <li><a href="../shop/store-location.html" class="d-block link-black-100 py-1">Shop Store Location</a></li>
+                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.2}}</span></li>
+                                                        {% for sub in categories.2.subcategory_set.all %}
+                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        {% endfor %}
+                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.5}}</span></li>
+                                                        {% for sub in categories.5.subcategory_set.all %}
+                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        {% endfor %}
                                                     </ul>
                                                 </div>
                                                 <div class="col-3">
                                                     <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">Shop List</span></li>
-                                                        <li><a href="../shop/v1.html" class="d-block link-black-100 py-1">Shop List v1</a></li>
-                                                        <li><a href="../shop/v2.html" class="d-block link-black-100 py-1">Shop List v2</a></li>
-                                                        <li><a href="../shop/v3.html" class="d-block link-black-100 py-1">Shop List v3</a></li>
-                                                        <li><a href="../shop/v4.html" class="d-block link-black-100 py-1">Shop List v4</a></li>
-                                                        <li><a href="../shop/v5.html" class="d-block link-black-100 py-1">Shop List v5</a></li>
-                                                        <li><a href="../shop/v6.html" class="d-block link-black-100 py-1">Shop List v6</a></li>
-                                                        <li><a href="../shop/v7.html" class="d-block link-black-100 py-1">Shop List v7</a></li>
-                                                        <li><a href="../shop/v8.html" class="d-block link-black-100 py-1">Shop List v8</a></li>
-                                                        <li><a href="../shop/v9.html" class="d-block link-black-100 py-1">Shop List v9</a></li>
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">Blog</span></li>
-                                                        <li><a href="../blog/blog-v1.html" class="d-block link-black-100 py-1">Blog v1</a></li>
-                                                        <li><a href="../blog/blog-v2.html" class="d-block link-black-100 py-1">Blog v2</a></li>
-                                                        <li><a href="../blog/blog-v3.html" class="d-block link-black-100 py-1">Blog v3</a></li>
-                                                        <li><a href="../blog/blog-single.html" class="d-block link-black-100 py-1">Blog Single</a></li>
+                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.4}}</span></li>
+                                                        {% for sub in categories.4.subcategory_set.all %}
+                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        {% endfor %}
+                                                        <li><a href="{{ASSETS_ROOT}}/static/documentation/index.html" class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a></li>
+                                                        <li><a href="{{ASSETS_ROOT}}/static/starter/index.html" class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a></li>
                                                     </ul>
-                                                </div>
-                                                <div class="col-3">
-                                                    <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">Others</span></li>
-                                                        <li><a href="../others/404.html" class="d-block link-black-100 py-1">404</a></li>
-                                                        <li><a href="{% url 'about' %}" class="d-block link-black-100 py-1">About Us</a></li>
-                                                        <li><a href="../others/authors-list.html" class="d-block link-black-100 py-1">Authors List</a></li>
-                                                        <li><a href="../others/authors-single.html" class="d-block link-black-100 py-1">Authors Single</a></li>
-                                                        <li><a href="../others/coming-soon.html" class="d-block link-black-100 py-1">Coming Soon</a></li>
-                                                        <li><a href="{% url 'contact' %}" class="d-block link-black-100 py-1">Contact Us</a></li>
-                                                        <li><a href="{% url 'faq' %}" class="d-block link-black-100 py-1">FAQ</a></li>
-                                                        <li><a href="../others/pricing-table.html" class="d-block link-black-100 py-1">Pricing Table</a></li>
-                                                        <li><a href="../others/terms-conditions.html" class="d-block link-black-100 py-1">Terms Conditions</a></li>
-                          <li><a href="{{ASSETS_ROOT}}/static/documentation/index.html" class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a></li>
-                          <li><a href="{{ASSETS_ROOT}}/static/starter/index.html" class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a></li>
-                                                    </ul>
-                                                </div>
+                                                </div>  
                                             </div>
                                         </div>
                                     </div>

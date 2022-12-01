@@ -43,3 +43,6 @@ class subcategory(models.Model):
         "category", verbose_name="category", on_delete=models.CASCADE
     )
     subcategory = models.CharField(max_length=150, default=None)
+
+    def __str__(self):
+        return self.subcategory
