@@ -11,6 +11,8 @@ from . import models
 from django.utils import timezone
 import json
 from django.forms.models import model_to_dict
+from . import tasks
+from pprint import PrettyPrinter
 
 
 class HomeVIew(TemplateView):
@@ -50,7 +52,53 @@ class ProductView(DetailView):
         context["details"] = details
         context["booktype__"] = [self.kwargs["type"], details.first().price]
 
+        data = {
+            "product_id": book.pk,
+            "booktitle": book.title,
+            "bookquantity": 1,
+            "bookthumbnail": book.thumbnail,
+            "bookprice": float(book.default_price),
+            "booktype": book.default_type,
+            "bookauthor": book.author,
+            "bookslug": book.slug,
+        }
+
+        if self.request.user.is_authenticated:
+
+            tasks.save_recent.delay(self.request.user.pk, book.pk, data)
+            recent_view = models.recent_viewied_item.objects.filter(
+                user=self.request.user
+            )
+        else:
+            recent_view = self.set_recent_session(self.request, book, data)
+        context["recent_view"] = recent_view
+
         return context
+
+    def set_recent_session(self, request, book, data):
+        if "recent_view" in request.session:
+            session_value = request.session["recent_view"]
+            # check if this item is already in session
+            # print(session_value[0])
+
+            if len(session_value) <= 9:
+                for index, value in enumerate(session_value):
+                    # print(index, value)
+                    if int(book.pk) in value[index]:
+                        # print(book.pk)
+                        print("hello world")
+                        PrettyPrinter(session_value)
+                        session_value.pop(index)
+                        request.session.modified = True
+
+            if len(session_value) >= 9:
+                session_value.pop()
+            session_value.insert(0, data)
+        else:
+            request.session["recent_view"] = [data]
+
+        request.session.modified = True
+        return request.session["recent_view"]
 
 
 class shopCart(TemplateView):
