@@ -52,6 +52,7 @@ class recent_viewied_item(models.Model):
     user = models.ForeignKey(Account, verbose_name="cart", on_delete=models.CASCADE)
     product_id = models.CharField(max_length=150, default=None)
     booktitle = models.CharField(max_length=250, default=None)
+    bookquantity = models.IntegerField(default=1, null=True, blank=True)
     bookthumbnail = models.CharField(max_length=250, default=None)
     bookprice = models.DecimalField(decimal_places=2, max_digits=9)
     booktype = models.CharField(max_length=250, default=None)

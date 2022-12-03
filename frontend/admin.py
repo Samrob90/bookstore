@@ -43,3 +43,14 @@ class r_subcategory(admin.ModelAdmin):
 
 
 admin.site.register(models.subcategory, r_subcategory)
+
+
+# register recent_view class
+
+
+class register_recent_view(admin.ModelAdmin):
+    model = models.recent_viewied_item
+    list_display = ("user", "product_id", "booktitle", "bookthumbnail")
+
+
+admin.site.register(models.recent_viewied_item, register_recent_view)

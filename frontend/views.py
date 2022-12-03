@@ -53,7 +53,7 @@ class ProductView(DetailView):
         context["booktype__"] = [self.kwargs["type"], details.first().price]
 
         data = {
-            "product_id": book.pk,
+            "product_id": str(book.product.product_id),
             "booktitle": book.title,
             "bookquantity": 1,
             "bookthumbnail": book.thumbnail,
@@ -65,17 +65,17 @@ class ProductView(DetailView):
 
         if self.request.user.is_authenticated:
 
-            tasks.save_recent.delay(self.request.user.pk, book.pk, data)
+            tasks.save_recent.delay(self.request.user.pk, data)
             recent_view = models.recent_viewied_item.objects.filter(
                 user=self.request.user
-            )
+            ).order_by("-created_at")[:9]
         else:
-            recent_view = self.set_recent_session(self.request, book, data)
+            recent_view = self.set_recent_session(self.request, data)
         context["recent_view"] = recent_view
 
         return context
 
-    def set_recent_session(self, request, book, data):
+    def set_recent_session(self, request, data):
         if "recent_view" in request.session:
             session_value = request.session["recent_view"]
             # check if this item is already in session
@@ -84,12 +84,8 @@ class ProductView(DetailView):
             if len(session_value) <= 9:
                 for index, value in enumerate(session_value):
                     # print(index, value)
-                    if int(book.pk) in value[index]:
-                        # print(book.pk)
-                        print("hello world")
-                        PrettyPrinter(session_value)
+                    if str(data["product_id"]) == str(value["product_id"]):
                         session_value.pop(index)
-                        request.session.modified = True
 
             if len(session_value) >= 9:
                 session_value.pop()

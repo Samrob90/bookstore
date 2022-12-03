@@ -17,6 +17,8 @@ from django.contrib import messages
 from . import tasks
 from django.utils import timezone
 from datetime import timedelta
+from frontend import tasks as frontend_tasks
+from django.utils.http import url_has_allowed_host_and_scheme
 
 
 load_dotenv()
@@ -41,9 +43,13 @@ class LoginView(TemplateView):
                 if user.email_verify:
                     if "cart" in request.session:
                         tasks.check_cart.delay(request.session["cart"], user.pk)
+                    if "recent_view" in request.session:
+                        frontend_tasks.check_recent_view(
+                            request.session["recent_view"], user.pk
+                        )
                     login(request, user)
 
-                    return redirect(self.next_redirect(request, next))
+                    return self.redirect_after_login(request)
                 else:
                     return redirect("verify_email")
             else:
@@ -53,15 +59,18 @@ class LoginView(TemplateView):
         return render(request, self.template_name, {"form": form})
 
     # check for vulbability here before production
-    def next_redirect(self, request, next):
-
-        if next is not None:
-            next_ = next[:-1]
-            next_array = next.split("/")
-            next = None
-            return next_array.pop()
+    def redirect_after_login(self, request):
+        next = request.GET.get("next", None)
+        if next is None:
+            return redirect("account")
+        elif not url_has_allowed_host_and_scheme(
+            url=next,
+            allowed_hosts={request.get_host()},
+            require_https=request.is_secure(),
+        ):
+            return redirect("account")
         else:
-            return "account"
+            return redirect(next)
 
 
 class SignUpView(TemplateView):
