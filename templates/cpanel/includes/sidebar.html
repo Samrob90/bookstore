@@ -91,6 +91,34 @@
                   </ul>
                 </div>
               </li>
+
+              <li class="nav-item {% if 'tables-bootstrap-' in segment %} active {% endif %}">
+                <span
+                  class="nav-link  collapsed  d-flex justify-content-between align-items-center"
+                  data-bs-toggle="collapse" data-bs-target="#blogpost">
+                  <span>
+                    <span class="sidebar-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span> 
+                    <span class="sidebar-text">Blog</span>
+                  </span>
+                  <span class="link-arrow">
+                    <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </span>
+                <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
+                  role="list" id="blogpost" aria-expanded="false">
+                  <ul class="flex-column nav">
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="nav-link" href="{% url 'cpanel_books' %}">
+                        <span class="sidebar-text">Blog view</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+
               <li class="nav-item {% if 'page-' in segment %} active {% endif %}">
                 <span
                   class="nav-link  collapsed  d-flex justify-content-between align-items-center"

@@ -2,7 +2,7 @@
 
 
 {% block title %}
-Newtonbookshop | FAQ
+Newtonbookshop | Blog
 {% endblock title %}
 
 
@@ -55,114 +55,30 @@ Newtonbookshop | FAQ
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="featured" role="tabpanel" aria-labelledby="featured-tab">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                            
+                            {% for blogpost in blog %}
                             <div class="col">
                                 <div class="mb-5">
-                                    <a class="d-block mb-3" href="../blog/blog-single.html">
-                                        <img class="img-fluid" src="https://placehold.it/445x300" alt="Image-Description">
+                                    <a class="d-block mb-3" href="{{blogpost.get_absolute_url}}">
+                                        <img class="img-fluid" src="{{ASSETS_ROOT}}/media/{{blogpost.blogthumbnail}}" alt="Blog thumbnail image" style="width:445px!important;height:300px!important;">
                                     </a>
                                     <div class="mb-2">
-                                        <a class="font-size-2" href="../blog/blog-single.html">Romance</a>
+                                        <a class="font-size-2" href="{{blogpost.get_absolute_url}}">{{blogpost.category}}</a>
                                     </div>
                                     <h6 class="font-size-26 crop-text-2 font-weight-medium text-lh-1dot4">
-                                        <a href="../blog/blog-single.html">Signficant reading has a more info number</a>
+                                        <a href="{{blogpost.get_absolute_url}}">{{blogpost.title}}</a>
                                     </h6>
-                                    <p class="font-size-2 text-secondary-gray-700">It’s nice to win awards. Last night, the Ueno team in Reykjavík came home from the Icelandic Web Awards.</p>
+                                    <p class="font-size-2 text-secondary-gray-700">{{blogpost.article|truncatechars:100|safe}}</p>
                                     <div class="font-size-2 text-secondary-gray-700">
-                                        <span>10 November, 2020</span>
-                                        <span class="ml-3">0 comments</span>
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {{blogpost.created_at}}</span>
+                                        <span class="ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> {{blogpost.blog_comment_set.all.count}} comments</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="mb-5">
-                                    <a class="d-block mb-3" href="../blog/blog-single.html">
-                                        <img class="img-fluid" src="https://placehold.it/445x300" alt="Image-Description">
-                                    </a>
-                                    <div class="mb-2">
-                                        <a class="font-size-2" href="../blog/blog-single.html">Romance</a>
-                                    </div>
-                                    <h6 class="font-size-26 crop-text-2 font-weight-medium text-lh-1dot4">
-                                        <a href="../blog/blog-single.html">Activities of the Frankfurt Book International</a>
-                                    </h6>
-                                    <p class="font-size-2 text-secondary-gray-700">It’s nice to win awards. Last night, the Ueno team in Reykjavík came home from the Icelandic Web Awards.</p>
-                                    <div class="font-size-2 text-secondary-gray-700">
-                                        <span>10 November, 2020</span>
-                                        <span class="ml-3">0 comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-5">
-                                    <a class="d-block mb-3" href="../blog/blog-single.html">
-                                        <img class="img-fluid" src="https://placehold.it/445x300" alt="Image-Description">
-                                    </a>
-                                    <div class="mb-2">
-                                        <a class="font-size-2" href="../blog/blog-single.html">Romance</a>
-                                    </div>
-                                    <h6 class="font-size-26 crop-text-2 font-weight-medium text-lh-1dot4">
-                                        <a href="../blog/blog-single.html">The London Book Fair is to be packed with exciting</a>
-                                    </h6>
-                                    <p class="font-size-2 text-secondary-gray-700">It’s nice to win awards. Last night, the Ueno team in Reykjavík came home from the Icelandic Web Awards.</p>
-                                    <div class="font-size-2 text-secondary-gray-700">
-                                        <span>10 November, 2020</span>
-                                        <span class="ml-3">0 comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-5">
-                                    <a class="d-block mb-3" href="../blog/blog-single.html">
-                                        <img class="img-fluid" src="https://placehold.it/445x300" alt="Image-Description">
-                                    </a>
-                                    <div class="mb-2">
-                                        <a class="font-size-2" href="../blog/blog-single.html">Romance</a>
-                                    </div>
-                                    <h6 class="font-size-26 crop-text-2 font-weight-medium text-lh-1dot4">
-                                        <a href="../blog/blog-single.html">Should You Feel Embarrassed for Reading Kids Books?</a>
-                                    </h6>
-                                    <p class="font-size-2 text-secondary-gray-700">It’s nice to win awards. Last night, the Ueno team in Reykjavík came home from the Icelandic Web Awards.</p>
-                                    <div class="font-size-2 text-secondary-gray-700">
-                                        <span>10 November, 2020</span>
-                                        <span class="ml-3">0 comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-5 mb-md-0">
-                                    <a class="d-block mb-3" href="../blog/blog-single.html">
-                                        <img class="img-fluid" src="https://placehold.it/445x300" alt="Image-Description">
-                                    </a>
-                                    <div class="mb-2">
-                                        <a class="font-size-2" href="../blog/blog-single.html">Romance</a>
-                                    </div>
-                                    <h6 class="font-size-26 crop-text-2 font-weight-medium text-lh-1dot4">
-                                        <a href="../blog/blog-single.html">Books with Horrible Dating Advice</a>
-                                    </h6>
-                                    <p class="font-size-2 text-secondary-gray-700">It’s nice to win awards. Last night, the Ueno team in Reykjavík came home from the Icelandic Web Awards.</p>
-                                    <div class="font-size-2 text-secondary-gray-700">
-                                        <span>10 November, 2020</span>
-                                        <span class="ml-3">0 comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <a class="d-block mb-3" href="../blog/blog-single.html">
-                                        <img class="img-fluid" src="https://placehold.it/445x300" alt="Image-Description">
-                                    </a>
-                                    <div class="mb-2">
-                                        <a class="font-size-2" href="../blog/blog-single.html">Romance</a>
-                                    </div>
-                                    <h6 class="font-size-26 crop-text-2 font-weight-medium text-lh-1dot4">
-                                        <a href="../blog/blog-single.html">A New Restaurant & Bookshop Opens in Raleigh</a>
-                                    </h6>
-                                    <p class="font-size-2 text-secondary-gray-700">It’s nice to win awards. Last night, the Ueno team in Reykjavík came home from the Icelandic Web Awards.</p>
-                                    <div class="font-size-2 text-secondary-gray-700">
-                                        <span>10 November, 2020</span>
-                                        <span class="ml-3">0 comments</span>
-                                    </div>
-                                </div>
-                            </div>
+                                
+                            {% endfor %}
+                                
+                           
                         </div>
                     </div>
                     <div class="tab-pane fade" id="onsale" role="tabpanel" aria-labelledby="onsale-tab">
