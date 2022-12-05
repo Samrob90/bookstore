@@ -36,3 +36,22 @@ class bookdetail(admin.ModelAdmin):
 
 
 admin.site.register(models.bookdetails, bookdetail)
+
+
+class register_general_setting(admin.ModelAdmin):
+    model = models.general_settings
+    list_display = (
+        "site_title",
+        "tage_line",
+        "default_email",
+        "default_phone",
+        # "facebook_handle",
+        # "twitter_handle",
+        # "instagram_handle",
+        # "youtube_handle",
+        "pinterest_handle",
+        "address",
+    )
+
+
+admin.site.register(models.general_settings, register_general_setting)

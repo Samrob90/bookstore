@@ -4,12 +4,13 @@ from functools import reduce
 from frontend.models import cart as frontend_cart
 from django.db.models import Sum
 from frontend import models
+from cpanel.models import general_settings
 
 # from . import models
 
 
 def user_context(request):
-    cart = dict()
+    general_content = dict()
     value = []
     categorie = models.category.objects.all()[:6]
 
@@ -19,26 +20,26 @@ def user_context(request):
         if value is not None:
             for i in value:
                 total_price += float(i.bookprice) * float(i.bookquantity)
-        get_cart(cart, value, total_price)
+        get_cart(general_content, value, total_price)
     else:
         if "cart" in request.session:
             result = grabe_children(request.session["cart"])
-            get_cart(cart, result[0], result[1])
+            get_cart(general_content, result[0], result[1])
         else:
-            cart["cart_total"] = 0
+            general_content["cart_total"] = 0
 
-        cart["login_form"] = forms.LoginForm()
+        general_content["login_form"] = forms.LoginForm()
 
-    cart["categories"] = categorie
-    # cart["subcategory"] = categorie.subcategory_set.all()
-    return cart
+    general_content["categories"] = categorie
+    general_content["general_settings"] = general_settings.objects.all().first()
+    return general_content
 
 
-def get_cart(cart, cart_data, total_):
-    cart["cart"] = cart_data
-    cart["cart_total"] = len(cart_data)
-    cart["cart_price_total"] = total_
-    cart["cart_type"] = type
+def get_cart(general_content, cart_data, total_):
+    general_content["cart"] = cart_data
+    general_content["cart_total"] = len(cart_data)
+    general_content["cart_price_total"] = total_
+    general_content["cart_type"] = type
 
 
 def grabe_children(item):

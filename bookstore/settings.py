@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "authentications",
     "celery",
     "account",
+    "blog",
 ]
 
 MIDDLEWARE = [

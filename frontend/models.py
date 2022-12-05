@@ -59,3 +59,9 @@ class recent_viewied_item(models.Model):
     bookauthor = models.CharField(max_length=250, default=None)
     bookslug = models.CharField(max_length=250, default=None, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
+
+
+class faq(models.Model):
+    question = models.TextField(default=None)
+    answer = models.TextField(default=None)
+    created_at = models.TextField(default=timezone.now)

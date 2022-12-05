@@ -54,3 +54,11 @@ class register_recent_view(admin.ModelAdmin):
 
 
 admin.site.register(models.recent_viewied_item, register_recent_view)
+
+
+class register_faq(admin.ModelAdmin):
+    model = models.faq
+    list_display = ("question", "answer", "created_at")
+
+
+admin.site.register(models.faq, register_faq)

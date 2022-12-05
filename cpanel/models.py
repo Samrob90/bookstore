@@ -57,3 +57,34 @@ class bookdetails(models.Model):
     # details = jsonfield.JSONField()
     def __str__(self):
         return self.book.title
+
+
+class general_settings(models.Model):
+    site_title = models.CharField(max_length=250, default=None)
+    tage_line = models.CharField(
+        max_length=250,
+        default=None,
+        help_text="In few words, explain what this site is about. ",
+    )
+    default_email = models.EmailField(
+        default=None, help_text="The defaul email on home page."
+    )
+    default_phone = models.CharField(
+        max_length=150, default=None, help_text="The default number on home page."
+    )
+    facebook_handle = models.CharField(
+        max_length=150, default=None, help_text="Enter your facebook handle."
+    )
+    twitter_handle = models.CharField(
+        max_length=150, default=None, help_text="Enter your twitter handle."
+    )
+    instagram_handle = models.CharField(
+        max_length=150, default=None, help_text="Enter your intagram handle."
+    )
+    youtube_handle = models.CharField(
+        max_length=150, default=None, help_text="Enter your youtube handle."
+    )
+    pinterest_handle = models.CharField(
+        max_length=150, default=None, help_text="Enter your pinterest handle."
+    )
+    address = models.TextField(default=None, help_text="bookshop physical address")

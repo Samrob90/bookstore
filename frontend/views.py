@@ -18,6 +18,9 @@ from pprint import PrettyPrinter
 class HomeVIew(TemplateView):
     template_name = "frontend/home.html"
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+
 
 # change to list view when model is ready
 class ShopView(ListView):
@@ -348,8 +351,10 @@ class ContactView(TemplateView):
     template_name = "frontend/contact.html"
 
 
-class FaqView(TemplateView):
+class FaqView(ListView):
     template_name = "frontend/faq.html"
+    model = models.faq
+    context_object_name = "faq"
 
 
 class CartViews(TemplateView):

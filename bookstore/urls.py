@@ -22,4 +22,5 @@ urlpatterns = [
     path("", include("authentications.urls")),
     path("cpanel/", include("cpanel.urls")),
     path("account/", include("account.urls")),
+    path("blog/", include("blog.urls")),
 ]
