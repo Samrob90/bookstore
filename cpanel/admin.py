@@ -55,3 +55,11 @@ class register_general_setting(admin.ModelAdmin):
 
 
 admin.site.register(models.general_settings, register_general_setting)
+
+
+class register_rating(admin.ModelAdmin):
+    model = models.rating
+    list_display = ("stars", "comment", "likes", "dislikes", "created_at")
+
+
+admin.site.register(models.rating, register_rating)

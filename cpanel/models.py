@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.utils import timezone
 from django.urls import reverse
+from authentications.models import Account
 
 
 # Create your models here.
@@ -53,6 +54,9 @@ class book(models.Model):
             },
         )
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class bookimages(models.Model):
     book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
@@ -67,6 +71,19 @@ class bookdetails(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=9)
     description = models.TextField(default=None)
     # details = jsonfield.JSONField()
+    def __str__(self):
+        return self.book.title
+
+
+class rating(models.Model):
+    book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, verbose_name="user", on_delete=models.CASCADE)
+    stars = models.IntegerField(default=None)
+    comment = models.TextField(default=None, null=True, blank=True)
+    likes = models.IntegerField(default=0, null=True, blank=True)
+    dislikes = models.IntegerField(default=0, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
     def __str__(self):
         return self.book.title
 

@@ -106,6 +106,7 @@ class shopCart(TemplateView):
             print(bookid)
             booktype = request.POST.get("book_type")
             bookprice = request.POST.get("book_price")
+            print(bookprice)
             product = cpanel_model.product.objects.get(product_id=bookid)
             book = cpanel_model.book.objects.get(product=product)
             cart = {
@@ -312,7 +313,6 @@ class shopCart(TemplateView):
             return True
 
     def cart_format(self, book):
-        print(book.default_price, book.defualt_type)
         return {
             "product_id": str(book.product.product_id),
             "booktitle": book.title,

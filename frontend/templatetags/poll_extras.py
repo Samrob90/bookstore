@@ -17,3 +17,8 @@ def get_total(qty, value):
 def addone(value):
     print(value)
     return int(value) + 1
+
+
+@register.filter(name="filter_rating")
+def filter_rating(obj, stars):
+    return obj.filter(stars=stars).count()

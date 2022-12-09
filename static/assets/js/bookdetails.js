@@ -114,4 +114,48 @@ $(document).ready(function () {
             "json"
         );
     });
+
+
+    // rating
+    $(".review_rating").click(function () {
+        const star_one = $(".star_one").html()
+        const star_two = $(".stars_two").html()
+        const star_three = $(".star_three").html()
+        const star_four = $(".star_four").html()
+        const star_five = $(".stars_five").html()
+        $(".star_one").closest("li").find(".progress-bar").attr("style", multiplyer(star_one))
+        $(".star_two").closest("li").find(".progress-bar").attr("style", multiplyer(star_two))
+        $(".star_three").closest("li").find(".progress-bar").attr("style", multiplyer(star_three))
+        $(".star_four").closest("li").find(".progress-bar").attr("style", multiplyer(star_four))
+        $(".star_five").closest("li").find(".progress-bar").attr("style", multiplyer(star_five))
+
+    });
+
+    function multiplyer(star, this_) {
+        let percentage = Number(star) / Number(100)
+        return "width:" + percentage + "%;"
+    }
+
+    // write a review
+
+    $(".submit_review").click(function (e) {
+        e.preventDefault();
+        $(".loader").removeClass("d-none")
+        $(this).css("opacity", "0.5")
+        $("#loader_text").html("submiting..")
+
+        $(".stars").click(function (e) {
+            e.preventDefault()
+
+        })
+        const review_comment = $("#descriptionTextarea").val()
+
+        $.post("url", data,
+            function (data, ) {
+
+            },
+            "json"
+        );
+    });
+
 });
