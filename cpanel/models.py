@@ -1,6 +1,8 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+from django.urls import reverse
+
 
 # Create your models here.
 class product(models.Model):
@@ -40,6 +42,16 @@ class book(models.Model):
     )
     thumbnail = models.CharField(max_length=250, default=None)
     created_at = models.DateTimeField(default=timezone.now)
+
+    def get_absolute_url(self):
+        return reverse(
+            "book-detail",
+            kwargs={
+                "uuid": self.product.product_id,
+                "slug": self.slug,
+                "type": self.default_type,
+            },
+        )
 
 
 class bookimages(models.Model):

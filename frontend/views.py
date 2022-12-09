@@ -12,7 +12,6 @@ from django.utils import timezone
 import json
 from django.forms.models import model_to_dict
 from . import tasks
-from pprint import PrettyPrinter
 
 
 class HomeVIew(TemplateView):
@@ -50,10 +49,6 @@ class ProductView(DetailView):
             context["book_default_details"] = cpanel_model.bookdetails.objects.filter(
                 book=book, booktype=book_default_type
             ).first()
-        details = cpanel_model.bookdetails.objects.filter(book=book)
-        context["book_images"] = cpanel_model.bookimages.objects.filter(book=book)
-        context["details"] = details
-        context["booktype__"] = [self.kwargs["type"], details.first().price]
 
         data = {
             "product_id": str(book.product.product_id),
@@ -241,14 +236,12 @@ class shopCart(TemplateView):
             )
             if cart_id.exists():
                 # increase book quanitty if book already existe in db
-                quantity = float(cart_id.first().bookquantity) + float(
-                    data["bookquantity"]
-                )
+                quantity = int(cart_id.first().bookquantity) + int(data["bookquantity"])
                 cart_id.update(bookquantity=quantity)
                 return True
 
             else:
-
+                # print(data)
                 models.cart.objects.create(
                     user=request.user,
                     product_id=data["product_id"],
@@ -319,12 +312,13 @@ class shopCart(TemplateView):
             return True
 
     def cart_format(self, book):
+        print(book.default_price, book.defualt_type)
         return {
             "product_id": str(book.product.product_id),
             "booktitle": book.title,
             "bookquantity": 1,
             "bookthumbnail": book.thumbnail,
-            "bookprice": float(book.default_price),
+            "bookprice": book.default_price,
             "booktype": book.default_type,
             "bookauthor": book.author,
             "bookslug": book.slug,
@@ -345,6 +339,11 @@ class shopCart(TemplateView):
 
 class AboutView(TemplateView):
     template_name = "frontend/about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["about"] = models.about_us.objects.all().first()
+        return context
 
 
 class ContactView(TemplateView):

@@ -62,3 +62,11 @@ class register_faq(admin.ModelAdmin):
 
 
 admin.site.register(models.faq, register_faq)
+
+
+class register_about_us(admin.ModelAdmin):
+    model = models.about_us
+    list_display = ("start", "our_story", "our_who", "our_why")
+
+
+admin.site.register(models.about_us, register_about_us)

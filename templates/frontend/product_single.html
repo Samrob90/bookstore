@@ -78,7 +78,7 @@ Newtonbookshop | {{book.title}}
                                 data-pagi-classes="text-center u-slick__pagination my-4">
 
 
-                                {% for image in book_images %}
+                                {% for image in book.bookimages_set.all %}
 
                                 <div class="js-slide shop-details-view-newtonbookshop ">
 
@@ -130,7 +130,7 @@ Newtonbookshop | {{book.title}}
                             <!-- Radio Checkbox Group -->
                             <div class="row mx-gutters-2 mb-4">
 
-                                {% for value in details %}
+                                {% for value in book.bookdetails_set.all %}
                                 <div class="col-6 col-md-3 mb-3 mb-md-0  value_redirect">
                                     <div
                                         class="shadow-sm rounded-1 border booktypeshop {% if book_default_details.booktype == value.booktype %} booktype_active {% endif %}">
@@ -159,7 +159,7 @@ Newtonbookshop | {{book.title}}
                             </div>
 
                             <form class="cart d-md-flex align-items-center" method="post" enctype="multipart/form-data"
-                                action="{% url 'book-detail' book.slug book.product.product_id booktype__.0 %}"
+                                action=""
                                 id="details_product_form">
                                 {% csrf_token %}
                                 <div class="quantity mb-4 mb-md-0 d-flex align-items-center">

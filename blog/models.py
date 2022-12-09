@@ -58,9 +58,10 @@ class blog_comment(models.Model):
     blog = models.ForeignKey(
         "blog", verbose_name="blog comments", on_delete=models.CASCADE
     )
+    fullname = models.CharField(max_length=300, default=None)
+    email = models.CharField(max_length=300, default=None)
     comment = models.TextField(default=None)
-    commented_by = models.CharField(max_length=150, default=None)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self) -> str:
-        return self.commented_by
+        return self.fullname

@@ -13,7 +13,7 @@ admin.site.register(models.blog, register_blog)
 
 class register_blog_comment(admin.ModelAdmin):
     model = models.blog_comment
-    list_display = ("blog", "comment", "commented_by", "created_at")
+    list_display = ("blog", "fullname", "comment", "created_at")
 
 
 admin.site.register(models.blog_comment, register_blog_comment)

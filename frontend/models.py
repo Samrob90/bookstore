@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.utils import timezone
 from authentications.models import Account
+from django_cleanhtmlfield.fields import HTMLField
 
 # Create your models here.
 class cart(models.Model):
@@ -65,3 +66,22 @@ class faq(models.Model):
     question = models.TextField(default=None)
     answer = models.TextField(default=None)
     created_at = models.TextField(default=timezone.now)
+
+
+class about_us(models.Model):
+    start = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_story = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_who = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_why = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_what = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_where = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_when = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_how = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_price = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_philosophy = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_mantra = HTMLField(strip_unsafe=True, widget_form_class=True)
+    our_goal = HTMLField(strip_unsafe=True, widget_form_class=True)
+    who_we_serve = HTMLField(strip_unsafe=True, widget_form_class=True)
+
+    def __str__(self) -> str:
+        return self.start

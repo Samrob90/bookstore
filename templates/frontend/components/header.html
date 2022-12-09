@@ -108,7 +108,7 @@
                 <div class="site-navigation mr-auto d-none d-xl-block">
                     <ul class="nav">
                         <li class="nav-item dropdown">
-                            <a id="homeDropdownInvoker" href="{% url 'home' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center"
+                            <a id="homeDropdownInvoker" href="{% url 'home' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center block {% if request.resolver_match.view_name == 'home' %} active border-bottom border-primary border-width-2 {% endif %} "
                                 aria-haspopup="true"
                                 aria-expanded="false"
                                 data-unfold-event="hover"
@@ -139,7 +139,7 @@
                         </li>
                         {% comment %} <li class="nav-item"><a href="#" class="nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium active border-bottom border-primary border-width-2">Categories</a></li> {% endcomment %}
                         <li class="nav-item dropdown">
-                            <a id="shopDropdownInvoker" href="{% url 'shop' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center"
+                            <a id="shopDropdownInvoker" href="{% url 'shop' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'shop' %} active border-bottom border-primary border-width-2 {% endif %}"
                                 aria-haspopup="true"
                                 aria-expanded="false"
                                 data-unfold-event="hover"
@@ -210,7 +210,7 @@
                             </ul> {% endcomment %}
                         </li>
                         <li class="nav-item">
-                            <a id="featuresDropdownInvoker" href="#" class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center"
+                            <a id="featuresDropdownInvoker" href="#" class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center "
                                 aria-haspopup="true"
                                 aria-expanded="false"
                                 data-unfold-event="hover"
@@ -296,7 +296,7 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a id="blogDropdownInvoker" href="{% url 'blog' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center"
+                            <a id="blogDropdownInvoker" href="{% url 'blog' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'blog' %} active border-bottom border-primary border-width-2 {% endif %}"
                                 aria-haspopup="true"
                                 aria-expanded="false"
                                 data-unfold-event="hover"
@@ -317,7 +317,7 @@
                             </ul> {% endcomment %}
                         </li>
                         <li class="nav-item dropdown">
-                            <a id="pagesDropdownInvoker" href="#" class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center"
+                            <a id="pagesDropdownInvoker" href="#" class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'about' %} active border-bottom border-primary border-width-2 {% endif %}"
                                 aria-haspopup="true"
                                 aria-expanded="false"
                                 data-unfold-event="hover"
@@ -331,15 +331,15 @@
                                 Others
                             </a>
                             <ul id="pagesDropdownMenu" class="dropdown-unfold dropdown-menu font-size-2 rounded-0 border-gray-900" aria-labelledby="pagesDropdownInvoker">
-                                <li><a href="../others/404.html" class="dropdown-item link-black-100">404</a></li>
+                                {% comment %} <li><a href="../others/404.html" class="dropdown-item link-black-100">404</a></li> {% endcomment %}
                                 <li><a href="{% url 'about' %}" class="dropdown-item link-black-100">About Us</a></li>
-                                <li><a href="../others/authors-list.html" class="dropdown-item link-black-100">Authors List</a></li>
-                                <li><a href="../others/authors-single.html" class="dropdown-item link-black-100">Authors Single</a></li>
-                                <li><a href="../others/coming-soon.html" class="dropdown-item link-black-100">Coming Soon</a></li>
+                                {% comment %} <li><a href="../others/authors-list.html" class="dropdown-item link-black-100">Authors List</a></li> {% endcomment %}
+                                {% comment %} <li><a href="../others/authors-single.html" class="dropdown-item link-black-100">Authors Single</a></li> {% endcomment %}
+                                {% comment %} <li><a href="../others/coming-soon.html" class="dropdown-item link-black-100">Coming Soon</a></li> {% endcomment %}
                                 <li><a href="{% url 'contact' %}" class="dropdown-item link-black-100">Contact Us</a></li>
                                 <li><a href="{% url 'faq' %}" class="dropdown-item link-black-100">FAQ</a></li>
-                                <li><a href="../others/pricing-table.html" class="dropdown-item link-black-100">Pricing Table</a></li>
-                                <li><a href="../others/terms-conditions.html" class="dropdown-item link-black-100">Terms Conditions</a></li>
+                                {% comment %} <li><a href="../others/pricing-table.html" class="dropdown-item link-black-100">Pricing Table</a></li> {% endcomment %}
+                                {% comment %} <li><a href="../others/terms-conditions.html" class="dropdown-item link-black-100">Terms Conditions</a></li> {% endcomment %}
                             </ul>
                         </li>
                     </ul>
