@@ -368,6 +368,20 @@ class CartViews(TemplateView):
         return context
 
 
+# checkout
+
+
+class CheckoutView(TemplateView):
+    template_name = "frontend/checkout.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["addresses"] = cpanel_model.Addresse.objects.all().order_by(
+            "-created_at"
+        )
+        return context
+
+
 # cart
 
 

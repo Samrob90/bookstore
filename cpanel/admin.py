@@ -63,3 +63,17 @@ class register_rating(admin.ModelAdmin):
 
 
 admin.site.register(models.rating, register_rating)
+
+
+class register_address(admin.ModelAdmin):
+    model = models.Addresse
+    list_display = (
+        "user",
+        "address1",
+        "country",
+        "region_or_state",
+        "city",
+    )
+
+
+admin.site.register(models.Addresse, register_address)

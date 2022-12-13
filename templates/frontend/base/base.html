@@ -552,16 +552,17 @@
                                 {% comment %} <button type="submit" class=""></button> {% endcomment %}
                                 <a href="{% url 'cart' %}"
                                     class="btn btn-block py-4 rounded-0 btn-outline-dark mb-4">View Cart</a>
-                                <button type="submit" class="btn btn-block py-4 rounded-0 btn-dark">Checkout</button>
+
+                                <a href="{% url 'checkout' %}" class="btn btn-block py-4 rounded-0 btn-dark">Checkout</a>
                             </div>
                             {% else %}
 
 
-                            <div class="text-center mt-5">
+                            <div class=" text-center mt-5">
 
-                                <img src="{{ASSETS_ROUTE}}/static/assets/img/icon/shopping-bag.png"
-                                    alt="empty shopping page">
-                                <p class="text-muted pt-3">No products in the cart.</p>
+                                    <img src="{{ASSETS_ROUTE}}/static/assets/img/icon/shopping-bag.png"
+                                        alt="empty shopping page">
+                                    <p class="text-muted pt-3">No products in the cart.</p>
                             </div>
 
                             {% endif %}

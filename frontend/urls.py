@@ -16,4 +16,5 @@ urlpatterns = [
     ),
     path("shopacc/", views.shopCart.as_view(), name="shopacc"),
     path("cart/", views.CartViews.as_view(), name="cart"),
+    path("checkout/", views.CheckoutView.as_view(), name="checkout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

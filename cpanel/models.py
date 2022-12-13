@@ -14,6 +14,9 @@ class product(models.Model):
     )
     created_at = models.DateTimeField(default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.product_name
+
 
 class book(models.Model):
     PAPERBACK = "PAPERBACK"
@@ -117,3 +120,19 @@ class general_settings(models.Model):
         max_length=150, default=None, help_text="Enter your pinterest handle."
     )
     address = models.TextField(default=None, help_text="bookshop physical address")
+
+
+class Addresse(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=300, default=None)
+    last_name = models.CharField(max_length=300, default=None)
+    address1 = models.CharField(max_length=300, default=None)
+    address2 = models.CharField(max_length=300, default=None, null=True, blank=True)
+    country = models.CharField(max_length=250, default=None)
+    region_or_state = models.CharField(max_length=250, default=None)
+    city = models.CharField(max_length=300, default=None)
+    phonenumber = models.CharField(max_length=14, default=None, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.address1
