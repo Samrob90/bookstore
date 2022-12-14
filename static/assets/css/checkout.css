@@ -1,0 +1,10 @@
+.select_payment_active {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    border: 1px solid black;
+}
+
+
+.select_payment_section .card:hover {
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}

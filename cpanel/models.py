@@ -136,3 +136,16 @@ class Addresse(models.Model):
 
     def __str__(self) -> str:
         return self.address1
+
+
+class coupon(models.Model):
+    created_by = models.ForeignKey(Account, on_delete=models.CASCADE)
+    code = models.CharField(max_length=150, default=None)
+    percentage = models.CharField(
+        max_length=100, help_text="percentage ex: 20", default=None
+    )
+    expires_on = models.DateTimeField(default=None)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.code

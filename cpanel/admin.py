@@ -77,3 +77,11 @@ class register_address(admin.ModelAdmin):
 
 
 admin.site.register(models.Addresse, register_address)
+
+
+class register_coupon(admin.ModelAdmin):
+    model = models.coupon
+    list_display = ("created_by", "code", "expires_on", "percentage", "created_at")
+
+
+admin.site.register(models.coupon, register_coupon)

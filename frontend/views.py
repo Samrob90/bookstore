@@ -12,6 +12,7 @@ from django.utils import timezone
 import json
 from django.forms.models import model_to_dict
 from . import tasks
+from datetime import date
 
 
 class HomeVIew(TemplateView):
@@ -380,6 +381,48 @@ class CheckoutView(TemplateView):
             "-created_at"
         )
         return context
+
+    # recalculate here before production
+    def post(self, request, *args, **kwargs):
+
+        # ajax call calculate shipping cost
+        if self.is_ajax(request) and "calculate_shipping_cost" in request.POST:
+            addressid = request.POST.get("addressid")
+            address = cpanel_model.Addresse.objects.filter(pk=addressid).first()
+            shipping_cost = 0
+            if address.country == "Ghana":
+                if address.city.lower() == "accra":
+                    shipping_cost = 35
+                elif address.city.lower == "tema":
+                    shipping_cost = 50
+                else:
+                    shipping_cost = 60
+
+            else:
+                shipping_cost = 455
+
+            return JsonResponse({"result": shipping_cost})
+
+        # ajax call check if coupon code is still valide
+        if self.is_ajax(request) and "coupon_code_check" in request.POST:
+            coupon = request.POST.get("coupon")
+            total = request.POST.get("total")
+            print(total)
+            coupon_obj = cpanel_model.coupon.objects.filter(code=coupon)
+            if coupon_obj.exists():
+                percentage = coupon_obj.first().percentage
+                expiration_time = coupon_obj.first().expires_on
+                if timezone.now() <= expiration_time:
+                    discount = float((int(total) * int(percentage)) / 100)
+                    percentage_value =  float(total) - discount
+                    return JsonResponse({"result": "valid", "total": percentage_value, "discount":discount})
+                else:
+                    return JsonResponse({"result": "expired"})
+            else:
+                return JsonResponse({"result": "invalide"})
+
+    def is_ajax(self, request):
+        return request.headers.get("x-requested-with") == "XMLHttpRequest"
 
 
 # cart
