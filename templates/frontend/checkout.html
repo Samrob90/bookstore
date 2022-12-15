@@ -51,40 +51,39 @@ Newtonbookshop | Checkout
                     <div class="card  border-0 fetch_address">
                         <div class="card-header border-0 pl-0" style=" background-color:#f5f5f5;">
                             <h4 style="display: inline-block;">Select shipping address</h4> <span
-                                style="float: right;font-weight:bold;cursor:pointer;" class="text-info"><svg
+                                style="float: right;font-weight:bold;cursor:pointer;" class="text-info new_address"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                     stroke-linejoin="round">
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg> New address</span>
+                                </svg> New address</span> <span style="float: right;font-weight:bold;cursor:pointer;"
+                                class="text-info select_user_address d-none">Select address</span>
                             <p class="text-danger select_address_error d-none"></p>
                         </div>
                         <div class="card-body p-0" style="background-color:#f5f5f5;">
-                            {% for address in addresses %}
+                            <div class="select_address_section">
+                                {% for address in addresses %}
 
-                            <div class="p-2 mb-2 border shadow-sm bg-white">
-                                <div class="form-check">
-                                    <input class="form-check-input addressid" type="radio" name="addressid"
-                                        id="flexRadioDefault{{forloop.counter}}" value="{{address.pk}}">
-                                    <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}">
-                                        <h5>{{address.first_name}} {{address.last_name}}</h5>
-                                        <p class="text-muted">{{address.address1}}
-                                            {{address.region_or_state}} ,{{address.country}} <br>
-                                            {{address.phonenumber}}
-                                        </p>
-                                    </label>
+                                <div class="p-2 mb-2  shadow-sm bg-white border-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input addressid" type="radio" name="addressid"
+                                            id="flexRadioDefault{{forloop.counter}}" value="{{address.pk}}">
+                                        <label class="form-check-label" for="flexRadioDefault{{forloop.counter}}">
+                                            <h5>{{address.first_name}} {{address.last_name}}</h5>
+                                            <p class="text-muted">{{address.address1}}
+                                                {{address.region_or_state}} ,{{address.country}} <br>
+                                                {{address.phonenumber}}
+                                            </p>
+                                        </label>
+                                    </div>
                                 </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
 
-                            <!-- <button class=" btn btn-dark mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="21"
-                                    height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg> Add new address</button> -->
-
+                            <div class="add_address_section d-none">
+                                {% include 'frontend/components/address.html' %}
+                            </div>
                         </div>
 
                     </div>
@@ -105,8 +104,8 @@ Newtonbookshop | Checkout
                             <div class="card " id="pay_momo">
                                 <div class="card-body p-2 pl-4 select_payment_active">
                                     <span class="pr-2">Momo or credit/debit card </span><img
-                                        src="{{ASSETS_ROOT}}/static/assets/img/transaction/pay5.jpg" alt=" mobile money"
-                                        srcset="" height="40px">
+                                        src="{{ASSETS_ROOT}}/static/assets/img/transaction/pay5.jpg" alt="mobile money"
+                                        height="40px">
                                     <span style="float:right;" class="selected_icone_pay_momo"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="35" height="35"
                                             viewBox="0 0 24 24" fill="none" stroke="#7ed321" stroke-width="2"

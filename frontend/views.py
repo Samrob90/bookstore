@@ -407,15 +407,21 @@ class CheckoutView(TemplateView):
         if self.is_ajax(request) and "coupon_code_check" in request.POST:
             coupon = request.POST.get("coupon")
             total = request.POST.get("total")
-            print(total)
             coupon_obj = cpanel_model.coupon.objects.filter(code=coupon)
             if coupon_obj.exists():
                 percentage = coupon_obj.first().percentage
                 expiration_time = coupon_obj.first().expires_on
                 if timezone.now() <= expiration_time:
                     discount = float((int(total) * int(percentage)) / 100)
-                    percentage_value =  float(total) - discount
-                    return JsonResponse({"result": "valid", "total": percentage_value, "discount":discount})
+                    percentage_value = float(total) - discount
+                    return JsonResponse(
+                        {
+                            "result": "valid",
+                            "total": percentage_value,
+                            "discount": discount,
+                            "percentage": percentage,
+                        }
+                    )
                 else:
                     return JsonResponse({"result": "expired"})
             else:
