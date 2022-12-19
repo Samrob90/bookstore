@@ -34,8 +34,7 @@ $(document).ready(function () {
         const coupon = $("#coupon_code1").val()
         // check if address is filed or selected 
         let address = $(".fetch_address input[name='addressid']:checked").val()
-        alert(address)
-        if (typeof address === "undefined" && $("#billing_country").css("display") === "None") {
+        if (typeof address === "undefined" && $(".add_address_section").css("display") === "none") {
             // display error incase it was hidden 
             $(".select_address_error").removeClass("d-none")
             $("body").scrollTop(0); //scroll page back to top 
@@ -45,13 +44,13 @@ $(document).ready(function () {
             $(".country_error").html("Please select country")
         } else {
             let this_ = $(this)
-            this_.css("opacity", "0.5")
-            this_.val("proccessing..")
+            coupon_show_load("show")
+
             if (coupon === "" || coupon.length === 0 || !coupon.replace(/\s/g, '').length) {
                 $("#coupon_code1").css("border", "1px solid red")
                 $("#coupon_error").html("Invalide input!")
-                this_.css("opacity", "1")
-                this_.val("Apply coupon")
+                coupon_show_load("hide")
+                $("#c_loader_text").val("Apply coupon")
 
             } else {
                 const coupon_data = {
@@ -61,8 +60,7 @@ $(document).ready(function () {
                 }
                 $.post(url, coupon_data,
                     function (data) {
-                        this_.css("opacity", "1")
-                        this_.val("Apply coupon")
+                        coupon_show_load("hide")
                         if (data.result === "valid") {
                             // let total = $("#Total").html()
                             $(".discount").addClass("d-none")
@@ -70,6 +68,10 @@ $(document).ready(function () {
                             $("#discount__").html(data.discount)
                             $(".getdiscount").attr("discount", data.percentage)
                             $("#Total").html(data.total.toFixed(1))
+                            $("#coupon_code_input").attr("value", coupon)
+                        } else {
+                            $("#coupon_code1").css("border", "1px solid red")
+                            $("#coupon_error").html("coupon code is Invalide or expired !")
                         }
                     },
                     "json"
@@ -79,6 +81,7 @@ $(document).ready(function () {
             }
         }
     });
+
 
 
     // add new new shipping address
@@ -115,7 +118,7 @@ $(document).ready(function () {
 
             if (country === "GH") {
                 if (city === "") {
-                    // delivery fee for Ghana varies in two diffenrece city
+                    // delivery fee for Ghana varies in two diffente cities
                     // if user click apply button before filling city field
                     // show error 
                     // then when user filled city input get value and process shipping cost 
@@ -142,6 +145,45 @@ $(document).ready(function () {
 
 
     });
+
+
+
+    // proceed to next step 
+    $(".proceed_to_next_step").click(function (e) {
+        e.preventDefault();
+        // check if user address is not empty or(if user is authenticated )
+        let addressid = $(".fetch_address input[name='addressid']:checked").val()
+        continue_step_loader("show")
+        if (typeof addressid === "undefined" && $(".add_address_section").css("display") === "none") {
+            continue_step_loader("hide")
+            $("body").scrollTop(0); //scroll page back to top 
+            $(".select_address_error").removeClass("d-none")
+            $(".select_address_error").html("Please select address to preceed !")
+        } else if ($(".add_address_section").css("display") !== "none") {
+
+        } else {
+            const data = $("#checkout_form").serialize()
+            alert(data)
+            $.post(url, data,
+                function (data) {
+                    continue_step_loader("hide")
+                    alert(data.result)
+                },
+                "json"
+            );
+        }
+    });
+
+
+
+    // chowcoupon togglw
+    $(".showcoupon").click(function (e) {
+        e.preventDefault();
+        $(".coupon_toggle").toggle();
+    });
+
+
+
 
 
     function delivery_fee_in_ghana(city) {
@@ -179,6 +221,27 @@ $(document).ready(function () {
 
     }
 
+
+    function coupon_show_load(type) {
+        if (type === "show") {
+            $("#c_loader_text").css("opacity", "0.5")
+            $("#c_loader_text").val("processing..")
+            $(".c_loader").show()
+        } else {
+            $("#c_loader_text").css("opacity", "1")
+            $("#c_loader_text").val("Apply coupon")
+            $(".c_loader").hide()
+
+        }
+    }
+
+    function continue_step_loader(type) {
+        if (type === "show") {
+            $(".processing").show()
+        } else {
+            $(".processing").hide()
+        }
+    }
 
     // calculate shippinCost 
     function shippinCost(addressid) {

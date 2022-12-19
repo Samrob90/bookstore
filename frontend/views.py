@@ -13,6 +13,8 @@ import json
 from django.forms.models import model_to_dict
 from . import tasks
 from datetime import date
+import time
+from django.db.models import Sum
 
 
 class HomeVIew(TemplateView):
@@ -115,7 +117,7 @@ class shopCart(TemplateView):
                 "booktitle": book.title,
                 "bookquantity": Qty,
                 "bookthumbnail": book.thumbnail,
-                "bookprice": bookprice,
+                "bookprice": float(bookprice),
                 "booktype": booktype,
                 "bookauthor": book.author,
                 "bookslug": book.slug,
@@ -319,7 +321,7 @@ class shopCart(TemplateView):
             "booktitle": book.title,
             "bookquantity": 1,
             "bookthumbnail": book.thumbnail,
-            "bookprice": book.default_price,
+            "bookprice": float(book.default_price),
             "booktype": book.default_type,
             "bookauthor": book.author,
             "bookslug": book.slug,
@@ -389,43 +391,142 @@ class CheckoutView(TemplateView):
         if self.is_ajax(request) and "calculate_shipping_cost" in request.POST:
             addressid = request.POST.get("addressid")
             address = cpanel_model.Addresse.objects.filter(pk=addressid).first()
-            shipping_cost = 0
-            if address.country == "Ghana":
-                if address.city.lower() == "accra":
-                    shipping_cost = 35
-                elif address.city.lower == "tema":
-                    shipping_cost = 50
-                else:
-                    shipping_cost = 60
-
-            else:
-                shipping_cost = 455
-
+            shipping_cost = self.shipping_calculator(address.country, address.city)
             return JsonResponse({"result": shipping_cost})
+        # proccess payment request
+        if (
+            self.is_ajax(request)
+            and "checkout" in request.POST
+            and "addressid" in request.POST
+        ):
+            coupon = None
+            sub_total = 0
+            addressid = str(request.POST.get("addressid"))
+            couponcode = str(request.POST.get("coupon_code1"))
+            payment_method = str(request.POST.get("payment_method"))
+            data = dict()
+
+            # get cart sub_toal
+            cart_obj = models.cart.objects.filter(user=request.user)
+            cart_id = ""
+            for i in cart_obj:
+                sub_total += float(i.bookquantity) * float(i.bookprice)
+                cart_id += f"{i.pk} "
+
+            # check if addressid is not underfined
+            if (
+                addressid is not None
+                and addressid != "undefined"
+                and request.user.email
+            ):
+                # 1 get address id from addresses model
+                # 2 get coupon code if coupon is not none
+                # get books from cart models (to calculate total books )
+
+                shipping_address = cpanel_model.Addresse.objects.filter(
+                    pk=addressid
+                ).first()
+                # check if coupon existe and get coupon code cariblar
+                if couponcode != "" or couponcode is not None:
+                    coupon_obj = cpanel_model.coupon.objects.filter(code=couponcode)
+                    if coupon_obj.exists():
+                        coupon = coupon_obj.first()
+                total = self.get_total(shipping_address, sub_total, coupon)
+
+                data["email"] = request.user.email
+                data["items"] = cart_id
+                data["address"] = shipping_address
+                data["payment_method"] = payment_method
+
+                if payment_method == "pay_with_momo":
+                    # make api call here
+                    pass
+                else:
+                    # send data to task to save
+                    tasks.order.delay(data)
+                return JsonResponse({"result": "success"})
+
+                # send total and address and payment_method to task
+
+                # calculate shipping fees
+
+            # if coupon_percentage != 0 :
 
         # ajax call check if coupon code is still valide
         if self.is_ajax(request) and "coupon_code_check" in request.POST:
             coupon = request.POST.get("coupon")
             total = request.POST.get("total")
             coupon_obj = cpanel_model.coupon.objects.filter(code=coupon)
+            # time.sleep(5)
             if coupon_obj.exists():
-                percentage = coupon_obj.first().percentage
-                expiration_time = coupon_obj.first().expires_on
-                if timezone.now() <= expiration_time:
-                    discount = float((int(total) * int(percentage)) / 100)
-                    percentage_value = float(total) - discount
+                result = self.coupon_calculator(coupon_obj.first(), total)
+                if result == "invalide":
+                    return JsonResponse({"result": "Expired"})
+                else:
                     return JsonResponse(
                         {
                             "result": "valid",
-                            "total": percentage_value,
-                            "discount": discount,
-                            "percentage": percentage,
+                            "total": result[0],
+                            "discount": result[1],
+                            "percentage": result[2],
                         }
                     )
-                else:
-                    return JsonResponse({"result": "expired"})
             else:
                 return JsonResponse({"result": "invalide"})
+
+    def get_total(self, address, sub_total, coupon_obj):
+        Total = 0
+        shipping_cost = 0
+        # get shipping fees
+        if sub_total >= 300:
+            shipping_cost = 0
+        else:
+            shipping_fees = float(
+                self.shipping_calculator(address.country, address.city)
+            )
+        subtotal = shipping_cost + sub_total  # add sub_total to shipping cost
+        if coupon_obj is not None:  # check is coupon is not empty
+            coupon_response = self.coupon_calculator(self, coupon_obj, subtotal)
+            if coupon_response == "invalide":
+                Total = subtotal
+            else:
+                Total = coupon_response[0]
+        else:
+            Total = subtotal
+
+        return Total
+
+    def order_format(self, data):
+        return {
+            "email": data.email,
+            "items": data.items,
+            "address": data.address,
+            "payment_method": data.payment_method,
+        }
+
+    def coupon_calculator(self, coupon_obj, total):
+        coupon_percentage = coupon_obj.percentage
+        coupon_expiration_time = coupon_obj.expires_on
+        if timezone.now() <= coupon_expiration_time:
+            discount = float((int(total) * int(coupon_percentage)) / 100)
+            new_total = float(total) - discount
+            return [new_total, discount, coupon_percentage]
+        else:
+            return "invalide"
+
+    def shipping_calculator(self, country, city):
+        shipping_cost = 0
+        if country.lower() == "ghana":
+            if city.lower() == "accra":
+                shipping_cost = 35
+            elif city.lower == "tema":
+                shipping_cost = 50
+            else:
+                shipping_cost = 60
+
+        else:
+            shipping_cost = 455
+        return shipping_cost
 
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"

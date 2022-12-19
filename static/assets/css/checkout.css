@@ -8,3 +8,31 @@
     cursor: pointer;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 }
+
+.c_loader {
+    display: none;
+}
+
+.processing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+
+}
+
+.proccessing_content {
+    margin-top: 35vh;
+
+}
+
+@media screen and (max-width: 600px) {
+    .proccessing_content {
+        padding: 5%;
+        margin-top: 30vh;
+    }
+}

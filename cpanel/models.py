@@ -149,3 +149,15 @@ class coupon(models.Model):
 
     def __str__(self) -> str:
         return self.code
+
+
+class order(models.Model):
+    orderid = models.UUIDField(uuid.uuid4, unique=True, editable=False)
+    email = models.EmailField(default=None)
+    status = models.CharField(max_length=250, default="pending")
+    items = models.CharField(max_length=300, default=None)
+    address = models.ForeignKey(
+        "Addresse", verbose_name="shipping address", on_delete=models.CASCADE
+    )
+    payment_method = models.CharField(default=None, max_length=250)
+    created_at = models.DateTimeField(default=timezone.now)

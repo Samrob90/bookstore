@@ -1,8 +1,8 @@
 from celery import shared_task
 from . import models
 from authentications.models import Account
-from cpanel.models import book
-from frontend.models import recent_viewied_item
+from cpanel.models import book, order
+from frontend.models import recent_viewied_item, cart
 
 
 @shared_task
@@ -46,3 +46,11 @@ def getUser(userpk):
 def db_format(user, data):
     new_dict = {"user": user}
     return new_dict.update(data)
+
+
+@shared_task
+def save_order(data):
+    user_email = data["email"]
+    order.objects.create(**data)
+    cart.objects.filter(user=user_email).delete()
+    return "done"
