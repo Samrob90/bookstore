@@ -1,0 +1,52 @@
+{% extends 'frontend/base/base.html' %}
+
+
+{% block title %}
+Newtonbookshop | order success
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+
+{% block content %}
+
+
+<div class="col-lg-8 mt-4 mb-4 col-sm-12 col-md-12" style="margin: 0 auto;">
+    <div class="card border-0">
+        <div class="card-body ">
+            <div class="card-body text-center">
+                <img src="{{ASSETS_ROOT}}/static/assets/img/order/order_animation.gif" alt="order success" width="200px"
+                    height="200px">
+
+
+                <h5 class="">order completed successfully</h5>
+                <p>Thank you for your order.we received your order and begin processing it soon
+                </p>
+                <p>Your order Nº: <strong>{{ordernumber}}</strong></p>
+
+                <!-- button -->
+                <div>
+                    <a href="{% url 'orders' %}" class="btn btn-dark p-2 m-2"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3.8 6h16.4M16 10a4 4 0 1 1-8 0" />
+                        </svg> ORDER DETAIlS</a>
+                    <!-- <a href="" class="btn btn-dark p-2"> Track order</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+{% endblock javascripts %}

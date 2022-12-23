@@ -69,6 +69,7 @@ class register_address(admin.ModelAdmin):
     model = models.Addresse
     list_display = (
         "user",
+        "user_type",
         "address1",
         "country",
         "region_or_state",

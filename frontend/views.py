@@ -15,6 +15,7 @@ from . import tasks
 from datetime import date
 import time
 from django.db.models import Sum
+import random, string
 
 
 class HomeVIew(TemplateView):
@@ -394,31 +395,29 @@ class CheckoutView(TemplateView):
             shipping_cost = self.shipping_calculator(address.country, address.city)
             return JsonResponse({"result": shipping_cost})
         # proccess payment request
-        if (
-            self.is_ajax(request)
-            and "checkout" in request.POST
-            and "addressid" in request.POST
-        ):
+        if self.is_ajax(request) and "checkout" in request.POST:
             coupon = None
             sub_total = 0
-            addressid = str(request.POST.get("addressid"))
+            address = None
+            addressid = request.POST.get("addressid")
             couponcode = str(request.POST.get("coupon_code1"))
             payment_method = str(request.POST.get("payment_method"))
+            email = ""
+            shipping_address = None
             data = dict()
-
-            # get cart sub_toal
-            cart_obj = models.cart.objects.filter(user=request.user)
+            address_type = "user_select_address"
             cart_id = ""
-            for i in cart_obj:
-                sub_total += float(i.bookquantity) * float(i.bookprice)
-                cart_id += f"{i.pk} "
 
             # check if addressid is not underfined
-            if (
-                addressid is not None
-                and addressid != "undefined"
-                and request.user.email
-            ):
+            if addressid is not None and request.user.email:
+                email = request.user.email
+                # get cart sub_toal
+                cart_obj = models.cart.objects.filter(user=request.user)
+
+                for i in cart_obj:
+                    sub_total += float(i.bookquantity) * float(i.bookprice)
+                    cart_id += f"{i.product_id} "
+
                 # 1 get address id from addresses model
                 # 2 get coupon code if coupon is not none
                 # get books from cart models (to calculate total books )
@@ -426,31 +425,46 @@ class CheckoutView(TemplateView):
                 shipping_address = cpanel_model.Addresse.objects.filter(
                     pk=addressid
                 ).first()
-                # check if coupon existe and get coupon code cariblar
-                if couponcode != "" or couponcode is not None:
-                    coupon_obj = cpanel_model.coupon.objects.filter(code=couponcode)
-                    if coupon_obj.exists():
-                        coupon = coupon_obj.first()
-                total = self.get_total(shipping_address, sub_total, coupon)
+            elif addressid is None and request.user.email:
+                email = request.user.email
+                shipping_address = self.get_address(request)
+                addressid = 0
+                address_type = "user_new_address"
 
-                data["email"] = request.user.email
-                data["items"] = cart_id
-                data["address"] = shipping_address
-                data["payment_method"] = payment_method
+            else:
+                pass
 
-                if payment_method == "pay_with_momo":
-                    # make api call here
-                    pass
-                else:
-                    # send data to task to save
-                    tasks.order.delay(data)
-                return JsonResponse({"result": "success"})
+                # get cart totalt and cart content from value
 
-                # send total and address and payment_method to task
+            # check if coupon existe and get coupon code cariblar
+            if couponcode != "" or couponcode is not None:
+                coupon_obj = cpanel_model.coupon.objects.filter(code=couponcode)
+                if coupon_obj.exists():
+                    coupon = coupon_obj.first()
+            total = self.get_total(shipping_address, sub_total, coupon)
+            Ordernumner = "".join(random.choices(string.digits, k=8))
 
-                # calculate shipping fees
+            data["orderid"] = Ordernumner
+            data["email"] = email
+            data["items"] = cart_id
+            data["addressid"] = addressid
+            data["address"] = shipping_address
+            data["payment_method"] = payment_method
+            data["address_type"] = address_type
 
-            # if coupon_percentage != 0 :
+            if payment_method == "pay_with_momo":
+                # make api call here
+                pass
+            else:
+                # send data to task to save
+                tasks.save_order.delay(data)
+            return JsonResponse({"result": "success", "orderNumber": Ordernumner})
+
+            # send total and address and payment_method to task
+
+            # calculate shipping fees
+
+        # if coupon_percentage != 0 :
 
         # ajax call check if coupon code is still valide
         if self.is_ajax(request) and "coupon_code_check" in request.POST:
@@ -474,16 +488,38 @@ class CheckoutView(TemplateView):
             else:
                 return JsonResponse({"result": "invalide"})
 
+    def get_address(self, request):
+
+        if request.user.email:
+            email = request.user.email
+        else:
+            email = request.POST.get("email")
+        return {
+            "first_name": request.POST.get("billing_first_name"),
+            "last_name": request.POST.get("billing_last_name"),
+            "country": request.POST.get("billing_country"),
+            "address1": request.POST.get("billing_address_1"),
+            "address2": request.POST["billing_address_2"],
+            "city": request.POST.get("billing_city"),
+            "state": request.POST.get("billing_state"),
+            "number": request.POST.get("billing_phone"),
+            "email": email,
+        }
+
     def get_total(self, address, sub_total, coupon_obj):
+        try:
+            country = address.country
+            city = address.city
+        except:
+            country = address["country"]
+            city = address["city"]
         Total = 0
         shipping_cost = 0
         # get shipping fees
         if sub_total >= 300:
             shipping_cost = 0
         else:
-            shipping_fees = float(
-                self.shipping_calculator(address.country, address.city)
-            )
+            shipping_cost = float(self.shipping_calculator(country, city))
         subtotal = shipping_cost + sub_total  # add sub_total to shipping cost
         if coupon_obj is not None:  # check is coupon is not empty
             coupon_response = self.coupon_calculator(self, coupon_obj, subtotal)
@@ -533,6 +569,16 @@ class CheckoutView(TemplateView):
 
 
 # cart
+
+
+def OrderSuccess(request, ordernumber):
+    # template_name = "frontend/ordersuccess.html"
+    # model = cpanel_model.order
+    # context_object_name = "order"
+    if request.method == "GET":
+
+        context = {"ordernumber": ordernumber}
+        return render(request, "frontend/ordersuccess.html", context)
 
 
 # class storeCart:

@@ -37,6 +37,18 @@ Newtonbookshop | Checkout
         </div>
     </div>
 </div>
+
+
+<div class="alert alert-danger text-center proccess_error d-none" role="alert">
+
+</div>
+
+{% if cart_total == 0 %}
+<div class="text-center p-10">
+    <img src="/static/assets/img/icon/shopping-bag.png" alt="empty shopping page" class="mCS_img_loaded">
+    <h4 class="text-muted pt-4 pb-10">No products in the cart.</h4>
+</div>
+{% else %}
 <div id="content" class="site-content space-bottom-3 " style="background-color:#f5f5f5;">
     <div class="processing">
         <div class="proccessing_content text-center">
@@ -97,6 +109,8 @@ Newtonbookshop | Checkout
 
                                     <div class="add_address_section d-none">
                                         {% include 'frontend/components/address.html' %}
+                                        <input type="hidden" name="address_type" id="address_type"
+                                            value="select_address">
                                     </div>
                                 </div>
 
@@ -335,7 +349,28 @@ Newtonbookshop | Checkout
         <!-- #primary -->
     </div>
     <!-- .col-full -->
+
+
+
+    <!-- order completee -->
+
+    <!-- <div class="col-lg-8" style="margin: 0 auto;">
+        <div class="card shadow">
+            <div class="card-body">
+                hellow world
+            </div>
+        </div>
+    </div> -->
+
+    <!-- order completed  -->
+
+
 </div>
+
+
+
+{% endif %}
+
 
 
 

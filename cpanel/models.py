@@ -123,7 +123,8 @@ class general_settings(models.Model):
 
 
 class Addresse(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.EmailField(default=None)
+    user_type = models.CharField(max_length=30, default="guest")
     first_name = models.CharField(max_length=300, default=None)
     last_name = models.CharField(max_length=300, default=None)
     address1 = models.CharField(max_length=300, default=None)
@@ -152,7 +153,11 @@ class coupon(models.Model):
 
 
 class order(models.Model):
-    orderid = models.UUIDField(uuid.uuid4, unique=True, editable=False)
+    order_number = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    orderid = models.CharField(
+        default="None",
+        max_length=8,
+    )
     email = models.EmailField(default=None)
     status = models.CharField(max_length=250, default="pending")
     items = models.CharField(max_length=300, default=None)

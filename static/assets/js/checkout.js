@@ -116,7 +116,7 @@ $(document).ready(function () {
         // check if country and cirty are not empty 
         if (country !== "") {
 
-            if (country === "GH") {
+            if (country === "Ghana") {
                 if (city === "") {
                     // delivery fee for Ghana varies in two diffente cities
                     // if user click apply button before filling city field
@@ -153,6 +153,7 @@ $(document).ready(function () {
         e.preventDefault();
         // check if user address is not empty or(if user is authenticated )
         let addressid = $(".fetch_address input[name='addressid']:checked").val()
+        let THIS = $(this)
         continue_step_loader("show")
         if (typeof addressid === "undefined" && $(".add_address_section").css("display") === "none") {
             continue_step_loader("hide")
@@ -160,21 +161,57 @@ $(document).ready(function () {
             $(".select_address_error").removeClass("d-none")
             $(".select_address_error").html("Please select address to preceed !")
         } else if ($(".add_address_section").css("display") !== "none") {
+            const first_name = $("#billing_first_name").val()
+            const last_name = $("#billing_last_name").val()
+            const country = $("#billing_country").val()
+            const address1 = $("#billing_address_1").val()
+            const city = $("#billing_city").val()
+            const region = $("#billing_state").val()
+            const phone_number = $("#billing_phone").val()
+
+            if (valide_billing_value(first_name, ".first_name_error") === false || valide_billing_value(last_name, ".last_name_error") === false || valide_billing_value(country, ".country_error") === false || valide_billing_value(address1, ".address1_error") === false || valide_billing_value(city, ".city_error") === false || valide_billing_value(region, ".region_error") === false || valide_billing_value(phone_number, ".phone_error") === false) {
+                continue_step_loader("hide")
+
+            } else {
+                proccess()
+
+            }
+
 
         } else {
-            const data = $("#checkout_form").serialize()
-            alert(data)
-            $.post(url, data,
-                function (data) {
-                    continue_step_loader("hide")
-                    alert(data.result)
-                },
-                "json"
-            );
+            proccess()
         }
     });
 
+    function proccess() {
+        const data = $("#checkout_form").serialize()
+        $.post(url, data,
+            function (data, textStatus, xhr) {
+                if (data.result === "success") {
+                    window.location.replace("/order/success/" + data.orderNumber + "/")
+                    continue_step_loader("hide")
+                }
+            },
+            "json"
+        ).fail(function () {
+            continue_step_loader("hide")
+            $(".proccess_error").removeClass("d-none")
+            $(".proccess_error").html("<strong> Somthing went wrong !!</strong> Try again in few minutes. If this persist please contact support to place your order manually <strong>info@Newtonbookshop.com</strong>")
+        })
+    }
 
+
+    function valide_billing_value(value, errorid) {
+        state = false
+        if (value === "" || value.length === 0 || !value.replace(/\s/g, '').length) {
+            $(errorid).removeClass("d-none")
+            $(errorid).html("Field required")
+        } else {
+            $(errorid).hide()
+            state = true
+        }
+        return state
+    }
 
     // chowcoupon togglw
     $(".showcoupon").click(function (e) {

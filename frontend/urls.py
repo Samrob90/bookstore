@@ -17,4 +17,9 @@ urlpatterns = [
     path("shopacc/", views.shopCart.as_view(), name="shopacc"),
     path("cart/", views.CartViews.as_view(), name="cart"),
     path("checkout/", views.CheckoutView.as_view(), name="checkout"),
+    path(
+        "order/success/<ordernumber>/",
+        views.OrderSuccess,
+        name="ordersuccess",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
