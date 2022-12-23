@@ -408,19 +408,18 @@ class CheckoutView(TemplateView):
             address_type = "user_select_address"
             cart_id = ""
 
-            # check if addressid is not underfined
-            if addressid is not None and request.user.email:
-                email = request.user.email
+            if request.user.email:
                 # get cart sub_toal
                 cart_obj = models.cart.objects.filter(user=request.user)
 
                 for i in cart_obj:
                     sub_total += float(i.bookquantity) * float(i.bookprice)
                     cart_id += f"{i.product_id} "
-
-                # 1 get address id from addresses model
-                # 2 get coupon code if coupon is not none
-                # get books from cart models (to calculate total books )
+            else:
+                pass
+            # check if addressid is not underfined
+            if addressid is not None and request.user.email:
+                email = request.user.email
 
                 shipping_address = cpanel_model.Addresse.objects.filter(
                     pk=addressid
