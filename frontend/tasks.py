@@ -1,13 +1,15 @@
 from celery import shared_task
-from . import models
+
+# from . import models
 from authentications.models import Account
 from cpanel.models import book, order, Addresse
 from authentications.models import Account
 
 # from cpanel import models
 from frontend.models import recent_viewied_item, cart
-import random
-import string
+
+# import random
+# import string
 
 
 @shared_task
@@ -100,3 +102,33 @@ def save_address(data, user_type):
         city=data["city"],
         phonenumber=data["number"],
     )
+
+
+# @shared_task
+# def save_order(data):
+#     user = Account.objects.filter(email=data["email"])
+#     address = 0
+
+#     if data["address_type"] == "user_select_address":
+#         address = Addresse.objects.filter(pk=data["addressid"]).first()
+#     elif data["address_type"] == "user_new_address":
+#         # creare address
+#         address = save_address(data["address"], "user")
+#     else:
+#         address = save_address(data["address"], "guest")
+
+#     order.objects.create(
+#         orderid=data["orderid"],
+#         email=data["email"],
+#         items=data["items"],
+#         address=address,
+#         payment_method=data["payment_method"],
+#     )
+
+#     if user.exists():
+#         cart.objects.filter(user=user.first()).delete()
+#     else:
+#         pass  # delete cookie from brownser
+
+#     send_mail_after_save(data["email"], data["items"])
+#     return "done"

@@ -156,7 +156,7 @@ class order(models.Model):
     order_number = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     orderid = models.CharField(
         default="None",
-        max_length=8,
+        max_length=10,
     )
     email = models.EmailField(default=None)
     status = models.CharField(max_length=250, default="pending")

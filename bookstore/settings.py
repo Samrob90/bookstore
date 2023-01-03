@@ -157,6 +157,7 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
 CELERY_ENABLE_UTC = True
 CELERY_TIME_ZONE = "UTC"
+CELERYD_PREFETCH_MULTIPLIER = 1
 
 # task_serializer = "json"
 # result_serializer = "json"

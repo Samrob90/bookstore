@@ -168,10 +168,13 @@ $(document).ready(function () {
             const city = $("#billing_city").val()
             const region = $("#billing_state").val()
             const phone_number = $("#billing_phone").val()
+            const email = $("#billing_email").val()
 
             if (valide_billing_value(first_name, ".first_name_error") === false || valide_billing_value(last_name, ".last_name_error") === false || valide_billing_value(country, ".country_error") === false || valide_billing_value(address1, ".address1_error") === false || valide_billing_value(city, ".city_error") === false || valide_billing_value(region, ".region_error") === false || valide_billing_value(phone_number, ".phone_error") === false) {
                 continue_step_loader("hide")
 
+            } else if ($(".email_field").css("display") !== "none" && valide_billing_value(email, ".email_error") === false) {
+                continue_step_loader("hide")
             } else {
                 proccess()
 
@@ -185,6 +188,7 @@ $(document).ready(function () {
 
     function proccess() {
         const data = $("#checkout_form").serialize()
+        // alert(data)
         $.post(url, data,
             function (data, textStatus, xhr) {
                 if (data.result === "success") {
@@ -196,7 +200,9 @@ $(document).ready(function () {
         ).fail(function () {
             continue_step_loader("hide")
             $(".proccess_error").removeClass("d-none")
-            $(".proccess_error").html("<strong> Somthing went wrong !!</strong> Try again in few minutes. If this persist please contact support to place your order manually <strong>info@Newtonbookshop.com</strong>")
+            window.scrollTo(0, 0);
+            $(".proccess_error").html("<strong> Somthing went wrong !!</strong> Try again in few minutes. If this persist, Please contact support to place your order manually  <strong>info@Newtonbookshop.com</strong>")
+
         })
     }
 
@@ -206,8 +212,13 @@ $(document).ready(function () {
         if (value === "" || value.length === 0 || !value.replace(/\s/g, '').length) {
             $(errorid).removeClass("d-none")
             $(errorid).html("Field required")
+            $(errorid).closest("p").find("input").css("border", "1px solid red")
+            window.scrollTo(0, 0);
+
         } else {
             $(errorid).hide()
+            $(errorid).closest("p").find("input").css("border", "1px solid lightgray")
+
             state = true
         }
         return state

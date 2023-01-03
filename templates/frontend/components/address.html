@@ -2,7 +2,7 @@
     <p class="col-lg-6 mb-1 form-row form-row-first validate-required woocommerce-invalid woocommerce-invalid-required-field" id="billing_first_name_field" data-priority="10">
         <label for="billing_first_name" class="form-label">First name <abbr class="required" title="required">*</abbr></label>
         <input type="text" class="input-text form-control" name="billing_first_name" id="billing_first_name" placeholder="First Name" value="" autocomplete="given-name" autofocus="autofocus">
-        <small class="first_name_error d-none text-danger"> </small>
+        <small class="first_name_error d-none text-danger " style="font-size:0px"> </small>
     </p>
 
     <p class="col-lg-6 mb-1 form-row form-row-last validate-required" id="billing_last_name_field" data-priority="20">
@@ -10,6 +10,17 @@
         <input type="text" class="input-text form-control" name="billing_last_name" id="billing_last_name" placeholder="Last Name" value="" autocomplete="family-name">
         <small class="last_name_error d-none text-danger" style="margin-bottom: -20px;"> </small>
     </p>
+
+    
+    {% if request.user.email is None %}
+    <p class="col-lg-12 mb-0 form-row form-row-wide address-field validate-required email_field" id="billing_address_1_field" data-priority="50">
+        <label for="billing_email" class="form-label">Email <abbr class="required" title="required">*</abbr></label>
+        <input type="text" class="input-text form-control" name="billing_email" id="billing_email" placeholder="Enter your email address" value="" autocomplete="address-line1">
+        <small class="email_error d-none text-danger" > </small>
+
+    </p>
+    {% endif %}
+        
 
     {% comment %} <p class="col-12 mb-1 form-row form-row-wide" id="billing_company_field" data-priority="30">
         <label for="billing_company" class="form-label">Company name</label>

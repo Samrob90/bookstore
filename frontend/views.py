@@ -16,6 +16,8 @@ from datetime import date
 import time
 from django.db.models import Sum
 import random, string
+from rsc.tools import timer
+from .context import grabe_children
 
 
 class HomeVIew(TemplateView):
@@ -386,6 +388,7 @@ class CheckoutView(TemplateView):
         return context
 
     # recalculate here before production
+    @timer
     def post(self, request, *args, **kwargs):
 
         # ajax call calculate shipping cost
@@ -405,35 +408,40 @@ class CheckoutView(TemplateView):
             email = ""
             shipping_address = None
             data = dict()
-            address_type = "user_select_address"
+            address_type = request.POST.get("address_type")
             cart_id = ""
 
-            if request.user.email:
+            if request.user.is_authenticated:
                 # get cart sub_toal
                 cart_obj = models.cart.objects.filter(user=request.user)
-
                 for i in cart_obj:
                     sub_total += float(i.bookquantity) * float(i.bookprice)
                     cart_id += f"{i.product_id} "
             else:
-                pass
+                list = grabe_children(request.session["cart"])
+                sub_total = list[1]
+                for i in list[0]:
+                    print(i)
+                    cart_id += f"{i['product_id']} "
+
             # check if addressid is not underfined
-            if addressid is not None and request.user.email:
+            if addressid is not None and request.user.is_authenticated:
                 email = request.user.email
 
                 shipping_address = cpanel_model.Addresse.objects.filter(
                     pk=addressid
                 ).first()
-            elif addressid is None and request.user.email:
+            elif addressid is None and request.user.is_authenticated:
                 email = request.user.email
                 shipping_address = self.get_address(request)
                 addressid = 0
                 address_type = "user_new_address"
 
             else:
-                pass
+                email = request.POST.get("billing_email")
+                shipping_address = self.get_address(request)
 
-                # get cart totalt and cart content from value
+                # get cart total and cart content from value
 
             # check if coupon existe and get coupon code cariblar
             if couponcode != "" or couponcode is not None:
@@ -441,7 +449,12 @@ class CheckoutView(TemplateView):
                 if coupon_obj.exists():
                     coupon = coupon_obj.first()
             total = self.get_total(shipping_address, sub_total, coupon)
-            Ordernumner = "".join(random.choices(string.digits, k=8))
+            Ordernumner = "".join(random.choices(string.digits, k=10))
+
+            # should check this code before production
+
+            if request.user.is_authenticated and addressid is not None:
+                shipping_address = None
 
             data["orderid"] = Ordernumner
             data["email"] = email
@@ -457,7 +470,12 @@ class CheckoutView(TemplateView):
             else:
                 # send data to task to save
                 tasks.save_order.delay(data)
-            return JsonResponse({"result": "success", "orderNumber": Ordernumner})
+                # delete session if existe
+                if "cart" in request.session:
+                    del request.session["cart"]
+                    request.session.modified = True
+
+                return JsonResponse({"result": "success", "orderNumber": Ordernumner})
 
             # send total and address and payment_method to task
 
@@ -489,10 +507,10 @@ class CheckoutView(TemplateView):
 
     def get_address(self, request):
 
-        if request.user.email:
+        if request.user.is_authenticated:
             email = request.user.email
         else:
-            email = request.POST.get("email")
+            email = request.POST.get("billing_email")
         return {
             "first_name": request.POST.get("billing_first_name"),
             "last_name": request.POST.get("billing_last_name"),
