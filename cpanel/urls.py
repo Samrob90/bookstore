@@ -19,5 +19,10 @@ urlpatterns = [
         login_required(views.CpanelAddbookView.as_view(), login_url="cpanel_login"),
         name="cpanel_addbook",
     ),
+    path(
+        "orders",
+        login_required(views.OrdersViews.as_view(), login_url="cpanel_login"),
+        name="cpanel_new_orders",
+    ),
     path("logout/", views.CpanelLogoutVIew.as_view(), name="cpanel_logout"),
 ]

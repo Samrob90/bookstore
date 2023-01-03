@@ -33,12 +33,12 @@ class ShopView(ListView):
     model = cpanel_model.book
     paginate_by = 5
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["range"] = range(
-            1, ceil(cpanel_model.book.objects.all().count() / 4) + 1
-        )
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["range"] = range(
+    #         1, ceil(cpanel_model.book.objects.all().count() / 4) + 1
+    #     )
+    #     return context
 
 
 class ProductView(DetailView):

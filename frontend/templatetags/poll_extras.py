@@ -5,7 +5,7 @@ register = template.Library()
 
 @register.filter(name="get_range")
 def get_range(value):
-    return range(value)
+    return range(1, int(value))
 
 
 @register.filter(name="total_")

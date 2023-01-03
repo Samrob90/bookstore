@@ -164,5 +164,7 @@ class order(models.Model):
     address = models.ForeignKey(
         "Addresse", verbose_name="shipping address", on_delete=models.CASCADE
     )
+    # coupon = models.CharField(max_length=250, default=None, null=True, blank=True)
+    # totol_paid = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(default=None, max_length=250)
     created_at = models.DateTimeField(default=timezone.now)
