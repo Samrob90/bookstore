@@ -24,5 +24,10 @@ urlpatterns = [
         login_required(views.OrdersViews.as_view(), login_url="cpanel_login"),
         name="cpanel_new_orders",
     ),
+    path(
+        "order/<pk>/",
+        login_required(views.NewOrderDetails.as_view(), login_url="cpanel_login"),
+        name="cpanel_order_detials",
+    ),
     path("logout/", views.CpanelLogoutVIew.as_view(), name="cpanel_logout"),
 ]

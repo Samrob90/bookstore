@@ -2,7 +2,7 @@ from celery import shared_task
 
 # from . import models
 from authentications.models import Account
-from cpanel.models import book, order, Addresse
+from cpanel.models import book, order, Addresse, order_book, coupon
 from authentications.models import Account
 
 # from cpanel import models
@@ -58,7 +58,14 @@ def db_format(user, data):
 @shared_task
 def save_order(data):
     user = Account.objects.filter(email=data["email"])
-    address = 0
+    address = None
+    coupon_obj = ""
+
+    # check if coupon is not emtpty
+    if data["coupon"] is not None:
+        obj = coupon.objects.filter(code=data["coupon"])
+        if obj.exists():
+            coupon_obj = obj.first()
 
     if data["address_type"] == "user_select_address":
         address = Addresse.objects.filter(pk=data["addressid"]).first()
@@ -68,13 +75,20 @@ def save_order(data):
     else:
         address = save_address(data["address"], "guest")
 
-    order.objects.create(
+    new_order = order.objects.create(
         orderid=data["orderid"],
         email=data["email"],
-        items=data["items"],
+        # items=data["items"],
         address=address,
+        coupon=coupon_obj,
+        amount=data["total"],
         payment_method=data["payment_method"],
+        shipping_fee=data["shipping_fee"],
+        discount=data["discount"],
     )
+
+    for i in data["items"]:
+        order_book.objects.create(ordernumber=new_order, **i)
 
     if user.exists():
         cart.objects.filter(user=user.first()).delete()

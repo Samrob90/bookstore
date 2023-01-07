@@ -160,11 +160,44 @@ class order(models.Model):
     )
     email = models.EmailField(default=None)
     status = models.CharField(max_length=250, default="pending")
-    items = models.CharField(max_length=300, default=None)
     address = models.ForeignKey(
         "Addresse", verbose_name="shipping address", on_delete=models.CASCADE
     )
+    coupon = models.ForeignKey(
+        "coupon",
+        verbose_name="coupon code",
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        blank=True,
+    )
     # coupon = models.CharField(max_length=250, default=None, null=True, blank=True)
-    # totol_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=None)
     payment_method = models.CharField(default=None, max_length=250)
+    shipping_fee = models.CharField(default=None, max_length=250)
+    discount = models.CharField(default=None, max_length=250, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.orderid
+
+    def get_absolute_url(self):
+        return reverse("cpanel_order_detials", kwargs={"pk": self.pk})
+
+
+class order_book(models.Model):
+    ordernumber = models.ForeignKey(
+        "order", verbose_name="cart", on_delete=models.CASCADE
+    )
+    product_id = models.CharField(max_length=150, default=None)
+    booktitle = models.CharField(max_length=250, default=None)
+    bookquantity = models.IntegerField(default=None)
+    bookthumbnail = models.CharField(max_length=250, default=None)
+    bookprice = models.DecimalField(decimal_places=2, max_digits=9)
+    booktype = models.CharField(max_length=250, default=None)
+    bookauthor = models.CharField(max_length=250, default=None)
+    bookslug = models.CharField(max_length=250, default=None, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.booktitle

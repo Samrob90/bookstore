@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from . import form
 from django.contrib.auth import authenticate, login, logout
 from authentications.models import Account
@@ -77,6 +78,12 @@ class OrdersViews(ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(status="pending").order_by("-created_at")
+
+
+class NewOrderDetails(DetailView):
+    model = models.order
+    template_name = "cpanel/home/content/new_order_details.html"
+    context_object_name = "order_detail"
 
 
 class CpanelAddbookView(TemplateView):

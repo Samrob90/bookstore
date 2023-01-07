@@ -90,7 +90,14 @@ admin.site.register(models.coupon, register_coupon)
 
 class register_orders(admin.ModelAdmin):
     model = models.order
-    list_display = ("orderid", "email", "status", "payment_method", "created_at")
+    list_display = (
+        "orderid",
+        "email",
+        "status",
+        "payment_method",
+        "amount",
+        "created_at",
+    )
 
 
 admin.site.register(models.order, register_orders)

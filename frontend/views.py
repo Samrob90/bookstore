@@ -409,20 +409,19 @@ class CheckoutView(TemplateView):
             shipping_address = None
             data = dict()
             address_type = request.POST.get("address_type")
-            cart_id = ""
+            items = []
 
             if request.user.is_authenticated:
                 # get cart sub_toal
                 cart_obj = models.cart.objects.filter(user=request.user)
                 for i in cart_obj:
                     sub_total += float(i.bookquantity) * float(i.bookprice)
-                    cart_id += f"{i.product_id} "
+                    items.append(model_to_dict(i))
             else:
                 list = grabe_children(request.session["cart"])
                 sub_total = list[1]
                 for i in list[0]:
-                    print(i)
-                    cart_id += f"{i['product_id']} "
+                    items.append(i)
 
             # check if addressid is not underfined
             if addressid is not None and request.user.is_authenticated:
@@ -458,11 +457,15 @@ class CheckoutView(TemplateView):
 
             data["orderid"] = Ordernumner
             data["email"] = email
-            data["items"] = cart_id
+            data["items"] = items
             data["addressid"] = addressid
             data["address"] = shipping_address
             data["payment_method"] = payment_method
             data["address_type"] = address_type
+            data["coupon"] = couponcode
+            data["shipping_fee"] = total[1]
+            data["discount"] = total[2]
+            data["total"] = total[0]
 
             if payment_method == "pay_with_momo":
                 # make api call here
@@ -532,6 +535,7 @@ class CheckoutView(TemplateView):
             city = address["city"]
         Total = 0
         shipping_cost = 0
+        discount = 0
         # get shipping fees
         if sub_total >= 300:
             shipping_cost = 0
@@ -539,15 +543,16 @@ class CheckoutView(TemplateView):
             shipping_cost = float(self.shipping_calculator(country, city))
         subtotal = shipping_cost + sub_total  # add sub_total to shipping cost
         if coupon_obj is not None:  # check is coupon is not empty
-            coupon_response = self.coupon_calculator(self, coupon_obj, subtotal)
+            coupon_response = self.coupon_calculator(coupon_obj, subtotal)
             if coupon_response == "invalide":
                 Total = subtotal
             else:
                 Total = coupon_response[0]
+                discount = coupon_response[1]
         else:
             Total = subtotal
 
-        return Total
+        return [Total, shipping_cost, discount]
 
     def order_format(self, data):
         return {

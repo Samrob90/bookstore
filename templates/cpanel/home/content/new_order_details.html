@@ -1,0 +1,275 @@
+{% extends "cpanel/layouts/base.html" %}
+
+{% block title %} Order Details {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+
+
+<div class="p-2">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+        <div class="d-block mb-4 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                </path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="{% url 'cpanel_dashboard' %}">home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'cpanel_new_orders' %}">order</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">order details</li>
+                </ol>
+            </nav>
+            <h2 class="h4">ORDER ID : <span class="text-danger">{{order_detail}}</span> </h2>
+            <p class="mb-0">Unconfirmed order</p>
+        </div>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <!-- <a href="{% url 'cpanel_addbook' %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+                <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                add new book
+            </a> -->
+
+
+            <button type="submit" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg> Confirm order</button>&nbsp;
+            <button type="submit" class="btn btn-sm btn-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                </svg>
+                Cancel order
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- books info -->
+
+    <div class="card  border-0 ">
+        <div class="card-header broder-0 p-2" style="background-color:#f2f4f6;">
+            <h5>Order books</h5>
+        </div>
+        <div class="card-boby shadow-sm table-wrapper table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Thumbnail</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">price</th>
+                        <th scope="col">type</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for order in order_detail.order_book_set.all %}
+                    <tr>
+                        <th scope="row">
+                            <img src="/media/thumbnail/{{order.bookthumbnail}}" alt="thumbnail" height="70" width="50">
+                        </th>
+                        <td class="pt-5">{{order.booktitle}}</td>
+                        <td class="pt-5">{{order.bookprice}} GHS</td>
+                        <td class="pt-5">{{order.booktype}}</td>
+                        <td class="pt-5">{{order.bookquantity}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- shipping address -->
+
+
+    <div class="row mt-0 mb-4">
+        <div class="">
+            <div class="card border-0  mt-4 table-wrapper table-responsive" style="background-color:#f2f4f6;">
+                <div class="card-header p-2 border-0">
+                    <h5>Shipping address</h5>
+                </div>
+                <table class="table table-responsive bg-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Address1</th>
+                            <th scope="col">Address2</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">State</th>
+                            <th scope="col">city</th>
+                            <!-- <th scope="col">user type</th> -->
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{order_detail.address.user}}</td>
+                            <td>{{order_detail.address.first_name}}&nbsp;{{order_detail.address.last_name}}</td>
+                            <td>{{order_detail.address.phonenumber}}</td>
+                            <td>{{order_detail.address.address1}}</td>
+                            <td>{{order_detail.address.address2}}</td>
+                            <td>{{order_detail.address.country}}</td>
+                            <td>{{order_detail.address.region_or_state}}</td>
+                            <td>{{order_detail.address.city}}</td>
+                            <!-- <td>{{order_detail.address.user_type}}</td> -->
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- payment method -->
+    <div class="mt-4">
+        <div class="card border-0" style="background-color:#f2f4f6;">
+            <div class="card-header border-0 p-2">
+                <h5>Payment method</h5>
+            </div>
+
+            <div class="card-body shadow-sm bg-white ">
+                {% if order_detail.payment_method  == "pay_with_cash_on_delivery" %}
+
+                Client will pay cash on delivery
+                {% else %}
+                PAID ONLINE WITH THIRD PARTY
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- coupon -->
+
+    <div class="mt-4 mb-4">
+        <div class="card border-0" style="background-color:#f2f4f6;">
+            <div class="card-header border-0 p-2">
+                <h5>Coupon</h5>
+            </div>
+
+            <div class="card-body shadow-sm bg-white  table-wrapper table-responsive">
+                <table class="table table-responsive bg-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">COUPON CODE</th>
+                            <th scope="col">PERCENTAGE</th>
+                            <th scope="col">EXPIRES ON</th>
+                            <th scope="col">discount Amount</th>
+
+                            <th scope="col">CREATED_BY</th>
+                            <th scope="col">CREATED ON</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>{{order_detail.coupon.code}}</b></td>
+                            <td>{{order_detail.coupon.percentage}}% off total price</td>
+                            <td>{{order_detail.coupon.expires_on}}</td>
+                            <td>{{order_detail.discount}}&nbsp;GHS</td>
+                            <td>{{order_detail.coupon.created_by}}</td>
+                            <td>{{order_detail.coupon.created_at}}</td>
+
+
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- summary -->
+
+    <div class="mt-4 mb-4">
+        <div class="card border-0" style="background-color:#f2f4f6;">
+            <div class="card-header border-0 p-2">
+                <h5>Summary</h5>
+            </div>
+
+            <div class="card-body shadow-sm bg-white table-wrapper table-responsive">
+                <table class="table table-responsive bg-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">Shipping fees</th>
+                            <th scope="col">Coupon discount</th>
+                            <th scope="col">TOTAL AMOUNT</th>
+
+                            <!-- <th scope="col">user type</th> -->
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{order_detail.shipping_fee}}&nbsp;GHS <br>
+
+                                {% if order_detail.shipping_fee == "0" and order_detail.amount > 300 %}
+                                <small>Free shipping above 300 GHS applied </small>
+                                {% endif %}
+
+                            </td>
+                            <td>-{{order_detail.discount}}&nbsp;GHS</td>
+                            <td>{{order_detail.amount}}&nbsp;GHS</td>
+                            <!-- <td>{{order_detail.address.user_type}}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- <div class="mt-4 mb-5">
+        <button type="submit" class="btn btn-success">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg> Confirm order</button>
+        <button type="submit" class="btn btn-danger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+            </svg>
+            Cancel order
+        </button>
+    </div>
+
+</div>
+ -->
+
+
+    {% endblock content %}
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}{% endblock javascripts %}
