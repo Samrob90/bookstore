@@ -101,7 +101,9 @@
                     <span class="sidebar-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3.8 6h16.4M16 10a4 4 0 1 1-8 0"/></svg>
                     </span> 
-                    <span class="sidebar-text">Orders</span>
+                    <span class="sidebar-text">Orders&nbsp;
+                      <span class="new_order badge badge-info bg-danger shadow">0</span>
+                    </span>
                   </span>
                   <span class="link-arrow">
                     <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -112,7 +114,25 @@
                   <ul class="flex-column nav">
                     <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
                       <a class="nav-link" href="{% url 'cpanel_new_orders' %}">
-                        <span class="sidebar-text">New orders </span>
+                        <span class="sidebar-text">New orders 
+                          <span class="new_order badge badge-info bg-danger shadow">0</span>
+                        </span>
+
+                      </a>
+                    </li>
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="nav-link" href="{% url 'order_in_progress' %}">
+                        <span class="sidebar-text">Order in progress
+                          <span class="in_progress badge badge-info bg-white text-black shadow">0</span>
+  
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                      <a class="nav-link" href="{% url 'cpanel_completed_order' %}">
+                        <span class="sidebar-text">completed orders </span>
+
+                        
                       </a>
                     </li>
                   </ul>

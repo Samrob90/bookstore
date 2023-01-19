@@ -1,18 +1,15 @@
 {% extends "cpanel/layouts/base.html" %}
 
-{% block title %} Dashboard {% endblock %} 
+{% block title %} Completed Orders {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% comment %} {% block new_order_count %}
-    5
-{% endblock new_order_count %} {% endcomment %}
-    
 
 {% block content %}
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+
     <div class="d-block mb-4 mb-md-0">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
@@ -22,21 +19,22 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{% url 'cpanel_dashboard' %}">home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">books</li>
+                <li class="breadcrumb-item active" aria-current="page">Completed Orders</li>
             </ol>
         </nav>
-        <h2 class="h4">New orders </h2>
-        <p class="mb-0">Recent unconfirmed orders</p>
+        <h2 class="h4">Orders in progress </h2>
+        <p class="mb-0">Completed orders</p>
+    </div>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        {% include 'cpanel/includes/error.html' %}
     </div>
    
 </div>
 
 
-
-
-
-{% if  new_orders.count > 0 %}
 <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    
+    {% if cpanel_order_completed.count > 0 %}
     <table class="table table-hover">
         <thead>
             <tr>
@@ -52,7 +50,7 @@
         <tbody>
             <!-- Item -->
             
-            {% for order in new_orders %}
+            {% for order in cpanel_order_completed %}
             <tr>
                 <td>
                     <a href="#" class="fw-bold ">
@@ -63,7 +61,7 @@
 
                     
                     {% for orderbook in order.order_book_set.all %}
-                        <small> {{orderbook|truncatechars:30}}</small><br>
+                        <small> {{orderbook|truncatechars:40}}</small><br>
                     {% endfor %}
                         
                 </span></td>  
@@ -80,24 +78,23 @@
                                      
                 <td><span class="fw-normal">{{order.created_at}}</span></td>
                 <td><span class="fw-bold">GHS {{order.amount}}</span></td>
-                <td><span class="fw-bold text-light rounded-1 shadow p-2 bg-warning">{{order.status|capfirst}}</span></td>
+                <td>
+                    
+                    {% if order.status == "delivered" %}
+                    <span class="fw-bold text-white rounded-1 shadow p-2 bg-success">{{order.status|capfirst}}</span>
+                     {% else %}
+                     <span class="fw-bold text-white rounded-1 shadow p-2 bg-danger">{{order.status|capfirst}}</span>
+                    {% endif %}
+                        
+                </td>
                 <td class="text-center">
                     <div class="btn-group">
                         <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
                         </button>
 
-                        <div class="dropdown-menu py-0">
+                        <div class="dropdown-menu py-0 ">
                             <a class="dropdown-item rounded-top" href="{{order.get_absolute_url}}"><span class="fas fa-eye me-2"></span>View Details</a>
-                           
-                            <form method="post" action="{{order.get_absolute_url}}">
-                                {% csrf_token %}
-
-                                <input type="hidden" name="orderid" value="{{order}}">
-                                <button name="confirm_order" class="dropdown-item bg-white text-success border-0" style="margin-left:10px!important;"> Confirm</button>
-
-                                <button name="cancel_order" class="dropdown-item bg-white text-danger border-0" style="margin-left:10px!important;"> Cancel</button>
-                            </form> 
                         </div>
                     </div>
                 </td>
@@ -107,7 +104,13 @@
             <!-- Item -->                           
         </tbody>
     </table>
+    {% else %}
+        <p class="text-center text-muted p-4">No data available </p>
+    {% endif %}
+        
     <br>
+    
+    {% if cpanel_order_completed.count > 0 %}
     <div class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between mt-5">
         <nav aria-label="Page navigation example">
             <ul
@@ -152,16 +155,16 @@
             </div> {% endcomment %}
         <div class="fw-normal small mt-4 mt-lg-0">Showing <b>{{page_obj.number}}</b> out of <b>{{ page_obj.paginator.num_pages}}</b> entries</div>
     </div>
+    {% endif %}
+        
 </div>
-    {% else %}
-    <p class="text-center text-muted p-4">No data available </p>
 
-{% endif %}
-    
 
 
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+{% endblock javascripts %}

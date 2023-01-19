@@ -29,5 +29,22 @@ urlpatterns = [
         login_required(views.NewOrderDetails.as_view(), login_url="cpanel_login"),
         name="cpanel_order_detials",
     ),
+    path(
+        "orders/in_progress/",
+        login_required(views.OrderInProgress.as_view(), login_url="cpanel_login"),
+        name="order_in_progress",
+    ),
+    path(
+        "orders/completed/",
+        login_required(views.CompletedOrder.as_view(), login_url="cpanel_login"),
+        name="cpanel_completed_order",
+    ),
+    path(
+        "get_notification/",
+        login_required(
+            views.CpanelGet_notigication.as_view(), login_url="cpanel_login"
+        ),
+        name="get_notification",
+    ),
     path("logout/", views.CpanelLogoutVIew.as_view(), name="cpanel_logout"),
 ]

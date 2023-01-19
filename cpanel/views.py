@@ -85,6 +85,56 @@ class NewOrderDetails(DetailView):
     template_name = "cpanel/home/content/new_order_details.html"
     context_object_name = "order_detail"
 
+    def post(self, request, *args, **kwargs):
+        order_id = request.POST.get("orderid")
+        if "confirm_order" in request.POST:
+            # confirm order
+            self.change_order_status(
+                order_id,
+                "confirmed",
+                "Order condirmed successfully",
+            )
+            return redirect("order_in_progress")
+
+        if "cancel_order" in request.POST:
+            self.change_order_status(
+                order_id, "canceled", "Order canceled successfully"
+            )
+            return redirect("cpanel_completed_order")
+
+        if "complete_order" in request.POST:
+            message = "Order status changed successfully"
+            self.change_order_status(order_id, "delivered", message)
+            return redirect("cpanel_completed_order")
+
+    def change_order_status(self, order_id, status, message):
+        models.order.objects.filter(orderid=order_id).update(status=status)
+        messages.success(self.request, message)
+
+        # redirect to omplete order page
+
+
+class CompletedOrder(ListView):
+    model = models.order
+    template_name = "cpanel/home/content/order_completed.html"
+    context_object_name = "cpanel_order_completed"
+    paginate_by = 20
+
+    def get_queryset(self):
+        unwamted_fields = ["pending", "confirmed"]
+        return self.model.objects.exclude(status__in=[o for o in unwamted_fields])
+
+
+class OrderInProgress(ListView):
+    model = models.order
+    template_name = "cpanel/home/content/order_in_process.html"
+    context_object_name = "order_in_progress"
+    paginate_by = 20
+
+    def get_queryset(self):
+        unwamted_fields = ["pending", "complete", "delivered", "canceled"]
+        return self.model.objects.exclude(status__in=[o for o in unwamted_fields])
+
 
 class CpanelAddbookView(TemplateView):
     template_name = "cpanel/home/content/add-book.html"
@@ -186,3 +236,15 @@ class CpanelLogoutVIew(TemplateView):
         if request.user.is_authenticated:
             logout(request)
         return redirect("cpanel_login")
+
+
+class CpanelGet_notigication(TemplateView):
+    def post(self, request, *args, **kwargs):
+        if (
+            request.headers.get("x-requested-with") == "XMLHttpRequest"
+            and "cpanel_get_notification" in request.POST
+        ):
+            new_order = models.order.objects.filter(status="pending").count()
+            in_progress = models.order.objects.filter(status="confirmed").count()
+            data = {"new_order": new_order, "in_progress": in_progress}
+            return JsonResponse(data)

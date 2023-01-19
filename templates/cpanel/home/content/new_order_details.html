@@ -44,20 +44,39 @@
             </a> -->
 
 
-            <button type="submit" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg> Confirm order</button>&nbsp;
-            <button type="submit" class="btn btn-sm btn-danger">
-                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
-                </svg>
-                Cancel order
-            </button>
+            <form action="" method="post">
+                <input type="hidden" name="orderid" value="{{order_detail}}">
+                {% csrf_token %}
+                {% if order_detail.status == "pending" %}
+                <button type="submit" class="btn btn-success" name="confirm_order">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg> Confirm order</button>&nbsp;
+                <button type="submit" class="btn  btn-danger" name="cancel_order">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                    </svg>
+                    Cancel order
+                </button>
+                {% elif order_detail.status == "confirmed" %}
+                <button type="submit" class="btn btn-success" name="complete_order" title="Order delivered ?">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg> Complete order</button>&nbsp;
+                {% elif order_detail.status == "canceled" %}
+                <p class="text-white rounded-1 shadow p-1 bg-danger" style="padding-right: 12px!important;">Order
+                    canceled </p>
+                {% else %}
+                <p class="text-white rounded-1 shadow p-1 bg-success" style="padding-right: 12px!important;">Order
+                    delivered </p>
+                {% endif %}
+            </form>
 
         </div>
 
