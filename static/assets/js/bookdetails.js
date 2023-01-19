@@ -47,23 +47,25 @@ $(document).ready(function () {
     // detail page add to cart 
     // ================================================
 
-    $(".single_add_to_cart_button_detail_page").click(function (e) {
-        e.preventDefault();
-        let data = $("#details_product_form").serialize()
-        $(this).html("ADDING ..")
-        $.ajax({
-            type: "post",
-            url: "/shopacc/",
-            data: data,
-            dataType: "json",
-            success: function (response) {
-                if (response.result === "success") {
-                    location.reload()
-                }
-            }
-        })
+    // $(".single_add_to_cart_button_detail_page").click(function (e) {
+    //     e.preventDefault();
+    //     let data = $("#details_product_form").serialize()
+    //     alert(data)
+    //     $(this).html("ADDING ..")
 
-    });
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/shopacc/",
+    //         data: data,
+    //         dataType: "json",
+    //         success: function (response) {
+    //             if (response.result === "success") {
+    //                 location.reload()
+    //             }
+    //         }
+    //     })
+
+    // });
 
     // =================================================
     // Remove cart items

@@ -80,12 +80,12 @@ Newtonbookshop | FAQ
                                                             </a>
                                                             <div class="ml-3 m-w-200-lg-down">
                                                                 <a
-                                                                    href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}">{{item.booktitle}}</a>
-                                                                <a href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}"
+                                                                    href="{% url 'book-detail' item.bookslug item.product_id  %}">{{item.booktitle}}</a>
+                                                                <a href="{% url 'book-detail' item.bookslug item.product_id  %}"
                                                                     class="text-gray-700 font-size-2 d-block"
                                                                     tabindex="0">{{item.bookauthor}}</a>
 
-                                                                <a href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}"
+                                                                <a href="{% url 'book-detail' item.bookslug item.product_id  %}"
                                                                     class="text-gray-700 font-size-2 d-block"
                                                                     tabindex="0">{{item.booktype}}</a>
                                                             </div>

@@ -59,7 +59,7 @@ def db_format(user, data):
 def save_order(data):
     user = Account.objects.filter(email=data["email"])
     address = None
-    coupon_obj = ""
+    coupon_obj = None
 
     # check if coupon is not emtpty
     if data["coupon"] is not None:

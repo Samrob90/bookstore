@@ -111,7 +111,8 @@ class NewOrderDetails(DetailView):
         models.order.objects.filter(orderid=order_id).update(status=status)
         messages.success(self.request, message)
 
-        # redirect to omplete order page
+        # send email to update user of order status
+        # send this to task
 
 
 class CompletedOrder(ListView):
@@ -122,7 +123,9 @@ class CompletedOrder(ListView):
 
     def get_queryset(self):
         unwamted_fields = ["pending", "confirmed"]
-        return self.model.objects.exclude(status__in=[o for o in unwamted_fields])
+        return self.model.objects.exclude(
+            status__in=[o for o in unwamted_fields]
+        ).order_by("-created_at")
 
 
 class OrderInProgress(ListView):

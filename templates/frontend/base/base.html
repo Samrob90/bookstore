@@ -510,22 +510,22 @@
                             {% for cart_value in cart  %}
                             <div class="px-4 py-5 px-md-6 border-bottom">
                                 <div class="media">
-                                    <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}"
+                                    <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id  %}"
                                         class="d-block"><img
                                             src="{{ASSETS_ROOT}}/media/thumbnail/{{cart_value.bookthumbnail}}"
                                             class="img-fluid" alt="image-description"
                                             style="height:150px!important; width:100px!important;"></a>
                                     <div class="media-body ml-4d875">
                                         <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}">{{cart_value.booktype}}</a>
+                                                href="{% url 'book-detail' cart_value.bookslug cart_value.product_id %}">{{cart_value.booktype}}</a>
                                         </div>
                                         <h2
                                             class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2">
-                                            <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}"
+                                            <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id  %}"
                                                 class="text-dark">{{cart_value.booktitle}}</a>
                                         </h2>
                                         <div class="font-size-2 mb-1 text-truncate"><a
-                                                href="{% url 'book-detail' cart_value.bookslug cart_value.product_id cart_value.booktype %}"
+                                                href="{% url 'book-detail' cart_value.bookslug cart_value.product_id  %}"
                                                 class="text-gray-700">{{cart_value.bookauthor}}</a></div>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                             <span class="woocommerce-Price-amount amount">{{cart_value.bookquantity}} x

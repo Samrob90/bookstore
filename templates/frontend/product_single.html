@@ -120,32 +120,51 @@ Newtonbookshop | {{book.title}}
                                 </span> {% endcomment %}
                                 <span class="woocommerce-Price-amount amount">
                                     <span class="woocommerce-Price-currencySymbol">GHS
-                                    </span>{{book_default_details.price}}
+                                    </span>{{book.default_price}}
                                 </span>
                             </p>
                             <div class="mb-2 font-size-2">
                                 <span class="font-weight-medium">Book Format:</span>
                                 <span class="ml-2 text-gray-600">Choose an option</span>
                             </div>
+                            
                             <!-- Radio Checkbox Group -->
-                            <div class="row mx-gutters-2 mb-4">
-
-                                {% for value in book.bookdetails_set.all %}
-                                <div class="col-6 col-md-3 mb-3 mb-md-0  value_redirect">
-                                    <div
-                                        class="shadow-sm rounded-1 border booktypeshop {% if book_default_details.booktype == value.booktype %} booktype_active {% endif %}">
-
-                                        <div class="">
-                                            <a
-                                                href="{% url 'book-detail' book.slug book.product.product_id value.booktype %}">
-                                                <span class="d-block">{{value.booktype}}</span>
-                                                <span class="text-muted">GHS {{value.price}}</span>
-                                            </a>
-                                            </label>
+                            <form class="" method="post" enctype="multipart/form-data"
+                                action="/shopacc/" id="details_product_form">
+                            <div class="row mx-gutters-2 mb-2" style="margin-left:0px!important;">
+                                
+                                {% comment %} <label class="form-label font-size-2 font-weight-medium">Book Format</label> {% endcomment %}
+                                <!-- Select -->
+                                <select class="js-select selectpicker dropdown-select w-50 mt-2 position-relative mb-0 "
+                                    data-style=" border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2"
+                                    data-show-subtext="true"
+                                    data-dropdown-align-right="true" name="booktype_price" required>
+                                    
+                                    {% for value in book.bookdetails_set.all %}
+                                    {% comment %} <option value="one" data-subtext="$9.59" selected>Hardcover</option>
+                                    <option value="two" data-subtext="$9.59">Softcover</option> {% endcomment %}
+    
+                                    <!-- End Select -->
+    
+    {% comment %}                                 
+                                    <div class="col-6 col-md-3 mb-3 mb-md-0  value_redirect">
+                                        <div
+                                            class="shadow-sm rounded-1 border booktypeshop {% if book_default_details.booktype == value.booktype %} booktype_active {% endif %}">
+    
+                                            <div class="">
+                                                <a
+                                                    href="{% url 'book-detail' book.slug book.product.product_id value.booktype %}">
+                                                    <span class="d-block">{{value.booktype}}</span>
+                                                    <span class="text-muted">GHS {{value.price}}</span>
+                                                </a>
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
+                                    </div> {% endcomment %}
+                                    <option value="{{value.booktype}} {{value.price}}" name="booktype_price" data-subtext="GHS {{value.price}}">{{value.booktype}}</option>
+                                    {% endfor %}
+                                </select>
+
 
 
                             </div>
@@ -158,8 +177,6 @@ Newtonbookshop | {{book.title}}
                                     Excepteur sint occaecat.</p>
                             </div>
 
-                            <form class="cart d-md-flex align-items-center" method="post" enctype="multipart/form-data"
-                                action="" id="details_product_form">
                                 {% csrf_token %}
                                 <div class="quantity mb-4 mb-md-0 d-flex align-items-center">
                                     <!-- Quantity -->
@@ -179,11 +196,10 @@ Newtonbookshop | {{book.title}}
                                                     value="{{book_default_details.bookprice}}">
                                                 <input type="hidden" name="bookdetails_page" value="detailpage">
                                                 <input type="hidden" name="book_id" value="{{book.product.product_id}}">
-                                                <input type="hidden" name="book_type"
-                                                    value="{{book_default_details.booktype}}">
+                                           <input type="hidden" name="bookpk" value="{{book.pk}}"> 
                                                 <input type="number"
                                                     class="input-text qty text js-result form-control text-center border-0"
-                                                    step="1" min="1" max="100" name="quantity" value="1" title="Qty">
+                                                    step="1" min="1" max="100" name="quantity" value="1" title="Qty" required>
                                                 <a class="js-plus text-dark" href="javascript:;">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="10px"
@@ -192,14 +208,16 @@ Newtonbookshop | {{book.title}}
                                                             d="M10.000,5.000 L6.000,5.000 L6.000,10.000 L5.000,10.000 L5.000,5.000 L-0.000,5.000 L-0.000,4.000 L5.000,4.000 L5.000,-0.000 L6.000,-0.000 L6.000,4.000 L10.000,4.000 L10.000,5.000 Z" />
                                                     </svg>
                                                 </a>
-                                            </div>
+                                            </div> 
                                         </div>
                                     </div>
                                     <!-- End Quantity -->
                                 </div>
+                            
+                                <br>
 
                                 <button type="submit" name="add-to-cart" value="7145"
-                                    class="btn btn-dark border-0 rounded-0 p-3 min-width-250 ml-md-4 single_add_to_cart_button_detail_page button alt">Add
+                                    class="btn btn-dark border-0 rounded-0 p-3 min-width-250 ml-md-4 single_add_to_cart_button_detail_page button alt " style="margin-left:0px!important;">Add
                                     to cart</button>
 
                             </form>
@@ -647,7 +665,7 @@ Newtonbookshop | {{book.title}}
             </div>
             <!-- End Features Section -->
 
-            {% if recent_view|length > 0 %}
+            {% if recent_view.count > 3 %}
             <section class="space-bottom-3">
                 <div class="container">
                     <header class="mb-5 d-md-flex justify-content-between align-items-center">
@@ -688,7 +706,7 @@ Newtonbookshop | {{book.title}}
                                 <div
                                     class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                     <div class="woocommerce-loop-product__thumbnail img-thumbnail-shop-newtonbookshop">
-                                        <a href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}"
+                                        <a href="{{item.get_absolute_url}}"
                                             class="d-block"><img
                                                 src="{{ASSETS_ROOT}}/media/thumbnail/{{item.bookthumbnail}}"
                                                 class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
@@ -696,12 +714,12 @@ Newtonbookshop | {{book.title}}
                                     </div>
                                     <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
                                         <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}">{{item.booktype}}</a>
+                                                href="{{item.get_absolute_url}}">{{item.booktype}}</a>
                                         </div>
                                         <h2
                                             class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
                                             <a
-                                                href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}">{{item.booktitle}}</a>
+                                                href="{{item.get_absolute_url}}">{{item.booktitle}}</a>
                                         </h2>
                                         <div class="font-size-2  mb-1 text-truncate"><a
                                                 href="../others/authors-single.html"
@@ -713,17 +731,17 @@ Newtonbookshop | {{book.title}}
                                         </div>
                                     </div>
                                     <div class="product__hover d-flex align-items-center">
-                                        <a href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}"
+                                        <a href="{{item.get_absolute_url}}"
                                             class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i
                                                     class="flaticon-icon-126515"></i></span>
                                         </a>
-                                        <a href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}"
+                                        <a href="{{item.get_absolute_url}}"
                                             class="mr-1 h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-switch"></i>
                                         </a>
-                                        <a href="{% url 'book-detail' item.bookslug item.product_id item.booktype %}"
+                                        <a href="{{item.get_absolute_url}}"
                                             class="h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-heart"></i>
                                         </a>

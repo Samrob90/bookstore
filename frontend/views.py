@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from cpanel import models as cpanel_model
@@ -49,12 +49,12 @@ class ProductView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         book = self.get_object()
-        if self.kwargs["type"]:
-            book_default_type = self.kwargs["type"]
-            default_book_id = self.kwargs["uuid"]
-            context["book_default_details"] = cpanel_model.bookdetails.objects.filter(
-                book=book, booktype=book_default_type
-            ).first()
+        # if self.kwargs["type"]:
+        #     book_default_type = self.kwargs["type"]
+        #     default_book_id = self.kwargs["uuid"]
+        #     context["book_default_details"] = cpanel_model.bookdetails.objects.filter(
+        #         book=book, booktype=book_default_type
+        #     ).first()
 
         data = {
             "product_id": str(book.product.product_id),
@@ -106,15 +106,16 @@ class shopCart(TemplateView):
         pass
 
     def post(self, request, *args, **kwargs):
-        if self.is_ajax(request) and "bookdetails_page" in request.POST:
+        if "bookdetails_page" in request.POST:
+            print(request.POST)
             Qty = request.POST.get("quantity")
             bookid = request.POST.get("book_id")
-            print(bookid)
-            booktype = request.POST.get("book_type")
-            bookprice = request.POST.get("book_price")
-            print(bookprice)
+            book_type_info = request.POST.get("booktype_price").split(" ")
+            booktype = book_type_info[0]
+            bookprice = book_type_info[1]
+            bookpk = request.POST.get("bookpk")
             product = cpanel_model.product.objects.get(product_id=bookid)
-            book = cpanel_model.book.objects.get(product=product)
+            book = cpanel_model.book.objects.get(pk=bookpk)
             cart = {
                 "product_id": bookid,
                 "booktitle": book.title,
@@ -130,9 +131,9 @@ class shopCart(TemplateView):
                 messages.success(
                     request, f"{book.title}. Added to your cart successfully "
                 )
-                return JsonResponse({"result": "success"})
+                return redirect("book-detail", book.slug, bookid)
             else:
-                return JsonResponse({"result": "failed"})
+                print(result)
 
         # add to cart from shop page
         if self.is_ajax(request) and "shop_add_top_cart" in request.POST:

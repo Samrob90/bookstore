@@ -10,7 +10,7 @@ urlpatterns = [
     path("contact/", views.ContactView.as_view(), name="contact"),
     path("faq/", views.FaqView.as_view(), name="faq"),
     path(
-        "book/<slug:slug>/<uuid>/<type>/",
+        "book/<slug:slug>/<uuid>/",
         views.ProductView.as_view(),
         name="book-detail",
     ),

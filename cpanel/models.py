@@ -53,7 +53,6 @@ class book(models.Model):
             kwargs={
                 "uuid": self.product.product_id,
                 "slug": self.slug,
-                "type": self.default_type,
             },
         )
 
