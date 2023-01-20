@@ -114,7 +114,7 @@ class shopCart(TemplateView):
             booktype = book_type_info[0]
             bookprice = book_type_info[1]
             bookpk = request.POST.get("bookpk")
-            product = cpanel_model.product.objects.get(product_id=bookid)
+            # product = cpanel_model.product.objects.get(product_id=bookid)
             book = cpanel_model.book.objects.get(pk=bookpk)
             cart = {
                 "product_id": bookid,
@@ -127,13 +127,9 @@ class shopCart(TemplateView):
                 "bookslug": book.slug,
             }
             result = self.store_cart(request, cart)
-            if result:
-                messages.success(
-                    request, f"{book.title}. Added to your cart successfully "
-                )
-                return redirect("book-detail", book.slug, bookid)
-            else:
-                print(result)
+            messages.success(request, f"{book.title}. Added to your cart successfully ")
+            return redirect("book-detail", book.slug, bookid)
+            # print(result)
 
         # add to cart from shop page
         if self.is_ajax(request) and "shop_add_top_cart" in request.POST:
@@ -606,3 +602,25 @@ def OrderSuccess(request, ordernumber):
 
 # class storeCart:
 #     def __init__(self, data) -> None:
+
+
+class bookReview(TemplateView):
+    def post(self, request, *args, **kwargs):
+        if self.is_ajax(request) and "book_review" in request.POST:
+            ratings = request.POST.get("rating")
+            commet = request.POST.get("commet")
+            bookid = request.POST.get("bookid")
+            title = request.POST.get("review_title")
+            book = cpanel_model.book.objects.filter(pk=bookid).first()
+
+            cpanel_model.ratings.objects.create(
+                user=request.user,
+                book=book,
+                stars=int(ratings),
+                title=title,
+                comments=commet,
+            )
+            return JsonResponse({"status": "success"})
+
+    def is_ajax(self, request):
+        return request.headers.get("x-requested-with") == "XMLHttpRequest"

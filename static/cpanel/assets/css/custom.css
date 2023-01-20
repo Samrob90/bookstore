@@ -97,6 +97,40 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+
+/* product detials */
+.rating-list li {
+    float: right;
+    color: #ddd;
+    padding: 10px 5px;
+}
+
+.rating-list li:hover,
+.rating-list li:hover~li {
+    color: #ffd700;
+}
+
+.rating-list {
+    display: inline-block;
+    list-style: none;
+}
+
+.list-inline {
+    margin-top: unset;
+}
+
+.stars_gray {
+    color: lightgray !important;
+}
+
+.stars_yellow {
+    color: #ffbd00 !important;
+}
+
+.average_review_icone {
+    color: lightgray !important;
+}
+
 @media screen and (max-width: 600px) {
     .django_messages_error {
         width: 90% !important;

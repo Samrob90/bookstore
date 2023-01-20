@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "celery",
     "account",
     "blog",
+    # "star_ratings",
 ]
 
 MIDDLEWARE = [
@@ -165,3 +166,10 @@ CELERYD_PREFETCH_MULTIPLIER = 1
 # CELERY_RESULT_BACKEND = "django-db"
 
 LOGIN_URL = "login"
+
+
+# rating
+# STAR_RATINGS_RERATE = True
+# STAR_RATINGS_RERATE_SAME_DELETE = True
+# STAR_RATINGS_CLEARABLE = True
+# STAR_RATINGS_ANONYMOUS = False

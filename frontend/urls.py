@@ -22,4 +22,5 @@ urlpatterns = [
         views.OrderSuccess,
         name="ordersuccess",
     ),
+    path("reviews/", views.bookReview.as_view(), name="review"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

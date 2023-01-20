@@ -119,45 +119,104 @@ $(document).ready(function () {
 
 
     // rating
-    $(".review_rating").click(function () {
-        const star_one = $(".star_one").html()
-        const star_two = $(".stars_two").html()
-        const star_three = $(".star_three").html()
-        const star_four = $(".star_four").html()
-        const star_five = $(".stars_five").html()
-        $(".star_one").closest("li").find(".progress-bar").attr("style", multiplyer(star_one))
-        $(".star_two").closest("li").find(".progress-bar").attr("style", multiplyer(star_two))
-        $(".star_three").closest("li").find(".progress-bar").attr("style", multiplyer(star_three))
-        $(".star_four").closest("li").find(".progress-bar").attr("style", multiplyer(star_four))
-        $(".star_five").closest("li").find(".progress-bar").attr("style", multiplyer(star_five))
+    $(".startfunc").click(function () {
+
+        let star = $(this)
+
+        $(".fa-star").removeClass("stars_yellow").removeClass("stars_gray")
+        // make current start yellow
+        star.removeClass("stars_gray").addClass("stars_yellow")
+        // make previouse star yellow 
+        star.parent().prevAll().children('.fa-star').addClass("stars_gray")
+        // make next star gray 
+        star.parent().nextAll().children('.fa-star').addClass("stars_yellow")
+
+        $(".rating").attr("value", star.attr("title"))
+
+        // set attr titlet ot input field 
+
 
     });
+
 
     function multiplyer(star, this_) {
         let percentage = Number(star) / Number(100)
         return "width:" + percentage + "%;"
     }
 
-    // write a review
+    // get avarage 
+    // const avg = Math.floor(Number($(".avarage_ratings").html()))
+    // let stars = $(".average_review_icone").find(".stars_yellow")
+    // stars.parent().nextAll().children('.fa-star').addClass("stars_yellow")
+
+
 
     $(".submit_review").click(function (e) {
         e.preventDefault();
         $(".loader").removeClass("d-none")
         $(this).css("opacity", "0.5")
         $("#loader_text").html("submiting..")
-
-        $(".stars").click(function (e) {
-            e.preventDefault()
-
-        })
+        const rating = $(".rating").val()
         const review_comment = $("#descriptionTextarea").val()
+        const title = $("#review_title").val()
+        if (rating === "") {
+            $("#rating_error").removeClass("d-none")
+            $(".loader").addClass("d-none")
+            $(this).css("opacity", "1")
+            $("#loader_text").html("Submit Review")
+        } else if (title == "") {
+            $("#rating_error").removeClass("d-none")
+            $(".loader").addClass("d-none")
+            $(this).css("opacity", "1")
+            $("#loader_text").html("Submit Review")
+            $("#rating_error").html("Title field can not be empty")
+            $("#review_title").css("border", "1px solid red")
+        } else {
+            let data = {
+                "book_review": "true",
+                "rating": rating,
+                "commet": review_comment,
+                "bookid": $("#bookid").val(),
+                "review_title": title
+            }
 
-        $.post("url", data,
-            function (data, ) {
+            $.post("/reviews/", data,
+                function (data, ) {
+                    $("#rating_error").removeClass("d-none")
+                    $(".loader").addClass("d-none")
+                    $(".submit_review").css("opacity", "1")
+                    $("#loader_text").html("Submit Review")
+                    if (data.status === "success") {
+                        $("#rating_error").removeClass("d-none").removeClass("alert alert-danger").addClass("alert alert-success")
+                        $("#rating_error").html("Comment Successfully submited")
+                    }
+                },
+                "json"
+            );
+        }
 
-            },
-            "json"
-        );
+
+
+
+
+
     });
+
+
+    // const star_one = $(".star_one").html()
+    // const star_two = $(".stars_two").html()
+    // const star_three = $(".star_three").html()
+    // const star_four = $(".star_four").html()
+    // const star_five = $(".stars_five").attr("id")
+    // $(".star_one").closest("li").find(".progress-bar").attr("style", multiplyer(50))
+    // $(".star_two").closest("li").find(".progress-bar").attr("style", multiplyer(star_two))
+    // $(".star_three").closest("li").find(".progress-bar").attr("style", multiplyer(star_three))
+    // $(".star_four").closest("li").find(".progress-bar").attr("style", multiplyer(star_four))
+    // $(".star_five").closest("li").find(".progress-bar").attr("style", multiplyer(star_five))
+    // alert(star_five)
+
+
+    // write a review
+
 
 });

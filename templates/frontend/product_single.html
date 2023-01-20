@@ -15,6 +15,7 @@ Newtonbookshop | {{book.title}}
 
 {% block stylesheets %}
 <link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 {% endblock stylesheets %}
 
 
@@ -100,14 +101,20 @@ Newtonbookshop | {{book.title}}
                         <div class="space-top-2 px-4 px-xl-7 border-bottom pb-5">
                             <h1 class="product_title entry-title font-size-7 mb-3">{{book.title}}</h1>
                             <div class="font-size-2 mb-4">
-                                <span class="text-yellow-darker">
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
+                                <span class="text-yellow-darker  average_review_icone">
+                                    <span
+                                        class="fas fa-star  {% if book.avarage_ratings > 1 %} stars_yellow {% endif %}"></span>
+                                    <span
+                                        class="fas fa-star {% if book.avarage_ratings > 2 %} stars_yellow {% endif %}"></span>
+                                    <span
+                                        class="fas fa-star {% if book.avarage_ratings > 3 %} stars_yellow {% endif %}"></span>
+                                    <span
+                                        class="fas fa-star {% if book.avarage_ratings > 4 %} stars_yellow {% endif %}"></span>
+                                    <span
+                                        class="fas fa-star {% if book.avarage_ratings > 5 %} stars_yellow {% endif %}"></span>
+
                                 </span>
-                                <span class="ml-3">(3,714)</span>
+                                <span class="ml-3">({{book.ratings_set.all.count}})</span>
                                 <span class="ml-3 font-weight-medium">By (author)</span>
                                 <span class="ml-2 text-gray-600">{{book.author}}</span>
                             </div>
@@ -127,55 +134,60 @@ Newtonbookshop | {{book.title}}
                                 <span class="font-weight-medium">Book Format:</span>
                                 <span class="ml-2 text-gray-600">Choose an option</span>
                             </div>
-                            
+
                             <!-- Radio Checkbox Group -->
-                            <form class="" method="post" enctype="multipart/form-data"
-                                action="/shopacc/" id="details_product_form">
-                            <div class="row mx-gutters-2 mb-2" style="margin-left:0px!important;">
-                                
-                                {% comment %} <label class="form-label font-size-2 font-weight-medium">Book Format</label> {% endcomment %}
-                                <!-- Select -->
-                                <select class="js-select selectpicker dropdown-select w-50 mt-2 position-relative mb-0 "
-                                    data-style=" border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2"
-                                    data-show-subtext="true"
-                                    data-dropdown-align-right="true" name="booktype_price" required>
-                                    
-                                    {% for value in book.bookdetails_set.all %}
-                                    {% comment %} <option value="one" data-subtext="$9.59" selected>Hardcover</option>
-                                    <option value="two" data-subtext="$9.59">Softcover</option> {% endcomment %}
-    
-                                    <!-- End Select -->
-    
-    {% comment %}                                 
-                                    <div class="col-6 col-md-3 mb-3 mb-md-0  value_redirect">
-                                        <div
-                                            class="shadow-sm rounded-1 border booktypeshop {% if book_default_details.booktype == value.booktype %} booktype_active {% endif %}">
-    
-                                            <div class="">
-                                                <a
-                                                    href="{% url 'book-detail' book.slug book.product.product_id value.booktype %}">
-                                                    <span class="d-block">{{value.booktype}}</span>
-                                                    <span class="text-muted">GHS {{value.price}}</span>
-                                                </a>
-                                                </label>
+                            <form class="" method="post" enctype="multipart/form-data" action="/shopacc/"
+                                id="details_product_form">
+                                <div class="row mx-gutters-2 mb-2" style="margin-left:0px!important;">
+
+                                    {% comment %} <label class="form-label font-size-2 font-weight-medium">Book
+                                        Format</label> {% endcomment %}
+                                    <!-- Select -->
+                                    <select
+                                        class="js-select selectpicker dropdown-select w-50 mt-2 position-relative mb-0 "
+                                        data-style=" border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2"
+                                        data-show-subtext="true" data-dropdown-align-right="true" name="booktype_price"
+                                        required>
+
+                                        {% for value in book.bookdetails_set.all %}
+                                        {% comment %} <option value="one" data-subtext="$9.59" selected>Hardcover
+                                        </option>
+                                        <option value="two" data-subtext="$9.59">Softcover</option> {% endcomment %}
+
+                                        <!-- End Select -->
+
+                                        {% comment %}
+                                        <div class="col-6 col-md-3 mb-3 mb-md-0  value_redirect">
+                                            <div
+                                                class="shadow-sm rounded-1 border booktypeshop {% if book_default_details.booktype == value.booktype %} booktype_active {% endif %}">
+
+                                                <div class="">
+                                                    <a
+                                                        href="{% url 'book-detail' book.slug book.product.product_id value.booktype %}">
+                                                        <span class="d-block">{{value.booktype}}</span>
+                                                        <span class="text-muted">GHS {{value.price}}</span>
+                                                    </a>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div> {% endcomment %}
-                                    <option value="{{value.booktype}} {{value.price}}" name="booktype_price" data-subtext="GHS {{value.price}}">{{value.booktype}}</option>
-                                    {% endfor %}
-                                </select>
+                                        </div> {% endcomment %}
+                                        <option value="{{value.booktype}} {{value.price}}" name="booktype_price"
+                                            data-subtext="GHS {{value.price}}">{{value.booktype}}</option>
+                                        {% endfor %}
+                                    </select>
 
 
 
-                            </div>
-                            <!-- End Radio Checkbox Group -->
+                                </div>
+                                <!-- End Radio Checkbox Group -->
 
-                            <div class="woocommerce-product-details__short-description font-size-2 mb-5">
-                                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Excepteur sint occaecat.</p>
-                            </div>
+                                <div class="woocommerce-product-details__short-description font-size-2 mb-5">
+                                    <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                        quis
+                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        Excepteur sint occaecat.</p>
+                                </div>
 
                                 {% csrf_token %}
                                 <div class="quantity mb-4 mb-md-0 d-flex align-items-center">
@@ -196,10 +208,11 @@ Newtonbookshop | {{book.title}}
                                                     value="{{book_default_details.bookprice}}">
                                                 <input type="hidden" name="bookdetails_page" value="detailpage">
                                                 <input type="hidden" name="book_id" value="{{book.product.product_id}}">
-                                           <input type="hidden" name="bookpk" value="{{book.pk}}"> 
+                                                <input type="hidden" name="bookpk" value="{{book.pk}}">
                                                 <input type="number"
                                                     class="input-text qty text js-result form-control text-center border-0"
-                                                    step="1" min="1" max="100" name="quantity" value="1" title="Qty" required>
+                                                    step="1" min="1" max="100" name="quantity" value="1" title="Qty"
+                                                    required>
                                                 <a class="js-plus text-dark" href="javascript:;">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="10px"
@@ -208,16 +221,17 @@ Newtonbookshop | {{book.title}}
                                                             d="M10.000,5.000 L6.000,5.000 L6.000,10.000 L5.000,10.000 L5.000,5.000 L-0.000,5.000 L-0.000,4.000 L5.000,4.000 L5.000,-0.000 L6.000,-0.000 L6.000,4.000 L10.000,4.000 L10.000,5.000 Z" />
                                                     </svg>
                                                 </a>
-                                            </div> 
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- End Quantity -->
                                 </div>
-                            
+
                                 <br>
 
                                 <button type="submit" name="add-to-cart" value="7145"
-                                    class="btn btn-dark border-0 rounded-0 p-3 min-width-250 ml-md-4 single_add_to_cart_button_detail_page button alt " style="margin-left:0px!important;">Add
+                                    class="btn btn-dark border-0 rounded-0 p-3 min-width-250 ml-md-4 single_add_to_cart_button_detail_page button alt "
+                                    style="margin-left:0px!important;">Add
                                     to cart</button>
 
                             </form>
@@ -273,7 +287,8 @@ Newtonbookshop | {{book.title}}
                         <a class="py-4 nav-link font-weight-medium" id="pills-four-example1-tab" data-toggle="pill"
                             href="#pills-four-example1" role="tab" aria-controls="pills-four-example1"
                             aria-selected="false">
-                            Reviews ({{book.rating_set.all.count}} )
+                            Reviews ({{book.ratings_set.all.count}} )
+
                         </a>
                     </li>
                 </ul>
@@ -390,17 +405,25 @@ Newtonbookshop | {{book.title}}
                         <!-- Mockup Block -->
                         <h4 class="font-size-3">Customer Reviews </h4>
                         <div class="row mb-8">
+
+
                             <div class="col-md-6 mb-6 mb-md-0">
                                 <div class="d-flex  align-items-center mb-4">
-                                    <span class="font-size-15 font-weight-bold">0.0</span>
+                                    <span
+                                        class="font-size-15 font-weight-bold avarage_ratings">{{book.avarage_ratings}}</span>
                                     <div class="ml-3 h6 mb-0">
-                                        <span class="font-weight-normal">{{book.rating_set.all.count}} reviews</span>
-                                        <div class="text-yellow-darker">
-                                            <small class="fas fa-star"></small>
-                                            <small class="fas fa-star"></small>
-                                            <small class="fas fa-star"></small>
-                                            <small class="fas fa-star"></small>
-                                            <small class="far fa-star"></small>
+                                        <span class="font-weight-normal">{{book.ratings_set.all.count}} reviews</span>
+                                        <div class="text-yellow-darker average_review_icone">
+                                            <span
+                                                class="fas fa-star  {% if book.avarage_ratings > 1 %} stars_yellow {% endif %}"></span>
+                                            <span
+                                                class="fas fa-star {% if book.avarage_ratings > 2 %} stars_yellow {% endif %}"></span>
+                                            <span
+                                                class="fas fa-star {% if book.avarage_ratings > 3 %} stars_yellow {% endif %}"></span>
+                                            <span
+                                                class="fas fa-star {% if book.avarage_ratings > 4 %} stars_yellow {% endif %}"></span>
+                                            <span
+                                                class="fas fa-star {% if book.avarage_ratings > 5 %} stars_yellow {% endif %}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -424,13 +447,13 @@ Newtonbookshop | {{book.title}}
                                             <div class="col px-0">
                                                 <div class="progress bg-white-100" style="height: 7px;">
                                                     <div class="progress-bar bg-yellow-darker" role="progressbar"
-                                                        style="" aria-valuenow="100" aria-valuemin="0"
+                                                        style="width:10%;" aria-valuenow="100" aria-valuemin="0"
                                                         aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-2">
-                                                <span
-                                                    class="text-secondary start_five">{{book.rating_set|filter_rating:5}}</span>
+                                                <span class="text-secondary start_five"
+                                                    id="{{book.ratings_set|filter_rating:5}}">{{book.ratings_set|filter_rating:5}}</span>
                                             </div>
                                         </a>
                                     </li>
@@ -448,7 +471,7 @@ Newtonbookshop | {{book.title}}
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="text-secondary start_four">{{book.rating_set|filter_rating:4}}</span>
+                                                    class="text-secondary start_four">{{book.ratings_set|filter_rating:4}}</span>
                                             </div>
                                         </a>
                                     </li>
@@ -466,7 +489,7 @@ Newtonbookshop | {{book.title}}
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="text-secondary star_three">{{book.rating_set|filter_rating:3}}</span>
+                                                    class="text-secondary star_three">{{book.ratings_set|filter_rating:3}}</span>
                                             </div>
                                         </a>
                                     </li>
@@ -484,7 +507,7 @@ Newtonbookshop | {{book.title}}
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="text-secondary star_two">{{book.rating_set|filter_rating:2}}</span>
+                                                    class="text-secondary star_two">{{book.ratings_set|filter_rating:2}}</span>
                                             </div>
                                         </a>
                                     </li>
@@ -502,7 +525,7 @@ Newtonbookshop | {{book.title}}
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="text-secondary star_one">{{book.rating_set|filter_rating:1}}</span>
+                                                    class="text-secondary star_one">{{book.ratings_set|filter_rating:1}}</span>
                                             </div>
                                         </a>
                                     </li>
@@ -510,36 +533,43 @@ Newtonbookshop | {{book.title}}
                                 <!-- End Ratings -->
                             </div>
                         </div>
-
-                        <h4 class="font-size-3 mb-8">1-5 of 44 reviews</h4>
+                        {% if book.ratings_set.all.count > 0 %}
+                        <h4 class="font-size-3 mb-8">1-5 of {{book.ratings_set.all.count}} reviews</h4>
 
                         <ul class="list-unstyled mb-8">
-                            <li class="mb-4 pb-5 border-bottom">
+
+
+                            {% for comment in book.ratings_set.all|dictsortreversed:"created_at"|slice:"5" %}
+                            <li class="mb-2 pb-2 border-bottom">
                                 <div class="d-flex align-items-center mb-3">
                                     <h6 class="mb-0">Amazing Story! You will LOVE it</h6>
-                                    <div class="text-yellow-darker ml-3">
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="far fa-star"></small>
+                                    <div class="text-yellow-darker ml-3 average_review_icone">
+                                        <span
+                                            class="fas fa-star {% if comment.stars > 1 %} stars_yellow {% endif %}"></span>
+                                        <span
+                                            class="fas fa-star {% if comment.stars > 2 %} stars_yellow {% endif %}"></span>
+                                        <span
+                                            class="fas fa-star {% if comment.stars > 3 %} stars_yellow {% endif %}"></span>
+                                        <span
+                                            class="fas fa-star {% if comment.stars > 4 %} stars_yellow {% endif %}"></span>
+                                        <span
+                                            class="fas fa-star {% if comment.stars > 5 %} stars_yellow {% endif %}"></span>
                                     </div>
                                 </div>
-                                <p class="mb-4 text-lh-md">Such an incredibly complex story! I had to buy it because
-                                    there was a waiting list of 30+ at the local library for this book. Thrilled that I
-                                    made the purchase</p>
-                                <div class="text-gray-600 mb-4">Staci, February 22, 2020 </div>
+                                <p class="mb-4 text-lh-md">{{comment.comments|safe|linebreaks}}</p>
+                                <div class="text-gray-600 mb-4">{{request.user.last_name}}, {{comment.created_at}}
+                                </div>
                                 <ul class="nav">
                                     <li class="mr-7">
                                         <a href="#" class="text-gray-600 d-flex align-items-center">
                                             <i class="text-dark font-size-5 flaticon-like-1"></i>
-                                            <span class="ml-2">90</span>
+                                            <span class="ml-2">{{comment.likes}}</span>
                                         </a>
                                     </li>
                                     <li class="mr-7">
                                         <a href="#" class="text-gray-600 d-flex align-items-center">
                                             <i class="text-dark font-size-5 flaticon-dislike"></i>
-                                            <span class="ml-2">10</span>
+                                            <span class="ml-2">{{comment.dislikes}}</span>
                                         </a>
                                     </li>
                                     <li class="mr-7">
@@ -550,96 +580,40 @@ Newtonbookshop | {{book.title}}
 
                                 </ul>
                             </li>
-                            <li class="mb-4 pb-5 border-bottom">
-                                <div class="d-flex align-items-center mb-3">
-                                    <h6 class="mb-0">Get the best seller at a great price.</h6>
-                                    <div class="text-yellow-darker ml-3">
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="far fa-star"></small>
-                                    </div>
-                                </div>
-                                <p class="mb-4 text-lh-md">Awesome book, great price, fast delivery. Thanks so much.</p>
-                                <div class="text-gray-600 mb-4">Staci, February 22, 2020 </div>
-                                <ul class="nav">
-                                    <li class="mr-7">
-                                        <a href="#" class="text-gray-600 d-flex align-items-center">
-                                            <i class="text-dark font-size-5 flaticon-like-1"></i>
-                                            <span class="ml-2">90</span>
-                                        </a>
-                                    </li>
-                                    <li class="mr-7">
-                                        <a href="#" class="text-gray-600 d-flex align-items-center">
-                                            <i class="text-dark font-size-5 flaticon-dislike"></i>
-                                            <span class="ml-2">10</span>
-                                        </a>
-                                    </li>
-                                    <li class="mr-7">
-                                        <a href="#" class="text-gray-600 d-flex align-items-center">
-                                            <i class="text-dark font-size-5 flaticon-flag"></i>
-                                        </a>
-                                    </li>
+                            {% endfor %}
 
-                                </ul>
-                            </li>
-                            <li class="mb-4 pb-5 border-bottom">
-                                <div class="d-flex align-items-center mb-3">
-                                    <h6 class="mb-0">I read this book short...</h6>
-                                    <div class="text-yellow-darker ml-3">
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="fas fa-star"></small>
-                                        <small class="far fa-star"></small>
-                                    </div>
-                                </div>
-                                <p class="mb-4 text-lh-md">I read this book shortly after I got it and didn't just put
-                                    it on my TBR shelf mainly because I saw it on Reese Witherspoon's bookclub September
-                                    read. It was one of the best books I've read this year, and reminded me some of
-                                    Kristen Hannah's The Great Alone. </p>
-                                <div class="text-gray-600 mb-4">Staci, February 22, 2020 </div>
-                                <ul class="nav">
-                                    <li class="mr-7">
-                                        <a href="#" class="text-gray-600 d-flex align-items-center">
-                                            <i class="text-dark font-size-5 flaticon-like-1"></i>
-                                            <span class="ml-2">90</span>
-                                        </a>
-                                    </li>
-                                    <li class="mr-7">
-                                        <a href="#" class="text-gray-600 d-flex align-items-center">
-                                            <i class="text-dark font-size-5 flaticon-dislike"></i>
-                                            <span class="ml-2">10</span>
-                                        </a>
-                                    </li>
-                                    <li class="mr-7">
-                                        <a href="#" class="text-gray-600 d-flex align-items-center">
-                                            <i class="text-dark font-size-5 flaticon-flag"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+
+
                         </ul>
 
-
+                        {% endif %}
                         {% if request.user.email %}
-                        <form action="" method="post">
+                        <form action="" method="post" id="review_form">
                             {% csrf_token %}
-                            <h4 class="font-size-3 mb-4">Write a Review</h4>
-                            <div class="d-flex align-items-center mb-6" id="writeReview">
+
+                            <h4 class="font-size-3 mb-2">Write a Review</h4>
+                            <p id="rating_error" class="alert alert-danger d-none mb-0 mt-2">Please select a rating</p>
+                            <div class="d-flex align-items-center mb-0" id="writeReview">
                                 <h6 class="mb-0">Select a rating(required)</h6>
-                                <div class="text-yellow-darker ml-3 font-size-4 stars">
-                                    <small class="far fa-star one_star"></small>
-                                    <small class="far fa-star one_two"></small>
-                                    <small class="far fa-star one_three"></small>
-                                    <small class="far fa-star one_four"></small>
-                                    <small class="far fa-star one_five"></small>
+                                <div class="text-yellow-darker ml-3 font-size-4 stars mt-4">
+                                    <ul class="list-inline rating-list">
+                                        <li><i class="fa fa-star startfunc" title="5"></i></li>
+                                        <li><i class="fa fa-star startfunc" title="4"></i></li>
+                                        <li><i class="fa fa-star startfunc" title="3"></i></li>
+                                        <li><i class="fa fa-star startfunc" title="2"></i></li>
+                                        <li><i class="fa fa-star startfunc" title="1"></i></li>
+                                    </ul>
                                 </div>
                             </div>
-                            <input type="hidden" name="rating" value="">
+                            <label for="title" class="form-label text-dark h6 mb-3">Title</label>
+                            <input type="text" name="title" id="review_title" placeholder="Enter your title"
+                                class="form-control w-50" required>
+                            <input type="hidden" name="rating" value="" class="rating">
+                            <input type="hidden" name="bookid" value="{{book.pk}}" id="bookid">
+
                             <div class="js-form-message form-group mb-4">
-                                <label for="descriptionTextarea" class="form-label text-dark h6 mb-3">Details please!
+                                <label for="descriptionTextarea" class="form-label text-dark h6 mb-3 mt-3">Details
+                                    please!
                                     Your
                                     review helps other shoppers.</label>
                                 <textarea class="form-control rounded-0 p-4" rows="7" id="descriptionTextarea"
@@ -706,8 +680,7 @@ Newtonbookshop | {{book.title}}
                                 <div
                                     class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                     <div class="woocommerce-loop-product__thumbnail img-thumbnail-shop-newtonbookshop">
-                                        <a href="{{item.get_absolute_url}}"
-                                            class="d-block"><img
+                                        <a href="{{item.get_absolute_url}}" class="d-block"><img
                                                 src="{{ASSETS_ROOT}}/media/thumbnail/{{item.bookthumbnail}}"
                                                 class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
                                                 alt="image-description"></a>
@@ -718,8 +691,7 @@ Newtonbookshop | {{book.title}}
                                         </div>
                                         <h2
                                             class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a
-                                                href="{{item.get_absolute_url}}">{{item.booktitle}}</a>
+                                            <a href="{{item.get_absolute_url}}">{{item.booktitle}}</a>
                                         </h2>
                                         <div class="font-size-2  mb-1 text-truncate"><a
                                                 href="../others/authors-single.html"
@@ -774,5 +746,6 @@ Newtonbookshop | {{book.title}}
 
 <!-- <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.scroll-nav.js"></script> -->
 <script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script>
+
 
 {% endblock javascripts %}

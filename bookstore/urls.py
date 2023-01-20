@@ -23,4 +23,5 @@ urlpatterns = [
     path("cpanel/", include("cpanel.urls")),
     path("account/", include("account.urls")),
     path("blog/", include("blog.urls")),
+    # path("ratings/", include("star_ratings.urls", namespace="ratings")),
 ]

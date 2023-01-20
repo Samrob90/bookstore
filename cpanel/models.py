@@ -3,7 +3,7 @@ import uuid
 from django.utils import timezone
 from django.urls import reverse
 from authentications.models import Account
-
+from django.db.models import Avg
 
 # Create your models here.
 class product(models.Model):
@@ -56,8 +56,37 @@ class book(models.Model):
             },
         )
 
+    # get avarage ratuings
+    def avarage_ratings(self) -> float:
+        avr_ratings = ratings.objects.filter(book=self).aggregate(Avg("stars"))[
+            "stars__avg"
+        ] or float(0)
+        return float(str(avr_ratings)[:3])
+
     def __str__(self) -> str:
         return self.title
+
+
+# book ratings
+class ratings(models.Model):
+    user = models.ForeignKey(
+        Account, verbose_name="user rating", on_delete=models.CASCADE
+    )
+    book = models.ForeignKey(
+        "book", verbose_name="book rated", on_delete=models.CASCADE
+    )
+    stars = models.IntegerField(default=0)
+    title = models.TextField(default=None)
+    comments = models.TextField(default=None, blank=True, null=True)
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    # def aravage_ratings(self) -> float:
+    #     return self.fi
+
+    def __str__(self) -> str:
+        return f"{book.title} : {book.avarage_ratings}"
 
 
 class bookimages(models.Model):
@@ -77,17 +106,17 @@ class bookdetails(models.Model):
         return self.book.title
 
 
-class rating(models.Model):
-    book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
-    user = models.ForeignKey(Account, verbose_name="user", on_delete=models.CASCADE)
-    stars = models.IntegerField(default=None)
-    comment = models.TextField(default=None, null=True, blank=True)
-    likes = models.IntegerField(default=0, null=True, blank=True)
-    dislikes = models.IntegerField(default=0, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now)
+# class rating(models.Model):
+#     book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
+#     user = models.ForeignKey(Account, verbose_name="user", on_delete=models.CASCADE)
+#     stars = models.IntegerField(default=None)
+#     comment = models.TextField(default=None, null=True, blank=True)
+#     likes = models.IntegerField(default=0, null=True, blank=True)
+#     dislikes = models.IntegerField(default=0, null=True, blank=True)
+#     created_at = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return self.book.title
+#     def __str__(self):
+#         return self.book.title
 
 
 class general_settings(models.Model):
