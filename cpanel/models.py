@@ -89,6 +89,16 @@ class ratings(models.Model):
         return f"{book.title} : {book.avarage_ratings}"
 
 
+class UserLikes(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    ratings = models.ForeignKey(
+        ratings, verbose_name="user likes", on_delete=models.CASCADE
+    )
+    liked = models.BooleanField(default=False)
+    disliked = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now)
+
+
 class bookimages(models.Model):
     book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
     thumbnail = models.TextField(default=None, null=True, blank=True)

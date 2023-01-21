@@ -37,7 +37,6 @@ def check_recent_view(data, userpk):
         if product_db_id.exists():
             continue
         else:
-            print(user.pk, value)
             recent_viewied_item.objects.create(user=user, **value)
 
     return "done"

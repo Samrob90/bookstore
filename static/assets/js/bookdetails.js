@@ -123,13 +123,13 @@ $(document).ready(function () {
 
         let star = $(this)
 
-        $(".fa-star").removeClass("stars_yellow").removeClass("stars_gray")
+        $(".startfunc").removeClass("stars_yellow").removeClass("stars_gray")
         // make current start yellow
         star.removeClass("stars_gray").addClass("stars_yellow")
         // make previouse star yellow 
-        star.parent().prevAll().children('.fa-star').addClass("stars_gray")
+        star.parent().prevAll().children('.startfunc').addClass("stars_gray")
         // make next star gray 
-        star.parent().nextAll().children('.fa-star').addClass("stars_yellow")
+        star.parent().nextAll().children('.startfunc').addClass("stars_yellow")
 
         $(".rating").attr("value", star.attr("title"))
 
@@ -144,10 +144,85 @@ $(document).ready(function () {
         return "width:" + percentage + "%;"
     }
 
-    // get avarage 
+    // get avarage
     // const avg = Math.floor(Number($(".avarage_ratings").html()))
     // let stars = $(".average_review_icone").find(".stars_yellow")
     // stars.parent().nextAll().children('.fa-star').addClass("stars_yellow")
+
+    // book review likes 
+    $(".book_review_likes").click(function (e) {
+        e.preventDefault();
+        let l = $(this)
+        const current_likes = l.find('span').html() //get current_likes value
+        const bookid = l.find('span').attr("bookid") // get bookid 
+        let types = false
+        const commentid = l.attr("commentid")
+        // check if user already liked the comment 
+        if (l.find("i").hasClass("text-info")) {
+
+        } else {
+            l.find('span').html(Number(current_likes) + 1) //get current like and add 1 
+            l.find("i").removeClass("text-dark").addClass("text-info") // change icone color to blue
+
+            // send ajax request
+            // check if user already disliked this comment ; By using  icone color
+            if ($(".book_review_dislikes").find("i").hasClass("text-danger")) {
+                //remove class text-danger and add text-dark 
+                let dislikes = $(".book_review_dislikes")
+                dislikes.find("i").removeClass("text-danger").addClass("text-dark")
+                // update dislike total number by remove 1 on its current number
+                dislikes.find("span").html(Number(dislikes.find("span").html()) - 1)
+                dislikes = true
+                // send ajax request
+            }
+            let data = {
+                "review_likes": "likes",
+                "bookid": bookid,
+                "Other": types,
+                "oposite": "dislikes",
+                "commentid": commentid,
+            }
+            update_likes(data)
+        }
+    })
+
+
+
+    // book review dislikes 
+    $(".book_review_dislikes").click(function (e) {
+        e.preventDefault();
+        let d = $(this)
+        const current_dislikes = d.find('span').html()
+        const bookid = d.find('span').attr("bookid")
+
+        // check if user has already disliked this comment
+        if (d.find('i').hasClass('text-danger')) {
+            // pass
+        } else {
+            d.find('span').html(Number(current_dislikes) + 1)
+            d.find("i").removeClass("text-dark").addClass('text-danger')
+
+            // send ajax request
+
+            // check if user has already liked this comment 
+            if ($(".book_review_likes").find('i').hasClass("text-info")) {
+                let likes = $(".book_review_likes")
+                likes.find("i").removeClass("text-info").addClass("text-dark")
+                likes.find("span").html(Number(likes.find("span").html()) - 1)
+
+                // send ajax request 
+            }
+        }
+    })
+
+    function update_likes(data) {
+        $.post("/reviews/", data,
+            function (data, textStatus, jqXHR) {
+
+            },
+            "json"
+        );
+    }
 
 
 

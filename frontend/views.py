@@ -18,6 +18,7 @@ from django.db.models import Sum
 import random, string
 from rsc.tools import timer
 from .context import grabe_children
+from django.db.models import F
 
 
 class HomeVIew(TemplateView):
@@ -621,6 +622,50 @@ class bookReview(TemplateView):
                 comments=commet,
             )
             return JsonResponse({"status": "success"})
+
+        # likes
+        if self.is_ajax(request) and "review_likes" in request.POST:
+            review_type = request.POST.get("review_likes")
+            bookid = request.POST.get("bookid")
+            type = request.POST.get("status")
+            oposite = request.POST.get("oposite")
+            commentid = request.POST.get("commentid")
+
+            books = cpanel_model.book.objects.get(pk=bookid)
+            comment = cpanel_model.ratings.objects.get(pk=commentid)
+            check = cpanel_model.UserLikes.objects.filter(
+                ratings=comment, user=request.user
+            )
+            if check.exists() and check.first().liked == False:
+
+                cpanel_model.ratings.objects.filter(pk=commentid).update(
+                    likes=F(str(review_type)) + 1
+                )
+                # comment.update(likes=F(str(review_type)) + 1)
+                cpanel_model.UserLikes.objects.update_or_create(
+                    user=request.user,
+                    ratings=comment,
+                    liked=True,
+                    disliked=False,
+                    defaults={"liked": False},
+                )
+                if type == True:
+                    cpanel_model.ratings.objects.filter(pk=commentid).update(
+                        likes=F(str(oposite)) + 1
+                    )
+                    # create a function for this particular post
+                    # temporary fixe
+                    cpanel_model.UserLikes.objects.update_or_create(
+                        user=request.user,
+                        ratings=comment,
+                        liked=True,
+                        disliked=False,
+                        defaults={"disliked": True, "liked": False},
+                    )
+
+            return JsonResponse({"status": "done"})
+
+    # likes
 
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"
