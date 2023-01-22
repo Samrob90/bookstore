@@ -22,3 +22,8 @@ def addone(value):
 @register.filter(name="filter_rating")
 def filter_rating(obj, stars):
     return obj.filter(stars=stars).count()
+
+
+@register.filter(name="stars_perentage")
+def stars_perentage(stars, totalreview):
+    return int((int(stars) * 100) / int(totalreview))

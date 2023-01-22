@@ -24,12 +24,12 @@ Newtonbookshop | Reviews
 {% block content %}
 
 
-<div class="col-lg-8" style="margin: 0 auto;">
+<div class="col-lg-8 " style="margin: 0 auto;">
     <br>
-    <div class="mb-4">
+    <div class="mb-4 p-4">
         <!-- Mockup Block -->
         <h4 class="font-size-3">Customer Reviews </h4>
-        <div class="row mb-8">
+        <div class="row mb-8 ">
 
 
             <div class="col-md-6 mb-6 mb-md-0">
@@ -72,7 +72,8 @@ Newtonbookshop | Reviews
                             </div>
                             <div class="col px-0">
                                 <div class="progress bg-white-100" style="height: 7px;">
-                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style="width:10%;"
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar"
+                                        style="width:{{comments.ratings_set|filter_rating:5|stars_perentage:comments.ratings_set.all.count}}%"
                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -89,7 +90,8 @@ Newtonbookshop | Reviews
                             </div>
                             <div class="col px-0">
                                 <div class="progress bg-white-100" style="height: 7px;">
-                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar"
+                                        style="width:{{comments.ratings_set|filter_rating:4|stars_perentage:comments.ratings_set.all.count}}%"
                                         aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -105,7 +107,8 @@ Newtonbookshop | Reviews
                             </div>
                             <div class="col px-0">
                                 <div class="progress bg-white-100" style="height: 7px;">
-                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar"
+                                        style="width:{{comments.ratings_set|filter_rating:3|stars_perentage:comments.ratings_set.all.count}}%"
                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -121,7 +124,8 @@ Newtonbookshop | Reviews
                             </div>
                             <div class="col px-0">
                                 <div class="progress bg-white-100" style="height: 7px;">
-                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar"
+                                        style="width:{{comments.ratings_set|filter_rating:2|stars_perentage:comments.ratings_set.all.count}}%"
                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -137,7 +141,8 @@ Newtonbookshop | Reviews
                             </div>
                             <div class="col px-0">
                                 <div class="progress bg-white-100" style="height: 7px;">
-                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar"
+                                        style="width:{{comments.ratings_set|filter_rating:1|stars_perentage:comments.ratings_set.all.count}}%"
                                         aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
@@ -156,7 +161,7 @@ Newtonbookshop | Reviews
         <ul class="list-unstyled mb-8">
 
 
-            {% for comment in comments.ratings_set.all|dictsortreversed:"created_at"|slice:"5" %}
+            {% for comment in comments.ratings_set.all|dictsortreversed:"created_at" %}
             <li class="mb-2 pb-2 border-bottom">
                 <div class="d-flex align-items-center mb-3">
                     <h6 class="mb-0">{{comment.title|safe}}</h6>
@@ -165,7 +170,7 @@ Newtonbookshop | Reviews
                         <span class="fas fa-star {% if comment.stars > 2 %} stars_yellow {% endif %}"></span>
                         <span class="fas fa-star {% if comment.stars > 3 %} stars_yellow {% endif %}"></span>
                         <span class="fas fa-star {% if comment.stars > 4 %} stars_yellow {% endif %}"></span>
-                        <span class="fas fa-star {% if comment.stars > 5 %} stars_yellow {% endif %}"></span>
+                        <span class="fas fa-star {% if comment.stars == 5 %} stars_yellow {% endif %}"></span>
                     </div>
                 </div>
                 <p class="mb-4 text-lh-md">{{comment.comments|safe|linebreaks}}</p>
