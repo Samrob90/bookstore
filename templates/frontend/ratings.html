@@ -1,0 +1,239 @@
+{% extends 'frontend/base/base.html' %}
+
+{% load poll_extras %}
+
+{% block title %}
+Newtonbookshop | Reviews
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+
+
+
+
+{% block content %}
+
+
+<div class="col-lg-8" style="margin: 0 auto;">
+    <br>
+    <div class="mb-4">
+        <!-- Mockup Block -->
+        <h4 class="font-size-3">Customer Reviews </h4>
+        <div class="row mb-8">
+
+
+            <div class="col-md-6 mb-6 mb-md-0">
+                <div class="d-flex  align-items-center mb-4">
+                    <span class="font-size-15 font-weight-bold avarage_ratings">{{comments.avarage_ratings}}</span>
+                    <div class="ml-3 h6 mb-0">
+                        <span class="font-weight-normal">{{comments.ratings_set.all.count}} reviews</span>
+                        <div class="text-yellow-darker average_review_icone">
+                            <span
+                                class="fas fa-star  {% if comments.avarage_ratings > 1 %} stars_yellow {% endif %}"></span>
+                            <span
+                                class="fas fa-star {% if comments.avarage_ratings > 2 %} stars_yellow {% endif %}"></span>
+                            <span
+                                class="fas fa-star {% if comments.avarage_ratings > 3 %} stars_yellow {% endif %}"></span>
+                            <span
+                                class="fas fa-star {% if comments.avarage_ratings > 4 %} stars_yellow {% endif %}"></span>
+                            <span
+                                class="fas fa-star {% if comments.avarage_ratings > 5 %} stars_yellow {% endif %}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-md-flex">
+                    <!-- <a href="" class="btn btn-outline-dark rounded-0 px-5 mb-3 mb-md-0">See
+                        all reviews</a>
+
+                    <a href="#writeReview" class="btn btn-dark ml-md-3 rounded-0 px-5">Write a
+                        review</a> -->
+
+                    <small><b><a href="{{comments.get_absolute_url}}">{{comments.title}}</a></b></small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Ratings -->
+                <ul class="list-unstyled pl-xl-4">
+                    <li class="py-2">
+                        <a class="row align-items-center mx-gutters-2 font-size-2" href="javascript:;">
+                            <div class="col-auto">
+                                <span class="text-dark">5 stars</span>
+                            </div>
+                            <div class="col px-0">
+                                <div class="progress bg-white-100" style="height: 7px;">
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style="width:10%;"
+                                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-secondary start_five"
+                                    id="{{comments.ratings_set|filter_rating:5}}">{{comments.ratings_set|filter_rating:5}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="py-2">
+                        <a class="row align-items-center mx-gutters-2 font-size-2" href="javascript:;">
+                            <div class="col-auto">
+                                <span class="text-dark">4 stars</span>
+                            </div>
+                            <div class="col px-0">
+                                <div class="progress bg-white-100" style="height: 7px;">
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                        aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-secondary start_four">{{comments.ratings_set|filter_rating:4}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="py-2">
+                        <a class="row align-items-center mx-gutters-2 font-size-2" href="javascript:;">
+                            <div class="col-auto">
+                                <span class="text-dark">3 stars</span>
+                            </div>
+                            <div class="col px-0">
+                                <div class="progress bg-white-100" style="height: 7px;">
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-secondary star_three">{{comments.ratings_set|filter_rating:3}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="py-2">
+                        <a class="row align-items-center mx-gutters-2 font-size-2" href="javascript:;">
+                            <div class="col-auto">
+                                <span class="text-dark">2 stars</span>
+                            </div>
+                            <div class="col px-0">
+                                <div class="progress bg-white-100" style="height: 7px;">
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-secondary star_two">{{comments.ratings_set|filter_rating:2}}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="py-2">
+                        <a class="row align-items-center mx-gutters-2 font-size-2" href="javascript:;">
+                            <div class="col-auto">
+                                <span class="text-dark">1 stars</span>
+                            </div>
+                            <div class="col px-0">
+                                <div class="progress bg-white-100" style="height: 7px;">
+                                    <div class="progress-bar bg-yellow-darker" role="progressbar" style=""
+                                        aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-secondary star_one">{{comments.ratings_set|filter_rating:1}}</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Ratings -->
+            </div>
+        </div>
+        {% if comments.ratings_set.all.count > 0 %}
+        <h4 class="font-size-3 mb-8">1-5 of {{comments.ratings_set.all.count}} reviews</h4>
+
+        <ul class="list-unstyled mb-8">
+
+
+            {% for comment in comments.ratings_set.all|dictsortreversed:"created_at"|slice:"5" %}
+            <li class="mb-2 pb-2 border-bottom">
+                <div class="d-flex align-items-center mb-3">
+                    <h6 class="mb-0">{{comment.title|safe}}</h6>
+                    <div class="text-yellow-darker ml-3 average_review_icone">
+                        <span class="fas fa-star {% if comment.stars > 1 %} stars_yellow {% endif %}"></span>
+                        <span class="fas fa-star {% if comment.stars > 2 %} stars_yellow {% endif %}"></span>
+                        <span class="fas fa-star {% if comment.stars > 3 %} stars_yellow {% endif %}"></span>
+                        <span class="fas fa-star {% if comment.stars > 4 %} stars_yellow {% endif %}"></span>
+                        <span class="fas fa-star {% if comment.stars > 5 %} stars_yellow {% endif %}"></span>
+                    </div>
+                </div>
+                <p class="mb-4 text-lh-md">{{comment.comments|safe|linebreaks}}</p>
+                <div class="text-gray-600 mb-4"><strong>{{comment.user.last_name}}</strong>,
+                    {{comment.created_at}}
+                </div>
+
+            </li>
+            {% endfor %}
+
+
+
+        </ul>
+
+        {% endif %}
+        {% if request.user.email %}
+        <form action="" method="post" id="review_form">
+            {% csrf_token %}
+
+            <h4 class="font-size-3 mb-2">Write a Review</h4>
+            <p id="rating_error" class="alert alert-danger d-none mb-0 mt-2">Please select a rating</p>
+            <div class="d-flex align-items-center mb-0" id="writeReview">
+                <h6 class="mb-0">Select a rating(required)</h6>
+                <div class="text-yellow-darker ml-3 font-size-4 stars mt-4">
+                    <ul class="list-inline rating-list">
+                        <li><i class="fa fa-star startfunc" title="5"></i></li>
+                        <li><i class="fa fa-star startfunc" title="4"></i></li>
+                        <li><i class="fa fa-star startfunc" title="3"></i></li>
+                        <li><i class="fa fa-star startfunc" title="2"></i></li>
+                        <li><i class="fa fa-star startfunc" title="1"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <label for="title" class="form-label text-dark h6 mb-3">Title</label>
+            <input type="text" name="title" id="review_title" placeholder="Enter your title" class="form-control w-50"
+                required>
+            <input type="hidden" name="rating" value="" class="rating">
+            <input type="hidden" name="bookid" value="{{comments.pk}}" id="bookid">
+
+            <div class="js-form-message form-group mb-4">
+                <label for="descriptionTextarea" class="form-label text-dark h6 mb-3 mt-3">Details
+                    please!
+                    Your
+                    review helps other shoppers.</label>
+                <textarea class="form-control rounded-0 p-4" rows="7" id="descriptionTextarea"
+                    placeholder="What did you like or dislike? What should other shoppers know before buying?" required
+                    data-msg="Please enter your message." data-error-class="u-has-error"
+                    data-success-class="u-has-success"></textarea>
+            </div>
+
+            <div class="d-flex">
+                <button type="submit" class="btn btn-dark btn-wide rounded-0 transition-3d-hover submit_review"><img
+                        src="{{ASSETS_ROOT}}/static/assets/img/720.gif" alt="loader" width="50px" height="20px"
+                        class="pr-2 loader d-none"> <span id="loader_text">Submit
+                        Review</span></button>
+            </div>
+        </form>
+        {% endif %}
+
+        <!-- End Mockup Block -->
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script>
+{% endblock javascripts %}

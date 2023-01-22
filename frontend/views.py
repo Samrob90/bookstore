@@ -624,48 +624,66 @@ class bookReview(TemplateView):
             return JsonResponse({"status": "success"})
 
         # likes
-        if self.is_ajax(request) and "review_likes" in request.POST:
-            review_type = request.POST.get("review_likes")
-            bookid = request.POST.get("bookid")
-            type = request.POST.get("status")
-            oposite = request.POST.get("oposite")
-            commentid = request.POST.get("commentid")
+        # if self.is_ajax(request) and "review_likes" in request.POST:
+        #     review_type = request.POST.get("review_likes")
+        #     bookid = request.POST.get("bookid")
+        #     type = request.POST.get("status")
+        #     oposite = request.POST.get("oposite")
+        #     commentid = request.POST.get("commentid")
 
-            books = cpanel_model.book.objects.get(pk=bookid)
-            comment = cpanel_model.ratings.objects.get(pk=commentid)
-            check = cpanel_model.UserLikes.objects.filter(
-                ratings=comment, user=request.user
-            )
-            if check.exists() and check.first().liked == False:
+        #     comment = cpanel_model.ratings.objects.get(pk=commentid)
+        #     check = cpanel_model.UserLikes.objects.filter(
+        #         ratings=comment, user=request.user
+        #     )
+        #     # check back here with clear mind
+        #     if check.exists():
+        #         pass
+        #     else:
 
-                cpanel_model.ratings.objects.filter(pk=commentid).update(
-                    likes=F(str(review_type)) + 1
-                )
-                # comment.update(likes=F(str(review_type)) + 1)
-                cpanel_model.UserLikes.objects.update_or_create(
-                    user=request.user,
-                    ratings=comment,
-                    liked=True,
-                    disliked=False,
-                    defaults={"liked": False},
-                )
-                if type == True:
-                    cpanel_model.ratings.objects.filter(pk=commentid).update(
-                        likes=F(str(oposite)) + 1
-                    )
-                    # create a function for this particular post
-                    # temporary fixe
-                    cpanel_model.UserLikes.objects.update_or_create(
-                        user=request.user,
-                        ratings=comment,
-                        liked=True,
-                        disliked=False,
-                        defaults={"disliked": True, "liked": False},
-                    )
+        #         cpanel_model.ratings.objects.filter(pk=commentid).update(
+        #             likes=F(str(review_type)) + 1
+        #         )
+        #         # comment.update(likes=F(str(review_type)) + 1)
+        #         cpanel_model.UserLikes.objects.update_or_create(
+        #             user=request.user,
+        #             ratings=comment,
+        #             defaults={"liked": True, "disliked": False},
+        #         )
+        #         if type == True:
+        #             cpanel_model.ratings.objects.filter(pk=commentid).update(
+        #                 likes=F(str(oposite)) + 1
+        #             )
+        #             # create a function for this particular post
+        #             # temporary fixe
+        #             cpanel_model.UserLikes.objects.update_or_create(
+        #                 user=request.user,
+        #                 ratings=comment,
+        #                 # liked=True,
+        #                 # disliked=False,
+        #                 defaults={"liked": False, "disliked": True},
+        #             )
 
-            return JsonResponse({"status": "done"})
+        #     return JsonResponse({"status": "done"})
 
     # likes
 
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"
+
+    # all reviews
+
+
+class RatingsView(DetailView):
+    model = cpanel_model.book
+    template_name = "frontend/ratings.html"
+    context_object_name = "comments"
+    # queryset = cpanel_model.ratings.objects.filter(book=self.pk)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context[""] = "none"
+    #     return context
+
+    # def get_queryset(self, *args, **kwargs):
+    #     book = cpanel_model.book.objects.filter(pk=kwargs["pk"])
+    #     return self.model.objects.filter(book=book).order_by("-created_at")

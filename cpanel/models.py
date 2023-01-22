@@ -86,7 +86,7 @@ class ratings(models.Model):
     #     return self.fi
 
     def __str__(self) -> str:
-        return f"{book.title} : {book.avarage_ratings}"
+        return f"{self.book.title} : {self.book.avarage_ratings()}"
 
 
 class UserLikes(models.Model):

@@ -23,4 +23,5 @@ urlpatterns = [
         name="ordersuccess",
     ),
     path("reviews/", views.bookReview.as_view(), name="review"),
+    path("reviews/<pk>/", views.RatingsView.as_view(), name="allcomment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
