@@ -264,6 +264,8 @@ $(document).ready(function () {
                     if (data.status === "success") {
                         $("#rating_error").removeClass("d-none").removeClass("alert alert-danger").addClass("alert alert-success")
                         $("#rating_error").html("Comment Successfully submited")
+                        $("#descriptionTextarea").val("")
+                        $("#review_title").val("")
                     }
                 },
                 "json"

@@ -608,6 +608,7 @@ def OrderSuccess(request, ordernumber):
 class bookReview(TemplateView):
     def post(self, request, *args, **kwargs):
         if self.is_ajax(request) and "book_review" in request.POST:
+            time.sleep(2)
             ratings = request.POST.get("rating")
             commet = request.POST.get("commet")
             bookid = request.POST.get("bookid")

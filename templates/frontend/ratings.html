@@ -156,7 +156,7 @@ Newtonbookshop | Reviews
             </div>
         </div>
         {% if comments.ratings_set.all.count > 0 %}
-        <h4 class="font-size-3 mb-8">1-5 of {{comments.ratings_set.all.count}} reviews</h4>
+        <!-- <h4 class="font-size-3 mb-8">1-5 of {{comments.ratings_set.all.count}} reviews</h4> -->
 
         <ul class="list-unstyled mb-8">
 
@@ -186,7 +186,7 @@ Newtonbookshop | Reviews
         </ul>
 
         {% endif %}
-        {% if request.user.email %}
+        <!-- {% if request.user.email %}
         <form action="" method="post" id="review_form">
             {% csrf_token %}
 
@@ -228,7 +228,7 @@ Newtonbookshop | Reviews
                         Review</span></button>
             </div>
         </form>
-        {% endif %}
+        {% endif %} -->
 
         <!-- End Mockup Block -->
     </div>
