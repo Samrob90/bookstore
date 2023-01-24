@@ -131,6 +131,50 @@ input::-webkit-inner-spin-button {
     color: lightgray !important;
 }
 
+.share_social_media {
+    background-color: white;
+    /* position: absolute; */
+    /* margin-top: 35px; */
+    /* margin-left: 150px; */
+    border: 1px solid lightgray;
+    z-index: 299;
+    margin-left: -25px;
+    margin-top: -10px;
+    display: none;
+}
+
+/* .social_content {
+    padding-left: 10px;
+    padding-right: 10px;
+} */
+
+.social_content ul {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    display: inline-block;
+}
+
+.social_content ul li {
+    display: inline-block;
+    padding-left: 10px;
+
+}
+
+.social_content ul li a img:hover {
+    opacity: 0.5;
+}
+
+.blog-index- a img {
+    width: 440px !important;
+    height: 240px !important;
+}
+
+.blog-index- .text-img {
+    width: 40% !important;
+}
+
 @media screen and (max-width: 600px) {
     .django_messages_error {
         width: 90% !important;

@@ -295,5 +295,16 @@ $(document).ready(function () {
 
     // write a review
 
+    $(".share").hover(function () {
+        // over
+        $(".share_social_media").toggle();
+
+    }, function () {
+        // out
+        // $(".share_social_media").fadeOut();
+    });
+    $(".share_social_media").mouseleave(function () {
+        $(this).fadeOut();
+    });
 
 });

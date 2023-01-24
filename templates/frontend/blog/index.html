@@ -273,10 +273,12 @@ Newtonbookshop | Blog
                 <div class="col-lg-8 col-xl-9">
                    
                    {% for blogpost in blog %}
-                   <div class="d-md-flex align-items-center mb-5">
-                    <a class="d-block mb-3 mb-md-0" href="{{blogpost.get_absolute_url}}">
-                        <img class="img-fluid" src="{{ASSETS_ROOT}}/media/{{blogpost.blogthumbnail}}" alt="Image-Description" sizes="(max-width: 445px) 100vw, 445px" width="445" height="300">
-                    </a>
+                   <div class="d-md-flex align-items-center mb-5 shadow blog-index-">
+                    <div class="text-img" >
+                        <a class="d-block mb-3 mb-md-0" href="{{blogpost.get_absolute_url}}">
+                            <img class="" src="{{ASSETS_ROOT}}/media/{{blogpost.blogthumbnail}}" alt="Image-Description"  >
+                        </a>
+                    </div>
                     <div class="ml-md-8">
                         <div class="mb-2">
                             <a class="font-size-2" href="{{blogpost.get_absolute_url}}">{{blogpost.category}}</a>

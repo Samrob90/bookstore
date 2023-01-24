@@ -248,9 +248,29 @@ Newtonbookshop | {{book.title}}
                                         Add to Wishlist</a>
                                     {% endif %}
                                 </li>
-                                <li class="mr-6">
-                                    <a href="#" class="h-primary"><i class="flaticon-share mr-2"></i> Share</a>
+                                <li class="mr-6 share">
+                                    <a href="#" class="h-primary"><i class="flaticon-share mr-2 "></i> Share</a>
                                 </li>
+
+                                <!-- share  -->
+                                <div class="share_social_media shadow p-2">
+                                    <div class="social_content">
+                                        <ul>
+                                            <li><a href=" https://web.facebook.com/sharer/sharer.php?u=https://www.newtonbookshop.com/book/{{book.get_absolute_url}}.html%3Futm_source%3Dfacebook%26utm_medium%3Dsocial%26utm_campaign%3Dpdpshare&quote=Check out this product on newtonbookshop&_rdc=1&_rdr"
+                                                    target="_blank"><img
+                                                        src="{{ASSETS_ROOT}}/static/assets/img/social/facebook.png"
+                                                        alt="facebook"></a></li>
+                                            <li><a href="https://twitter.com/intent/tweet?text={{blog.title}}&url=https://newtonbookshop.com/{{book.get_absolute_url}}"
+                                                    target="_blank"><img
+                                                        src="{{ASSETS_ROOT}}/static/assets/img/social/twitter.png"
+                                                        alt="twitter"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- end share -->
+
+
                             </ul>
                         </div>
                     </div>

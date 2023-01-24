@@ -28,7 +28,7 @@ class blog(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse("blog_detail", kwargs={"uuid": self.blogid, "slug": self.slug})
+        return reverse("blog_detail", kwargs={"slug": self.slug})
 
     def save(self, **kwargs):
         output_size = (445, 300)

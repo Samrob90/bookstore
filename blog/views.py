@@ -30,7 +30,7 @@ class BlogDetail(TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = {
-            "blog": blog.objects.get(blogid=kwargs["uuid"], slug=kwargs["slug"]),
+            "blog": blog.objects.get(slug=kwargs["slug"]),
             "form": self.form,
         }
         return render(request, self.template_name, context)
