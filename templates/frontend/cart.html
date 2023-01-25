@@ -205,16 +205,16 @@ Newtonbookshop | FAQ
                                             </td>
                                         </tr>
 
-                                        <tr class="order-shipping">
+                                        {% comment %} <tr class="order-shipping">
                                             <th>Shipping</th>
                                             <td data-title="Shipping">Free Shipping</td>
-                                        </tr>
+                                        </tr> {% endcomment %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <div class="p-4d875 border">
+                        {% comment %} <div class="p-4d875 border">
                             <div id="cartHeadingTwo" class="cart-head">
                                 <a class="d-flex align-items-center justify-content-between text-dark" href="#"
                                     data-toggle="collapse" data-target="#cartCollapseTwo" aria-expanded="true"
@@ -269,8 +269,8 @@ Newtonbookshop | FAQ
                                 <span class="font-size-2">Shipping to Turkey.</span><a href="#"
                                     class="font-weight-medium h-primary ml-3 font-size-2">Change Address</a>
                             </div>
-                        </div>
-
+                        </div> {% endcomment %}
+{% comment %} 
                         <div class="p-4d875 border">
                             <div id="cartHeadingThree" class="cart-head">
                                 <a class="d-flex align-items-center justify-content-between text-dark" href="#"
@@ -302,7 +302,7 @@ Newtonbookshop | FAQ
                                     <input type="submit" class="button" name="apply_coupon" value="Apply coupon">
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
 
                         <div class="p-4d875 border">
                             <table class="shop_table shop_table_responsive">
@@ -311,7 +311,7 @@ Newtonbookshop | FAQ
                                         <th>Total</th>
                                         <td data-title="Total"><strong><span
                                                     class="woocommerce-Price-amount amount"><span
-                                                        class="woocommerce-Price-currencySymbol">GHS</span>{{cart_price_totals}}</span></strong>
+                                                        class="woocommerce-Price-currencySymbol">GHS</span>&nbsp;{{cart_price_total}}</span></strong>
                                         </td>
                                     </tr>
                                 </tbody>

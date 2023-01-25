@@ -175,6 +175,12 @@ input::-webkit-inner-spin-button {
     width: 40% !important;
 }
 
+.blog-details-image {
+    width: 100%;
+    height: 500px !important;
+    background-size: contain;
+}
+
 @media screen and (max-width: 600px) {
     .django_messages_error {
         width: 90% !important;

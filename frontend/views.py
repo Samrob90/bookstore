@@ -21,11 +21,17 @@ from .context import grabe_children
 from django.db.models import F
 
 
-class HomeVIew(TemplateView):
+class HomeVIew(ListView):
     template_name = "frontend/home.html"
+    model = cpanel_model.book
+    context_object_name = "books"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["best_seller"] = cpanel_model.order_book.objects.all().order_by(
+            "-bookquantity"
+        )[:10]
+        return context
 
 
 # change to list view when model is ready

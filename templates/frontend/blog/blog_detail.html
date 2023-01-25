@@ -23,7 +23,7 @@ Newtonbookshop | {{blog.title}}
         <div class="mb-5 mb-lg-8 pb-xl-1">
             <div class="page-header border-bottom">
                 <div class="container">
-                    <div class="d-md-flex justify-content-between align-items-center py-4">
+                    <div class="d-md-flex justify-content-between align-items-center ">
                         {% comment %} <h1 class="page-title font-size-3 font-weight-medium m-0 text-lh-lg">Blog Detail
                         </h1> {% endcomment %}
                         <nav class="woocommerce-breadcrumb font-size-2">
@@ -54,9 +54,10 @@ Newtonbookshop | {{blog.title}}
                 {% endfor %}
 
                 {% endif %}
-                <img class="img-fluid" src="{{ASSETS_ROOT}}/media/{{blog.blogimage}}" alt="Image-Description"
-                    sizes="(max-width: 1400px) 100vw, 1400px" width="1400" height="650">
+                <img class="blog-details-image" src="{{ASSETS_ROOT}}/media/{{blog.blogimage}}" alt="Image-Description"
+                     width="1400" height="250">
 
+                     {% comment %} sizes="(max-width: 1400px) 100vw, 1400px" {% endcomment %}
                 <div class="max-width-940 mx-auto bg-white position-relative">
                     <div class=" mt-n10 mt-md-n13 pt-5 pt-lg-7 px-3 px-md-5 pl-xl-10 pr-xl-8">
                         <div class="ml-xl-4">

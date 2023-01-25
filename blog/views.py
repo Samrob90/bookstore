@@ -14,6 +14,7 @@ class BlogIndex(ListView):
     template_name = "frontend/blog/index.html"
     model = blog
     context_object_name = "blog"
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

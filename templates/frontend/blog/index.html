@@ -1,5 +1,6 @@
 {% extends 'frontend/base/base.html' %}
 {% load humanize %}
+{% load poll_extras %}
 
 
 {% block title %}
@@ -299,16 +300,28 @@ Newtonbookshop | Blog
                 </div>
             </div>
             <nav aria-label="Page navigation example">
-                <ul class="pagination pagination__custom justify-content-md-center flex-nowrap flex-md-wrap overflow-auto overflow-md-visble mb-0">
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item active" aria-current="page"><a class="page-link" href="#">3</a></li>
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="flex-shrink-0 flex-md-shrink-1 page-item"><a class="page-link" href="#">Next</a></li>
+                <ul
+                class="pagination pagination__custom justify-content-md-center flex-nowrap flex-md-wrap overflow-auto overflow-md-visble">
+                
+                {% if page_obj.has_previous %}
+                <li class="flex-shrink-0 flex-md-shrink-1 page-item active"><a class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                
+                
+                {% for i in page_obj.paginator.num_pages|get_range %}
+                <li
+                class="flex-shrink-0 flex-md-shrink-1 page-item {% if page_obj.number == i %} active {% endif %}">
+                <a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="flex-shrink-0 flex-md-shrink-1 page-item active"><a class="page-link"
+                    href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                {% endif %}
+                
                 </ul>
-            </nav>
+                </nav>
         </div>
     </div>
 </main>
