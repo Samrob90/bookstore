@@ -28,9 +28,15 @@ class HomeVIew(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # best sellers books
         context["best_seller"] = cpanel_model.order_book.objects.all().order_by(
             "-bookquantity"
         )[:10]
+        # bigography books
+        # context["biography"] = cpanel_model.book.objects.filter(
+        #     category="AUTOBIOGRAPHY, BIOGRAPHY & MEMOIR"
+        # )
+
         return context
 
 

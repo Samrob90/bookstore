@@ -2757,98 +2757,27 @@ active border-bottom border-primary border-width-2
                      "slidesToShow": 1
                    }
                 }]'>
+                
+                {% for biography in best_seller %}
                 <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
+                    <div class="media p-3 p-md-4d875 img-thumbnail-shop-newtonbookshop">
+                        <a href="../shop/single-product-v1.html" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{biography.bookthumbnail}}" alt="image-description"></a>
                         <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Rural Diaries: Love, Livestock, and Big Life Lessons Down on Mischief Farm</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
+                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">{{biography.booktype}}</a></div>
+                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">{{biography.booktitle}}</a></h2>
+                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{biography.bookauthor}}</a></div>
                             <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
+                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS</span>&nbsp;{{biography.bookprice}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
-                        <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Ride of a Lifetime: Lessons Learned from 15 Years as CEO...</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
-                            <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
-                        <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Russians Among Us: Sleeper Cells, Ghost Stories, and the Hunt...</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
-                            <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
-                        <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Rural Diaries: Love, Livestock, and Big Life Lessons Down on Mischief Farm</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
-                            <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
-                        <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Ride of a Lifetime: Lessons Learned from 15 Years as CEO...</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
-                            <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
-                        <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Russians Among Us: Sleeper Cells, Ghost Stories, and the Hunt...</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
-                            <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product product__card border-right">
-                    <div class="media p-3 p-md-4d875">
-                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x183" alt="image-description"></a>
-                        <div class="media-body ml-4d875">
-                            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Hard Cover</a></div>
-                            <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Rural Diaries: Love, Livestock, and Big Life Lessons Down on Mischief Farm</a></h2>
-                            <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Hillary Burton</a></div>
-                            <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>15</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+                   
+
             </div>
+
+            {% include 'frontend/components/bookloader.html' %}    
         </div>
     </section>
     <section class="space-bottom-3">
