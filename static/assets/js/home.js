@@ -6,34 +6,28 @@ $(document).ready(function () {
     $(".bookloaded_").removeClass("d-none")
 
 
-    if ($(".dealoftheweek").css("display") === "none") {
-
-    } else {
-        let stamp = $(this)
-        let timestamp = stamp.find(".time_hold")
-        // // console.log(timestamp)
-        // console.log(timestamp.length)
-        // for (let times in timestamp) {
-        //     console.log(timestamp[times])
-        //     // console.log(times.attr("offerends"))
-        // }
-
-        for (let i = 0; i < timestamp.length; i++) {
-            let timestamp_value = timestamp[i].attributes['offerends'].value
-            stamp.find(".days").html(1)
 
 
-            // setInterval(function () {
-            //     makeTimer(timestamp_value);
-            // }, 1000);
-            // console.log(timestamp[i]['attr'])
+    let interval = setInterval(() => {
+        check()
+    }, 1000);
+
+    function check() {
+        if ($(".dealoftheweek").css("display") === "none") {
+            clearInterval(interval)
+        } else {
+            $(".dealofweek_book").each(function (e) {
+                let stamp = $(this)
+                let timestamp_value = stamp.find(".time_hold").attr("offerends")
+                makeTimer(timestamp_value, stamp)
+            })
         }
     }
 
 
     // timer
 
-    function makeTimer(timestamp) {
+    function makeTimer(timestamp, stamp) {
         var endTime = new Date(timestamp * 1000);
         endTime = (Date.parse(endTime) / 1000);
 
@@ -57,10 +51,10 @@ $(document).ready(function () {
             seconds = "0" + seconds;
         }
 
-        $(".days").html(days);
-        $(".hours").html(hours);
-        $(".minutes").html(minutes);
-        $(".seconds").html(seconds);
+        stamp.find(".days").html(days);
+        stamp.find(".hours").html(hours);
+        stamp.find(".minutes").html(minutes);
+        stamp.find(".seconds").html(seconds);
 
     }
 
