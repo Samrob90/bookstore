@@ -1,4 +1,5 @@
 {% extends 'frontend/base/base.html' %}
+{% load poll_extras %}
 
 
 {% block title %}
@@ -194,13 +195,19 @@ active border-bottom border-primary border-width-2
         </div>
     </section>
     <section class="space-bottom-3">
-        <div class="container">
+         
+        <div class="container ">
             <header class="mb-5 d-md-flex justify-content-between align-items-center">
                 <h2 class="font-size-7 mb-3 mb-md-0">Bestselling Books</h2>
                 <a href="../shop/v1.html" class="h-primary d-block">View All <i class="glyph-icon flaticon-next"></i></a>
             </header>
 
-            <div class="js-slick-carousel products no-gutters border-top border-left border-right"
+            <div class="container bookloader_">
+                <div class="">{% include 'frontend/components/bookloader.html' %}    
+            </div>
+             </div>
+
+            <div class="js-slick-carousel products no-gutters border-top border-left border-right bookloaded_ d-none"
                 data-pagi-classes="d-xl-none text-center position-absolute right-0 left-0 u-slick__pagination mt-4 mb-0"
                 data-arrows-classes="d-none d-xl-block u-slick__arrow u-slick__arrow-centered--y"
                 data-arrow-left-classes="fas fa-chevron-left u-slick__arrow-inner u-slick__arrow-inner--left ml-lg-n10"
@@ -270,10 +277,16 @@ active border-bottom border-primary border-width-2
         </div>
     </section>
     <section class="space-bottom-3">
-        <header class="mb-4 container">
+        
+        <header class="mb-4 container  ">
             <h2 class="font-size-7 text-center">Featured Books</h2>
         </header>
-        <div class="container">
+
+        <div class="container bookloader_">
+            <div class="">{% include 'frontend/components/bookloader.html' %} </div>
+        </div>
+
+        <div class="container bookloaded_ d-none">
             <ul class="nav justify-content-md-center nav-gray-700 mb-5 flex-nowrap flex-md-wrap overflow-auto overflow-md-visible" id="featuredBooks" role="tablist">
                 <li class="nav-item mx-5 mb-1 flex-shrink-0 flex-md-shrink-1">
                     <a class="nav-link px-0 active" id="featured-tab" data-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="true">Featured</a>
@@ -288,1068 +301,131 @@ active border-bottom border-primary border-width-2
             <div class="tab-content" id="featuredBooksContent">
                 <div class="tab-pane fade show active" id="featured" role="tabpanel" aria-labelledby="featured-tab">
                     <ul class="products list-unstyled row no-gutters row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-wd-6 border-top border-left my-0">
+
+                        {% for f_book in books %}
                         <li class="product col">
                             <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
+                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative img-thumbnail-shop-newtonbookshop">
                                     <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
+                                        <a href="{{f_book.get_absolute_url}}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{f_book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
                                     </div>
                                     <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
+                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{{f_book.get_absolute_url}}">Paperback</a></div>
+                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="{{f_book.get_absolute_url}}">{{f_book.title}}</a></h2>
+                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">{{f_book.author}}</a></div>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
+                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS&nbsp;</span>{{f_book.default_price}}</span>
                                         </div>
                                     </div>
                                     <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
+                                        <a href="{{f_book.get_absolute_url}}" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
                                         </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{{f_book.get_absolute_url}}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-switch"></i>
                                         </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{{f_book.get_absolute_url}}" class="h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            
+                        {% endfor %}
+                            
+                    
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="onsale" role="tabpanel" aria-labelledby="onsale-tab">
                     <ul class="products list-unstyled row no-gutters row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-wd-6 border-top border-left my-0">
+                        
+                        {% if books.OnSale_set.all.count > 0 %}
+                        {% for onsale in books.OnSale_set.all %}
                         <li class="product col">
                             <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
+                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative img-thumbnail-shop-newtonbookshop">
                                     <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
+                                        <a href="{{onsale.book.get_absolute_url}}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{f_book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
                                     </div>
                                     <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
+                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{{onsale.book.get_absolute_url}}">Paperback</a></div>
+                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="{{onsale.book.get_absolute_url}}">{{onsale.book.title}}</a></h2>
+                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">{{onsale.book.author}}</a></div>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
+                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS&nbsp;</span>{{onsale.book.default_price}}</span>
                                         </div>
                                     </div>
                                     <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
+                                        <a href="{{onsale.book.get_absolute_url}}" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
                                             <span class="product__add-to-cart">ADD TO CART</span>
                                             <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
                                         </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{{onsale.book.get_absolute_url}}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-switch"></i>
                                         </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
+                                        <a href="{{onsale.book.get_absolute_url}}" class="h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-heart"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            
+                        {% endfor %}
+                        {% else %}
+                          <p class="text-center texte-muted pt-5 pb-5 " style="margin: 0 auto;font-size:20px; "> No book on sale , Please check back later. </p>
+                        {% endif %}
+                            
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="mostviewed" role="tabpanel" aria-labelledby="mostviewed-tab">
                    <ul class="products list-unstyled row no-gutters row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-wd-6 border-top border-left my-0">
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
+                       
+                    {% for f_book in books %}
+                    <li class="product col">
+                        <div class="product__inner overflow-hidden p-3 p-md-4d875">
+                            <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative img-thumbnail-shop-newtonbookshop">
+                                <div class="woocommerce-loop-product__thumbnail">
+                                    <a href="{{f_book.get_absolute_url}}" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{f_book.thumbnail}}" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
+                                </div>
+                                <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
+                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="{{f_book.get_absolute_url}}">Paperback</a></div>
+                                    <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="{{f_book.get_absolute_url}}">{{f_book.title}}</a></h2>
+                                    <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">{{f_book.author}}</a></div>
+                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
+                                        <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS&nbsp;</span>{{f_book.default_price}}</span>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
+                                <div class="product__hover d-flex align-items-center">
+                                    <a href="{{f_book.get_absolute_url}}" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
+                                        <span class="product__add-to-cart">ADD TO CART</span>
+                                        <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
+                                    </a>
+                                    <a href="{{f_book.get_absolute_url}}" class="mr-1 h-p-bg btn btn-outline-primary border-0">
+                                        <i class="flaticon-switch"></i>
+                                    </a>
+                                    <a href="{{f_book.get_absolute_url}}" class="h-p-bg btn btn-outline-primary border-0">
+                                        <i class="flaticon-heart"></i>
+                                    </a>
                                 </div>
                             </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Think Like a Monk: Train Your Mind for Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product col d-xl-none d-wd-block">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/120x180" class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid" alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Broken Faith: Inside the Word of Faith...</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html" class="text-gray-700">Jay Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="../shop/single-product-v1.html" class="text-uppercase text-dark h-dark font-weight-medium mr-auto" data-toggle="tooltip" data-placement="right" title="ADD TO CART">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        </div>
+                    </li>
+                        
+                    {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-    <section class="space-bottom-3">
+    <section class="space-bottom-3  dealoftheweek">
         <div class="space-top-3 space-bottom-4 bg-gray-200">
             <div class="container">
                 <header class="mb-5 d-md-flex justify-content-between align-items-center">
-                    <h2 class="font-size-7 mb-3 mb-md-0">Deals of the Week</h2>
+                    <h2 class="font-size-7 mb-3 mb-md-0">Deals of the Week {{books.DealofWeek.all.count}}
+                    </h2>
                     <a href="#" class="h-primary d-block">View All <i class="glyph-icon flaticon-next"></i></a>
                 </header>
                 <div class="js-slick-carousel u-slick products border bg-white no-gutters"
@@ -1374,49 +450,52 @@ active border-bottom border-primary border-width-2
                          "slidesToShow": 1
                        }
                     }]'>
+                    
+                    {% for deal in dealofweek %}
+                    
                     <div class="product product__card border-right">
                         <div class="media p-md-6 p-4 d-block d-md-flex">
                             <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/200x327" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
+                                <a href="../shop/single-product-v1.html" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{deal.book.thumbnail}}" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
                             </div>
                             <div class="woocommerce-loop-product__body media-body ml-md-5d25">
                                 <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Kindle Edition</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Dark in Death: An Eve Dallas Novel (In Death, Book 46)</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Nora Roberts</a></div>
+                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">{{deal.book.default_type}}</a></div>
+                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">{{deal.book.title}}</a></h2>
+                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{deal.book.author}}</a></div>
                                     <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                         <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99</span></del>
+                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS</span>{{deal.book.default_price}}</span></del>
                                     </div>
                                 </div>
                                 <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular">Offer ends in:</span></h5>
+                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular time_hold" offerends= "{{deal.periode|date:'U'}}">Offer ends in: </span></h5>
                                     <div class="d-flex align-items-stretch justify-content-between">
                                         <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">114</span>
+                                            <span class="font-weight-medium font-size-3 days" id="days">114</span>
                                             <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
                                         </div>
                                         <div class="border-left pr-3 pr-md-0">&nbsp;</div>
                                         <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">03</span>
+                                            <span class="font-weight-medium font-size-3 houres" id="houres">03</span>
                                             <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
                                         </div>
                                         <div class="border-left pr-3 pr-md-0">&nbsp;</div>
                                         <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">60</span>
+                                            <span class="font-weight-medium font-size-3 minutes" id="minutes">60</span>
                                             <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
                                         </div>
                                         <div class="border-left pr-3 pr-md-0">&nbsp;</div>
                                         <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">25</span>
+                                            <span class="font-weight-medium font-size-3 seconds" id="seconds">25</span>
                                             <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="deal-progress">
                                     <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: 14</span>
-                                        <span>Available: 3</span>
+                                        <span>Already Sold: {{deal.sold}}</span>
+                                        <span>Available: {{deal.sold|available_book_deal:deal.quantity}}</span>
                                     </div>
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
@@ -1425,271 +504,13 @@ active border-bottom border-primary border-width-2
                             </div>
                         </div>
                     </div>
-
-                    <div class="product product__card border-right">
-                        <div class="media p-md-6 p-4 d-block d-md-flex">
-                            <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/200x327" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
-                            </div>
-                            <div class="woocommerce-loop-product__body media-body ml-md-5d25">
-                                <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Kindle Edition</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Under a Firefly Moon (Firefly Lake Book 1)</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Nora Roberts</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99</span></del>
-                                    </div>
-                                </div>
-                                <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular">Offer ends in:</span></h5>
-                                    <div class="d-flex align-items-stretch justify-content-between">
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">114</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">03</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">60</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">25</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="deal-progress">
-                                    <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: 14</span>
-                                        <span>Available: 3</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product product__card border-right">
-                        <div class="media p-md-6 p-4 d-block d-md-flex">
-                            <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/200x327" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
-                            </div>
-                            <div class="woocommerce-loop-product__body media-body ml-md-5d25">
-                                <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Kindle Edition</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Dark in Death: An Eve Dallas Novel (In Death, Book 46)</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Nora Roberts</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99</span></del>
-                                    </div>
-                                </div>
-                                <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular">Offer ends in:</span></h5>
-                                    <div class="d-flex align-items-stretch justify-content-between">
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">114</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">03</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">60</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">25</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="deal-progress">
-                                    <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: 14</span>
-                                        <span>Available: 3</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product product__card border-right">
-                        <div class="media p-md-6 p-4 d-block d-md-flex">
-                            <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/200x327" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
-                            </div>
-                            <div class="woocommerce-loop-product__body media-body ml-md-5d25">
-                                <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Kindle Edition</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Under a Firefly Moon (Firefly Lake Book 1)</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Nora Roberts</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99</span></del>
-                                    </div>
-                                </div>
-                                <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular">Offer ends in:</span></h5>
-                                    <div class="d-flex align-items-stretch justify-content-between">
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">114</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">03</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">60</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">25</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="deal-progress">
-                                    <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: 14</span>
-                                        <span>Available: 3</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product product__card border-right">
-                        <div class="media p-md-6 p-4 d-block d-md-flex">
-                            <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/200x327" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
-                            </div>
-                            <div class="woocommerce-loop-product__body media-body ml-md-5d25">
-                                <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Kindle Edition</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Dark in Death: An Eve Dallas Novel (In Death, Book 46)</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Nora Roberts</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99</span></del>
-                                    </div>
-                                </div>
-                                <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular">Offer ends in:</span></h5>
-                                    <div class="d-flex align-items-stretch justify-content-between">
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">114</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">03</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">60</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">25</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="deal-progress">
-                                    <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: 14</span>
-                                        <span>Available: 3</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product product__card border-right">
-                        <div class="media p-md-6 p-4 d-block d-md-flex">
-                            <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="https://placehold.it/200x327" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
-                            </div>
-                            <div class="woocommerce-loop-product__body media-body ml-md-5d25">
-                                <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">Kindle Edition</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">Under a Firefly Moon (Firefly Lake Book 1)</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">Nora Roberts</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>99</span></del>
-                                    </div>
-                                </div>
-                                <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular">Offer ends in:</span></h5>
-                                    <div class="d-flex align-items-stretch justify-content-between">
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">114</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">03</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">60</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3">25</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="deal-progress">
-                                    <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: 14</span>
-                                        <span>Available: 3</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+                        
                 </div>
             </div>
         </div>
     </section>
-    <section class="space-bottom-3 banner-with-product">
+    {% comment %} <section class="space-bottom-3 banner-with-product">
         <div class="container">
             <header class="mb-5 d-md-flex justify-content-between align-items-center">
                 <h2 class="font-size-7 mb-3 mb-md-0">New Releases</h2>
@@ -1720,7 +541,7 @@ active border-bottom border-primary border-width-2
                                     <h3 class="banner_text m-0">
                                         <span class="d-block mb-1 font-size-10 font-weight-regular">Get Extra</span>
                                         <span class="d-block mb-3 font-size-12 text-primary font-weight-medium">Sale -25%</span>
-                                        <span class="d-block mb-5 text-uppercase font-size-7 font-weight-regular text-gray-400">On Order Over $100</span>
+                                        <span class="d-block mb-5 text-uppercase font-size-7 font-weight-regular text-gray-400">On Order Over GHS 300 in Ghana</span>
                                     </h3>
                                     <a href="../shop/v1.html" class="btn btn-primary btn-wide rounded-0">View More</a>
                                 </div>
@@ -2731,9 +1552,12 @@ active border-bottom border-primary border-width-2
                 </div>
             </div>
         </div>
-    </section>
+    </section> {% endcomment %}
     <section class="space-bottom-3">
-        <div class="container">
+        <div class="container bookloader_">
+            <div class="">{% include 'frontend/components/bookloader.html' %}    </div>
+        </div>
+        <div class="container bookloaded_ d-none">
             <header class="mb-5 d-md-flex justify-content-between align-items-center">
                 <h2 class="font-size-7 mb-3 mb-md-0">Biographies Books</h2>
                 <a href="../shop/v1.html" class="h-primary d-block">View All <i class="glyph-icon flaticon-next"></i></a>
@@ -2777,7 +1601,6 @@ active border-bottom border-primary border-width-2
 
             </div>
 
-            {% include 'frontend/components/bookloader.html' %}    
         </div>
     </section>
     <section class="space-bottom-3">

@@ -239,3 +239,32 @@ class order_book(models.Model):
 
     def __str__(self) -> str:
         return self.booktitle
+
+
+class OnSale(models.Model):
+    book = models.ForeignKey(
+        "book", verbose_name="book on sale", on_delete=models.CASCADE
+    )
+    discount = models.IntegerField(default=0)
+    periode = models.DateTimeField(default=None)
+    created_by = models.ForeignKey(
+        Account, verbose_name="on sale created by ", on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+
+
+class DealofWeek(models.Model):
+    book = models.ForeignKey(
+        "book", verbose_name="deals of the week", on_delete=models.CASCADE
+    )
+    discount = models.IntegerField(default=0)
+    periode = models.DateTimeField(default=None)
+    quantity = models.IntegerField(default=0)
+    sold = models.IntegerField(default=0)
+    created_by = models.ForeignKey(
+        Account, verbose_name="deals of the week ", on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return f"{book.title}"

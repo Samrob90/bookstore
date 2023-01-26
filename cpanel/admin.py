@@ -118,3 +118,20 @@ class register_orders(admin.ModelAdmin):
 
 
 admin.site.register(models.order, register_orders)
+
+
+# deal of week
+class register_deal_of_week(admin.ModelAdmin):
+    model: models.DealofWeek
+    list_display = (
+        "book",
+        "discount",
+        "periode",
+        "quantity",
+        "sold",
+        "created_by",
+        "created_at",
+    )
+
+
+admin.site.register(models.DealofWeek, register_deal_of_week)

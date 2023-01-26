@@ -30,3 +30,8 @@ def stars_perentage(stars, totalreview):
         return int((int(stars) * 100) / int(totalreview))
     except ZeroDivisionError:
         return 0
+
+
+@register.filter(name="available_book_deal")
+def available_book_deal(sold, quantity):
+    return quantity - sold

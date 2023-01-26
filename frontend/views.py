@@ -32,12 +32,29 @@ class HomeVIew(ListView):
         context["best_seller"] = cpanel_model.order_book.objects.all().order_by(
             "-bookquantity"
         )[:10]
+        # deal of week
+
+        context["dealofweek"] = cpanel_model.DealofWeek.objects.all().order_by(
+            "-created_at"
+        )
+
+        # features books
+        # context["featured_books"] = cpanel_model.book.objects.all().order_by(
+        #     "-created_at"
+        # )[:12]
+
+        # on sale books
+        # context["onsale"] = cpanel_model.
+
         # bigography books
         # context["biography"] = cpanel_model.book.objects.filter(
         #     category="AUTOBIOGRAPHY, BIOGRAPHY & MEMOIR"
         # )
 
         return context
+
+    def get_queryset(self):
+        return cpanel_model.book.objects.all().order_by("created_at")[:12]
 
 
 # change to list view when model is ready
