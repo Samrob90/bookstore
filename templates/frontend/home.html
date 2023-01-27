@@ -420,96 +420,100 @@ active border-bottom border-primary border-width-2
             </div>
         </div>
     </section>
-    <section class="space-bottom-3  dealoftheweek">
-        <div class="space-top-3 space-bottom-4 bg-gray-200">
-            <div class="container">
-                <header class="mb-5 d-md-flex justify-content-between align-items-center">
-                    <h2 class="font-size-7 mb-3 mb-md-0">Deals of the Week {{books.DealofWeek.all.count}}
-                    </h2>
-                    <a href="#" class="h-primary d-block">View All <i class="glyph-icon flaticon-next"></i></a>
-                </header>
-                <div class="js-slick-carousel u-slick products border bg-white no-gutters"
-                    data-arrows-classes="u-slick__arrow u-slick__arrow-centered--y"
-                    data-arrow-left-classes="fas fa-chevron-left u-slick__arrow-inner u-slick__arrow-inner--left ml-lg-n10"
-                    data-arrow-right-classes="fas fa-chevron-right u-slick__arrow-inner u-slick__arrow-inner--right mr-lg-n10"
-                    data-pagi-classes="text-center u-slick__pagination u-slick__pagination mt-6 mb-0 position-absolute right-0 left-0"
-                    data-slides-show="2"
-                    data-responsive='[{
-                       "breakpoint": 1199,
-                       "settings": {
-                         "slidesToShow": 1
-                       }
-                    }, {
-                       "breakpoint": 768,
-                       "settings": {
-                         "slidesToShow": 1
-                       }
-                    }, {
-                       "breakpoint": 554,
-                       "settings": {
-                         "slidesToShow": 1
-                       }
-                    }]'>
-                    
-                    {% for deal in dealofweek %}
-                    
-                    <div class="product product__card border-right  dealofweek_book">
-                        <div class="media p-md-6 p-4 d-block d-md-flex">
-                            <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0">
-                                <a href="../shop/single-product-v1.html" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{deal.book.thumbnail}}" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
+   
+   {% if dealofweek.count > 0 %}
+   <section class="space-bottom-3  dealoftheweek">
+    <div class="space-top-3 space-bottom-4 bg-gray-200">
+        <div class="container">
+            <header class="mb-5 d-md-flex justify-content-between align-items-center">
+                <h2 class="font-size-7 mb-3 mb-md-0">Deals of the Week 
+                </h2>
+                <a href="#" class="h-primary d-block">View All <i class="glyph-icon flaticon-next"></i></a>
+            </header>
+            <div class="js-slick-carousel u-slick products border bg-white no-gutters"
+                data-arrows-classes="u-slick__arrow u-slick__arrow-centered--y"
+                data-arrow-left-classes="fas fa-chevron-left u-slick__arrow-inner u-slick__arrow-inner--left ml-lg-n10"
+                data-arrow-right-classes="fas fa-chevron-right u-slick__arrow-inner u-slick__arrow-inner--right mr-lg-n10"
+                data-pagi-classes="text-center u-slick__pagination u-slick__pagination mt-6 mb-0 position-absolute right-0 left-0"
+                data-slides-show="2"
+                data-responsive='[{
+                   "breakpoint": 1199,
+                   "settings": {
+                     "slidesToShow": 1
+                   }
+                }, {
+                   "breakpoint": 768,
+                   "settings": {
+                     "slidesToShow": 1
+                   }
+                }, {
+                   "breakpoint": 554,
+                   "settings": {
+                     "slidesToShow": 1
+                   }
+                }]'>
+                
+                {% for deal in dealofweek %}
+                
+                <div class="product product__card border-right  dealofweek_book">
+                    <div class="media p-md-6 p-4 d-block d-md-flex">
+                        <div class="woocommerce-loop-product__thumbnail mb-4 mb-md-0 img-thumbnail-shop-newtonbookshop ">
+                            <a href="../shop/single-product-v1.html" class="d-block"><img src="{{ASSETS_ROOT}}/media/thumbnail/{{deal.book.thumbnail}}" class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto" alt="image-description"></a>
+                        </div>
+                        <div class="woocommerce-loop-product__body media-body ml-md-5d25">
+                            <div class="mb-3">
+                                <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">{{deal.book.default_type}}</a></div>
+                                <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">{{deal.book.title}}</a></h2>
+                                <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{deal.book.author}}</a></div>
+                                <div class="price d-flex align-items-center font-weight-medium font-size-3">
+                                    <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
+                                    <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS</span>{{deal.book.default_price}}</span></del>
+                                </div>
                             </div>
-                            <div class="woocommerce-loop-product__body media-body ml-md-5d25">
-                                <div class="mb-3">
-                                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a href="../shop/single-product-v1.html">{{deal.book.default_type}}</a></div>
-                                    <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">{{deal.book.title}}</a></h2>
-                                    <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{deal.book.author}}</a></div>
-                                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                        <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
-                                        <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS</span>{{deal.book.default_price}}</span></del>
+                            <div class="countdown-timer mb-5">
+                                <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular time_hold" offerends= "{{deal.periode|date:'U'}}">Offer ends in: </span></h5>
+                                <div class="d-flex align-items-stretch justify-content-between">
+                                    <div class="py-2d75">
+                                        <span class="font-weight-medium font-size-3 days" id="days">114</span>
+                                        <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
+                                    </div>
+                                    <div class="border-left pr-3 pr-md-0">&nbsp;</div>
+                                    <div class="py-2d75">
+                                        <span class="font-weight-medium font-size-3 houres" id="houres">03</span>
+                                        <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
+                                    </div>
+                                    <div class="border-left pr-3 pr-md-0">&nbsp;</div>
+                                    <div class="py-2d75">
+                                        <span class="font-weight-medium font-size-3 minutes" id="minutes">60</span>
+                                        <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
+                                    </div>
+                                    <div class="border-left pr-3 pr-md-0">&nbsp;</div>
+                                    <div class="py-2d75">
+                                        <span class="font-weight-medium font-size-3 seconds" id="seconds">25</span>
+                                        <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
                                     </div>
                                 </div>
-                                <div class="countdown-timer mb-5">
-                                    <h5 class="countdown-timer__title font-size-3 mb-3 font-weight-bold">Hurry Up! <span class="font-weight-regular time_hold" offerends= "{{deal.periode|date:'U'}}">Offer ends in: </span></h5>
-                                    <div class="d-flex align-items-stretch justify-content-between">
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3 days" id="days">114</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Days</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3 houres" id="houres">03</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Hours</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3 minutes" id="minutes">60</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Mins</span>
-                                        </div>
-                                        <div class="border-left pr-3 pr-md-0">&nbsp;</div>
-                                        <div class="py-2d75">
-                                            <span class="font-weight-medium font-size-3 seconds" id="seconds">25</span>
-                                            <span class="font-size-2 ml-md-2 ml-xl-0 ml-wd-2 d-xl-block d-wd-inline">Secs</span>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="d-flex justify-content-between font-size-2 mb-2d75">
+                                    <span>Already Sold: {{deal.sold}}</span>
+                                    <span>Available: {{deal.sold|available_book_deal:deal.quantity}}</span>
                                 </div>
-                                <div class="deal-progress">
-                                    <div class="d-flex justify-content-between font-size-2 mb-2d75">
-                                        <span>Already Sold: {{deal.sold}}</span>
-                                        <span>Available: {{deal.sold|available_book_deal:deal.quantity}}</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
-                                    </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                        
                 </div>
+                {% endfor %}
+                    
             </div>
         </div>
-    </section>
+    </div>
+</section>
+   {% endif %}
+    
     {% comment %} <section class="space-bottom-3 banner-with-product">
         <div class="container">
             <header class="mb-5 d-md-flex justify-content-between align-items-center">
