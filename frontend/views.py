@@ -38,23 +38,28 @@ class HomeVIew(ListView):
             "-created_at"
         )
 
-        # features books
-        # context["featured_books"] = cpanel_model.book.objects.all().order_by(
-        #     "-created_at"
-        # )[:12]
-
-        # on sale books
-        # context["onsale"] = cpanel_model.
-
-        # bigography books
-        # context["biography"] = cpanel_model.book.objects.filter(
-        #     category="AUTOBIOGRAPHY, BIOGRAPHY & MEMOIR"
-        # )
-
+        # authors
+        context["authors"] = cpanel_model.Authors.objects.all().order_by("-created_at")[
+            :10
+        ]
         return context
 
     def get_queryset(self):
         return cpanel_model.book.objects.all().order_by("created_at")[:12]
+
+
+class authorsDetail(DetailView):
+    model = cpanel_model.Authors
+    template_name = "frontend/author_single.html"
+    context_object_name = "author"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["author_books"] = cpanel_model.book.objects.filter(
+            author=self.model.fullname
+        )
+        print(context)
+        return context
 
 
 # change to list view when model is ready

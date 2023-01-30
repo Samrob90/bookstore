@@ -261,6 +261,10 @@ input::-webkit-inner-spin-button {
 }
 
 
+.author img:hover {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
 @keyframes loader {
     0% {
         background-color: rgba(165, 165, 165, 0.1);

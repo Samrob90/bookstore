@@ -16,7 +16,7 @@ def user_context(request):
 
     if request.user.is_authenticated:
         total_price = 0
-        value = frontend_cart.objects.filter(user=request.user)
+        value = frontend_cart.objects.filter(user=request.user).order_by("-created_at")
         if value is not None:
             for i in value:
                 total_price += float(i.bookprice) * float(i.bookquantity)

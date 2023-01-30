@@ -35,3 +35,8 @@ def stars_perentage(stars, totalreview):
 @register.filter(name="available_book_deal")
 def available_book_deal(sold, quantity):
     return quantity - sold
+
+
+@register.filter(name="deal_of_the_weak_percentage")
+def deal_of_the_weak_percentage(price, percentage):
+    return float(price) - (float(price) * float(percentage) / 100)

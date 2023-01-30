@@ -52,7 +52,7 @@ $(document).ready(function () {
         }
 
         stamp.find(".days").html(days);
-        stamp.find(".hours").html(hours);
+        stamp.find(".houres").html(hours);
         stamp.find(".minutes").html(minutes);
         stamp.find(".seconds").html(seconds);
 

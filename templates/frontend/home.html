@@ -466,7 +466,7 @@ active border-bottom border-primary border-width-2
                                 <h2 class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark"><a href="../shop/single-product-v1.html">{{deal.book.title}}</a></h2>
                                 <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a href="../others/authors-single.html" class="text-gray-700">{{deal.book.author}}</a></div>
                                 <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                    <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>79</span></ins>
+                                    <ins class="text-decoration-none mr-2"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{{deal.book.default_price|deal_of_the_weak_percentage:deal.discount}}</span></ins>
                                     <del class="font-size-1 font-weight-regular text-gray-700"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">GHS</span>{{deal.book.default_price}}</span></del>
                                 </div>
                             </div>
@@ -500,7 +500,7 @@ active border-bottom border-primary border-width-2
                                     <span>Available: {{deal.sold|available_book_deal:deal.quantity}}</span>
                                 </div>
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width:82%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
+                                    <div class="progress-bar" role="progressbar" style="width:{{deal.sold|stars_perentage:deal.quantity}}%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="17"></div>
                                 </div>
                             </div>
                         </div>
@@ -1639,78 +1639,21 @@ active border-bottom border-primary border-width-2
                         "slidesToShow": 1
                     }
                 }]'>
+
+                {% for author in authors %}
+                    
                 <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
+                    <a href="{{author.get_absolute_url}}" class="text-reset ">
+                        <img src="{{ASSETS_ROOT}}/media/{{author.thumbnail}}" class="mx-auto mb-5 d-block rounded-circle shadow-sm" alt="image-description" style="height:200px!important;width:200px!important;">
                         <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">Barbara O'Neil</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
+                            <h2 class="author__name h6 mb-0">{{author.fullname}}</h2>
+                            <div class="text-gray-700 font-size-2">{{author.nobp}} Published Books</div>
                         </div>
                     </a>
                 </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">Stephen King</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">David Walliams</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">Joe Wicks</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">Jessica Simpson</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">David Walliams</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">Joe Wicks</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="author col">
-                    <a href="../others/authors-single.html" class="text-reset">
-                        <img src="https://placehold.it/142x142" class="mx-auto mb-5 d-block rounded-circle" alt="image-description">
-                        <div class="author__body text-center">
-                            <h2 class="author__name h6 mb-0">Barbara O'Neil</h2>
-                            <div class="text-gray-700 font-size-2">25 Published Books</div>
-                        </div>
-                    </a>
-                </li>
+                    
+                {% endfor %}
+               
             </ul>
         </div>
     </section>

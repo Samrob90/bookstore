@@ -135,3 +135,12 @@ class register_deal_of_week(admin.ModelAdmin):
 
 
 admin.site.register(models.DealofWeek, register_deal_of_week)
+
+
+# register author
+class register_author(admin.ModelAdmin):
+    model: models.Authors
+    list_display = ("fullname", "nofp", "description", "created_at")
+
+
+admin.site.register(models.Authors, register_author)

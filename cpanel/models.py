@@ -4,6 +4,10 @@ from django.utils import timezone
 from django.urls import reverse
 from authentications.models import Account
 from django.db.models import Avg
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
 # Create your models here.
 class product(models.Model):
@@ -268,3 +272,45 @@ class DealofWeek(models.Model):
 
     def __str__(self) -> str:
         return f"{book.title}"
+
+
+class Authors(models.Model):
+    books = models.ManyToManyField(
+        book, verbose_name="author book", default=None, blank=True
+    )
+    fullname = models.CharField(default=None, max_length=300)
+    nofp = models.IntegerField(default=None, verbose_name="number of books published")
+    description = models.TextField(default=None)
+    thumbnail = models.ImageField(
+        upload_to="author/thumbnail", default="author_defualt_thumbnail.webp"
+    )
+    image = models.ImageField(
+        upload_to="author/img", default="None", null=True, blank=True
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def save(self, **kwargs):
+        output_size = (445, 300)
+        output_thumb = BytesIO()
+        img = Image.open(self.image)
+        img_name = self.image.name.split(".")[0]
+
+        # if img.height >445 or img.width > 445:
+        img.thumbnail(output_size)
+        img.save(output_thumb, format="WEBP", quality=90)
+        self.thumbnail = InMemoryUploadedFile(
+            output_thumb,
+            "ImageField",
+            f"{img_name}_thumb.webp",
+            "image/webp",
+            sys.getsizeof(output_thumb),
+            None,
+        )
+
+        super(Authors, self).save()
+
+    def get_absolute_url(self):
+        return reverse("author_single", kwargs={"pk": self.pk})
+
+    def __str__(self) -> str:
+        return self.fullname
