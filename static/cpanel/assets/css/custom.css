@@ -54,7 +54,7 @@
 
 .shop-details-view-newtonbookshop img {
     width: 320px !important;
-    height: 444px !important;
+    height: 489px !important;
 }
 
 .booktype_active {
@@ -264,6 +264,22 @@ input::-webkit-inner-spin-button {
 .author img:hover {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
 }
+
+
+
+.bookfinder .search_bar:focus {
+    border: none;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+
+}
+
+.finder_list_view {
+    padding: 0px;
+    list-style: none;
+
+}
+
+.finder_list_view li {}
 
 @keyframes loader {
     0% {

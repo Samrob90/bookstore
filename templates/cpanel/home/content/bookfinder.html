@@ -1,0 +1,300 @@
+{% extends "cpanel/layouts/base.html" %}
+
+{% block title %} Search for books on amazon {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+{% include 'cpanel/includes/error.html' %}
+<div class="py-4">
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item">
+                <a href="{% url 'cpanel_dashboard' %}">
+                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'cpanel_books' %}">books</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Forms</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">Add book</h1>
+
+
+        </div>
+        <div>
+            {% comment %} <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components-forms/"
+                class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a> {% endcomment %}
+        </div>
+    </div>
+</div>
+
+<!--  -->
+<section class="bookfinder">
+    <div class="finder d-flex text-center pb-4">
+        <form class="navbar-search form-inline" id="navbar-search-main" style="margin: 0 auto;width:70%;" method="post">
+            <div class="input-group input-group-merge search-bar shadow-sm">
+                <span class="input-group-text seach-icone" id="topbar-addon">
+                    <svg class="icon icon-xs" x-description="Heroicon name: solid/search"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </span>
+                <input type="text" class="form-control search_bar" id="topbarInputIconLeft"
+                    placeholder="Search for books by title on google ..">
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="bookfind_display p-4">
+    <div class="mt-4" style="margin: 0 auto;">
+        <div class="loader__ text-center d-none" style="margin-top: 10vh;">
+            <img src="{{ASSETS_ROOT}}/static/assets/img/720.gif" alt="loader" height="20" width="100">
+        </div>
+
+        <!-- book content -->
+        <div class="container bookfind_seacher d-none">
+            <div style="margin: 0 auto;" class="">
+                <div class="row d-flex border p-2 shadow">
+                    <div class="col-lg-2">
+                        <img src="" alt="book image" id="search_images">
+                    </div>
+
+                    <div class="col-lg-10">
+
+
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <ul class="finder_list_view list-group">
+                                    <li class=""><strong>Title</strong> : <span id="searc_title"></span></li>
+                                    <li class=""><strong>Author</strong>: <span id="search_author"></span></li>
+                                    <li class="">
+                                        <details>
+                                            <summary>Description</summary>
+                                            <p id="seach_description"></p>
+                                        </details>
+                                    </li>
+                                    <!-- <li class="list-group-item">Porta ac consectetur ac</li>
+                                <li class="list-group-item">Vestibulum at eros</li> -->
+                                    <li>
+                                        <details>
+                                            <summary>Book Details</summary>
+                                            <ul class="search_book_details">
+
+                                            </ul>
+                                        </details>
+                                    </li>
+                                    <hr>
+                                    <li>
+                                        <details>
+                                            <summary>Ebook Details</summary>
+                                            <ul class="search_ebook_details">
+
+                                            </ul>
+                                        </details>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="submit" class="btn btn-danger save_searched_book" data-bs-toggle="modal"
+                                    data-bs-target="#modal-form"><svg xmlns="http://www.w3.org/2000/svg" width="17"
+                                        height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z">
+                                        </path>
+                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                    </svg> Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Modal Content -->
+<div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card p-3 p-lg-4">
+                    <button type="button" class="btn-close ms-auto closemodal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                    <!-- <div class="text-center text-md-center mb-4 mt-md-0">
+                     <h1 class="mb-0 h4">Add book Type</h1>
+                 </div> -->
+
+                    <!-- Form -->
+                    <form action="" method="post" id="search_form">
+                        {% csrf_token %}
+
+                        <div class="alert alert-danger mt-1 mb-1 d-none book_seach_add_error">Paperback price field is
+                            required !</div>
+
+                        <div class="form-group">
+                            <label for="category">Choose category *</label>
+                            <select class="form-select category" aria-label="Default select example" name="category"
+                                required>
+                                <option selected>Open this select menu</option>
+
+                                {% for i in category %}
+                                <option value="{{i}}">{{i}}</option>
+
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <hr>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck10"
+                                name="paperback_check" checked>
+                            <label class="form-check-label" for="defaultCheck10">
+                                PAPERBACK
+                            </label>
+                        </div>
+                        <div class="paperback">
+                            <div class="form-row d-flex">
+                                <div class="form-group col-md-6" style="margin-right: 10px;">
+                                    <label for="dimension">Book Dimension </label>
+                                    <input type="text" name="dimensions" id="dimension" class="form-control"
+                                        placeholder="230 x 230 x 34">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="paperbackprice">paperback price *</label>
+                                    <input type="number" min="1" name="paperback_price" id="paperbackprice"
+                                        class="form-control" placeholder="GHS 300">
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck12"
+                                name="audibook_check">
+                            <label class="form-check-label" for="defaultCheck12">
+                                AUDIOBOOK
+                            </label>
+                            <div class="audiobook d-none">
+
+
+
+
+                                <div class="form-row d-flex">
+                                    <!-- narator -->
+                                    <div class="form-group col-md-6" style="margin-right: 10px;">
+                                        <label for="narator">Narator</label>
+                                        <input type="text" name="narator" id="narator"
+                                            placeholder="Narator (leave empty if none. )" class="form-control">
+                                    </div>
+                                    <!-- release date -->
+                                    <div class="form-group col-md-6">
+                                        <label for="release_date">Release date</label>
+                                        <input type="datetime" name="release_date" id="release_date"
+                                            placeholder="Release date (leave empty if none. )" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-row d-flex">
+                                    <!-- version -->
+                                    <div class="form-group col-md-6" style="margin-right: 10px;">
+                                        <label for="version">Version</label>
+                                        <input type="datetime" name="version" id="version"
+                                            placeholder="version (leave empty if none. )" class="form-control">
+                                    </div>
+                                    <!-- price -->
+                                    <div class="form-group col-md-6">
+                                        <label for="release_date">AudioBook Price*</label>
+                                        <input type="number" min="1" name="audibook_price" id="audibook_price"
+                                            placeholder="GHS 300" class="form-control">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <hr>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck11"
+                                name="ebook_check">
+                            <label class="form-check-label" for="defaultCheck11">
+                                Ebook
+                            </label>
+                        </div>
+                        <div class="ebook d-none">
+                            <div class="form-row d-flex">
+                                <div class="form-group col-lg-6 mr-1" style="margin-right: 10px;">
+                                    <label for="weight">File Weight *</label>
+                                    <input type="text" class="form-control" id="weight" placeholder="30 kg"
+                                        name="weight">
+                                </div>
+                                <div class="form-group col-lg-6 mr-1">
+                                    <label for="ebook_price">Ebook Price</label>
+                                    <input type="number" name="ebook_price" id="ebook_price" placeholder="GHS 300"
+                                        min="1" class="form-control">
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr>
+
+
+
+
+
+
+
+
+                        <div class="d-grid mt-4">
+                            <button type="submit " class="btn btn-gray-800 save_seache_book_google">Add</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Content -->
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
+
+<script src="{{ ASSETS_ROOT }}/static/cpanel/assets/js/book.js"></script>
+{% endblock javascripts %}

@@ -46,5 +46,10 @@ urlpatterns = [
         ),
         name="get_notification",
     ),
+    path(
+        "bookfinder/",
+        login_required(views.BookFinder.as_view(), login_url="cpanel_login"),
+        name="bookfinder",
+    ),
     path("logout/", views.CpanelLogoutVIew.as_view(), name="cpanel_logout"),
 ]

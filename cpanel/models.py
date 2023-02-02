@@ -7,7 +7,9 @@ from django.db.models import Avg
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
-import sys
+
+# import jsonfield
+# from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class product(models.Model):
@@ -41,14 +43,16 @@ class book(models.Model):
     quantity = models.IntegerField(default=None)
     author = models.CharField(max_length=250, default=None, null=True, blank=True)
     review = models.IntegerField(default=None, null=True, blank=True)
-    slug = models.SlugField(
-        default=None,
-    )
+    slug = models.SlugField(default=None, unique=True)
     default_price = models.DecimalField(decimal_places=2, max_digits=9)
     default_type = models.CharField(
         choices=bookchoice, default=PAPERBACK, max_length=250
     )
     thumbnail = models.CharField(max_length=250, default=None)
+    category = models.CharField(max_length=300, default=None)
+    on_sale = models.BooleanField(default=False)
+    sales_discount = models.IntegerField(default=0, null=True, blank=True)
+    on_sale_deadline = models.DateField(default=None, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
@@ -114,23 +118,13 @@ class bookdetails(models.Model):
     book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
     booktype = models.CharField(max_length=150, default=None)
     price = models.DecimalField(decimal_places=2, max_digits=9)
-    description = models.TextField(default=None)
-    # details = jsonfield.JSONField()
+    description = models.TextField(default=None, null=True, blank=True)
+    # using string for detials detials instead jsonField because qslite does not support JsonField
+    # there is other alternative but i find this easier and simple . Convert data to string separeted by ';' then split it by comment when it
+    details = models.TextField(default="None", null=True, blank=True)
+
     def __str__(self):
         return self.book.title
-
-
-# class rating(models.Model):
-#     book = models.ForeignKey("book", verbose_name="book", on_delete=models.CASCADE)
-#     user = models.ForeignKey(Account, verbose_name="user", on_delete=models.CASCADE)
-#     stars = models.IntegerField(default=None)
-#     comment = models.TextField(default=None, null=True, blank=True)
-#     likes = models.IntegerField(default=0, null=True, blank=True)
-#     dislikes = models.IntegerField(default=0, null=True, blank=True)
-#     created_at = models.DateTimeField(default=timezone.now)
-
-#     def __str__(self):
-#         return self.book.title
 
 
 class general_settings(models.Model):

@@ -134,4 +134,150 @@ $(document).ready(function () {
         // reader.readAsDataURL(event);
 
     };
+
+    $(".search_bar").keydown(function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault()
+            const seache_bar_title = $(this).val()
+            const data = {
+                "title": seache_bar_title,
+                "book_seach": "on"
+            }
+            $(".loader__").removeClass("d-none")
+            $(".bookfind_seacher").addClass("d-none")
+            $.post("/cpanel/bookfinder/", data,
+                function (data, textStatus, jqXHR) {
+                    $(".loader__").addClass("d-none")
+                    if (data.data === null) {
+                        $(".bookfind_seacher").removeClass("d-none")
+                        $(".bookfind_seacher").empty().html("<h4 class='text-center text-muted'>No result found for your search.</h4>")
+                    } else {
+                        const paperback = data.data[0]
+                        const bookinfo = data.data[1]
+                        const ebook = data.data[2]
+                        $(".bookfind_seacher").removeClass("d-none")
+                        // $(".bookfind_seacher").empty()
+                        $("#search_images").attr("src", bookinfo.book_thumbnail)
+                        $("#search_author").html(bookinfo.author)
+                        $("#searc_title").html(bookinfo.title)
+                        $("#seach_description").html(bookinfo.description)
+                        $(".search_book_details").empty()
+                        for (let s in paperback) {
+                            $(".search_book_details").append("<li><stron>" + s + "</strong> :" + paperback[s] + "</li>")
+
+                        }
+                        $(".search_ebook_details").empty()
+                        for (let a in ebook) {
+                            $(".search_ebook_details").append("<li><stron>" + a + "</strong> :" + ebook[a] + "</li>")
+                        }
+
+
+                        // ===================================================================================
+                        // saved online book 
+                        // ===================================================================================
+                        $(".save_searched_book").click(function (e) {
+                            e.preventDefault();
+                            $('#defaultCheck12').prop('checked', false); // Unchecks it
+                            $('#defaultCheck11').prop('checked', false); // Unchecks it
+                            $('#defaultCheck10').prop('checked', true); // check it
+                            // Paperback 
+                            $("#defaultCheck10").click(function (e) {
+                                if ($(this).is(':checked')) {
+                                    $(".paperback").removeClass("d-none")
+                                } else {
+                                    if (!$(".paperback").hasClass("d-none")) {
+                                        $(".paperback").addClass("d-none")
+                                    }
+                                }
+
+                            });
+                            //    AUDIOBOOK
+                            $("#defaultCheck12").click(function (e) {
+                                if ($(this).is(':checked')) {
+                                    $(".audiobook").removeClass("d-none")
+                                } else {
+                                    if (!$(".audiobook").hasClass("d-none")) {
+                                        $(".audiobook").addClass("d-none")
+
+                                    }
+                                }
+
+                            });
+
+                            // ebook
+                            $("#defaultCheck11").click(function (e) {
+                                if ($(this).is(':checked')) {
+                                    $(".ebook").removeClass("d-none")
+                                } else {
+                                    if (!$(".ebook").hasClass("d-none")) {
+                                        $(".ebook").addClass("d-none")
+
+                                    }
+                                }
+
+                            });
+                            // save book to database
+                            $(".save_seache_book_google").click(function (e) {
+                                e.preventDefault();
+                                $(".save_seache_book_google").css("opacity", "0.5")
+                                $(".save_seache_book_google").html("processing...")
+
+
+                                if ($("#defaultCheck10").is(":checked") && $("#paperbackprice").val() == "") {
+                                    seacher_error("Paperback price field is required !", "show")
+                                } else if ($("#defaultCheck12").is(":checked") && $("#audibook_price").val() == "") {
+                                    seacher_error("Audiobook price field can't be empty !", "show")
+                                } else if ($("#defaultCheck11").is(":checked") && $("#ebook_price").val() == "") {
+                                    seacher_error("ebook price field can't be empty !", "show")
+                                } else if ($(".category").val() == "Open this select menu") {
+                                    seacher_error("category field can't be empty !", "show")
+
+                                } else {
+
+                                    const form_val = $("#search_form").serializeArray()
+
+                                    const formData = {
+                                        "form_val": JSON.stringify(form_val),
+                                        "bookinfo": JSON.stringify(bookinfo),
+                                        "paperbook": JSON.stringify(paperback),
+                                        "ebook": JSON.stringify(ebook)
+                                    }
+
+                                    $.post("/cpanel/bookfinder/", formData,
+                                        function (data, textStatus, jqXHR) {
+                                            seacher_error("", "hide")
+                                        },
+                                        "json"
+                                    );
+
+
+                                }
+
+                            });
+
+
+                        });
+                    }
+
+                },
+                "json"
+            );
+        }
+    });
+
+
+    function seacher_error(message, type = "hide") {
+        if (type === "show") {
+            $(".book_seach_add_error").removeClass("d-none")
+            $(".book_seach_add_error").html(message)
+            $(".save_seache_book_google").css("opacity", "1")
+            $(".save_seache_book_google").html("add")
+        } else {
+            $(".save_seache_book_google").css("opacity", "1")
+            $(".save_seache_book_google").html("add")
+            $(".book_seach_add_error").empty()
+            $(".book_seach_add_error").addClass("d-none")
+
+        }
+    }
 });
