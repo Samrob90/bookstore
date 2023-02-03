@@ -7,6 +7,7 @@
             {% for message in messages %}
 
             
+               <div class="error_visible">
                 {% if message.tags == "error" %}
                 <div class="rounded-1 shadow-lg alert alert-danger " role="alert">
                     <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/error.png" /><strong> Error !</strong> <span>{{message}} </span>
@@ -24,6 +25,7 @@
                     <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/info.png" /> <strong>Info ! </strong><span>{{message}} </span>
                 </div>
                 {% endif %}
+               </div>
             
                 
             {% endfor %}
@@ -32,4 +34,7 @@
 
     </div>
 {% endif %}
+
+
+
     

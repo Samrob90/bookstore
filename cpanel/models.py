@@ -48,6 +48,7 @@ class book(models.Model):
     default_type = models.CharField(
         choices=bookchoice, default=PAPERBACK, max_length=250
     )
+    description = models.TextField(default=None)
     thumbnail = models.CharField(max_length=250, default=None)
     category = models.CharField(max_length=300, default=None)
     on_sale = models.BooleanField(default=False)

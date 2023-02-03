@@ -268,8 +268,9 @@ class BookFinder(TemplateView):
         if is_ajax(request) and "bookinfo" in request.POST:
             BOOKTYPES = []
             bookinfo = json.loads(request.POST["bookinfo"])
-            paperback = json.loads(request.POST["paperbook"])
-            ebook = json.loads(request.POST["ebook"])
+            paperback_details = json.loads(request.POST["paperbook_details"])
+            ebook_details = json.loads(request.POST["ebook_details"])
+            formcheck = json.loads(request.POST["formcheck"])
             form_val = json.loads(request.POST["form_val"])
             # convert serialize form to a dict
             form_values = {}
@@ -279,8 +280,6 @@ class BookFinder(TemplateView):
                 "zoom=1", "zoom=2"
             )  # pop thumbnial url to download the image
             bookinfo["category"] = form_values["category"]
-
-            print(image_url)
 
             # downloaf and process url image
             resp = requests.get(image_url, stream=True)
@@ -293,65 +292,118 @@ class BookFinder(TemplateView):
             file_name = image_url.split("/")[
                 -1
             ]  # There's probably a better way of doing this but this is just a quick example
-            # your_model.image_field.save(file_name, files.File(fp))
-            print(files.File(fp))
-            return JsonResponse({"j": ";"})
+            image = files.File(fp)
 
             # bookimagespath
-            # try:
-            #     images = requests.get(image_url, stream=True)
-            #     filename = image_url.split("/")[-1]
-            #     tempfile = tempfile.NamedTemporaryFile()
-            # except:
-            #     pass
+            bookimagespath = {"images": [image], "file_name": file_name}
 
-            # if request.POST["paperback_check"].get("paperback_check"):
-            #     # BOOKTYPES
-            #     # frist create product object
-            #     product = create_product()
-            #     # create_book obje
-            #     models.book.objects.create(
-            #         product=product,
-            #         title=request.POST["bookinfo"].get("title"),
-            #         quanity=200,
-            #         author=request.POST["bookinfo"].get("author"),
-            #         slug=slugify(request.POST["bookinfo"].get("title")),
-            #     )
-            # save_book(
-            #     bookinfo,
-            # )
+            if formcheck["paperbackcheck"]:
+                paperback_details["dimensions"] = form_values[
+                    "dimensions"
+                ]  # add missing field to bookdetials
 
-    def format_book_add(self, bookinfo, ebook, bookdetails):
-        return {
-            "book": "book",
-            "booktype": "",
-            "price": "price",
-            "description": "description",
-            "details": "jsonfile",
-        }
+                BOOKTYPES.append(
+                    {
+                        "PAPERBACK": format_book_add(
+                            booktype="PAPERBACK",
+                            price=form_values["paperback_price"],
+                            paperback_details=paperback_details,
+                        )
+                    }
+                )
+            if formcheck["audiobookcheck"]:
+                # create audiobook format
+                AUDIOBOOK_details = {
+                    "author": bookinfo["author"],
+                    "publisher": paperback_details["publisher"],
+                    "language": paperback_details["language"],
+                    "narator": form_values["narator"],
+                    "release_date": form_values["release_date"],
+                    "version": form_values["version"],
+                }
+                BOOKTYPES.append(
+                    {
+                        "AUDIBOOK": format_book_add(
+                            booktype="AUDIOBOOK",
+                            price=form_values["audibook_price"],
+                            AUDIOBOOK_details=AUDIOBOOK_details,
+                        )
+                    }
+                )
+            if formcheck["ebookcheck"]:
+                ebook_details["publisher"] = paperback_details["publisher"]
+                ebook_details["language"] = paperback_details["language"]
+                ebook_details["file_size"] = form_values["weight"]
+                BOOKTYPES.append(
+                    {
+                        "EBOOK": format_book_add(
+                            booktype="EBOOK",
+                            price=form_values["ebook_price"],
+                            ebook_details=ebook_details,
+                        )
+                    }
+                )
+
+            # your_model.image_field.save(file_name, files.File(fp))
+            try:
+                save_book(bookinfo, bookimagespath, BOOKTYPES, form_values)
+
+                messages.success(
+                    request, f"{bookinfo['title']} successfully addedd to database !!"
+                )
+                return JsonResponse({"status": "success"})
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Error: {e}Failed to download book image !! please try different book.",
+                )
+                return JsonResponse({"status": "failed"})
 
 
-def save_book(bookinfo, bookdetail, bookimagespath, booktypes):
+def format_book_add(**bookdetails_info):
+    bookFormat = {
+        "booktype": bookdetails_info["booktype"],
+        "price": float(bookdetails_info["price"]),
+        "description": None,
+    }
+    if bookdetails_info["booktype"] == "PAPERBACK":
+        bookFormat["details"] = details_to_string(bookdetails_info["paperback_details"])
+    if bookdetails_info["booktype"] == "AUDIOBOOK":
+        bookFormat["details"] = details_to_string(bookdetails_info["AUDIOBOOK_details"])
+    if bookdetails_info["booktype"] == "EBOOK":
+        bookFormat["details"] = details_to_string(bookdetails_info["ebook_details"])
+
+    return bookFormat
+
+
+def details_to_string(booktype_details_info):
+    string = ""
+    for key in booktype_details_info:
+        string += f"{key} {booktype_details_info[key]};"
+    return string
+
+
+def save_book(bookinfo, bookimagespath, booktypes, form_value):
     # first create book type
     BOOKTYPE_CHOOSE_DEFUALT = ["PAPERBACK", "AUDIOBOOK", "EBOOK", "HARDCOVER"]
     THUMBNAIL_URL = []
     default_price = 0
     default_booktype = ""
 
-    if "PAPERBACK" in booktypes:
-        default_price = bookdetail["PAPERBACK"]["price"]
-        default_booktype = bookdetail["PAPERNACK"]["type"]
+    if "PAPERBACK" in booktypes[0]:
+        default_price = booktypes[0]["PAPERBACK"]["price"]
+        default_booktype = booktypes[0]["PAPERBACK"]["booktype"]
     else:
-        pass
+        first_element = next(iter(booktypes[0]))
+        default_price = booktypes[0][first_element]["booktype"]
+        default_booktype = booktypes[0][first_element]["price"]
         # comback here later
     # create product obj
     product = create_product("book", "retail")
-
     # create_book_image_thumbnail
     for index, image in enumerate(bookimagespath["images"]):
         path = os.path.join(BASE_DIR, "media/thumbnail/")
-        thumbnail = thumbnail(image, path)
-        THUMBNAIL_URL.append(thumbnail)
+        THUMBNAIL_URL.append(thumbnail(image, path))
 
     # create book objc
     book = models.book.objects.create(
@@ -360,39 +412,30 @@ def save_book(bookinfo, bookdetail, bookimagespath, booktypes):
         quantity=200,
         author=bookinfo.get("author"),
         slug=slugify(bookinfo.get("title")),
-        default_price=default_price,
+        default_price=float(default_price),
         default_type=default_booktype,
-        thumbnail=bookimagespath.get("thumbnail"),
+        description=bookinfo.get("description"),
+        thumbnail=THUMBNAIL_URL[0],
         category=bookinfo.get("category"),
     )
 
     # create image obj
     # insert image
     thumbnail_image_url = " ".join(THUMBNAIL_URL)
-    for i in bookimagespath["images"]:
-        models.bookimages.objects.create(
-            book=book,
-            thumbnail=thumbnail_image_url,
-            images=i,
+    for image in bookimagespath["images"]:
+
+        saveimage = models.bookimages.objects.create(
+            book=book, thumbnail=thumbnail_image_url, images="randomnameintheboook.wep"
         )
+        saveimage.images.save(f"{uuid.uuid4()}_bookimages.webp", image)
 
     # insert bookdetails
     for detail in booktypes:
-        detail_ = ""
-        for key, value in detail["bookdetails"].tems:
-            detail_ += f"{key} {value};"
-
-        models.bookdetails.objects.create(
-            book=book,
-            booktype=detail["booktype"],
-            price=detail["bookprice"],
-            description="",
-            details=detail_,
-        )
-    return "done"
+        for type in detail:
+            models.bookdetails.objects.create(book=book, **detail[type])
 
 
-def thumbnail(self, image, path):
+def thumbnail(image, path):
     images = Image.open(image)
     MAX_SIZE = (150, 200)
     images.thumbnail(MAX_SIZE)

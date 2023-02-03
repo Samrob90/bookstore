@@ -43,7 +43,13 @@
 
 <!--  -->
 <section class="bookfinder">
+
+
     <div class="finder d-flex text-center pb-4">
+        <div id="error_show">
+            {% include 'cpanel/includes/error.html' %}
+        </div>
+
         <form class="navbar-search form-inline" id="navbar-search-main" style="margin: 0 auto;width:70%;" method="post">
             <div class="input-group input-group-merge search-bar shadow-sm">
                 <span class="input-group-text seach-icone" id="topbar-addon">
@@ -68,8 +74,11 @@
         </div>
 
         <!-- book content -->
-        <div class="container bookfind_seacher d-none">
-            <div style="margin: 0 auto;" class="">
+        <div class="container bookfind_seacher">
+            <div class="empty_value_message">
+
+            </div>
+            <div style="margin: 0 auto;" class="form_view_ d-none">
                 <div class="row d-flex border p-2 shadow">
                     <div class="col-lg-2">
                         <img src="" alt="book image" id="search_images">

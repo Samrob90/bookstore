@@ -3,6 +3,14 @@ from . import models
 
 # Register your models here.
 
+# register_products
+class product(admin.ModelAdmin):
+    model = models.product
+    list_display = ("product_name", "product_type", "created_at")
+
+
+admin.site.register(models.product, product)
+
 
 class books(admin.ModelAdmin):
     model = models.book
