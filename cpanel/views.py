@@ -150,19 +150,93 @@ class OrderInProgress(ListView):
 
 
 class CpanelAddbookView(TemplateView):
+    # model = category
     template_name = "cpanel/home/content/add-book.html"
-    class_form = form.BooksForm
+    category = category.objects.all().order_by("category")
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"form": self.class_form})
+        return render(request, self.template_name, {"category": self.category})
 
     def post(self, request, *args, **kwargs):
 
         if request.POST:
-            default_price = 0
-            default_type = ""
-            booktype = {}
-            booktype_sample = ["PAPERBACK", "EBOOK", "AUDIOBOOK", "HARDCOVER"]
+            # declare empty disctionay to pass it later ass save_book() parameter
+            form = request.POST
+            bookinfo = {}
+            BOOKTYPE = []
+
+            bookinfo["title"] = form.get("title")
+            bookinfo["author"] = form.get("author")
+            bookinfo["quantity"] = form.get("quantity", "")
+            bookinfo["category"] = form.get("category")
+            bookinfo["description"] = form.get("description")
+
+            # get paperback info
+            if form.get("paperback_price") != "":
+                paperback = {
+                    "publisher": form.get("publisher", ""),
+                    "publication_date": form.get("publication_date", ""),
+                    "language": form.get("language", ""),
+                    "isbn_10": form.get("isbn_10", ""),
+                    "isbn_13": form.get("isbn_13", ""),
+                    "weight": form.get("weight", ""),
+                    "dimension": form.get("weight", ""),
+                }
+                BOOKTYPE.append(
+                    {
+                        "PAPERBACK": format_book_add(
+                            booktype="PAPERBACK",
+                            price=form.get("paperback_price"),
+                            paperback_details=paperback,
+                        )
+                    }
+                )
+            # get audiobook info
+            if form.get("audiobook_price") != "":
+                audiobook = {
+                    "publisher": form.get("audiobook_publisher", ""),
+                    "listening_length": form.get("listening_length", ""),
+                    "narator": form.get("narator", ""),
+                    "realed_date": form.get("realed_date", ""),
+                    "Version": form.get("Version", ""),
+                    "language": form.get("audiobooklanguage", ""),
+                }
+                BOOKTYPE.append(
+                    {
+                        "AUDIOBOOK": format_book_add(
+                            booktype="AUDIOBOOK",
+                            price=form.get("audiobook_price"),
+                            AUDIOBOOK_details=audiobook,
+                        )
+                    }
+                )
+            # get ebook info
+            if form.get("ebook_price") != "":
+                ebook = {
+                    "publisher": form.get("ebook_publisher", ""),
+                    "language": form.get("ebook_language", ""),
+                    "file_size": form.get("file_size", ""),
+                    "text_to_speech": form.get("text_to_speech", ""),
+                    "screen_reader": form.get("screen_reader", ""),
+                    "enhanced_typesetting": form.get("enhanced_typesetting"),
+                    "x_Ray": form.get("x_Ray", ""),
+                    "word_wise": form.get("word_wise", ""),
+                    "print_length": form.get("print_length", ""),
+                }
+                BOOKTYPE.append(
+                    {
+                        "EBOOK": format_book_add(
+                            booktype="EBOOK",
+                            price=form.get("ebook_price"),
+                            ebook_details=ebook,
+                        )
+                    }
+                )
+            images = request.FILES.getlist("files")
+            bookimagespath = {"images": images}
+            save_book(bookinfo, bookimagespath, BOOKTYPE, None)
+
+            return HttpResponse("success")
 
             # hard coded to be changed later
             product_name = "book"
@@ -301,7 +375,7 @@ class BookFinder(TemplateView):
                 paperback_details["dimensions"] = form_values[
                     "dimensions"
                 ]  # add missing field to bookdetials
-
+                paperback_details["weight"] = form_values["book_weight"]
                 BOOKTYPES.append(
                     {
                         "PAPERBACK": format_book_add(
@@ -385,7 +459,7 @@ def details_to_string(booktype_details_info):
 
 def save_book(bookinfo, bookimagespath, booktypes, form_value):
     # first create book type
-    BOOKTYPE_CHOOSE_DEFUALT = ["PAPERBACK", "AUDIOBOOK", "EBOOK", "HARDCOVER"]
+    # BOOKTYPE_CHOOSE_DEFUALT = ["PAPERBACK", "AUDIOBOOK", "EBOOK", "HARDCOVER"]
     THUMBNAIL_URL = []
     default_price = 0
     default_booktype = ""

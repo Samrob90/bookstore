@@ -191,12 +191,18 @@
                                     <input type="text" name="dimensions" id="dimension" class="form-control"
                                         placeholder="230 x 230 x 34">
                                 </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="paperbackprice">paperback price *</label>
-                                    <input type="number" min="1" name="paperback_price" id="paperbackprice"
-                                        class="form-control" placeholder="GHS 300">
+                                <div class="form-group col-md-6" style="margin-right: 10px;">
+                                    <label for="book_weight">Book Weight </label>
+                                    <input type="text" name="book_weight" id="book_weight" class="form-control"
+                                        placeholder="34 kg">
                                 </div>
+
+                            </div>
+                            
+                            <div class="form-group ">
+                                <label for="paperbackprice">paperback price *</label>
+                                <input type="number" min="1" name="paperback_price" id="paperbackprice"
+                                    class="form-control" placeholder="GHS 300">
                             </div>
                         </div>
 
@@ -218,13 +224,13 @@
                                     <div class="form-group col-md-6" style="margin-right: 10px;">
                                         <label for="narator">Narator</label>
                                         <input type="text" name="narator" id="narator"
-                                            placeholder="Narator (leave empty if none. )" class="form-control">
+                                            placeholder="Narator (optional )" class="form-control">
                                     </div>
                                     <!-- release date -->
                                     <div class="form-group col-md-6">
                                         <label for="release_date">Release date</label>
                                         <input type="datetime" name="release_date" id="release_date"
-                                            placeholder="Release date (leave empty if none. )" class="form-control">
+                                            placeholder="Release date (optional )" class="form-control">
                                     </div>
                                 </div>
 
@@ -233,7 +239,7 @@
                                     <div class="form-group col-md-6" style="margin-right: 10px;">
                                         <label for="version">Version</label>
                                         <input type="datetime" name="version" id="version"
-                                            placeholder="version (leave empty if none. )" class="form-control">
+                                            placeholder="version (optional )" class="form-control">
                                     </div>
                                     <!-- price -->
                                     <div class="form-group col-md-6">
