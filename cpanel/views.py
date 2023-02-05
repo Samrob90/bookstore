@@ -171,6 +171,17 @@ class CpanelAddbookView(TemplateView):
             bookinfo["category"] = form.get("category")
             bookinfo["description"] = form.get("description")
 
+            if (
+                form.get("paperback_price") == ""
+                and form.get("audiobook_price") == ""
+                and form.get("ebook_price") == ""
+            ):
+                messages.error(
+                    request,
+                    "paperback price , audibook price , ebook price can't all be empty . Please fill out at least one ",
+                )
+                return redirect("cpanel_addbook")
+
             # get paperback info
             if form.get("paperback_price") != "":
                 paperback = {
@@ -234,7 +245,13 @@ class CpanelAddbookView(TemplateView):
                 )
             images = request.FILES.getlist("files")
             bookimagespath = {"images": images}
-            save_book(bookinfo, bookimagespath, BOOKTYPE, None)
+            try:
+                save_book(bookinfo, bookimagespath, BOOKTYPE, None)
+                messages.success(
+                    request, f"{bookinfo['title']} added to database successfully !!"
+                )
+            except Exception as e:
+                messages.error(request, "Error : {e} , Please try again later")
 
             return HttpResponse("success")
 
