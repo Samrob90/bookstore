@@ -137,7 +137,6 @@ class register_deal_of_week(admin.ModelAdmin):
         "periode",
         "quantity",
         "sold",
-        "created_by",
         "created_at",
     )
 

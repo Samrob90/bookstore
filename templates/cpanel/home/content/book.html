@@ -101,6 +101,7 @@
         </a> -->
 
         <div class="btn-group ms-2 ms-lg-3">
+            {% include 'cpanel/includes/error.html' %}
             {% comment %} <button type="button" class="btn btn-sm btn-outline-gray-600">Share</button>
             <button type="button" class="btn btn-sm btn-outline-gray-600">Export</button> {% endcomment %}
         </div>
@@ -171,13 +172,9 @@
             {% for book in books %}
             <!-- Item -->
             <tr>
-                {% comment %} <td>
-                    <a href="#" class="fw-bold">
-                        456478
-                    </a>
-                </td> {% endcomment %}
+
                 <td>
-                    <span class="fw-normal text-info"><a href="">{{book.title}}</a></span>
+                    <span class="fw-normal text-info"><a href="#">{{book.title}}</a></span>
                 </td>
                 <td><span class="fw-bold">GHS&nbsp;{{book.default_price}}</span></td>
                 <td><span class="fw-normal">{{book.quantity}}</span></td>
@@ -197,15 +194,16 @@
                         </button>
 
                         <div class="dropdown-menu py-0">
-                            <a class="dropdown-item rounded-top" href="{{order.get_absolute_url}}"><span
-                                    class="fas fa-eye me-2"></span>Edit</a>
+                            <!-- <a class="dropdown-item rounded-top" href="#"><span
+                                    class="fas fa-eye me-2"></span>Edit</a> -->
 
-                            <form method="post" action="{{order.get_absolute_url}}">
+                            <form method="post" action="">
                                 {% csrf_token %}
 
-                                <input type="hidden" name="orderid" value="{{order}}">
+                                <input type="hidden" name="bookid" value="{{book.pk}}">
                                 <button name="complete_order" class="dropdown-item bg-white text-danger border-0"
                                     style="margin-left:10px!important;"> Delete</button>
+                                <input type="hidden" name="delete_book" value="book">
 
                                 <!-- {% comment %} <button name="cancel_order"
                                     class="dropdown-item bg-white text-danger border-0"

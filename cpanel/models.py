@@ -254,15 +254,12 @@ class OnSale(models.Model):
 
 class DealofWeek(models.Model):
     book = models.ForeignKey(
-        "book", verbose_name="deals of the week", on_delete=models.CASCADE
+        "book", verbose_name="Choose a book", on_delete=models.CASCADE
     )
-    discount = models.IntegerField(default=0)
-    periode = models.DateTimeField(default=None)
-    quantity = models.IntegerField(default=0)
+    discount = models.IntegerField(default=None, verbose_name="Discount off (%)")
+    periode = models.DateTimeField(default=None, verbose_name="Expirind date")
+    quantity = models.IntegerField(default=None, verbose_name="Books quantity")
     sold = models.IntegerField(default=0)
-    created_by = models.ForeignKey(
-        Account, verbose_name="deals of the week ", on_delete=models.CASCADE
-    )
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self) -> str:

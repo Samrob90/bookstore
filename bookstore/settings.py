@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "celery",
     "account",
     "blog",
+    "crispy_forms",
     # "star_ratings",
 ]
 
@@ -173,3 +174,7 @@ LOGIN_URL = "login"
 # STAR_RATINGS_RERATE_SAME_DELETE = True
 # STAR_RATINGS_CLEARABLE = True
 # STAR_RATINGS_ANONYMOUS = False
+
+# crispy form
+CRISPY_TEMPLATE_PACK = "uni_form"
+CRISPY_TEMPLATE_PACK = "bootstrap4"

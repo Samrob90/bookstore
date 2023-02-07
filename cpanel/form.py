@@ -1,5 +1,6 @@
 from django import forms
 from . import models
+from crispy_forms.layout import Layout, Div, Field
 
 
 class LoginForm(forms.Form):
@@ -65,3 +66,19 @@ class BooksForm(forms.ModelForm):
     class Meta:
         model = models.book
         fields = []
+
+
+class Dealofweek(forms.ModelForm):
+    # periode = forms.CharField(
+    #     widget=forms.DateTimeInput(
+    #         attrs={"placeholder": "Title", "class": "form-control mb-2 rounded-1"}
+    #     )
+    # )
+
+    class Meta:
+        model = models.DealofWeek
+        fields = ["book", "discount", "periode", "quantity"]
+
+        widgets = {
+            "periode": forms.DateInput(attrs={"type": "date"}),
+        }

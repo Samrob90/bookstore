@@ -1,0 +1,324 @@
+{% extends "cpanel/layouts/base.html" %}
+
+{% block title %} {{book.title}} {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+{% include 'cpanel/includes/error.html' %}
+<div class="py-4">
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item">
+                <a href="{% url 'cpanel_dashboard' %}">
+                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'cpanel_books' %}">books</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Forms</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">Add book</h1>
+
+
+        </div>
+        <div>
+            {% comment %} <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components-forms/"
+                class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a> {% endcomment %}
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card border-0 shadow components-section">
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-4">
+
+                        <div class="col-lg-4 col-sm-6">
+                            <!-- Form -->
+                            <!-- Form -->
+                            <div class="mb-3">
+                                <label for="booktitle">Book Title <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                                            <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" /></svg>
+                                    </span>
+                                    <input type="text" class="form-control" id="booktitle" placeholder="book title"
+                                        aria-label="booktitle" name="title" value="{{book.title}}" required>
+                                </div>
+                            </div>
+                            <!-- book author  -->
+                            <!-- Form -->
+                            <div class="mb-3">
+                                <label for="book_authors">Book Authors <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                                            <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" /></svg>
+                                    </span>
+                                    <input type="text" class="form-control" id="book_authors"
+                                        placeholder="Book authors " aria-label="book_authors" name="authors" value="{{book.author}}" required>
+                                </div>
+                            </div>
+                            <!-- end book author -->
+                            <!-- Form -->
+                            <div class="mb-3">
+                                <label for="exampleInputIconLeft">Book Quantity</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                                            <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" /></svg>
+                                    </span>
+                                    <input type="number" class="form-control" id="exampleInputIconLeft"
+                                        placeholder="Quantity (optional)" aria-label="quantity" name="quantity" value="{{book.quantity}}">
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                            <!-- Form -->
+                            <div class="mb-3">
+                                <label for="files" class="form-label">book images</label>
+                                <input class="form-control" type="file" id="files" name="files" multiple required>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-sm-8">
+
+                            <!-- Form -->
+                            <div class="my-4">
+                                <label for="category">category <span class="text-danger">*</span></label>
+                                <select name="category" id="category" class="form-control" required>
+                                    <option selected>Open this select menu</option>
+                                    {{category}}
+                                    {% for cate in category %}
+                                    <option value="{{cate}}">{{cate}}</option>
+
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+
+                            <!-- Form -->
+                            <div class="my-4">
+                                <label for="textarea">book descriptions <span class="text-danger">*</span></label>
+                                <textarea class="form-control" placeholder="{{book.description}}" id="textarea"
+                                    rows="8" name="description" value="{{book.description}}" required></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-header">
+                                        <h4 class="text-muted">Paperback</h4>
+                                    </div>
+                                    <div class="card-body">
+
+
+                                        <div class="mb-2">
+                                            <label for="paperback_price">Paperback price </label>
+                                            <input type="text" id="paperback_price" class="form-control"
+                                                placeholder="GHS 40" name="paperback_price">
+                                        </div>
+                                        <!-- Form -->
+                                        <div class="mb-2">
+                                            <label for="publisher">Publisher</label>
+                                            <input type="text" id="publisher" class="form-control"
+                                                placeholder="Publisher" name="publisher">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="publisher">Publication Date</label>
+                                            <input type="text" id="publication_date" class="form-control"
+                                                placeholder="Publication Date" name="publication_date">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="Language">Language</label>
+                                            <input type="text" id="Language" class="form-control" placeholder="Language"
+                                                name="language">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="isbn_10">ISBN-10</label>
+                                            <input type="text" id="isbn_10" class="form-control" placeholder="ISBN-10"
+                                                name="isbn_10">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="isbn_13">ISBN-13</label>
+                                            <input type="text" id="isbn_13" class="form-control" placeholder="ISDBN-13"
+                                                name="isbn_13">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="weight">Weight</label>
+                                            <input type="text" id="weight" class="form-control" placeholder="22 ounces"
+                                                name="weight">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="dimension">dimension</label>
+                                            <input type="text" id="dimension" class="form-control"
+                                                placeholder="30 x 30 x 12 inches" name="dimension">
+                                        </div>
+
+                                        <!-- End of Form -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-header">
+                                        <h4 class="text-muted">Audiobook</h4>
+                                    </div>
+                                    <div class="card-body">
+
+
+                                        <div class="mb-2">
+                                            <label for="audiobook_price">Audiobook price </label>
+                                            <input type="text" id="audiobook_price" class="form-control"
+                                                placeholder="GHS 60" name="audiobook_price">
+                                        </div>
+                                        <!-- Form -->
+                                        <div class="mb-2">
+                                            <label for="audiobook_publisher">publisher</label>
+                                            <input type="text" id="audiobook_publisher" class="form-control"
+                                                placeholder="Publisher" name="audiobook_publisher">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="listening_length">Listening Length</label>
+                                            <input type="text" id="listening_length" class="form-control"
+                                                placeholder="1 hours 30 minutes" name="listening_length">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="narator">Narator</label>
+                                            <input type="text" id="narator" class="form-control" placeholder="Narator"
+                                                name="narator">
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="realed_date">Release date</label>
+                                            <input type="text" id="realed_date" class="form-control"
+                                                placeholder="realed date" name="realed_date">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="Version">Version</label>
+                                            <input type="text" id="Version" class="form-control" placeholder="Version"
+                                                name="Version">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="audiobookLanguage">Language</label>
+                                            <input type="text" id="audiobookLanguage" class="form-control"
+                                                placeholder="Language" name="audiobooklanguage">
+                                        </div>
+
+                                        <!-- End of Form -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-header">
+                                        <h4 class="text-muted">Ebook</h4>
+                                    </div>
+                                    <div class="card-body">
+
+
+                                        <div class="mb-2">
+                                            <label for="ebook_price">Ebook price </label>
+                                            <input type="number" id="ebook_price" class="form-control"
+                                                placeholder="GHS 50" name="ebook_price" min="1">
+                                        </div>
+                                        <!-- Form -->
+                                        <div class="mb-2">
+                                            <label for="ebook_publisher">Publisher</label>
+                                            <input type="text" id="ebook_publisher" class="form-control"
+                                                placeholder="Publisher" name="ebook_publisher">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="ebook_language">language</label>
+                                            <input type="text" id="ebook_language" class="form-control"
+                                                placeholder="languae" name="ebook_language">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="file_size">FIle size</label>
+                                            <input type="text" id="file_size" class="form-control" placeholder="111 kb"
+                                                name="file_size">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="text_to_speech">Text-to-speech</label>
+                                            <input type="text" id="text_to_speech" class="form-control"
+                                                placeholder="Enabled" name="text_to_speech">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="screen_reader">screen reader</label>
+                                            <input type="text" id="screen_reader" class="form-control"
+                                                placeholder="Supported" name="screen_reader">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="enhanced_typesetting">Enhanced typesetting </label>
+                                            <input type="text" id="enhanced_typesetting" class="form-control"
+                                                placeholder="Enabled" name="enhanced_typesetting">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="x_Ray">X-Ray </label>
+                                            <input type="text" id="x_Ray" class="form-control" placeholder="Enabled"
+                                                name="x_Ray">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="word_wise">Word Wise </label>
+                                            <input type="text" id="word_wise" class="form-control" placeholder="Enabled"
+                                                name="word_wise">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="print_length">Print length </label>
+                                            <input type="text" id="print_length" class="form-control"
+                                                placeholder="830 pages" name="print_length">
+                                        </div>
+
+                                        <!-- End of Form -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sumit_form">
+                        <button type="submit" class="btn btn-danger">Submit form</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

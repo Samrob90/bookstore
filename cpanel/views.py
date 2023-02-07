@@ -79,6 +79,24 @@ class CpanelBooksView(ListView):
     paginate_by = 20
     context_object_name = "books"
 
+    def post(self, request, *args, **kwargs):
+        if "delete_book" in request.POST:
+            bookpk = request.POST.get("bookid")
+            # delete book
+            try:
+                models.book.objects.filter(pk=bookpk).delete()
+                messages.success(request, "Book deleted successfuly")
+            except Exception as e:
+                messages.error(request, "Error : {e}")
+
+            return redirect("cpanel_books")
+
+
+class CpanelBookEdit(DetailView):
+    model = models.book
+    template_name = "cpanel/home/content/bookview.html"
+    context_object_name = "book"
+
 
 class OrdersViews(ListView):
     template_name = "cpanel/home/content/new_orders.html"
@@ -449,6 +467,48 @@ class BookFinder(TemplateView):
                     f"Error: {e}Failed to download book image !! please try different book.",
                 )
                 return JsonResponse({"status": "failed"})
+
+
+class DealofWeek(ListView):
+    model = models.DealofWeek
+    template_name = "cpanel/home/content/dealofweek.html"
+    context_object_name = "dealofweek"
+    class_form = form.Dealofweek
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.class_form
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        if "book" in request.POST:
+            form = self.class_form(request.POST)
+            if form.is_valid():
+                form.created_by = request.user.email
+                form.save()
+                messages.success(request, "Deal Created successfully !!")
+            else:
+                messages.error(
+                    request, "Error: Failed to submit form please try again !!"
+                )
+
+            return redirect("cpanel_dealofweek")
+
+        if "delete_deal" in request.POST:
+            dealid = request.POST.get("delete_deal")
+            models.DealofWeek.objects.filter(pk=dealid).delete()
+            messages.success(request, "Record deleted successfully !!")
+            return redirect("cpanel_dealofweek")
+
+    # def form_valid(self, form):
+
+
+class OnSale(ListView):
+    model = models.book
+    template_name = "cpanel/home/content/onsale.html"
+    context_object_name = "onsale"
 
 
 def format_book_add(**bookdetails_info):

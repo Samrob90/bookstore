@@ -83,9 +83,19 @@
                 <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
                   role="list" id="submenu-app" aria-expanded="false">
                   <ul class="flex-column nav">
-                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                    <li class="nav-item ">
                       <a class="nav-link" href="{% url 'cpanel_books' %}">
                         <span class="sidebar-text">books</span>
+                      </a>
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'cpanel_onsale' %}">
+                        <span class="sidebar-text">on sales</span>
+                      </a>
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'cpanel_dealofweek' %}">
+                        <span class="sidebar-text">deals of week</span>
                       </a>
                     </li>
                   </ul>
@@ -112,7 +122,7 @@
                 <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
                   role="list" id="cpanel_orders" aria-expanded="false">
                   <ul class="flex-column nav">
-                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                    <li class="nav-item ">
                       <a class="nav-link" href="{% url 'cpanel_new_orders' %}">
                         <span class="sidebar-text">New orders 
                           <span class="new_order badge badge-info bg-danger shadow">0</span>
@@ -120,7 +130,7 @@
 
                       </a>
                     </li>
-                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                    <li class="nav-item ">
                       <a class="nav-link" href="{% url 'order_in_progress' %}">
                         <span class="sidebar-text">Order in progress
                           <span class="in_progress badge badge-info bg-white text-black shadow">0</span>
@@ -128,7 +138,7 @@
                         </span>
                       </a>
                     </li>
-                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                    <li class="nav-item ">
                       <a class="nav-link" href="{% url 'cpanel_completed_order' %}">
                         <span class="sidebar-text">completed orders </span>
 
@@ -158,7 +168,7 @@
                 <div class="multi-level collapse {% if 'tables-bootstrap-' in segment %} show {% endif %}"
                   role="list" id="blogpost" aria-expanded="false">
                   <ul class="flex-column nav">
-                    <li class="nav-item {% if 'bootstrap-tables' in segment %} active {% endif %}">
+                    <li class="nav-item ">
                       <a class="nav-link" href="{% url 'cpanel_books' %}">
                         <span class="sidebar-text">Blog view</span>
                       </a>
