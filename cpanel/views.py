@@ -475,6 +475,7 @@ class DealofWeek(ListView):
     context_object_name = "dealofweek"
     class_form = form.Dealofweek
     paginate_by = 20
+    ordering = ["-created_at"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

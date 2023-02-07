@@ -1,5 +1,7 @@
 {% extends "cpanel/layouts/base.html" %}
 {% load crispy_forms_tags %}
+{% load poll_extras %}
+{% load humanize %}
 
 {% block title %} Deal of the week {% endblock %}
 
@@ -115,7 +117,7 @@
                         <th class="border-gray-200">Discount</th>
                         <th class="border-gray-200">Expiring date</th>
                         <th class="border-gray-200">quantity</th>
-                        <th class="border-gray-200">status</th>
+                        <th class="border-gray-200">Reamining Time</th>
                         <th class="border-gray-200">created at</th>
 
                         <th class="border-gray-200">action</th>
@@ -134,7 +136,14 @@
                         <td><span class="fw-bold">{{deal.discount}} % off</span></td>
                         <td><span class="fw-normal">{{deal.periode}}</span></td>
                         <td><span class="fw-bold">{{deal.quantity}}</span></td>
-                        <td><span class="fw-normal">status</span></td>
+                        <td>
+                            {% if deal.periode|check_expiration == "expired" %}
+                            <span class="fw-normal  p-2 bg-danger text-white rounded shadow">Expired</span>
+                            {% else %}
+                            <span class="fw-normal  p-2 bg-info text-white rounded shadow">
+                                {{deal.periode|check_expiration|naturaltime}}</span>
+                            {% endif %}
+                        </td>
                         <td><span class="fw-bold text-success">{{deal.created_at}}</span></td>
                         <td>
                             <form action="" method="post">
