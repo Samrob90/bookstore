@@ -17,7 +17,7 @@ def search_books(title):
     # Extract the first result
     book = data["items"][0]["volumeInfo"]
     bookid = data["items"][0]["id"]
-    # print(book["categories"])
+    print(book["categories"])
     # print(book["imageLinks"])
 
     # imge_url = f"https://books.google.com/books/publisher/content/images/frontcover/\{bookid}?fife=w400-h600&source=gbs_api"

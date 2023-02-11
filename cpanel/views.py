@@ -231,7 +231,7 @@ class CpanelAddbookView(TemplateView):
             BOOKTYPE = []
 
             bookinfo["title"] = form.get("title")
-            bookinfo["author"] = form.get("author")
+            bookinfo["author"] = form.get("authors")
             bookinfo["quantity"] = form.get("quantity", "")
             bookinfo["category"] = form.get("category")
             bookinfo["description"] = form.get("description")
@@ -251,12 +251,12 @@ class CpanelAddbookView(TemplateView):
             if form.get("paperback_price") != "":
                 paperback = {
                     "publisher": form.get("publisher", ""),
-                    "publication_date": form.get("publication_date"),
+                    "published_date": form.get("publication_date"),
                     "language": form.get("language"),
                     "isbn_10": form.get("isbn_10"),
                     "isbn_13": form.get("isbn_13"),
                     "weight": form.get("weight"),
-                    "dimension": form.get("weight"),
+                    "dimension": form.get("dimension"),
                 }
                 BOOKTYPE.append(
                     {
@@ -292,11 +292,11 @@ class CpanelAddbookView(TemplateView):
                     "publisher": form.get("ebook_publisher"),
                     "language": form.get("ebook_language"),
                     "file_size": form.get("file_size"),
-                    "text_to_speech": form.get("text_to_speech"),
+                    "text_to_speach": form.get("text_to_speach"),
                     "screen_reader": form.get("screen_reader"),
                     "enhanced_typesetting": form.get("enhanced_typesetting"),
-                    "x_Ray": form.get("x_Ray"),
-                    "word_wise": form.get("word_wise"),
+                    "x_ray": form.get("x_Ray"),
+                    "word_wide": form.get("word_wide"),
                     "print_length": form.get("print_length"),
                 }
                 BOOKTYPE.append(
@@ -399,8 +399,8 @@ class BookFinder(TemplateView):
             bookimagespath = {"images": [image], "file_name": file_name}
 
             if formcheck["paperbackcheck"]:
-                paperback_details["dimensions"] = form_values[
-                    "dimensions"
+                paperback_details["dimension"] = form_values[
+                    "dimension"
                 ]  # add missing field to bookdetials
                 paperback_details["weight"] = form_values["book_weight"]
                 BOOKTYPES.append(
@@ -419,7 +419,7 @@ class BookFinder(TemplateView):
                     "publisher": form_values["audiobook_publisher"],
                     "language": paperback_details["language"],
                     "narator": form_values["narator"],
-                    "release_date": form_values["release_date"],
+                    "realed_date": form_values["release_date"],
                     "version": form_values["version"],
                 }
                 BOOKTYPES.append(
@@ -548,7 +548,7 @@ def format_book_add(**bookdetails_info):
 def details_to_string(booktype_details_info):
     string = ""
     for key in booktype_details_info:
-        string += f"{key}***{booktype_details_info[key]};"
+        string += f"{key.lower()}***{booktype_details_info[key]};"
     return string
 
 

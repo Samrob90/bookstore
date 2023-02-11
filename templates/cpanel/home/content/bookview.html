@@ -116,8 +116,7 @@
                                 <!-- <label for="files" class="form-label">Images</label> -->
 
                                 {% for image in book.bookimages_set.all %}
-                                <img src="{{ASSETS_ROOT}}/media/thumbnail/{{image.thumbnail}}" alt="images" height="200"
-                                    width="150">
+                                <img src="{{ASSETS_ROOT}}/media/{{image.images}}" alt="images" height="200" width="150">
 
                                 {% endfor %}
 
@@ -134,6 +133,7 @@
                                 <select name="category" id="category" class="form-control" required>
                                     <option>Open this select menu</option>
                                     {{category}}
+                                    <option value="{{book.category}}" selected>{{book.category}}</option>
                                     {% for cate in category %}
                                     <option value="{{cate}}">
                                         {{cate}}
@@ -193,12 +193,12 @@
                                         <div class="mb-2">
                                             <label for="isbn_10">ISBN-10</label>
                                             <input type="text" id="isbn_10" class="form-control" placeholder="ISBN-10"
-                                                name="isbn_10" value="{{bookdetails.0.PAPERBACK.ISBN_10}}">
+                                                name="isbn_10" value="{{bookdetails.0.PAPERBACK.isbn_10}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="isbn_13">ISBN-13</label>
                                             <input type="text" id="isbn_13" class="form-control" placeholder="ISDBN-13"
-                                                name="isbn_13" value="{{bookdetails.0.PAPERBACK.ISBN_13}}">
+                                                name="isbn_13" value="{{bookdetails.0.PAPERBACK.isbn_13}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="weight">Weight</label>
@@ -209,7 +209,7 @@
                                             <label for="dimension">dimension</label>
                                             <input type="text" id="dimension" class="form-control"
                                                 placeholder="30 x 30 x 12 inches" name="dimension"
-                                                value="{{bookdetails.0.PAPERBACK.dimensions}}">
+                                                value="{{bookdetails.0.PAPERBACK.dimension}}">
                                         </div>
 
                                         <!-- End of Form -->
@@ -254,7 +254,7 @@
                                             <label for="realed_date">Release date</label>
                                             <input type="text" id="realed_date" class="form-control"
                                                 placeholder="realed date" name="realed_date"
-                                                value="{{bookdetails.1.AUDIOBOOK.release_date}}">
+                                                value="{{bookdetails.1.AUDIOBOOK.realed_date}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="Version">Version</label>
@@ -303,32 +303,33 @@
                                                 name="file_size" value="{{bookdetails.2.EBOOK.file_size}}">
                                         </div>
                                         <div class="mb-2">
-                                            <label for="text_to_speech">Text-to-speech</label>
-                                            <input type="text" id="text_to_speech" class="form-control"
-                                                placeholder="Enabled" name="text_to_speech"
-                                                value="{{bookdetails.2.EBOOK.Screen_Reader}}">
+                                            <label for="text_to_speach">Text-to-speech</label>
+                                            <input type="text" id="text_to_speach" class="form-control"
+                                                placeholder="Enabled" name="text_to_speach"
+                                                value="{{bookdetails.2.EBOOK.text_to_speach}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="screen_reader">screen reader</label>
                                             <input type="text" id="screen_reader" class="form-control"
                                                 placeholder="Supported" name="screen_reader"
-                                                value="{{bookdetails.2.EBOOK.Screen_Reader}}">
+                                                value="{{bookdetails.2.EBOOK.screen_reader}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="enhanced_typesetting">Enhanced typesetting </label>
                                             <input type="text" id="enhanced_typesetting" class="form-control"
                                                 placeholder="Enabled" name="enhanced_typesetting"
-                                                value="{{bookdetails.2.EBOOK.Enhanced_typesetting}}">
+                                                value="{{bookdetails.2.EBOOK.enhanced_typesetting}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="x_Ray">X-Ray </label>
                                             <input type="text" id="x_Ray" class="form-control" placeholder="Enabled"
-                                                name="x_Ray" value="{{bookdetails.2.EBOOK.X_RAY}}">
+                                                name="x_Ray" value="{{bookdetails.2.EBOOK.x_ray}}">
                                         </div>
+                                        {{bookdetails.2.EBOOK.text_to_speech}}
                                         <div class="mb-2">
-                                            <label for="word_wise">Word Wise </label>
-                                            <input type="text" id="word_wise" class="form-control" placeholder="Enabled"
-                                                name="word_wise" value="{{bookdetails.2.EBOOK.Word_Wide}}">
+                                            <label for="word_wide">Word Wise </label>
+                                            <input type="text" id="word_wide" class="form-control" placeholder="Enabled"
+                                                name="word_wide" value="{{bookdetails.2.EBOOK.word_wide}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="print_length">Print length </label>
