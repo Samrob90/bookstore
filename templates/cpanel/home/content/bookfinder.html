@@ -216,7 +216,20 @@
                             </label>
                             <div class="audiobook d-none">
 
-
+                                <div class="form-row d-flex">
+                                    <!-- narator -->
+                                    <div class="form-group col-md-6" style="margin-right: 10px;">
+                                        <label for="listening_length">Listening Length</label>
+                                        <input type="text" name="listening_length" id="listening_length"
+                                            placeholder="1hour 30 minutes (optional )" class="form-control">
+                                    </div>
+                                    <!-- release date -->
+                                    <div class="form-group col-md-6">
+                                        <label for="audiobook_publisher">Publisher</label>
+                                        <input type="datetime" name="audiobook_publisher" id="audiobook_publisher"
+                                            placeholder="Publisher (optional )" class="form-control">
+                                    </div>
+                                </div>
 
 
                                 <div class="form-row d-flex">
@@ -264,6 +277,7 @@
                             </label>
                         </div>
                         <div class="ebook d-none">
+
                             <div class="form-row d-flex">
                                 <div class="form-group col-lg-6 mr-1" style="margin-right: 10px;">
                                     <label for="weight">File Weight *</label>
@@ -276,6 +290,12 @@
                                         min="1" class="form-control">
                                 </div>
 
+                            </div>
+
+                            <div class="form-group " >
+                                <label for="ebook_publisher">Publisher</label>
+                                <input type="text" class="form-control" id="ebook_publisher" placeholder="publisher (optional)"
+                                    name="ebook_publisher">
                             </div>
                         </div>
                         <hr>

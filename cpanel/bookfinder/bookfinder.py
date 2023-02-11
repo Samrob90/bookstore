@@ -16,6 +16,11 @@ def search_books(title):
 
     # Extract the first result
     book = data["items"][0]["volumeInfo"]
+    bookid = data["items"][0]["id"]
+    # print(book["categories"])
+    # print(book["imageLinks"])
+
+    # imge_url = f"https://books.google.com/books/publisher/content/images/frontcover/\{bookid}?fife=w400-h600&source=gbs_api"
 
     # Extract the title, author, and description of the book
     book_title = book.get("title", "")
@@ -42,7 +47,7 @@ def search_books(title):
 
     # ebook
     dimensions = book.get("dimensions", [])
-    print(book.get("dimensions"))
+    print(book.get("category"))
     text_to_speach = book.get("textToSpeechPermission", "")
 
     ebook = {
@@ -73,6 +78,12 @@ def search_books(title):
         "published_date": publishedDate,
     }
     return [paperback_bookdetails, bookInfo, ebook]
+
+
+# def get_book_image(book_id):
+#     url = f"https://books.google.com/books/content?id={book_id}&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+#     response = requests.get(url)
+#     print(response.content)
 
 
 if __name__ == "__main__":

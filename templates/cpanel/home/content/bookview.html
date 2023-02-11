@@ -37,6 +37,8 @@
         <div>
             {% comment %} <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components-forms/"
                 class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a> {% endcomment %}
+
+            {% include "cpanel/includes/error.html" %}
         </div>
     </div>
 </div>
@@ -44,10 +46,10 @@
 
 
 <div class="row">
-    <div class="col-12 mb-4">
+    <div class="col-12 mb-4 book-form-view-edit">
         <div class="card border-0 shadow components-section">
             <div class="card-body">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{% url 'cpanel_addbook' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row mb-4">
 
@@ -81,7 +83,8 @@
                                             <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" /></svg>
                                     </span>
                                     <input type="text" class="form-control" id="book_authors"
-                                        placeholder="Book authors " aria-label="book_authors" name="authors" value="{{book.author}}" required>
+                                        placeholder="Book authors " aria-label="book_authors" name="authors"
+                                        value="{{book.author}}" required>
                                 </div>
                             </div>
                             <!-- end book author -->
@@ -97,14 +100,30 @@
                                             <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8" /></svg>
                                     </span>
                                     <input type="number" class="form-control" id="exampleInputIconLeft"
-                                        placeholder="Quantity (optional)" aria-label="quantity" name="quantity" value="{{book.quantity}}">
+                                        placeholder="Quantity (optional)" aria-label="quantity" name="quantity"
+                                        value="{{book.quantity}}">
                                 </div>
                             </div>
                             <!-- End of Form -->
                             <!-- Form -->
                             <div class="mb-3">
                                 <label for="files" class="form-label">book images</label>
-                                <input class="form-control" type="file" id="files" name="files" multiple required>
+                                <input class="form-control" type="file" id="files" name="files" multiple>
+
+
+                            </div>
+                            <div class="mb-3">
+                                <!-- <label for="files" class="form-label">Images</label> -->
+
+                                {% for image in book.bookimages_set.all %}
+                                <img src="{{ASSETS_ROOT}}/media/thumbnail/{{image.thumbnail}}" alt="images" height="200"
+                                    width="150">
+
+                                {% endfor %}
+
+                                <input type="hidden" name="book_update" value="{{book.pk}}">
+
+
                             </div>
                         </div>
                         <div class="col-lg-8 col-sm-8">
@@ -113,10 +132,12 @@
                             <div class="my-4">
                                 <label for="category">category <span class="text-danger">*</span></label>
                                 <select name="category" id="category" class="form-control" required>
-                                    <option selected>Open this select menu</option>
+                                    <option>Open this select menu</option>
                                     {{category}}
                                     {% for cate in category %}
-                                    <option value="{{cate}}">{{cate}}</option>
+                                    <option value="{{cate}}">
+                                        {{cate}}
+                                    </option>
 
                                     {% endfor %}
 
@@ -126,8 +147,9 @@
                             <!-- Form -->
                             <div class="my-4">
                                 <label for="textarea">book descriptions <span class="text-danger">*</span></label>
-                                <textarea class="form-control" placeholder="{{book.description}}" id="textarea"
-                                    rows="8" name="description" value="{{book.description}}" required></textarea>
+                                <textarea class="form-control" placeholder="{{book.description}}" id="textarea" rows="8"
+                                    name="description" value="{{book.description}}"
+                                    required>{{book.description}}</textarea>
                             </div>
 
                         </div>
@@ -143,46 +165,51 @@
                                     <div class="card-body">
 
 
+
                                         <div class="mb-2">
                                             <label for="paperback_price">Paperback price </label>
                                             <input type="text" id="paperback_price" class="form-control"
-                                                placeholder="GHS 40" name="paperback_price">
+                                                placeholder="GHS 40" name="paperback_price"
+                                                value="{{bookdetails.0.PAPERBACK.price}}">
                                         </div>
                                         <!-- Form -->
                                         <div class="mb-2">
                                             <label for="publisher">Publisher</label>
                                             <input type="text" id="publisher" class="form-control"
-                                                placeholder="Publisher" name="publisher">
+                                                placeholder="Publisher" name="publisher"
+                                                value="{{bookdetails.0.PAPERBACK.publisher}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="publisher">Publication Date</label>
                                             <input type="text" id="publication_date" class="form-control"
-                                                placeholder="Publication Date" name="publication_date">
+                                                placeholder="Publication Date" name="publication_date"
+                                                value="{{bookdetails.0.PAPERBACK.published_date}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="Language">Language</label>
                                             <input type="text" id="Language" class="form-control" placeholder="Language"
-                                                name="language">
+                                                name="language" value="{{bookdetails.0.PAPERBACK.language}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="isbn_10">ISBN-10</label>
                                             <input type="text" id="isbn_10" class="form-control" placeholder="ISBN-10"
-                                                name="isbn_10">
+                                                name="isbn_10" value="{{bookdetails.0.PAPERBACK.ISBN_10}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="isbn_13">ISBN-13</label>
                                             <input type="text" id="isbn_13" class="form-control" placeholder="ISDBN-13"
-                                                name="isbn_13">
+                                                name="isbn_13" value="{{bookdetails.0.PAPERBACK.ISBN_13}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="weight">Weight</label>
                                             <input type="text" id="weight" class="form-control" placeholder="22 ounces"
-                                                name="weight">
+                                                name="weight" value="{{bookdetails.0.PAPERBACK.weight}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="dimension">dimension</label>
                                             <input type="text" id="dimension" class="form-control"
-                                                placeholder="30 x 30 x 12 inches" name="dimension">
+                                                placeholder="30 x 30 x 12 inches" name="dimension"
+                                                value="{{bookdetails.0.PAPERBACK.dimensions}}">
                                         </div>
 
                                         <!-- End of Form -->
@@ -193,6 +220,7 @@
                                 <div class="card shadow-sm">
                                     <div class="card-header">
                                         <h4 class="text-muted">Audiobook</h4>
+
                                     </div>
                                     <div class="card-body">
 
@@ -200,39 +228,44 @@
                                         <div class="mb-2">
                                             <label for="audiobook_price">Audiobook price </label>
                                             <input type="text" id="audiobook_price" class="form-control"
-                                                placeholder="GHS 60" name="audiobook_price">
+                                                placeholder="GHS 60" name="audiobook_price"
+                                                value="{{bookdetails.1.AUDIOBOOK.price}}">
                                         </div>
                                         <!-- Form -->
                                         <div class="mb-2">
                                             <label for="audiobook_publisher">publisher</label>
                                             <input type="text" id="audiobook_publisher" class="form-control"
-                                                placeholder="Publisher" name="audiobook_publisher">
+                                                placeholder="Publisher" name="audiobook_publisher"
+                                                value="{{bookdetails.1.AUDIOBOOK.publisher}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="listening_length">Listening Length</label>
                                             <input type="text" id="listening_length" class="form-control"
-                                                placeholder="1 hours 30 minutes" name="listening_length">
+                                                placeholder="1 hours 30 minutes" name="listening_length"
+                                                value="{{bookdetails.1.AUDIOBOOK.listening_length}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="narator">Narator</label>
                                             <input type="text" id="narator" class="form-control" placeholder="Narator"
-                                                name="narator">
+                                                name="narator" value="{{bookdetails.1.AUDIOBOOK.narator}}">
                                         </div>
 
                                         <div class="mb-2">
                                             <label for="realed_date">Release date</label>
                                             <input type="text" id="realed_date" class="form-control"
-                                                placeholder="realed date" name="realed_date">
+                                                placeholder="realed date" name="realed_date"
+                                                value="{{bookdetails.1.AUDIOBOOK.release_date}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="Version">Version</label>
                                             <input type="text" id="Version" class="form-control" placeholder="Version"
-                                                name="Version">
+                                                name="Version" value="{{bookdetails.1.AUDIOBOOK.version}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="audiobookLanguage">Language</label>
                                             <input type="text" id="audiobookLanguage" class="form-control"
-                                                placeholder="Language" name="audiobooklanguage">
+                                                placeholder="Language" name="audiobooklanguage"
+                                                value="{{bookdetails.1.AUDIOBOOK.language}}">
                                         </div>
 
                                         <!-- End of Form -->
@@ -245,53 +278,57 @@
                                         <h4 class="text-muted">Ebook</h4>
                                     </div>
                                     <div class="card-body">
-
-
                                         <div class="mb-2">
                                             <label for="ebook_price">Ebook price </label>
                                             <input type="number" id="ebook_price" class="form-control"
-                                                placeholder="GHS 50" name="ebook_price" min="1">
+                                                placeholder="GHS 50" name="ebook_price" min="1"
+                                                value="{{bookdetails.2.EBOOK.price}}">
                                         </div>
                                         <!-- Form -->
                                         <div class="mb-2">
                                             <label for="ebook_publisher">Publisher</label>
                                             <input type="text" id="ebook_publisher" class="form-control"
-                                                placeholder="Publisher" name="ebook_publisher">
+                                                placeholder="Publisher" name="ebook_publisher"
+                                                value="{{bookdetails.2.EBOOK.publisher}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="ebook_language">language</label>
                                             <input type="text" id="ebook_language" class="form-control"
-                                                placeholder="languae" name="ebook_language">
+                                                placeholder="languae" name="ebook_language"
+                                                value="{{bookdetails.2.EBOOK.language}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="file_size">FIle size</label>
                                             <input type="text" id="file_size" class="form-control" placeholder="111 kb"
-                                                name="file_size">
+                                                name="file_size" value="{{bookdetails.2.EBOOK.file_size}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="text_to_speech">Text-to-speech</label>
                                             <input type="text" id="text_to_speech" class="form-control"
-                                                placeholder="Enabled" name="text_to_speech">
+                                                placeholder="Enabled" name="text_to_speech"
+                                                value="{{bookdetails.2.EBOOK.Screen_Reader}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="screen_reader">screen reader</label>
                                             <input type="text" id="screen_reader" class="form-control"
-                                                placeholder="Supported" name="screen_reader">
+                                                placeholder="Supported" name="screen_reader"
+                                                value="{{bookdetails.2.EBOOK.Screen_Reader}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="enhanced_typesetting">Enhanced typesetting </label>
                                             <input type="text" id="enhanced_typesetting" class="form-control"
-                                                placeholder="Enabled" name="enhanced_typesetting">
+                                                placeholder="Enabled" name="enhanced_typesetting"
+                                                value="{{bookdetails.2.EBOOK.Enhanced_typesetting}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="x_Ray">X-Ray </label>
                                             <input type="text" id="x_Ray" class="form-control" placeholder="Enabled"
-                                                name="x_Ray">
+                                                name="x_Ray" value="{{bookdetails.2.EBOOK.X_RAY}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="word_wise">Word Wise </label>
                                             <input type="text" id="word_wise" class="form-control" placeholder="Enabled"
-                                                name="word_wise">
+                                                name="word_wise" value="{{bookdetails.2.EBOOK.Word_Wide}}">
                                         </div>
                                         <div class="mb-2">
                                             <label for="print_length">Print length </label>
@@ -307,7 +344,7 @@
                     </div>
 
                     <div class="sumit_form">
-                        <button type="submit" class="btn btn-danger">Submit form</button>
+                        <button type="submit" class="btn btn-danger">submit Update</button>
                     </div>
                 </form>
 

@@ -69,12 +69,6 @@ class BooksForm(forms.ModelForm):
 
 
 class Dealofweek(forms.ModelForm):
-    # periode = forms.CharField(
-    #     widget=forms.DateTimeInput(
-    #         attrs={"placeholder": "Title", "class": "form-control mb-2 rounded-1"}
-    #     )
-    # )
-
     class Meta:
         model = models.DealofWeek
         fields = ["book", "discount", "periode", "quantity"]
@@ -82,3 +76,10 @@ class Dealofweek(forms.ModelForm):
         widgets = {
             "periode": forms.DateInput(attrs={"type": "date"}),
         }
+
+
+class Onsale(forms.ModelForm):
+    class Meta:
+        model = models.OnSale
+        fields = ["book", "discount", "periode"]
+        widgets = {"periode": forms.DateInput(attrs={"type": "date"})}

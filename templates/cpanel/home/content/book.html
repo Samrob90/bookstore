@@ -174,7 +174,7 @@
             <tr>
 
                 <td>
-                    <span class="fw-normal text-info"><a href="#">{{book.title}}</a></span>
+                    <span class="fw-normal text-info"><a href="{% url 'cpanel_book_edit' book.pk %}">{{book.title}}</a></span>
                 </td>
                 <td><span class="fw-bold">GHS&nbsp;{{book.default_price}}</span></td>
                 <td><span class="fw-normal">{{book.quantity}}</span></td>
@@ -194,8 +194,8 @@
                         </button>
 
                         <div class="dropdown-menu py-0">
-                            <!-- <a class="dropdown-item rounded-top" href="#"><span
-                                    class="fas fa-eye me-2"></span>Edit</a> -->
+                            <a class="dropdown-item rounded-top" href="{% url 'cpanel_book_edit' book.pk %}"><span
+                                    class="fas fa-eye me-2"></span>Edit</a>
 
                             <form method="post" action="">
                                 {% csrf_token %}

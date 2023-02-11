@@ -51,9 +51,6 @@ class book(models.Model):
     description = models.TextField(default=None)
     thumbnail = models.CharField(max_length=250, default=None)
     category = models.CharField(max_length=300, default=None)
-    on_sale = models.BooleanField(default=False)
-    sales_discount = models.IntegerField(default=0, null=True, blank=True)
-    on_sale_deadline = models.DateField(default=None, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
@@ -244,11 +241,8 @@ class OnSale(models.Model):
     book = models.ForeignKey(
         "book", verbose_name="book on sale", on_delete=models.CASCADE
     )
-    discount = models.IntegerField(default=0)
+    discount = models.IntegerField(default=None, verbose_name="discount (%)")
     periode = models.DateTimeField(default=None)
-    created_by = models.ForeignKey(
-        Account, verbose_name="on sale created by ", on_delete=models.CASCADE
-    )
     created_at = models.DateTimeField(default=timezone.now)
 
 

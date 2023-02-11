@@ -1,0 +1,243 @@
+{% extends "cpanel/layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% load poll_extras %}
+{% load humanize %}
+
+{% block title %} book on sale {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="py-4">
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item">
+                <a href="{% url 'cpanel_dashboard' %}">
+                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'cpanel_books' %}">books</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Forms</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">Deal of The Week</h1>
+            <div class="">
+                <div class="dropdown">
+                    <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        New Task
+                    </button>
+                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+                        <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal"
+                            data-bs-target="#modal-form">
+                            <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            New record
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="">
+            {% for message in messages %}
+
+
+            <div class="" style="float:right
+            ;position:absolute;right:0; margin-right:1%;">
+                {% if message.tags == "error" %}
+                <div class="rounded-1 shadow-sm alert alert-danger " role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/error.png" /><strong> Error !</strong>
+                    <span>{{message}} </span>
+                </div>
+                {% elif message.tags == "success" %}
+                <div class="rounded-1 shadow-sm alert alert-success" role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/success.png" /> <strong>success !
+                    </strong><span>{{message}} </span>
+                </div>
+                {% elif message.tags == "warning"%}
+                <div class="rounded-1 shadow-sm alert alert-warning" role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/warning.png" /> <strong>warning !
+                    </strong><span>{{message}} </span>
+                </div>
+                {% elif message.tags == "info" %}
+                <div class="rounded-1 shadow-sm alert alert-info" role="alert">
+                    <img src="{{ ASSETS_ROOT }}/static/cpanel/assets/img/icon/info.png" /> <strong>Info !
+                    </strong><span>{{message}} </span>
+                </div>
+                {% endif %}
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+
+        <div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12 mb-4">
+
+        {% if onsale.count > 0 %}
+
+
+        <div class="card card-body border-0 shadow table-wrapper table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="border-gray-200">Book Title</th>
+                        <th class="border-gray-200">Discount</th>
+                        <th class="border-gray-200">Expiring date</th>
+                        <th class="border-gray-200">Reamining Time</th>
+                        <th class="border-gray-200">created at</th>
+
+                        <th class="border-gray-200">action</th>
+                        <!-- <th class="border-gray-200">Action</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for sale in onsale %}
+                    <!-- Item -->
+                    <tr>
+
+                        <td>
+                            <span class="fw-normal text-info"><a href="#">{{sale.book.title}}</a></span>
+                        </td>
+                        <td><span class="fw-bold">{{sale.discount}} % off</span></td>
+                        <td><span class="fw-normal">{{sale.periode}}</span></td>
+                        <td>
+                            {% if sale.periode|check_expiration == "expired" %}
+                            <span class="fw-normal  p-2 bg-danger text-white rounded shadow">Expired</span>
+                            {% else %}
+                            <span class="fw-normal  p-2 bg-info text-white rounded shadow">
+                                {{sale.periode|check_expiration|naturaltime}}</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="fw-bold text-success">{{sale.created_at}}</span></td>
+                        <td>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="delete_sale" value="{{sale.pk}}">
+                                <button type="submit" class="btn btn-sm btn-danger"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path
+                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                        </path>
+                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                    </svg> Delete</button>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if books.count > 0 %}
+            <div
+                class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between mt-5">
+                <nav aria-label="Page navigation example">
+                    <ul
+                        class="pagination pagination__custom justify-content-md-center flex-nowrap flex-md-wrap overflow-auto overflow-md-visble">
+
+                        {% if page_obj.has_previous %}
+                        <li class="flex-shrink-0 flex-md-shrink-1 page-item active"><a class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+
+                        {% load poll_extras %}
+                        {% for i in page_obj.paginator.num_pages|get_range %}
+
+                        <li
+                            class="flex-shrink-0 flex-md-shrink-1 page-item {% if page_obj.number == i %} active {% endif %}">
+                            <a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="flex-shrink-0 flex-md-shrink-1 page-item active"><a class="page-link"
+                                href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+                <div class="fw-normal small mt-4 mt-lg-0">Showing <b>{{page_obj.number}}</b> out of
+                    <b>{{ page_obj.paginator.num_pages}}</b> entries</div>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="text-center m-4">
+            <i class="text-muted mt-5">No records to display</i>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+<!-- Modal Content -->
+<div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card p-3 p-lg-4">
+                    <button type="button" class="btn-close ms-auto closemodal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="create_sale" value="sale">
+                        {{form|crispy}}
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-danger form-control">Submit</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Content -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

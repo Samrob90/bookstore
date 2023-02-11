@@ -281,6 +281,17 @@ input::-webkit-inner-spin-button {
 
 .finder_list_view li {}
 
+.book-form-view-edit input,
+.book-form-view-edit select,
+.book-form-view-edit textarea {
+    color: black;
+
+}
+
+.book-form-view-edit label {
+    color: gray !important;
+}
+
 @keyframes loader {
     0% {
         background-color: rgba(165, 165, 165, 0.1);

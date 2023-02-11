@@ -77,6 +77,7 @@ class CpanelBooksView(ListView):
     template_name = "cpanel/home/content/book.html"
     model = models.book
     paginate_by = 20
+    ordering = ["-created_at"]
     context_object_name = "books"
 
     def post(self, request, *args, **kwargs):
@@ -96,6 +97,52 @@ class CpanelBookEdit(DetailView):
     model = models.book
     template_name = "cpanel/home/content/bookview.html"
     context_object_name = "book"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # book = models.book.objects.filter(pk=kwargs["pk"])
+        # print(context["book"])
+        context["category"] = category.objects.all().order_by("category")
+        # paperback
+        bookdetails = models.bookdetails.objects.filter(book=context["book"])
+        context["bookdetails"] = self.bookdetails(bookdetails)
+        # print(context["bookdetails"])
+
+        # context["paperback"] =
+        return context
+
+    def bookdetails(self, book_object):
+        data_dict = []
+        # first_array = string.split(";")
+        for string_ in book_object:
+            first_array = string_.details.split(";")
+            local_dict = {}
+
+            for i in first_array:
+                second_array = i.split("***")
+                if len(second_array) > 1:
+                    local_dict[second_array[0]] = second_array[1]
+            local_dict["price"] = string_.price
+            data_dict.append({string_.booktype: local_dict})
+
+        return data_dict
+
+    # find better way to do this later
+    # this is a dry code :: made it this way just to finish quikly
+    # might come back later fix this hopefully
+    def post(self, request, *args, **kwargs):
+        bookid = kwargs["pk"]
+        book = models.book.objects.filter(pk=bookid).first()
+        form = request.POST
+
+        files = request.FILES.getlist("files")
+
+        # get images thumbnail to update
+        if form.get("category") == "Open this select menu":
+            messages.error(request, "Category field is required !!")
+            return redirect("cpanel_book_edit", bookid)
+
+        return JsonResponse(form)
 
 
 class OrdersViews(ListView):
@@ -204,12 +251,12 @@ class CpanelAddbookView(TemplateView):
             if form.get("paperback_price") != "":
                 paperback = {
                     "publisher": form.get("publisher", ""),
-                    "publication_date": form.get("publication_date", ""),
-                    "language": form.get("language", ""),
-                    "isbn_10": form.get("isbn_10", ""),
-                    "isbn_13": form.get("isbn_13", ""),
-                    "weight": form.get("weight", ""),
-                    "dimension": form.get("weight", ""),
+                    "publication_date": form.get("publication_date"),
+                    "language": form.get("language"),
+                    "isbn_10": form.get("isbn_10"),
+                    "isbn_13": form.get("isbn_13"),
+                    "weight": form.get("weight"),
+                    "dimension": form.get("weight"),
                 }
                 BOOKTYPE.append(
                     {
@@ -223,12 +270,12 @@ class CpanelAddbookView(TemplateView):
             # get audiobook info
             if form.get("audiobook_price") != "":
                 audiobook = {
-                    "publisher": form.get("audiobook_publisher", ""),
-                    "listening_length": form.get("listening_length", ""),
-                    "narator": form.get("narator", ""),
-                    "realed_date": form.get("realed_date", ""),
-                    "Version": form.get("Version", ""),
-                    "language": form.get("audiobooklanguage", ""),
+                    "publisher": form.get("audiobook_publisher"),
+                    "listening_length": form.get("listening_length"),
+                    "narator": form.get("narator"),
+                    "realed_date": form.get("realed_date"),
+                    "Version": form.get("Version"),
+                    "language": form.get("audiobooklanguage"),
                 }
                 BOOKTYPE.append(
                     {
@@ -242,15 +289,15 @@ class CpanelAddbookView(TemplateView):
             # get ebook info
             if form.get("ebook_price") != "":
                 ebook = {
-                    "publisher": form.get("ebook_publisher", ""),
-                    "language": form.get("ebook_language", ""),
-                    "file_size": form.get("file_size", ""),
-                    "text_to_speech": form.get("text_to_speech", ""),
-                    "screen_reader": form.get("screen_reader", ""),
+                    "publisher": form.get("ebook_publisher"),
+                    "language": form.get("ebook_language"),
+                    "file_size": form.get("file_size"),
+                    "text_to_speech": form.get("text_to_speech"),
+                    "screen_reader": form.get("screen_reader"),
                     "enhanced_typesetting": form.get("enhanced_typesetting"),
-                    "x_Ray": form.get("x_Ray", ""),
-                    "word_wise": form.get("word_wise", ""),
-                    "print_length": form.get("print_length", ""),
+                    "x_Ray": form.get("x_Ray"),
+                    "word_wise": form.get("word_wise"),
+                    "print_length": form.get("print_length"),
                 }
                 BOOKTYPE.append(
                     {
@@ -263,82 +310,27 @@ class CpanelAddbookView(TemplateView):
                 )
             images = request.FILES.getlist("files")
             bookimagespath = {"images": images}
+            if (
+                "book_update" in form
+                and form.get("category") == "Open this select menu"
+            ):
+                messages.error(request, "Category field is required !!")
+                return redirect("cpanel_book_edit", form.get("book_update"))
             try:
-                save_book(bookinfo, bookimagespath, BOOKTYPE, None)
+                form_value = None
+                if "book_update" in form:
+                    form_value = {"book_update": form.get("book_update")}
+                else:
+                    form_value = None
+                s = save_book(bookinfo, bookimagespath, BOOKTYPE, form_value)
+                print(s)
                 messages.success(
                     request, f"{bookinfo['title']} added to database successfully !!"
                 )
             except Exception as e:
-                messages.error(request, "Error : {e} , Please try again later")
+                messages.error(request, f"Error : {e} , Please try again later")
 
-            return HttpResponse("success")
-
-            # hard coded to be changed later
-            product_name = "book"
-            product_type = "retail"
-
-            booktitle = request.POST["title"]
-            author = request.POST["author"]
-            quantity = request.POST["quantity"]
-            slug = slugify(booktitle)
-            images = request.FILES.getlist("files")
-            # return HttpResponse("none")
-            for index, value in enumerate(request.POST):
-                if value in booktype_sample:
-                    booktype.update({value: request.POST[value].split(",")})
-
-            if booktype:
-                if "PAPERBACK" in booktype:
-                    default_price = booktype["PAPERBACK"][1]
-                    default_type = booktype["PAPERBACK"][0]
-                else:
-                    first_element = next(iter(booktype))
-                    default_price = booktype[first_element][1]
-                    default_type = booktype[first_element][0]
-
-            # create product object
-            product = models.product.objects.create(
-                product_name=product_name, product_type=product_type
-            )
-            thumbnail_url = []
-            # create images thumbnail
-            for index, image in enumerate(images):
-                path = os.path.join(BASE_DIR, "media/thumbnail/")
-                thumbnail = self.thumbnail(image, path)
-                thumbnail_url.append(thumbnail)
-
-            # create book object
-            book = models.book.objects.create(
-                product=product,
-                title=booktitle,
-                quantity=quantity,
-                author=author,
-                slug=slug,
-                default_price=default_price,
-                default_type=default_type,
-                thumbnail=thumbnail_url[0],
-            )
-            # insert image
-            thumbnail_image_url = " ".join(thumbnail_url)
-            for i in images:
-                models.bookimages.objects.create(
-                    book=book,
-                    thumbnail=thumbnail_image_url,
-                    images=i,
-                )
-
-            # insert bookdetials
-            for key in booktype:
-                models.bookdetails.objects.create(
-                    book=book,
-                    booktype=key,
-                    price=booktype[key][1],
-                    description=booktype[key][2],
-                )
-
-            messages.success(request, "Book added successfully")
-
-            return JsonResponse({"result": "success"})
+            return redirect("cpanel_books")
 
 
 class CpanelLogoutVIew(TemplateView):
@@ -423,8 +415,8 @@ class BookFinder(TemplateView):
             if formcheck["audiobookcheck"]:
                 # create audiobook format
                 AUDIOBOOK_details = {
-                    "author": bookinfo["author"],
-                    "publisher": paperback_details["publisher"],
+                    "listening_length": form_values["listening_length"],
+                    "publisher": form_values["audiobook_publisher"],
                     "language": paperback_details["language"],
                     "narator": form_values["narator"],
                     "release_date": form_values["release_date"],
@@ -440,7 +432,7 @@ class BookFinder(TemplateView):
                     }
                 )
             if formcheck["ebookcheck"]:
-                ebook_details["publisher"] = paperback_details["publisher"]
+                ebook_details["publisher"] = form_values["ebook_publisher"]
                 ebook_details["language"] = paperback_details["language"]
                 ebook_details["file_size"] = form_values["weight"]
                 BOOKTYPES.append(
@@ -507,9 +499,34 @@ class DealofWeek(ListView):
 
 
 class OnSale(ListView):
-    model = models.book
+    model = models.OnSale
     template_name = "cpanel/home/content/onsale.html"
     context_object_name = "onsale"
+    paginate_by = 20
+    ordering = ["-created_at"]
+    class_form = form.Onsale
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.class_form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "create_sale" in request.POST:
+            form = self.class_form(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Record successfuly added to sale")
+            else:
+                messages.error(
+                    request, "Error: Failed to save records please try again later"
+                )
+            return redirect("cpanel_onsale")
+        if "delete_sale" in request.POST:
+            saleid = request.POST.get("delete_sale")
+            models.OnSale.objects.filter(pk=saleid).delete()
+            messages.success(request, "Record deleted successfully !!")
+            return redirect("cpanel_onsale")
 
 
 def format_book_add(**bookdetails_info):
@@ -531,7 +548,7 @@ def format_book_add(**bookdetails_info):
 def details_to_string(booktype_details_info):
     string = ""
     for key in booktype_details_info:
-        string += f"{key} {booktype_details_info[key]};"
+        string += f"{key}***{booktype_details_info[key]};"
     return string
 
 
@@ -551,40 +568,102 @@ def save_book(bookinfo, bookimagespath, booktypes, form_value):
         default_booktype = booktypes[0][first_element]["price"]
         # comback here later
     # create product obj
-    product = create_product("book", "retail")
-    # create_book_image_thumbnail
-    for index, image in enumerate(bookimagespath["images"]):
-        path = os.path.join(BASE_DIR, "media/thumbnail/")
-        THUMBNAIL_URL.append(thumbnail(image, path))
+    if bookimagespath["images"]:
+        # create_book_image_thumbnail
+        for index, image in enumerate(bookimagespath["images"]):
+            path = os.path.join(BASE_DIR, "media/thumbnail/")
+            THUMBNAIL_URL.append(thumbnail(image, path))
 
-    # create book objc
-    book = models.book.objects.create(
-        product=product,
-        title=bookinfo.get("title"),
-        quantity=200,
-        author=bookinfo.get("author"),
-        slug=slugify(bookinfo.get("title")),
-        default_price=float(default_price),
-        default_type=default_booktype,
-        description=bookinfo.get("description"),
-        thumbnail=THUMBNAIL_URL[0],
-        category=bookinfo.get("category"),
-    )
+    if form_value is not None and "book_update" in form_value:
+        book = models.book.objects.filter(pk=form_value["book_update"])
 
-    # create image obj
-    # insert image
-    thumbnail_image_url = " ".join(THUMBNAIL_URL)
-    for image in bookimagespath["images"]:
+        print(bookimagespath["images"])
 
-        saveimage = models.bookimages.objects.create(
-            book=book, thumbnail=thumbnail_image_url, images="randomnameintheboook.wep"
+        if bookimagespath["images"]:
+
+            book.update(
+                title=bookinfo.get("title"),
+                quantity=200,
+                author=bookinfo.get("author"),
+                slug=slugify(bookinfo.get("title")),
+                default_price=float(default_price),
+                default_type=default_booktype,
+                description=bookinfo.get("description"),
+                thumbnail=THUMBNAIL_URL[0],
+                category=bookinfo.get("category"),
+            )
+        else:
+            book.update(
+                title=bookinfo.get("title"),
+                quantity=200,
+                author=bookinfo.get("author"),
+                slug=slugify(bookinfo.get("title")),
+                default_price=float(default_price),
+                default_type=default_booktype,
+                description=bookinfo.get("description"),
+                category=bookinfo.get("category"),
+            )
+
+        # change this later
+
+        # create image obj
+        # insert image
+        # thumbnail_image_url = THUMBNAIL_URL[0]
+        # delete book images first
+        if bookimagespath["images"]:
+
+            models.bookimages.objects.filter(book=book.first()).delete()
+            for image in bookimagespath["images"]:
+                saveimage = models.bookimages.objects.create(
+                    book=book.first(),
+                    thumbnail=THUMBNAIL_URL[0],
+                    images="randomnameintheboook.wep",
+                )
+                saveimage.images.save(f"{uuid.uuid4()}_bookimages.webp", image)
+
+        # insert bookdetails
+        # delete then add new recored (This is temporaly fix should use update intead (must change this later))
+        models.bookdetails.objects.filter(book=book.first()).delete()
+        for detail in booktypes:
+            for type in detail:
+
+                models.bookdetails.objects.create(book=book.first(), **detail[type])
+        return "record_updated"
+    else:
+        product = create_product("book", "retail")
+
+        # create book objc
+        book = models.book.objects.create(
+            product=product,
+            title=bookinfo.get("title"),
+            quantity=200,
+            author=bookinfo.get("author"),
+            slug=slugify(bookinfo.get("title")),
+            default_price=float(default_price),
+            default_type=default_booktype,
+            description=bookinfo.get("description"),
+            thumbnail=THUMBNAIL_URL[0],
+            category=bookinfo.get("category"),
         )
-        saveimage.images.save(f"{uuid.uuid4()}_bookimages.webp", image)
 
-    # insert bookdetails
-    for detail in booktypes:
-        for type in detail:
-            models.bookdetails.objects.create(book=book, **detail[type])
+        # create image obj
+        # insert image
+        # thumbnail_image_url = THUMBNAIL_URL[0]
+        for image in bookimagespath["images"]:
+
+            saveimage = models.bookimages.objects.create(
+                book=book,
+                thumbnail=THUMBNAIL_URL[0],
+                images="randomnameintheboook.wep",
+            )
+            saveimage.images.save(f"{uuid.uuid4()}_bookimages.webp", image)
+
+        # insert bookdetails
+        for detail in booktypes:
+            for type in detail:
+                models.bookdetails.objects.create(book=book, **detail[type])
+
+        return "new_recorde"
 
 
 def thumbnail(image, path):
