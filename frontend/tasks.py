@@ -87,6 +87,7 @@ def save_order(data):
     )
 
     for i in data["items"]:
+        del i["user"]
         order_book.objects.create(ordernumber=new_order, **i)
 
     if user.exists():
