@@ -66,14 +66,26 @@ class authorsDetail(DetailView):
 class ShopView(ListView):
     template_name = "frontend/shop.html"
     model = cpanel_model.book
-    paginate_by = 5
+    context_object_name = "books"
+    paginate_by = 10
+    ordering = ["-created_at"]
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
-    #     context["range"] = range(
-    #         1, ceil(cpanel_model.book.objects.all().count() / 4) + 1
-    #     )
-    #     return context
+
+    # context["books"] = cpanel_model.book.objects.filter(
+    #     category__contains=self.request.GET.get("category")
+    # )
+    # print(self.request.GET.get("category"))
+
+    def get_queryset(self):
+        category = (
+            self.request.GET.get("category") if self.request.method == "GET" else None
+        )
+        if category is not None:
+            return cpanel_model.book.objects.filter(category__contains=category)[0:10]
+        else:
+            return super().get_queryset()
 
 
 class ProductView(DetailView):

@@ -123,7 +123,7 @@
                             </a>
                             {% comment %} <ul id="homeDropdownMenu" class="dropdown-unfold dropdown-menu font-size-2 rounded-0 border-gray-900" aria-labelledby="homeDropdownInvoker">
                                 <li><a href="../home/index.html" class="dropdown-item link-black-100">Home v1</a></li>
-                                <li><a href="../home/home-v2.html" class="dropdown-item link-black-100">Home v2</a></li>
+                                <li><a href="/shop/?category={{categories}}" class="dropdown-item link-black-100">Home v2</a></li>
                                 <li><a href="../home/home-v3.html" class="dropdown-item link-black-100">Home v3</a></li>
                                 <li><a href="../home/home-v4.html" class="dropdown-item link-black-100">Home v4</a></li>
                                 <li><a href="../home/home-v5.html" class="dropdown-item link-black-100">Home v5</a></li>
@@ -234,7 +234,7 @@
                                                         
                                                         <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.3}}</span></li>
                                                         {% for sub in categories.3.subcategory_set.all %}
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        <li><a href="/shop/?category={{categories.3}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
                                                         {% endfor %}
                                                             
                                                     </ul>
@@ -244,12 +244,12 @@
                                                     <ul class="menu list-unstyled">
                                                         <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.1}}</span></li>
                                                         {% for sub in categories.1.subcategory_set.all %}
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        <li><a href="/shop/?category={{categories.1}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
                                                         {% endfor %}
 
                                                         <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.0}}</span></li>
                                                         {% for sub in categories.0.subcategory_set.all %}
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        <li><a href="/shop/?category={{categories.0}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
                                                         {% endfor %}
                                                     </ul>
                                                 </div>
@@ -257,11 +257,11 @@
                                                     <ul class="menu list-unstyled">
                                                         <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.2}}</span></li>
                                                         {% for sub in categories.2.subcategory_set.all %}
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        <li><a href="/shop/?category={{categories.2}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
                                                         {% endfor %}
                                                         <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.5}}</span></li>
                                                         {% for sub in categories.5.subcategory_set.all %}
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        <li><a href="/shop/?category={{categories.5}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
                                                         {% endfor %}
                                                     </ul>
                                                 </div>
@@ -269,7 +269,7 @@
                                                     <ul class="menu list-unstyled">
                                                         <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.4}}</span></li>
                                                         {% for sub in categories.4.subcategory_set.all %}
-                                                        <li><a href="../home/home-v2.html" class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                        <li><a href="/shop/?category={{categories.4}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
                                                         {% endfor %}
                                                         <li><a href="{{ASSETS_ROOT}}/static/documentation/index.html" class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a></li>
                                                         <li><a href="{{ASSETS_ROOT}}/static/starter/index.html" class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a></li>
