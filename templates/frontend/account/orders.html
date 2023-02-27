@@ -1,4 +1,5 @@
 {% extends 'frontend/account/account_base.html' %}
+{% load poll_extras %}
 
 
 {% block account_title %}
@@ -9,8 +10,9 @@ newtonbookshop | My orders
 {% block account_content %}
 
 <div class="col-md-9">
+
     <div class="tab-content" id="pills-tabContent">
-        <div >
+        <div>
             <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-2 mb-lg-4">
                 <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-lg-8 pb-xl-1">My orders</h6>
                 <table class="table">
@@ -25,45 +27,36 @@ newtonbookshop | My orders
                     </thead>
 
                     <tbody>
+
+                        {% for order in account_orders %}
                         <tr class="border">
-                            <th class="pl-3 pl-md-5 font-weight-normal align-middle py-6">#30785</th>
-                            <td class="align-middle py-5">March 26, 2020</td>
-                            <td class="align-middle py-5">On hold</td>
+                            <th class="pl-3 pl-md-5 font-weight-normal align-middle py-6">#{{order.orderid}}</th>
+                            <td class="align-middle py-5">{{order.created_at}}</td>
                             <td class="align-middle py-5">
-                                <span class="text-primary">$1,855.00</span> for 5 items</td>
+                                {% if order.status == "pending" %}
+                                <span class="text-warning"> {{order.status}}</span>
+                                {% elif order.status == "delivered" or order.status == "confirmed" %}
+                                <span class="text-success"> {{order.status}}</span>
+                                {% elif order.status == "canceled"%}
+                                <span class="text-danger"> {{order.status}}</span>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                            <td class="align-middle py-5">
+                                <span class="text-primary">GHS {{order.amount}}</span> for
+                                {{order.order_book_set.all|get_order_qty}} items</td>
                             <td class="align-middle py-5">
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-dark rounded-0 btn-wide font-weight-medium">View
-                                    </button>
+                                    <a href="{% url 'account_order_views' order.orderid %}">
+                                        <button type="submit"
+                                            class="btn btn-dark rounded-0 btn-wide font-weight-medium">View
+                                        </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="border">
-                            <th class="pl-3 pl-md-5 font-weight-normal align-middle py-6">#30785</th>
-                            <td class="align-middle py-5">March 26, 2020</td>
-                            <td class="align-middle py-5">On hold</td>
-                            <td class="align-middle py-5">
-                                <span class="text-primary">$1,855.00</span> for 5 items</td>
-                            <td class="align-middle py-5">
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-dark rounded-0 btn-wide font-weight-medium">View
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="border">
-                            <th class="pl-3 pl-md-5 font-weight-normal align-middle py-6">#30785</th>
-                            <td class="align-middle py-5">March 26, 2020</td>
-                            <td class="align-middle py-5">On hold</td>
-                            <td class="align-middle py-5">
-                                <span class="text-primary">$1,855.00</span> for 5 items</td>
-                            <td class="align-middle py-5">
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-dark rounded-0 btn-wide font-weight-medium">View
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        {% endfor %}
+
                     </tbody>
                 </table>
             </div>
@@ -72,4 +65,3 @@ newtonbookshop | My orders
 </div>
 
 {% endblock account_content %}
-

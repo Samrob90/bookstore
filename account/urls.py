@@ -35,4 +35,11 @@ urlpatterns = [
         login_required(views.WishlistView.as_view(), login_url=settings.LOGIN_URL),
         name="wishlist",
     ),
+    path(
+        "orders/<orderid>/",
+        login_required(
+            views.order_account_details.as_view(), login_url=settings.LOGIN_URL
+        ),
+        name="account_order_views",
+    ),
 ]

@@ -320,6 +320,15 @@ input::-webkit-inner-spin-button {
     }
 }
 
+.order-account-details ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.order-account-details ul li {
+    font-size: 14px;
+}
+
 @media screen and (max-width: 600px) {
     .django_messages_error {
         width: 90% !important;

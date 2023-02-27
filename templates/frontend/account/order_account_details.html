@@ -1,0 +1,180 @@
+{% extends 'frontend/account/account_base.html' %}
+{% load poll_extras %}
+{% load  %}
+
+
+{% block account_title %}
+newtonbookshop | #{{order.orderid}}
+{% endblock account_title %}
+
+
+{% block account_content %}
+
+<div class="col-md-9">
+
+    <div class="tab-content order-account-details" id="pills-tabContent">
+        <div>
+            <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-2 mb-lg-2">
+                <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-lg-8 pb-xl-1">My orders</h6>
+                <!-- <table class="table">
+                    <thead>
+                        <tr class="border">
+                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium pl-3 pl-lg-5">Order</th>
+                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Date</th>
+                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Staus</th>
+                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Total</th>
+                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                            {% for order in account_orders %}
+                            <tr class="border">
+                                <th class="pl-3 pl-md-5 font-weight-normal align-middle py-6">#{{order.orderid}}</th>
+                                <td class="align-middle py-5">{{order.created_at}}</td>
+                                <td class="align-middle py-5">
+                                {% if order.status == "pending" %}
+                                    <span class="text-warning"> {{order.status}}</span>
+                                {% elif order.status == "delivered" or order.status == "confirmed" %}
+                                    <span class="text-success"> {{order.status}}</span>
+                                {% elif order.status == "canceled"%}
+                                <span class="text-danger"> {{order.status}}</span>
+                                {% else %}
+                                {% endif %}
+                                    </td>
+                                <td class="align-middle py-5">
+                                    <span class="text-primary">GHS {{order.amount}}</span> for {{order.order_book_set.all|get_order_qty}} items</td>
+                                <td class="align-middle py-5">
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-dark rounded-0 btn-wide font-weight-medium">View
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                                
+                    </tbody>
+                </table>  -->
+                <!-- order Number -->
+                <div class="card  shadow-sm mb-4">
+                    <div class="card-header border-0">
+
+                        {% if order.status == "pending" %}
+                        <span class="p-1 bg-info text-white rounded" style="font-size:
+                        13px">pending confirmation</span>
+                        {% elif order.status == "confirmed" %}
+                        <span class="p-1 bg-info text-white rounded" style="font-size:
+                        13px">out for delivery</span>
+                        {% elif order.status == "delivered" %}
+                        <span class="p-1 bg-success text-white rounded" style="font-size:
+                        13px">delivered</span>
+                        {% endif %}
+
+
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Order Bumber # {{order.orderid}}</li>
+                            <li>Place on : {{order.created_at}}</li>
+                            <li>No of items : {{order.order_book_set.all.count}}</li>
+                            <li>Total : GHS {{order.amount}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- items in your order -->
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header border-0">
+                        ITEMS IN YOUR ORDER
+                        <div class="" style="float:right;">
+                            <button class="btn btn-sm btn-dark">Track order</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+
+                        {% for books in order.order_book_set.all %}
+                        <div class="d-flex align-items-center mb-4 shadow-sm">
+                            <a href="#">
+                                <img src="{{ASSETS_ROOT}}/media/thumbnail/{{books.bookthumbnail}}"
+                                    class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="bookimage"
+                                    width="80" height="120">
+                            </a>
+                            <div class="ml-3 m-w-200-lg-down">
+                                <a
+                                    href="{% url 'book-detail' books.bookslug books.product_id  %}">{{books.booktitle}}</a>
+                                <a href="{% url 'book-detail' books.bookslug books.product_id  %}"
+                                    class="text-gray-700 font-size-2 d-block" tabindex="0">{{books.bookauthor}}</a>
+
+                                <a href="{% url 'book-detail' books.bookslug books.product_id  %}"
+                                    class="text-gray-700 font-size-2 d-block" tabindex="0">{{books.booktype}}</a>
+                                <a href="#" class="text-gray-700 font-size-2 d-block" tabindex="0">Qty
+                                    {{books.bookquantity}}</a>
+                            </div>
+                        </div>
+                        </td>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+
+                <!-- Payment -->
+                <div class="card mb-4">
+                    <div class="card-header border-0">
+                        Payment
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><b>Payment method</b></li>
+                            <li>
+                                {% if order.payment_method == "pay_with_cash_on_delivery" %}
+                                Pay Cash on delivery
+                                {% else %}
+                                {{order.payment_method}}
+                                {% endif %}
+                            </li>
+                            <hr>
+                            <li><b>Payment Details</b></li>
+                            <li>items total : GHS {{order.amount|substration:order.shipping_fee}} </li>
+                            <li>shipping fees : GHS {{order.shipping_fee}}</li>
+                            <li>Voucher Discount : GHS {{order.Discount}}</li>
+
+                            <li class="pt-2">Total : GHS {{order.amount}}</li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- shipping information -->
+
+                <div class="card mb-4">
+                    <div class="card-header border-0">
+                        Shipping address
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><b>Address</b></li>
+                            <li>{{order.address.email}}</li>
+                            <li>{{order.address.first_name}} {{order.address.last_name}}</li>
+                            <li>{{order.address.country}}, {{order.address.region_or_state}} {{order.address.cirty}}
+                            </li>
+
+                            <li>{{order.address.address1}}</li>
+                            <li>{{order.address.phonenumber}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock account_content %}

@@ -16,7 +16,6 @@ def get_total(qty, value):
 
 @register.filter(name="addbyone")
 def addone(value):
-    print(value)
     return int(value) + 1
 
 
@@ -53,3 +52,16 @@ def check_expiration(timestamp):
             return str(timestamp - now).split(".")[0]
         except:
             return timestamp - now
+
+
+@register.filter(name="get_order_qty")
+def get_order_qty(obj):
+    qty = 0
+    for i in obj:
+        qty += int(i.bookquantity)
+    return qty
+
+
+@register.filter(name="substration")
+def substration(val, obj):
+    return float(val) - float(obj)
