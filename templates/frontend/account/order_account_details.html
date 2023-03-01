@@ -14,7 +14,7 @@ newtonbookshop | #{{order.orderid}}
 
     <div class="tab-content order-account-details" id="pills-tabContent">
         <div>
-            <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-2 mb-lg-2">
+            <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-2 mb-lg-2"  style="padding-left:0px!important">
                 <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-lg-8 pb-xl-1">My orders</h6>
                 <!-- <table class="table">
                     <thead>
@@ -68,13 +68,16 @@ newtonbookshop | #{{order.orderid}}
                         {% elif order.status == "delivered" %}
                         <span class="p-1 bg-success text-white rounded" style="font-size:
                         13px">delivered</span>
+                        {% elif order.status == "canceled" %}
+                        <span class="p-1 bg-danger text-white rounded" style="font-size:
+                        13px">canceled</span>
                         {% endif %}
 
 
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li>Order Bumber # {{order.orderid}}</li>
+                            <li>Order Number # {{order.orderid}}</li>
                             <li>Place on : {{order.created_at}}</li>
                             <li>No of items : {{order.order_book_set.all.count}}</li>
                             <li>Total : GHS {{order.amount}}</li>
@@ -140,7 +143,7 @@ newtonbookshop | #{{order.orderid}}
                             <li><b>Payment Details</b></li>
                             <li>items total : GHS {{order.amount|substration:order.shipping_fee}} </li>
                             <li>shipping fees : GHS {{order.shipping_fee}}</li>
-                            <li>Voucher Discount : GHS {{order.Discount}}</li>
+                            <li>Voucher Discount : GHS {{order.discount}}</li>
 
                             <li class="pt-2">Total : GHS {{order.amount}}</li>
 

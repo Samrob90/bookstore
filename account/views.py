@@ -1,8 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from frontend.models import wishlist as frontend_wishlist
-from cpanel.models import order
+from cpanel.models import order, Addresse
+from django.contrib import messages
+from django.http import HttpResponse, JsonResponse
+
+
 from django.views.generic.detail import DetailView
 
 
@@ -30,7 +34,6 @@ class order_account_details(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
         context["order"] = order.objects.filter(orderid=context["orderid"]).first()
         return context
 
@@ -43,8 +46,32 @@ class DownloadsView(TemplateView):
     template_name: str = "frontend/account/downloads.html"
 
 
-class AddressesView(TemplateView):
+class AddressesView(ListView):
+    model = Addresse
     template_name: str = "frontend/account/addresses.html"
+    context_object_name = "address"
+
+    def get_queryset(self):
+        return Addresse.objects.filter(user=self.request.user.email).order_by(
+            "-created_at"
+        )
+
+    def post(self, request, *args, **kwargs):
+        if "submit_user_form_change" in request.POST:
+            # return JsonResponse(request.POST)
+            # update user purchase address
+            Addresse.objects.filter(pk=request.POST.get("addressid")).update(
+                first_name=request.POST.get("billing_first_name"),
+                last_name=request.POST.get("billing_last_name"),
+                address1=request.POST.get("billing_address_1"),
+                address2=request.POST.get("billing_address_2"),
+                country=request.POST.get("billing_country"),
+                region_or_state=request.POST.get("billing_state"),
+                city=request.POST.get("billing_city"),
+                phonenumber=request.POST.get("billing_phone"),
+            )
+            messages.success(request, "Address updated successfully !!")
+            return redirect("addresses")
 
 
 class AccountDetails(TemplateView):
@@ -53,5 +80,6 @@ class AccountDetails(TemplateView):
 
 class WishlistView(ListView):
     model = frontend_wishlist
+    ordering = ["-created_at"]
     template_name: str = "frontend/account/wishlist.html"
     context_object_name = "wishlist"
