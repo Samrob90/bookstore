@@ -61,16 +61,16 @@ newtonbookshop | #{{order.orderid}}
 
                         {% if order.status == "pending" %}
                         <span class="p-1 bg-info text-white rounded" style="font-size:
-                        13px">pending confirmation</span>
+                        11px">PENDING CONFIRMATION</span>
                         {% elif order.status == "confirmed" %}
                         <span class="p-1 bg-info text-white rounded" style="font-size:
-                        13px">out for delivery</span>
+                        11px">OUT FOR DELIVERY</span>
                         {% elif order.status == "delivered" %}
                         <span class="p-1 bg-success text-white rounded" style="font-size:
-                        13px">delivered</span>
+                        11px">DELIVERED </span>
                         {% elif order.status == "canceled" %}
                         <span class="p-1 bg-danger text-white rounded" style="font-size:
-                        13px">canceled</span>
+                        11px">CANCELED</span>
                         {% endif %}
 
 
