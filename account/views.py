@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from frontend.models import wishlist as frontend_wishlist
-from cpanel.models import order, Addresse
+from cpanel.models import order, Addresse, Account
 from frontend.models import wishlist, cart
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.detail import DetailView
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
+
 
 # Create your views here.
 class AccountHomeView(TemplateView):
@@ -74,6 +77,33 @@ class AddressesView(ListView):
 
 class AccountDetails(TemplateView):
     template_name: str = "frontend/account/account-detailes.html"
+
+    def post(self, request, *args, **kwargs):
+        if "user_change_password" in request.POST:
+            current_password = request.POST.get("currentpassword")
+            new_password = request.POST.get("newpassword")
+            confirm_new_password = request.POST.get("confirmnewpassword")
+
+            # check is current password macthes with stored password
+            if check_password(current_password, request.user.password):
+                if new_password != confirm_new_password:
+                    messages.error(request, "Passwords do not match")
+                else:
+                    new_password2 = make_password(new_password, hasher="default")
+                    user = Account.objects.get(pk=request.user.pk)
+                    user.set_password(new_password)
+                    user.save()
+                    messages.success(
+                        request,
+                        "Your password has been changed successfully !! Please login with your new password",
+                    )
+
+            else:
+                messages.error(
+                    request, "Current password is invalid . Please try again"
+                )
+
+            return redirect("profile")
 
 
 class WishlistView(ListView):

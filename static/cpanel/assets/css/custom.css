@@ -325,9 +325,18 @@ input::-webkit-inner-spin-button {
     padding: 0px;
 }
 
+.security_settings ul li {
+    cursor: pointer;
+}
+
+.security_settings ul li:hover {
+    background-color: #f7f7f7;
+}
+
 .order-account-details ul li {
     font-size: 14px;
 }
+
 
 @media screen and (max-width: 600px) {
     .django_messages_error {
