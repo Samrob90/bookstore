@@ -105,6 +105,34 @@ class AccountDetails(TemplateView):
 
             return redirect("profile")
 
+        if "user_change_password" in request.POST:
+            delete = Account.objects.filter(user=request.user).delete()
+            messages.success(
+                request, "Success !! Your account has been deleted successfuly ."
+            )
+            return redirect("profile")
+
+        # update user information
+
+        if "update_user_profile" in request.POST:
+            first_name = request.POST.get("firstname")
+            last_name = request.POST.get("lastname")
+            email = request.POST.get("email")
+
+            # if first_name == request.user.first_name and last_name == request.user.last_name  and email == request.user.email:
+            #     messages.success(request, "Success ! Profile did not change . Please update your information to make a change")
+            if first_name != "" or last_name != "" or email != "":
+                profile = Account.objects.filter(pk=request.user.pk).update(
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                )
+
+                messages.info(
+                    request, "Success !! Profile information updated successfully !!"
+                )
+            return redirect("profile")
+
 
 class WishlistView(ListView):
     model = frontend_wishlist

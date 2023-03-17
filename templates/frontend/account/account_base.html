@@ -1,12 +1,12 @@
 {% extends 'frontend/base/base.html' %}
 
 {% block title %}
-  {% comment %} New block {% endcomment %}
-  
-  {% block account_title %}
-    
-  {% endblock account_title %}
-    
+{% comment %} New block {% endcomment %}
+
+{% block account_title %}
+
+{% endblock account_title %}
+
 {% endblock title %}
 
 
@@ -14,12 +14,12 @@
 {% block header %}
 {% include 'frontend/components/header.html' %}
 
-    
+
 {% endblock header %}
 
 {% block stylesheets %}
 <link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
-    
+
 {% endblock stylesheets %}
 
 
@@ -29,75 +29,167 @@
 
 {% block content %}
 
-{% comment %} 
+{% comment %}
 {% block account_contenct %}
-    
+
 {% endblock account_contenct %} {% endcomment %}
 
-  <!-- ====== MAIN CONTENT ===== -->
-  <main id="content">
+<!-- ====== MAIN CONTENT ===== -->
+<main id="content">
     <div class="container">
         <div class="row">
             <div class="col-md-3 border-right">
-                <h6 class="font-weight-medium font-size-7 pt-5 pt-lg-8  mb-5 mb-lg-7">My account</h6>
-                <div class="tab-wrapper pl-4">
+
+                <div class="card mt-8">
+                    <div class="card-header boder-0">
+                        <h5>My Account</h5>
+                    </div>
+                    <div class="card-body user_account_base">
+                        <ul class="my__account-nav nav flex-column mb-0 " role="tablist" id="pills-tab">
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0 active" href="{% url 'account' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/dashboard.png"
+                                            alt="dashboard" style="vertical-align:middle;"> Dashboard</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0" id="pills-two-example1-tab"
+                                    href="{% url 'orders' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/shopping-bag.png"
+                                            alt="orders" style="vertical-align:middle;"> Orders</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0" id="pills-three-example1-tab"
+                                    href="{% url 'downloads' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/cloud-computing.png"
+                                            alt="downloads" style="vertical-align:middle;"> Downloads</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0" id="pills-four-example1-tab"
+                                    href="{% url 'addresses' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/phone-book.png"
+                                            alt="phone-book" style="vertical-align:middle;"> Addresses</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0" id="pills-five-example1-tab"
+                                    href="{% url 'profile' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/user.png" alt="user"
+                                            style="vertical-align:middle;"> Account details</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0" id="pills-six-example1-tab"
+                                    href="{% url 'wishlist' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/wishlist.png" alt="wishlist"
+                                            style="vertical-align:middle;"> Wishlist</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                            <li class="nav-item mx-0">
+                                <a class="nav-link d-flex align-items-center px-0" href="{% url 'logout' %}">
+                                    <span class="font-weight-normal text-gray-600"><img
+                                            src="{{ASSETS_ROOT}}/static/assets/img/account/logout.png" alt="Logout"
+                                            style="vertical-align:middle;"> Logout</span>
+                                </a>
+                            </li>
+                            <hr style="width:95%" />
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- <h6 class="font-weight-medium font-size-7 pt-5 pt-lg-8  mb-2 mb-lg-7">My account</h6>
+                <div class="tab-wrapper pl-0 user_account_base">
                     <ul class="my__account-nav nav flex-column mb-0" role="tablist" id="pills-tab">
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0 active" href="{% url 'account' %}" >
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/dashboard.png" alt="dashboard" style="vertical-align:middle;"> Dashboard</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+                        
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0" id="pills-two-example1-tab" href="{% url 'orders' %}"   >
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/shopping-bag.png" alt="orders" style="vertical-align:middle;"> Orders</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0" id="pills-three-example1-tab" href="{% url 'downloads' %}"  >
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/cloud-computing.png" alt="downloads" style="vertical-align:middle;"> Downloads</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0" id="pills-four-example1-tab" href="{% url 'addresses' %}"   >
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/phone-book.png" alt="phone-book" style="vertical-align:middle;"> Addresses</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0" id="pills-five-example1-tab" href="{% url 'profile' %}"   >
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/user.png" alt="user" style="vertical-align:middle;"> Account details</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0" id="pills-six-example1-tab" href="{% url 'wishlist' %}"  >
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/wishlist.png" alt="wishlist" style="vertical-align:middle;"> Wishlist</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+
                         <li class="nav-item mx-0">
                             <a class="nav-link d-flex align-items-center px-0" href="{% url 'logout' %}">
                                 <span class="font-weight-normal text-gray-600"><img src="{{ASSETS_ROOT}}/static/assets/img/account/logout.png" alt="Logout" style="vertical-align:middle;"> Logout</span>
                             </a>
                         </li>
+                        <hr style="width:95%"/>
+
                     </ul>
-                </div>
+                </div> -->
             </div>
-           
-           {% block account_content %}
-            
-           {% endblock account_content %}
-            
+
+            {% block account_content %}
+
+            {% endblock account_content %}
+
         </div>
     </div>
 </main>
 <!-- ====== END MAIN CONTENT ===== -->
-    
+
 
 {% endblock content %}
 
 
 
 {% block javascripts %}
-{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script> {% endcomment %}
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
+    type="text/javascript"></script> {% endcomment %}
 {% comment %} <script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script> {% endcomment %}
-<script src="{{ASSETS_ROOT}}/static/assets/js/user_account.js"></script> 
+<script src="{{ASSETS_ROOT}}/static/assets/js/user_account.js"></script>
 {% endblock javascripts %}
-

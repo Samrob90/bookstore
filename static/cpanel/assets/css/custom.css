@@ -292,6 +292,32 @@ input::-webkit-inner-spin-button {
     color: gray !important;
 }
 
+.user_account_base {}
+
+.user_account_base ul {
+    /* width: 100%;
+    padding: 0px;
+    border: 1px solid lightgray;
+    border-radius: 5px; */
+}
+
+.user_account_base ul li {
+    /* border-bottom: 1px solid lightgray; */
+    /* border-width: 80%;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 3em; */
+}
+
+.user_account_base ul li a {
+    font-size: 18px;
+}
+
+.user_account_base ul hr {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
 @keyframes loader {
     0% {
         background-color: rgba(165, 165, 165, 0.1);
