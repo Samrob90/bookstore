@@ -39,7 +39,7 @@ def available_book_deal(sold, quantity):
 
 @register.filter(name="deal_of_the_weak_percentage")
 def deal_of_the_weak_percentage(price, percentage):
-    return float(price) - (float(price) * float(percentage) / 100)
+    return int(float(price) - (float(price) * float(percentage) / 100))
 
 
 @register.filter(name="check_expiration")

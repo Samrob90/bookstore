@@ -12,7 +12,7 @@ from django.utils import timezone
 import json
 from django.forms.models import model_to_dict
 from . import tasks
-from datetime import date
+from datetime import date, datetime
 import time
 from django.db.models import Sum
 import random, string
@@ -28,15 +28,20 @@ class HomeVIew(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         # best sellers books
         context["best_seller"] = cpanel_model.order_book.objects.all().order_by(
             "-bookquantity"
         )[:10]
-        # deal of week
 
-        context["dealofweek"] = cpanel_model.DealofWeek.objects.all().order_by(
-            "-created_at"
-        )
+        # booksonsale
+        context["onsales"] = cpanel_model.OnSale.objects.filter(
+            periode__gt=datetime.now()
+        ).order_by("-created_at")
+        # deal of week
+        context["dealofweek"] = cpanel_model.DealofWeek.objects.filter(
+            periode__gt=datetime.now()
+        ).order_by("-created_at")
 
         # authors
         context["authors"] = cpanel_model.Authors.objects.all().order_by("-created_at")[
@@ -79,13 +84,37 @@ class ShopView(ListView):
     # print(self.request.GET.get("category"))
 
     def get_queryset(self):
+        best_seller = (
+            self.request.GET.get("bestsellers")
+            if self.request.method == "GET"
+            else None
+        )
         category = (
             self.request.GET.get("category") if self.request.method == "GET" else None
         )
-        if category is not None:
+        sub = self.request.GET.get("sub") if self.request.method == "GET" else None
+        if best_seller is not None:
+            bestseller = cpanel_model.order_book.objects.all().order_by(
+                "-bookquantity"
+            )[:20]
+            return bestseller
+        elif sub is not None:
+            # first fetch sub category model
+            sub_obj = models.subcategory.objects.filter(subcategory__contains=sub)
+            # then get category from subcatero
+            category = sub_obj.category
+            # return category related books
+            return cpanel_model.book.objects.filter(category__contains=category[0:10])
+        elif category is not None:
             return cpanel_model.book.objects.filter(category__contains=category)[0:10]
         else:
             return super().get_queryset()
+
+
+class CategoriesView(ListView):
+    template_name = "frontend/categories.html"
+    model = models.category
+    context_object_name = "categories"
 
 
 class ProductView(DetailView):

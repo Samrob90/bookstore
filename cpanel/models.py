@@ -50,6 +50,8 @@ class book(models.Model):
     )
     description = models.TextField(default=None)
     thumbnail = models.CharField(max_length=250, default=None)
+    # sale = models.BooleanField(default=False)
+    # deal = models.BooleanField(default=False)
     category = models.CharField(max_length=300, default=None)
     created_at = models.DateTimeField(default=timezone.now)
 

@@ -13,6 +13,7 @@
     text-align: left !important;
 }
 
+
 .preview_book {
     height: 320px;
     width: 100%;
@@ -48,8 +49,29 @@
 }
 
 .img-thumbnail-shop-newtonbookshop img {
-    width: 150px !important;
-    height: 220px !important;
+    width: 130px !important;
+    height: 200px !important;
+    /* width :150 */
+    /* height: 220px */
+}
+
+.onsale {
+    position: absolute;
+    z-index: 99;
+    padding: 5px !important;
+}
+
+.categories {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.categories a {
+    color: black;
 }
 
 .shop-details-view-newtonbookshop img {
@@ -263,6 +285,16 @@ input::-webkit-inner-spin-button {
 
 .author img:hover {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.author img {
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: border-box;
+    border-radius: 555px;
+    height: 200px;
+    width: 200px;
 }
 
 

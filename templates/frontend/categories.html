@@ -1,0 +1,57 @@
+<!-- ====== END MAIN CONTENT ====== -->
+{% extends 'frontend/base/base.html' %}
+{% load poll_extras %}
+
+{% block title %}
+Newtonbookshop | categories
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+<!-- ====== MAIN CONTENT ====== -->
+<div class="page-header mb-8">
+    <div class="bg-img-hero bg-gradient-primary" style="background-image: url(/static/assets/img/bg/shopbg.jpg);">
+        <div class="container position-relative mb-2">
+            <div class="d-flex justify-content-center space-2 space-lg-4">
+                <h6 class="font-weight-medium text-white font-size-12 py-lg-5">Categories</h6>
+            </div>
+            <nav class="woocommerce-breadcrumb font-size-2 d-flex justify-content-center align-items-center pb-4">
+                <a class="text-white" href="{% url 'home' %}">Home</a>
+                <span class="breadcrumb-separator text-white mx-1"><i class="fas fa-angle-right"></i></span>
+                <span class="text-white">Categories</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="site-content" id="content">
+    <div class="container mb-4">
+
+
+        {% for categorie in categories %}
+        <span class="categories shadow-sm"><a href="/shop/?category={{categorie}}">{{categorie|title}}</a></span>
+        {% endfor %}
+
+    </div>
+</div>
+<!-- ====== END MAIN CONTENT ====== -->
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/shop.js"></script>
+{% endblock javascripts %}
