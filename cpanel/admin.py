@@ -151,3 +151,6 @@ class register_author(admin.ModelAdmin):
 
 
 admin.site.register(models.Authors, register_author)
+
+
+admin.site.register(models.OnSale)

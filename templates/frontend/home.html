@@ -246,17 +246,20 @@ active border-bottom border-primary border-width-2
                     <div
                         class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative img-thumbnail-shop-newtonbookshop">
                         <div class="woocommerce-loop-product__thumbnail">
-                            <a href="../shop/single-product-v1.html" class="d-block"><img
+                            <a href="/book/{{bestseller.bookslug}}/{{bestseller.product_id}}/" class="d-block"><img
                                     src="{{ASSETS_ROOT}}/media/thumbnail/{{bestseller.bookthumbnail}}"
                                     class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
                                     alt="image-description"></a>
                         </div>
                         <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
                             <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                    href="../shop/single-product-v1.html">{{bestseller.booktype}}</a></div>
+                                    href="/book/{{bestseller.bookslug}}/{{bestseller.product_id}}/">{{bestseller.booktype}}</a>
+                            </div>
                             <h2
                                 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                <a href="../shop/single-product-v1.html">{{bestseller.booktitle}}</a></h2>
+                                <a
+                                    href="/book/{{bestseller.bookslug}}/{{bestseller.product_id}}/">{{bestseller.booktitle}}</a>
+                            </h2>
                             <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html"
                                     class="text-gray-700">{{bestseller.bookauthor}}</a></div>
                             <div class="price d-flex align-items-center font-weight-medium font-size-3">
@@ -264,7 +267,7 @@ active border-bottom border-primary border-width-2
                                         class="woocommerce-Price-currencySymbol">GHS&nbsp;</span>{{bestseller.bookprice}}</span>
                             </div>
                         </div>
-                        <div class="product__hover d-flex align-items-center">
+                        <!-- <div class="product__hover d-flex align-items-center">
                             <a href="../shop/single-product-v1.html"
                                 class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
                                 <span class="product__add-to-cart">ADD TO CART</span>
@@ -278,7 +281,7 @@ active border-bottom border-primary border-width-2
                             <a href="../shop/single-product-v1.html" class="h-p-bg btn btn-outline-primary border-0">
                                 <i class="flaticon-heart"></i>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -320,8 +323,7 @@ active border-bottom border-primary border-width-2
 
                     {% for f_book in books %}
                     <li class="product col">
-
-                        {% if f_book.onsale_set.all.count > 0 %}
+                        {% if f_book.onsale_set.all.count > 0 and f_book.onsale_set.all.0.periode|new_expiration == True %}
 
                         <h5 class="onsale"><span
                                 class="badge badge-danger">-{{f_book.onsale_set.all.0.discount}}%</span>
@@ -334,7 +336,7 @@ active border-bottom border-primary border-width-2
                                 class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative img-thumbnail-shop-newtonbookshop">
                                 <div class="woocommerce-loop-product__thumbnail">
                                     <a href="{{f_book.get_absolute_url}}" class="d-block"><img
-                                            src="{{ASSETS_ROOT}}/media/thumbnail/{{f_book.thumbnail}}"
+                                            src="{{ASSETS_ROOT}}/media/thumbnail/{{f_book.thumbnail}}" loading="lazy"
                                             class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
                                             alt="image-description"></a>
                                 </div>
@@ -356,10 +358,11 @@ active border-bottom border-primary border-width-2
                                     </div>
 
 
-                                    <!-- <del class="font-size-1 font-weight-regular text-gray-700"><span
+                                    <del class="font-size-1 font-weight-regular text-gray-700"><span
                                             class="woocommerce-Price-amount amount"><span
                                                 class="woocommerce-Price-currencySymbol">GHS
-                                            </span>{{f_book.default_price}}</span></del> -->
+                                            </span>{{f_book.default_price}}</span></del>
+
                                     {% else %}
 
 
@@ -368,10 +371,12 @@ active border-bottom border-primary border-width-2
                                                 class="woocommerce-Price-currencySymbol">GHS&nbsp;</span>{{f_book.default_price}}</span>
                                     </div>
 
+
+
                                     {% endif %}
 
                                 </div>
-                                <div class="product__hover d-flex align-items-center">
+                                <!-- <div class="product__hover d-flex align-items-center">
                                     <a href="{{f_book.get_absolute_url}}"
                                         class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
                                         data-toggle="tooltip" data-placement="right" title="ADD TO CART">
@@ -387,7 +392,7 @@ active border-bottom border-primary border-width-2
                                         class="h-p-bg btn btn-outline-primary border-0">
                                         <i class="flaticon-heart"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </li>
@@ -403,7 +408,7 @@ active border-bottom border-primary border-width-2
                     {% if onsales.count > 0 %}
                     {% for onsale in onsales %}
                     <li class="product col ">
-                        {% if f_book.onsale_set.all.count > 0 %}
+                        {% if f_book.onsale_set.all.count > 0  and f_book.onsale_set.all.0.periode|new_expiration == True %}
 
                         <h5 class="onsale"><span
                                 class="badge badge-danger">-{{f_book.onsale_set.all.0.discount}}%</span>
@@ -439,7 +444,7 @@ active border-bottom border-primary border-width-2
                                                 class="woocommerce-Price-currencySymbol">GHS
                                             </span>{{onsale.book.default_price}}</span></del>
                                 </div>
-                                <div class="product__hover d-flex align-items-center">
+                                <!-- <div class="product__hover d-flex align-items-center">
                                     <a href="{{onsale.book.get_absolute_url}}"
                                         class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
                                         data-toggle="tooltip" data-placement="right" title="ADD TO CART">
@@ -455,7 +460,7 @@ active border-bottom border-primary border-width-2
                                         class="h-p-bg btn btn-outline-primary border-0">
                                         <i class="flaticon-heart"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </li>
@@ -474,7 +479,7 @@ active border-bottom border-primary border-width-2
 
                     {% for f_book in books %}
                     <li class="product col">
-                        {% if f_book.onsale_set.all.count > 0 %}
+                        {% if f_book.onsale_set.all.count > 0 and f_book.onsale_set.all.0.periode|new_expiration == True %}
 
                         <h5 class="onsale"><span
                                 class="badge badge-danger">-{{f_book.onsale_set.all.0.discount}}%</span>
@@ -498,7 +503,7 @@ active border-bottom border-primary border-width-2
                                         <a href="{{f_book.get_absolute_url}}">{{f_book.title}}</a></h2>
                                     <div class="font-size-2  mb-1 text-truncate"><a href="others/authors-single.html"
                                             class="text-gray-700">{{f_book.author}}</a></div>
-                                    {% if f_book.onsale_set.all.count > 0 %}
+                                    {% if f_book.onsale_set.all.count > 0  %}
 
                                     <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                         <span class="woocommerce-Price-amount amount"><span
@@ -506,10 +511,10 @@ active border-bottom border-primary border-width-2
                                     </div>
 
 
-                                    <!-- <del class="font-size-1 font-weight-regular text-gray-700"><span
-                                                    class="woocommerce-Price-amount amount"><span
-                                                        class="woocommerce-Price-currencySymbol">GHS
-                                                    </span>{{f_book.default_price}}</span></del> -->
+                                    <del class="font-size-1 font-weight-regular text-gray-700"><span
+                                            class="woocommerce-Price-amount amount"><span
+                                                class="woocommerce-Price-currencySymbol">GHS
+                                            </span>{{f_book.default_price}}</span></del>
                                     {% else %}
 
 
@@ -520,7 +525,7 @@ active border-bottom border-primary border-width-2
 
                                     {% endif %}
                                 </div>
-                                <div class="product__hover d-flex align-items-center">
+                                <!-- <div class="product__hover d-flex align-items-center">
                                     <a href="{{f_book.get_absolute_url}}"
                                         class="text-uppercase text-dark h-dark font-weight-medium mr-auto"
                                         data-toggle="tooltip" data-placement="right" title="ADD TO CART">
@@ -536,7 +541,7 @@ active border-bottom border-primary border-width-2
                                         class="h-p-bg btn btn-outline-primary border-0">
                                         <i class="flaticon-heart"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </li>
@@ -585,18 +590,18 @@ active border-bottom border-primary border-width-2
                     <div class="media p-md-6 p-4 d-block d-md-flex">
                         <div
                             class="woocommerce-loop-product__thumbnail mb-4 mb-md-0 img-thumbnail-shop-newtonbookshop ">
-                            <a href="../shop/single-product-v1.html" class="d-block"><img
-                                    src="{{ASSETS_ROOT}}/media/thumbnail/{{deal.book.thumbnail}}"
+                            <a href="{{deal.book.get_absolute_url}}" class="d-block"><img
+                                    src="{{ASSETS_ROOT}}/media/thumbnail/{{deal.book.thumbnail}}" loading="lazy"
                                     class="attachment-shop_catalog size-shop_catalog wp-post-image d-block mx-auto"
                                     alt="image-description"></a>
                         </div>
                         <div class="woocommerce-loop-product__body media-body ml-md-5d25">
                             <div class="mb-3">
                                 <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                        href="../shop/single-product-v1.html">{{deal.book.default_type}}</a></div>
+                                        href="{{deal.book.get_absolute_url}}">{{deal.book.default_type}}</a></div>
                                 <h2
                                     class="woocommerce-loop-product__title font-size-3 text-lh-md mb-2 text-height-2 crop-text-2 h-dark">
-                                    <a href="../shop/single-product-v1.html">{{deal.book.title}}</a></h2>
+                                    <a href="{{deal.book.get_absolute_url}}">{{deal.book.title}}</a></h2>
                                 <div class="font-size-2 text-gray-700 mb-1 text-truncate"><a
                                         href="../others/authors-single.html"
                                         class="text-gray-700">{{deal.book.author}}</a></div>
@@ -2238,8 +2243,9 @@ active border-bottom border-primary border-width-2
     </div>
     <div class="container bookloaded_ d-none">
         <header class="mb-5 d-md-flex justify-content-between align-items-center">
-            <h2 class="font-size-7 mb-3 mb-md-0">Biographies Books</h2>
-            <a href="../shop/v1.html" class="h-primary d-block">View All <i class="glyph-icon flaticon-next"></i></a>
+            <h2 class="font-size-7 mb-3 mb-md-0">Self-help Books</h2>
+            <a href="/shop/?category=SELF-HELP" class="h-primary d-block">View All <i
+                    class="glyph-icon flaticon-next"></i></a>
         </header>
         <div class="js-slick-carousel u-slick products border"
             data-pagi-classes="text-center u-slick__pagination mt-md-8 mt-4 position-absolute right-0 left-0"
@@ -2259,23 +2265,21 @@ active border-bottom border-primary border-width-2
                      "slidesToShow": 1
                    }
                 }]'>
-
-            {% for biography in best_seller %}
+            {% for biography in selfhelp %}
             <div class="product product__card border-right">
                 <div class="media p-3 p-md-4d875 img-thumbnail-shop-newtonbookshop">
-                    <a href="../shop/single-product-v1.html" class="d-block"><img
-                            src="{{ASSETS_ROOT}}/media/thumbnail/{{biography.bookthumbnail}}"
-                            alt="image-description"></a>
+                    <a href="{{biography.get_absolute_url}}" class="d-block"><img
+                            src="{{ASSETS_ROOT}}/media/thumbnail/{{biography.thumbnail}}" alt="image-description"></a>
                     <div class="media-body ml-4d875">
                         <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                href="../shop/single-product-v1.html">{{biography.booktype}}</a></div>
+                                href="{{biography.get_absolute_url}}">{{biography.default_type}}</a></div>
                         <h2 class="woocommerce-loop-product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                            <a href="../shop/single-product-v1.html">{{biography.booktitle}}</a></h2>
+                            <a href="{{biography.get_absolute_url}}">{{biography.title}}</a></h2>
                         <div class="font-size-2 mb-1 text-truncate"><a href="../others/authors-single.html"
-                                class="text-gray-700">{{biography.bookauthor}}</a></div>
+                                class="text-gray-700">{{biography.author}}</a></div>
                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
                             <span class="woocommerce-Price-amount amount"><span
-                                    class="woocommerce-Price-currencySymbol">GHS</span>&nbsp;{{biography.bookprice}}</span>
+                                    class="woocommerce-Price-currencySymbol">GHS</span>&nbsp;{{biography.default_price}}</span>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ from cpanel.models import general_settings
 def user_context(request):
     general_content = dict()
     value = []
-    categorie = models.category.objects.all()[:6]
+    categorie = models.category.objects.all()
 
     if request.user.is_authenticated:
         total_price = 0

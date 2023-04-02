@@ -49,8 +49,10 @@
 }
 
 .img-thumbnail-shop-newtonbookshop img {
-    width: 130px !important;
-    height: 200px !important;
+    width: 120px !important;
+    height: 183px !important;
+    /* width: 130px !important;
+    height: 200px !important; */
     /* width :150 */
     /* height: 220px */
 }
@@ -208,6 +210,12 @@ input::-webkit-inner-spin-button {
     /* border: 1px solid lightgray; */
 }
 
+.active_side_bar {
+    color: black;
+    background-color: #f75454 !important;
+    border-bottom: 1px solid lightgray;
+}
+
 .bookloader .item {
     /* border: 1px solid lightgray; */
     width: 310px;
@@ -282,6 +290,9 @@ input::-webkit-inner-spin-button {
 
 }
 
+.headerSvg {
+    display: none;
+}
 
 .author img:hover {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
@@ -395,6 +406,12 @@ input::-webkit-inner-spin-button {
     font-size: 14px;
 }
 
+@media screen and (max-width: 1200px) {
+    .headerSvg {
+        display: block;
+    }
+}
+
 
 @media screen and (max-width: 600px) {
     .django_messages_error {
@@ -403,6 +420,8 @@ input::-webkit-inner-spin-button {
         margin-right: 5%;
         margin-left: 5%;
     }
+
+
 
     .bookloader .three,
     .bookloader .four,

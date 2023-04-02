@@ -1,5 +1,8 @@
 from django import template
-from datetime import datetime, timezone
+from datetime import datetime, date
+from django.utils import timezone
+from dateutil import parser
+from pandas import to_datetime as pd_datetime
 
 register = template.Library()
 
@@ -65,3 +68,13 @@ def get_order_qty(obj):
 @register.filter(name="substration")
 def substration(val, obj):
     return float(val) - float(obj)
+
+
+@register.filter(name="new_expiration")
+def new_expiration(timestamp):
+    now = datetime.now(timezone.utc)
+    return pd_datetime(timestamp) > now
+    # return timestamp < now
+    # val = datetime.strptime(str(timestamp)[:10], "%Y-%m-%d %H:%M:%S")
+    # aware = timezone("UTC").localize(datetime.now())
+    # return timestamp < now

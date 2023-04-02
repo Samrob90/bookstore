@@ -589,7 +589,7 @@
                             <!-- Title -->
                             <header
                                 class="border-bottom px-4 px-md-5 py-4 d-flex align-items-center justify-content-between">
-                                <h2 class="font-size-3 mb-0">SHOP BY CATEGORY</h2>
+                                <h2 class="font-size-3 mb-0">MENU</h2>
 
                                 <!-- Toggle Button -->
                                 <div class="d-flex align-items-center">
@@ -607,7 +607,65 @@
 
                             <div class="border-bottom">
                                 <div class="zeynep pt-4">
+                                    {% comment %} 
+                                        start of menu 
+                                    {% endcomment %}
+
                                     <ul>
+                                        <li>
+                                            <a href="{% url 'home' %}" class="{% if request.resolver_match.view_name == 'home' %} alert alert-danger shadow-sm {% endif %}">Home</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{% url 'shop' %}" class="{% if request.resolver_match.view_name == 'shop' %} alert alert-danger shadow-sm {% endif %}">Shop</a>
+                                        </li>
+
+                                        <li class="has-submenu">
+                                            <a href="#" data-submenu="off-single-product"  class="{% if request.resolver_match.view_name == 'category' %} alert alert-danger shadow-sm {% endif %}">Categories</a>
+
+                                            <div id="off-single-product" class="submenu js-scrollbar">
+                                                <div class="submenu-header"
+                                                    data-submenu-close="off-single-product">
+                                                    <a href="#">Categories</a>
+                                                </div>
+
+                                                <ul class="">
+                                                  
+                                                    
+                                                    {% for cat in categories %}
+                                                        
+                                                    <li>
+                                                        <a href="/shop/?category={{cat}}">{{cat}}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                        
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <a href="{% url 'blog' %}"  class="{% if request.resolver_match.view_name == 'blog' %} alert alert-danger shadow-sm {% endif %}">Blog</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{% url 'about' %}"  class="{% if request.resolver_match.view_name == 'about' %} alert alert-danger shadow-sm {% endif %}">About us</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{% url 'contact' %}"  class="{% if request.resolver_match.view_name == 'contact' %} alert alert-danger shadow-sm {% endif %}">Contact us</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{% url 'faq' %}"  class="{% if request.resolver_match.view_name == 'faq' %} alert alert-danger shadow-sm {% endif %}">Faq</a>
+                                        </li>
+                                    </ul>
+
+
+                                    {% comment %} end of menu {% endcomment %}
+
+
+                                    {% comment %} <ul>
                                         <li class="has-submenu">
                                             <a href="#" data-submenu="off-pages">Pages</a>
 
@@ -1256,25 +1314,37 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                    </ul>
+                                    </ul> {% endcomment %}
                                 </div>
                             </div>
 
                             <div class="px-4 px-md-5 pt-5 pb-4 border-bottom">
                                 <h2 class="font-size-3 mb-3">HELP & SETTINGS </h2>
                                 <ul class="list-group list-group-flush list-group-borderless">
-                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Your
-                                            Account</a></li>
+                                   
+                                   {% if request.user.email %}
+                                   <li class="list-group-item px-0 py-2 border-0"><a href="{% url 'account' %}" class="h-primary">Your
+                                    Account</a></li>
+                                   {% endif %}
+                                    
                                     <li class="list-group-item px-0 py-2 border-0"><a href="#"
                                             class="h-primary">Help</a></li>
-                                    <li class="list-group-item px-0 py-2 border-0"><a href="#" class="h-primary">Sign
-                                            In</a>
+                                    
+                                    {% if request.user.email %}
+                                    <li class="list-group-item px-0 py-2 border-0"><a href="{% url 'logout' %}" class="h-primary">Sign
+                                        Out</a>
                                     </li>
+                                    {% else %}
+                                    <li class="list-group-item px-0 py-2 border-0"><a href="{% url 'login' %}" class="h-primary">Sign
+                                        in</a>
+                                    </li>
+                                    {% endif %}
+                                        
                                 </ul>
                             </div>
 
                             <div class="px-4 px-md-5 py-5">
-                                <select class="custom-select mb-4 rounded-0 pl-4 height-4 shadow-none text-dark">
+                                {% comment %} <select class="custom-select mb-4 rounded-0 pl-4 height-4 shadow-none text-dark">
                                     <option selected>English (United States)</option>
                                     <option value="1">English (UK)</option>
                                     <option value="2">Arabic (Saudi Arabia)</option>
@@ -1285,7 +1355,7 @@
                                     <option value="1">د.إ AED</option>
                                     <option value="2">¥ CNY</option>
                                     <option value="3">€ EUR</option>
-                                </select>
+                                </select> {% endcomment %}
                                 <!-- Social Networks -->
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">

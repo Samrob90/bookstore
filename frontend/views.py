@@ -43,6 +43,10 @@ class HomeVIew(ListView):
             periode__gt=datetime.now()
         ).order_by("-created_at")
 
+        context["selfhelp"] = cpanel_model.book.objects.filter(
+            category__contains="SELF-HELP"
+        ).order_by("-created_at")[:10]
+
         # authors
         context["authors"] = cpanel_model.Authors.objects.all().order_by("-created_at")[
             :10
