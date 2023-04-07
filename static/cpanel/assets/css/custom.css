@@ -406,9 +406,44 @@ input::-webkit-inner-spin-button {
     font-size: 14px;
 }
 
+.book-details-debut .nav {
+    padding: 10px;
+    border-right: 1px solid lightgray;
+}
+
+.book-details-debut .tab-content {
+    padding-left: 0px;
+    padding-top: 10px;
+}
+
+.book-details-sh {
+    margin-bottom: 10px;
+    border: none;
+    background-color: white;
+    text-align: left;
+}
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .cart_pop_up_mobile {
+        margin-top: -30vh !important;
+    }
+
+    .cart_pop_up {
+        padding: 5%;
+    }
+
+    .shop-control-bar__right {
+        display: inline-flex;
+    }
+
+    .page-header-mobile {
+        margin-bottom: 0px !important;
     }
 }
 
@@ -420,6 +455,12 @@ input::-webkit-inner-spin-button {
         margin-right: 5%;
         margin-left: 5%;
     }
+
+    .showing_page {
+        display: none;
+    }
+
+
 
 
 

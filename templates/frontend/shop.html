@@ -21,7 +21,7 @@ Newtonbookshop | shop
 
 {% block content %}
 <!-- ====== MAIN CONTENT ====== -->
-<div class="page-header mb-8">
+<div class="page-header mb-8 page-header-mobile">
 <div class="bg-img-hero bg-gradient-primary" style="background-image: url(/static/assets/img/bg/shopbg.jpg);">
 <div class="container position-relative mb-2">
 <div class="d-flex justify-content-center space-2 space-lg-4">
@@ -42,34 +42,35 @@ Newtonbookshop | shop
 <div
 class="shop-control-bar d-lg-flex justify-content-between align-items-center mb-5 text-center text-md-left">
 <div class="shop-control-bar__left mb-4 m-lg-0">
-<p class="woocommerce-result-count m-0">Showing 1–12 of 126 results</p>
+<p class="woocommerce-result-count m-0 showing_page">Showing page {{page_obj.number}} to {{page_obj.paginator.num_pages}} of {{books.count}} results </p>
+
 </div>
 <div class="shop-control-bar__right d-md-flex align-items-center">
-<form class="woocommerce-ordering mb-4 m-md-0" method="get">
+ {% comment %} <form class="woocommerce-ordering mb-4 m-md-0" method="get" action="/shop">
 <!-- Select -->
-<select class="js-select selectpicker dropdown-select orderby" name="orderby"
+<select class="" name="orderby"
     data-style="border-bottom shadow-none outline-none py-2">
     <option value="popularity">Sort by popularity</option>
-    <option value="default" selected="selected">Default sorting</option>
-    <option value="date">Sort by newness</option>
-    <option value="price">Sort by price: low to high</option>
-    <option value="price-desc">Sort by price: high to low</option>
+    <option value="default" selected="selected"><a href="/shop">Default sorting </a></option>
+    <option value="sort_by_newness"><a href="/shop/?sort=newness">Sort by newness</a></option>
+    <option value="price_asc"><a href="/shop/?sort=low_to_high">Sort by price: low to high</a></option>
+    <option value="price_desc"><a href="/shop/?sort=high_to_low">Sort by price: high to low</a></option>
 </select>
 <!-- End Select -->
-</form>
+</form>  {% endcomment %}
 
-<form class="number-of-items ml-md-4 mb-4 m-md-0 d-none d-xl-block" method="get">
+{% comment %} <form class="number-of-items ml-md-4 mb-4 m-md-0 d-none d-xl-block" method="get">
 <!-- Select -->
 <select class="js-select selectpicker dropdown-select orderby" name="orderby"
     data-style="border-bottom shadow-none outline-none py-2" data-width="fit">
-    <option value="show10">Show 10</option>
-    <option value="show15">Show 15</option>
+    <option value="show10"><a href="/shop/?show=10">Show 10</a></option>
+    <option value="show15"><a href="/shop/?show=15">Show 15</a></option>
     <option value="show20" selected="selected">Show 20</option>
     <option value="show25">Show 25</option>
     <option value="show30">Show 30</option>
 </select>
 <!-- End Select -->
-</form>
+</form> {% endcomment %}
 
 <ul class="nav nav-tab ml-lg-4 justify-content-center justify-content-md-start ml-md-auto"
 id="pills-tab" role="tablist">
@@ -162,10 +163,12 @@ aria-labelledby="sidebarNavToggler4">
             <!-- End Toggle Button -->
 
             <!-- Content -->
-            <div class="u-sidebar__body px-4">
+            <div class="u-sidebar__body px-4 filter_by_side_body">
                 <div class="u-sidebar__content u-header-sidebar__content">
                     <div class="sidebar widget-area">
                         <div id="widgetAccordion">
+                            <form action="/shop/" method="get" >
+                               
                             <div id="woocommerce_product_categories-2"
                                 class="widget p-4d875 border woocommerce widget_product_categories">
                                 <div id="widgetHeadingOne" class="widget-head">
@@ -196,46 +199,32 @@ aria-labelledby="sidebarNavToggler4">
                                 </div>
 
                                 <div id="widgetCollapseOne"
-                                    class="mt-3 widget-content collapse show"
+                                    class="mt-3 widget-content show"
                                     aria-labelledby="widgetHeadingOne"
                                     data-parent="#widgetAccordion">
+
+                                    <p class=" mb-1 form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated" id="filter_category_field" data-priority="40">
+
+                                       
+                                        <select name="category" id="filter_category" class="form-control country_to_state country_select  select2-hidden-accessible"
+                                        autocomplete="country" tabindex="-1" aria-hidden="true">
+                                        <option value="" selected="selected">Select a category</option>
+
+                                        {% for shop_filter in categories %}
+                                        <option value="{{shop_filter}}">{{shop_filter}}</option>
+
+                                        {% endfor %}
+                                            
+                                        
+                                    </select>
+                                    </p>
+
                                     <ul class="product-categories">
                                         <li class="cat-item cat-item-9 cat-parent">
-                                            <a href="#/clothing">Clothing</a>
-                                            <ul class="children">
-                                                <li class="cat-item cat-item-121"><a
-                                                        href="#/clothing/bags/">Bags</a>
-                                                </li>
-                                                <li class="cat-item cat-item-44"><a
-                                                        href="#/clothing/blouses/">Blouses</a>
-                                                </li>
-                                                <li class="cat-item cat-item-41"><a
-                                                        href="#/clothing/dresses/">Dresses</a>
-                                                </li>
-                                                <li class="cat-item cat-item-56"><a
-                                                        href="#/clothing/footwear/">Footwear</a>
-                                                </li>
-                                                <li class="cat-item cat-item-54"><a
-                                                        href="#/clothing/hats/">Hats</a>
-                                                </li>
-                                                <li class="cat-item cat-item-10"><a
-                                                        href="#/clothing/hoodies/">Hoodies</a>
-                                                </li>
-                                                <li class="cat-item cat-item-55"><a
-                                                        href="#/clothing/shirts/">Shirts</a>
-                                                </li>
-                                                <li class="cat-item cat-item-47"><a
-                                                        href="#/clothing/skirts/">Skirts</a>
-                                                </li>
-                                                <li class="cat-item cat-item-14"><a
-                                                        href="#/clothing/t-shirts/">T-shirts</a>
-                                                </li>
-                                                <li class="cat-item cat-item-49"><a
-                                                        href="#/clothing/trousers/">Trousers</a>
-                                                </li>
-                                            </ul>
+                                            
+                                           
                                         </li>
-                                        <li class="cat-item cat-item-69 cat-parent">
+                                        {% comment %} <li class="cat-item cat-item-69 cat-parent">
                                             <a href="#/electronics/">Electronics</a>
                                             <ul class="children">
                                                 <li class="cat-item cat-item-71 cat-parent">
@@ -308,12 +297,12 @@ aria-labelledby="sidebarNavToggler4">
                                         <li class="cat-item cat-item-31"><a
                                                 href="#/scuba-gear/">Scuba gear</a></li>
                                         <li class="cat-item cat-item-45"><a
-                                                href="#/sweatshirts/">Sweatshirts</a></li>
+                                                href="#/sweatshirts/">Sweatshirts</a></li> {% endcomment %}
                                     </ul>
                                 </div>
                             </div>
 
-                            <div id="Authors"
+                            {% comment %} <div id="Authors"
                                 class="widget widget_search widget_author p-4d875 border">
                                 <div id="widgetHeading21" class="widget-head">
                                     <a class="d-flex align-items-center justify-content-between text-dark"
@@ -379,9 +368,9 @@ aria-labelledby="sidebarNavToggler4">
                                                 href="#/scuba-gear/">David Quammen</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
 
-                            <div id="Language" class="widget p-4d875 border">
+                            {% comment %} <div id="Language" class="widget p-4d875 border">
                                 <div id="widgetHeading22" class="widget-head">
                                     <a class="d-flex align-items-center justify-content-between text-dark"
                                         href="#" data-toggle="collapse"
@@ -417,44 +406,44 @@ aria-labelledby="sidebarNavToggler4">
                                             class="custom-control custom-checkbox mb-2 pb-2">
                                             <input type="checkbox"
                                                 class="custom-control-input"
-                                                id="brandEnglish">
+                                                id="brandEnglish" name="english">
                                             <label class="custom-control-label"
                                                 for="brandEnglish">English</label>
                                         </li>
-                                        <li
+                                         <li
                                             class="custom-control custom-checkbox mb-2 pb-2">
                                             <input type="checkbox"
                                                 class="custom-control-input"
-                                                id="brandGerman">
+                                                id="brandGerman" name="german">
                                             <label class="custom-control-label"
                                                 for="brandGerman">German</label>
-                                        </li>
+                                        </li> 
                                         <li
                                             class="custom-control custom-checkbox mb-2 pb-2">
                                             <input type="checkbox"
                                                 class="custom-control-input"
-                                                id="brandFrench">
+                                                id="brandFrench" name="french">
                                             <label class="custom-control-label"
                                                 for="brandFrench">French</label>
                                         </li>
-                                        <li
+                                      <li
                                             class="custom-control custom-checkbox mb-2 pb-2">
                                             <input type="checkbox"
                                                 class="custom-control-input"
-                                                id="brandSpanish">
+                                                id="brandSpanish" name="Spanish">
                                             <label class="custom-control-label"
-                                                for="brandSpanish">Spanish</label>
+                                                for="brandSpanish">spanish</label>
                                         </li>
                                         <li class="custom-control custom-checkbox">
                                             <input type="checkbox"
                                                 class="custom-control-input"
-                                                id="brandTurkish">
+                                                id="brandTurkish" name="Turkish">
                                             <label class="custom-control-label"
-                                                for="brandTurkish">Turkish</label>
-                                        </li>
+                                                for="brandTurkish">turkish</label>
+                                        </li> 
                                     </ul>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
 
                             <div id="Format" class="widget p-4d875 border">
                                 <div id="widgetHeading23" class="widget-head">
@@ -487,25 +476,28 @@ aria-labelledby="sidebarNavToggler4">
                                     class="mt-3 widget-content collapse show"
                                     aria-labelledby="widgetHeading23"
                                     data-parent="#widgetAccordion">
-                                    <ul class="product-categories">
-                                        <li class="cat-item cat-item-9 cat-parent">
-                                            <a href="#/clothing">Audio CD</a>
-                                        </li>
-                                        <li class="cat-item cat-item-69 cat-parent">
-                                            <a href="#/electronics/">Audio Book</a>
-                                        </li>
-                                        <li class="cat-item cat-item-65 cat-parent">
-                                            <a href="#/kitchen/">Hardcover</a>
-                                        </li>
-                                        <li class="cat-item cat-item-11 cat-parent"><a
-                                                href="#/music/">Kindle Books</a>
-                                        </li>
-                                        <li class="cat-item cat-item-12"><a
-                                                href="#/posters/">Paperback</a></li>
-                                    </ul>
+
+
+                                    <p class=" mb-1 form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated" id="filter_format_field" data-priority="40">
+
+                                       
+                                        <select name="format" id="filter_format" class="form-control country_to_state country_select  select2-hidden-accessible"
+                                        autocomplete="country" tabindex="-1" aria-hidden="true">
+                                        <option value="" selected="selected">Select a Format</option>
+
+                                        <option value="PAPERBACK">PAPERBACK</option>
+                                        <option value="AUDIOBOOK">AUDIOBOOK</option>
+                                        <option value="EBOOK">EBOOK</option>
+
+
+                                            
+                                        
+                                    </select>
+                                    </p>
+
                                 </div>
                             </div>
-
+                            {% comment %} 
                             <div id="woocommerce_price_filter-2"
                                 class="widget p-4d875 border woocommerce widget_price_filter">
                                 <div id="widgetHeadingTwo" class="widget-head">
@@ -573,9 +565,9 @@ aria-labelledby="sidebarNavToggler4">
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> 
 
-                            <div id="Review" class="widget p-4d875 border">
+                            {% comment %} <div id="Review" class="widget p-4d875 border">
                                 <div id="widgetHeading24" class="widget-head">
                                     <a class="d-flex align-items-center justify-content-between text-dark"
                                         href="#" data-toggle="collapse"
@@ -727,104 +719,18 @@ aria-labelledby="sidebarNavToggler4">
                                         <small class="font-size-2 text-gray-600">21</small>
                                     </div>
                                 </div>
+                            </div> {% endcomment %}
+                            {% comment %} {% csrf_token %} {% endcomment %}
+
+                            <div class="m-2">
+                                <button type="submit" class="btn btn-danger form-control" >Filter</button>
                             </div>
+                        </form>
 
-                            <div id="Featuredbooks" class="widget p-4d875 border">
-                                <div id="widgetHeading25" class="widget-head">
-                                    <a class="d-flex align-items-center justify-content-between text-dark"
-                                        href="#" data-toggle="collapse"
-                                        data-target="#widgetCollapse25" aria-expanded="true"
-                                        aria-controls="widgetCollapse25">
-
-                                        <h3
-                                            class="widget-title mb-0 font-weight-medium font-size-3">
-                                            Featured Books</h3>
-
-                                        <svg class="mins" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            width="15px" height="2px">
-                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)"
-                                                d="M0.000,-0.000 L15.000,-0.000 L15.000,2.000 L0.000,2.000 L0.000,-0.000 Z" />
-                                        </svg>
-
-                                        <svg class="plus" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            width="15px" height="15px">
-                                            <path fill-rule="evenodd" fill="rgb(22, 22, 25)"
-                                                d="M15.000,8.000 L9.000,8.000 L9.000,15.000 L7.000,15.000 L7.000,8.000 L0.000,8.000 L0.000,6.000 L7.000,6.000 L7.000,-0.000 L9.000,-0.000 L9.000,6.000 L15.000,6.000 L15.000,8.000 Z" />
-                                        </svg>
-                                    </a>
-                                </div>
-
-                                <div id="widgetCollapse25"
-                                    class="mt-5 widget-content collapse show"
-                                    aria-labelledby="widgetHeading25"
-                                    data-parent="#widgetAccordion">
-                                    <div class="mb-5">
-                                        <div class="media d-md-flex">
-                                            <a class="d-block"
-                                                href="../shop/single-product-v6.html">
-                                                <img class="img-fluid"
-                                                    src="https://placehold.it/60x92"
-                                                    alt="Image-Description">
-                                            </a>
-                                            <div class="media-body ml-3 pl-1">
-                                                <h6
-                                                    class="font-size-2 text-lh-md font-weight-normal">
-                                                    <a
-                                                        href="../shop/single-product-v6.html">Lessons
-                                                        Learned from 15 Years as CEO...</a>
-                                                </h6>
-                                                <span class="font-weight-medium">$37</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-5">
-                                        <div class="media d-md-flex">
-                                            <a class="d-block"
-                                                href="../shop/single-product-v6.html">
-                                                <img class="img-fluid"
-                                                    src="https://placehold.it/60x92"
-                                                    alt="Image-Description">
-                                            </a>
-                                            <div class="media-body ml-3 pl-1">
-                                                <h6
-                                                    class="font-size-2 text-lh-md font-weight-normal">
-                                                    <a
-                                                        href="../shop/single-product-v6.html">Love,
-                                                        Livestock, and Big Life
-                                                        Lessons...</a>
-                                                </h6>
-                                                <span class="font-weight-medium">$21</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="media d-md-flex">
-                                            <a class="d-block"
-                                                href="../shop/single-product-v6.html">
-                                                <img class="img-fluid"
-                                                    src="https://placehold.it/60x92"
-                                                    alt="Image-Description">
-                                            </a>
-                                            <div class="media-body ml-3 pl-1">
-                                                <h6
-                                                    class="font-size-2 text-lh-md font-weight-normal">
-                                                    <a
-                                                        href="../shop/single-product-v6.html">Sleeper
-                                                        Cells, Ghost Stories, and
-                                                        Hunt...</a>
-                                                </h6>
-                                                <span class="font-weight-medium">$182</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             <!-- End Content -->
         </div>
     </div>
@@ -844,6 +750,13 @@ class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-x
 
 {% for book in books %}
 <li class="product col">
+    {% if book.onsale_set.all.count > 0 and book.onsale_set.all.0.periode|new_expiration == True %}
+
+    <h5 class="onsale"><span
+            class="badge badge-danger">-{{book.onsale_set.all.0.discount}}%</span>
+    </h5>
+
+    {% endif %}
     <div class="product__inner overflow-hidden p-3 p-md-4d875">
         <div
             class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative img-thumbnail-shop-newtonbookshop">
@@ -851,10 +764,13 @@ class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-x
                 <a href="{{book.get_absolute_url}}"
                     class="d-block">
                     <img src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}"
-                        class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                        alt="image-description">
+                        class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid shadow-lg"
+                        alt="image-description" width="120" height="183">
                 </a>
             </div>
+
+
+
             <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
                 <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
                         href="{{book.get_absolute_url}}" id="booktype">{{book.default_type}}</a>
@@ -870,7 +786,17 @@ class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-x
                 <div class="price d-flex align-items-center font-weight-medium font-size-3">
                     <span class="woocommerce-Price-amount amount"><span
                             class="woocommerce-Price-currencySymbol">GHS
-                        </span>{{book.default_price}}</span>
+                        </span>
+                    
+                    {% if book.onsale_set.all.count > 0 %}
+                    {{book.default_price|deal_of_the_weak_percentage:book.onsale_set.all.0.discount}} 
+                    <del style="font-size:13px!important;">GHS {{book.default_price}} </del>
+                     {% else %}
+                     {{book.default_price}}
+                    {% endif %}
+                        
+                    
+                    </span>
                 </div>
             </div>
             <div class="product__hover d-flex align-items-center">
@@ -910,108 +836,65 @@ class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-x
 aria-labelledby="pills-two-example1-tab">
 <!-- Mockup Block -->
 <ul class="products list-unstyled mb-6">
-<li class="product product__list">
-    <div class="product__inner overflow-hidden p-3 p-md-4d875">
-        <div
-            class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative">
-            <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
-                <a href="../shop/single-product-v1.html" class="d-block"><img
-                        src="https://placehold.it/150x226"
-                        class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                        alt="image-description"></a>
-            </div>
+
+    
+    {% for book in books %}
+        
+    <li class="product product__list">
+        {% if book.onsale_set.all.count > 0 and book.onsale_set.all.0.periode|new_expiration == True %}
+
+        <h5 class="onsale"><span
+                class="badge badge-danger">-{{book.onsale_set.all.0.discount}}%</span>
+        </h5>
+    
+        {% endif %}
+        <div class="product__inner overflow-hidden p-3 p-md-4d875">
             <div
-                class="col-md woocommerce-loop-product__body product__body pt-3 bg-white mb-3 mb-md-0">
-                <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                        href="../shop/single-product-v1.html">Paperback</a></div>
-                <h2
-                    class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
-                    <a href="../shop/single-product-v1.html" tabindex="0">The Overdue Life
-                        of Amy Byler</a></h2>
-                <div class="font-size-2  mb-2 text-truncate"><a
-                        href="../others/authors-single.html" class="text-gray-700">Jay
-                        Shetty</a></div>
-                <p class="font-size-2 mb-2 crop-text-2">After disappearing for three years,
-                    Artemis Fowl has returned to a life different from the one he left. And
-                    spends his days teaching his twin siblings the</p>
-                <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                    <span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>29</span>
+                class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative img-thumbnail-shop-newtonbookshop">
+                <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
+                    <a href="{{book.get_absolute_url}}" class="d-block"><img
+                            src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}"
+                            class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
+                            alt="image-description"></a>
+                </div>
+                <div
+                    class="col-md woocommerce-loop-product__body product__body pt-3 bg-white mb-3 mb-md-0">
+                    <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
+                            href="{{book.get_absolute_url}}">{{book.default_type}}</a></div>
+                    <h2
+                        class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
+                        <a href="{{book.get_absolute_url}}" tabindex="0">{{book.title}}</a></h2>
+                    <div class="font-size-2  mb-2 text-truncate"><a
+                            href="../others/authors-single.html" class="text-gray-700">{{book.author}}</a></div>
+                    <p class="font-size-2 mb-2 crop-text-2">{{book.description}}</p>
+                    <div class="price d-flex align-items-center font-weight-medium font-size-3">
+                        <span class="woocommerce-Price-amount amount"><span
+                                class="woocommerce-Price-currencySymbol">GHS </span>{{book.default_price}}</span>
+                    </div>
+                </div>
+                <div class="col-md-auto d-flex align-items-center">
+                    <a href=""
+                        class="text-uppercase text-dark h-dark font-weight-medium mr-4 shop_add_to_cart"
+                        data-toggle="tooltip" data-placement="right" title=""
+                        data-original-title="ADD TO CART">
+                        <span class="product__add-to-cart">ADD TO CART</span>
+                        <span class="product__add-to-cart-icon font-size-4"><i
+                                class="flaticon-icon-126515"></i></span>
+                    </a>
+                    <a href="{{book.get_absolute_url}}"
+                        class="mr-1 h-p-bg btn btn-outline-primary border-0">
+                        <i class="flaticon-switch"></i>
+                    </a>
+                    <a href="{{book.get_absolute_url}}"
+                        class="h-p-bg btn btn-outline-primary border-0 shop_add_to_wishlist">
+                        <i class="flaticon-heart"></i>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-auto d-flex align-items-center">
-                <a href="../shop/single-product-v1.html"
-                    class="text-uppercase text-dark h-dark font-weight-medium mr-4"
-                    data-toggle="tooltip" data-placement="right" title=""
-                    data-original-title="ADD TO CART">
-                    <span class="product__add-to-cart">ADD TO CART</span>
-                    <span class="product__add-to-cart-icon font-size-4"><i
-                            class="flaticon-icon-126515"></i></span>
-                </a>
-                <a href="../shop/single-product-v1.html"
-                    class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                    <i class="flaticon-switch"></i>
-                </a>
-                <a href="../shop/single-product-v1.html"
-                    class="h-p-bg btn btn-outline-primary border-0">
-                    <i class="flaticon-heart"></i>
-                </a>
-            </div>
         </div>
-    </div>
-</li>
-
-<li class="product product__list">
-    <div class="product__inner overflow-hidden p-3 p-md-4d875">
-        <div
-            class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative">
-            <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
-                <a href="../shop/single-product-v1.html" class="d-block"><img
-                        src="https://placehold.it/150x226"
-                        class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                        alt="image-description"></a>
-            </div>
-            <div
-                class="col-md woocommerce-loop-product__body product__body pt-3 bg-white mb-3 mb-md-0">
-                <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                        href="../shop/single-product-v1.html">Paperback</a></div>
-                <h2
-                    class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
-                    <a href="../shop/single-product-v1.html" tabindex="0">All You Can Ever
-                        Know: A Memoir</a></h2>
-                <div class="font-size-2  mb-2 text-truncate"><a
-                        href="../others/authors-single.html" class="text-gray-700">Jay
-                        Shetty</a></div>
-                <p class="font-size-2 mb-2 crop-text-2">After disappearing for three years,
-                    Artemis Fowl has returned to a life different from the one he left. And
-                    spends his days teaching his twin siblings the</p>
-                <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                    <span class="woocommerce-Price-amount amount"><span
-                            class="woocommerce-Price-currencySymbol">$</span>29</span>
-                </div>
-            </div>
-            <div class="col-md-auto d-flex align-items-center">
-                <a href="../shop/single-product-v1.html"
-                    class="text-uppercase text-dark h-dark font-weight-medium mr-4"
-                    data-toggle="tooltip" data-placement="right" title=""
-                    data-original-title="ADD TO CART">
-                    <span class="product__add-to-cart">ADD TO CART</span>
-                    <span class="product__add-to-cart-icon font-size-4"><i
-                            class="flaticon-icon-126515"></i></span>
-                </a>
-                <a href="../shop/single-product-v1.html"
-                    class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                    <i class="flaticon-switch"></i>
-                </a>
-                <a href="../shop/single-product-v1.html"
-                    class="h-p-bg btn btn-outline-primary border-0">
-                    <i class="flaticon-heart"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</li>
-
+    </li>
+    {% endfor %}
+        
 
 
 </ul>
@@ -1057,13 +940,8 @@ class="flex-shrink-0 flex-md-shrink-1 page-item {% if page_obj.number == i %} ac
 <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
 aria-hidden="true" style="z-index:1999!important;">
 <div class="modal-dialog modal-dialog-centered rounded-1" role="document" id="modal-dialog">
-<div class="modal-content">
-{% comment %} <div class="modal-header border-0 pl-2 pt-4">
-<h5 class="modal-title" id="exampleModalLongTitle">Added to your cart</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div> {% endcomment %}
+<div class="modal-content cart_pop_up_mobile">
+
 <div class="modal-body pl-2 pr-2 pt-0 pb-0">
 <!--- item in cart --->
 <div class="cart_pop_up">
@@ -1073,22 +951,22 @@ aria-hidden="true" style="z-index:1999!important;">
     <div
         class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative border-0">
         <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
-            <a href="../shop/single-product-v1.html" class="d-block"><img
-                    src="3
+            <a href="" class="d-block"><img
+                    src=""
                     class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
                     alt="image-description" id="product_added_img" style="width:80px!important; height:120px!important;"></a>
         </div>
         <div class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">
 
-            <h4 > <span class="action_added"></span> <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d6d06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            <h4 > <span class="action_added "></span> <svg id="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3d6d06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
             </h4>
     
             
-            <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                    href="../shop/single-product-v1.html" id="booktype_"></a></div>
+            <div class="text-uppercase font-size-1 mb-1 text-truncate "><a
+                    href="" id="booktype_"></a></div>
             <h2
                 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
-                <a href="../shop/single-product-v1.html" tabindex="0" id="title"></a></h2>
+                <a href="" tabindex="0" id="title"></a></h2>
             {% comment %} <div class="font-size-2  mb-2 text-truncate"><a
                     href="../others/authors-single.html" class="text-gray-700">Jay
                     Shetty</a></div> {% endcomment %}

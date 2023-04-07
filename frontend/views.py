@@ -76,27 +76,25 @@ class ShopView(ListView):
     template_name = "frontend/shop.html"
     model = cpanel_model.book
     context_object_name = "books"
-    paginate_by = 10
+
+    paginate_by = 20
     ordering = ["-created_at"]
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-
-    # context["books"] = cpanel_model.book.objects.filter(
-    #     category__contains=self.request.GET.get("category")
-    # )
-    # print(self.request.GET.get("category"))
-
     def get_queryset(self):
-        best_seller = (
-            self.request.GET.get("bestsellers")
-            if self.request.method == "GET"
-            else None
-        )
-        category = (
-            self.request.GET.get("category") if self.request.method == "GET" else None
-        )
-        sub = self.request.GET.get("sub") if self.request.method == "GET" else None
+        sortby = self.request.GET.get("sort", None)
+        best_seller = self.request.GET.get("bestsellers", None)
+        category = self.request.GET.get("category", None)
+        sub = self.request.GET.get("sub", None)
+        the_request = self.request.GET
+        # should probably find a better way to minimize this code
+        if "format" in the_request:
+            category = the_request.get("category")
+            filter_format = the_request.get("format")
+
+            return cpanel_model.book.objects.filter(
+                category__contains=category, bookdetails__booktype=filter_format
+            )
+
         if best_seller is not None:
             bestseller = cpanel_model.order_book.objects.all().order_by(
                 "-bookquantity"
@@ -111,6 +109,8 @@ class ShopView(ListView):
             return cpanel_model.book.objects.filter(category__contains=category[0:10])
         elif category is not None:
             return cpanel_model.book.objects.filter(category__contains=category)[0:10]
+        elif sortby is not None:
+            pass
         else:
             return super().get_queryset()
 

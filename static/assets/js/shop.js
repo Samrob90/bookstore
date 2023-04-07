@@ -106,4 +106,19 @@ $(document).ready(function () {
     });
 
 
+
+    // filter by
+    const FILTER_URL = $(location).attr('href')
+    let FILET_URL_SET = "/shop/?q="
+    $(".filter_by_side_body .product-categories a").click(function (e) {
+        e.preventDefault();
+        let value = $(this).html()
+        if ($(this).closest("div").hasClass("product-categories")) {
+
+        }
+    });
+
+
+
+
 });
