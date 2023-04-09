@@ -131,10 +131,10 @@ Newtonbookshop | {{book.title}}
                                     </span>
                                     
                                     {% if book.onsale_set.all.count > 0 %}
-                                    {{book.default_price|deal_of_the_weak_percentage:book.onsale_set.all.0.discount}} 
+                                    <span class="default_book_price" default_book_type ="{{book.default_type}}" has-discount="true"> {{book.default_price|deal_of_the_weak_percentage:book.onsale_set.all.0.discount}} </span>
                                     <del class="text-danger" style="font-size:14px;">GHS {{book.default_price}} </del>
                                     {% else %}
-                                    {{book.default_price}} 
+                                     <span class="default_book_price" default_book_type ="{{book.default_type}}" has-discount="false"> {{book.default_price}}  </span>
                                     {% endif %}
                                         
                                 </span>
@@ -153,35 +153,15 @@ Newtonbookshop | {{book.title}}
                                         Format</label> {% endcomment %}
                                     <!-- Select -->
                                     <select
-                                        class="js-select selectpicker dropdown-select w-50 mt-2 position-relative mb-0 "
+                                        class="js-select selectpicker dropdown-select w-50 mt-2 position-relative mb-0 book_format_on_change"
                                         data-style=" border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2"
                                         data-show-subtext="true" data-dropdown-align-right="true" name="booktype_price"
                                         required>
 
                                         {% for value in book.bookdetails_set.all %}
-                                        {% comment %} <option value="one" data-subtext="$9.59" selected>Hardcover
-                                        </option>
-                                        <option value="two" data-subtext="$9.59">Softcover</option> {% endcomment %}
-
-                                        <!-- End Select -->
-
-                                        {% comment %}
-                                        <div class="col-6 col-md-3 mb-3 mb-md-0  value_redirect">
-                                            <div
-                                                class="shadow-sm rounded-1 border booktypeshop {% if book_default_details.booktype == value.booktype %} booktype_active {% endif %}">
-
-                                                <div class="">
-                                                    <a
-                                                        href="{% url 'book-detail' book.slug book.product.product_id value.booktype %}">
-                                                        <span class="d-block">{{value.booktype}}</span>
-                                                        <span class="text-muted">GHS {{value.price}}</span>
-                                                    </a>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div> {% endcomment %}
+                                      
                                         <option value="{{value.booktype}} {{value.price}}" name="booktype_price"
-                                            data-subtext="GHS {{value.price}}">{{value.booktype}}</option>
+                                            data-subtext="GHS {{value.price}}" >{{value.booktype}}</option>
                                         {% endfor %}
                                     </select>
 
@@ -337,60 +317,73 @@ Newtonbookshop | {{book.title}}
                     </div>
                     <div class="woocommerce-Tabs-panel panel col-xl-8 offset-xl-2 entry-content wc-tab tab-pane fade pt-9"
                         id="pills-two-example1" role="tabpanel" aria-labelledby="pills-two-example1-tab">
+
+
+
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link book-details-sh active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Paperback</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link book-details-sh" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Audiobook</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link book-details-sh" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Ebook</button>
+                            </li>
+                          </ul>
+                          <div class="tab-content" id="pills-tabContent">
+                           {% comment %} start of paperback {% endcomment %}
+                           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="table-responsive mb-4"> 
+                                <table class="table table-hover table-borderless">
+                                    <tbody>
+                                        
+                                        {% for value in  book.bookdetails_set.all.0.details|string_to_dic %}
+                                         <tr>
+                                            <th class="px-4 px-xl-5">{{value.0}} </th>
+                                            <td class="">{{value.1}}</td>
+                                        </tr> 
+                                       
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                             </div> 
+                            </div>
+                           {% comment %} end paperback {% endcomment %}
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <table class="table table-hover table-borderless">
+                                    <tbody>
+                                        
+                                        {% for value in  book.bookdetails_set.all.1.details|string_to_dic %}
+                                         <tr>
+                                            <th class="px-4 px-xl-5">{{value.0}} </th>
+                                            <td class="">{{value.1}}</td>
+                                        </tr> 
+                                       
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                <table class="table table-hover table-borderless">
+                                    <tbody>
+                                        
+                                        {% for value in  book.bookdetails_set.all.2.details|string_to_dic %}
+                                         <tr>
+                                            <th class="px-4 px-xl-5">{{value.0}} </th>
+                                            <td class="">{{value.1}}</td>
+                                        </tr> 
+                                       
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                          </div>
+                          
                         <!-- Mockup Block -->
 
-                        <div class="d-flex align-items-start book-details-debut">
-                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                              <button class="nav-link book-details-sh active " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Paperback</button>
-                              <button class="nav-link book-details-sh  " id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Audiobook</button>
-                              <button class="nav-link book-details-sh " id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">ebook</button>
-                              {% comment %} <button class="nav-link book-details-sh" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button> {% endcomment %}
-                            </div>
-                            <div class="tab-content" id="v-pills-tabContent">
-                                {% comment %} start paperback {% endcomment %}
-                              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                {% comment %} <div class="table-responsive mb-4"> {% endcomment %}
-                                    <table class="table table-hover table-borderless">
-                                        <tbody>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Format: </th>
-                                                <td class="">Paperback | 384 pages</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Dimensions</th>
-                                                <td>9126 x 194 x 28mm | 301g</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Publication date: </th>
-                                                <td>20 Dec 2020</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Publisher:</th>
-                                                <td>Little, Brown Book Group</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Imprint:</th>
-                                                <td>Corsair</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Publication City/Country:</th>
-                                                <td>London, United Kingdom</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="px-4 px-xl-5">Language:</th>
-                                                <td>English</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                {% comment %} </div> {% endcomment %}
-                              </div>
-                              {% comment %} end paperback {% endcomment %}
-                              <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">profile</div>
-                              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">messages</div>
-                              {% comment %} <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">settings</div> {% endcomment %}
-                            </div>
-                        </div>
-
+                       
 
                        
                         <!-- End Mockup Block -->
@@ -624,7 +617,7 @@ Newtonbookshop | {{book.title}}
                         </ul>
 
                         {% endif %}
-                        {% if request.user.email %}
+                        {% if request.user.email and book.product.product_id|check_order_complete == true %}
                         <form action="" method="post" id="review_form">
                             {% csrf_token %}
 
@@ -775,7 +768,7 @@ Newtonbookshop | {{book.title}}
 
 
 {% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script>
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript"></script> {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <!-- 

@@ -508,13 +508,13 @@
                             {% if cart is not None and cart_total > 0 %}
 
                             {% for cart_value in cart  %}
-                            <div class="px-4 py-5 px-md-6 border-bottom">
+                            <div class="px-4 py-5 px-md-6 border-bottom sidebar_book_cart">
                                 <div class="media">
                                     <a href="{% url 'book-detail' cart_value.bookslug cart_value.product_id  %}"
                                         class="d-block"><img
                                             src="{{ASSETS_ROOT}}/media/thumbnail/{{cart_value.bookthumbnail}}"
                                             class="img-fluid" alt="image-description"
-                                            style="height:150px!important; width:100px!important;"></a>
+                                            style="height:120px!important; width:80px!important;"></a>
                                     <div class="media-body ml-4d875">
                                         <div class="text-primary text-uppercase font-size-1 mb-1 text-truncate"><a
                                                 href="{% url 'book-detail' cart_value.bookslug cart_value.product_id %}">{{cart_value.booktype}}</a>
@@ -533,10 +533,10 @@
                                                 </span>{{cart_value.bookprice}}</span>
                                         </div>
                                     </div>
-                                    {% comment %} <div class="mt-3 ml-3">
+                                     <div class="mt-3 ml-3">
                                         <a href="#" class="text-dark removeCartItem" id="{{cart_value.product_id}}"
                                             booktype="{{cart_value.booktype}}"><i class="fas fa-times"></i></a>
-                                    </div> {% endcomment %}
+                                    </div>
                                 </div>
                             </div>
 

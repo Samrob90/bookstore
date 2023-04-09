@@ -3,6 +3,7 @@ from datetime import datetime, date
 from django.utils import timezone
 from dateutil import parser
 from pandas import to_datetime as pd_datetime
+from cpanel.models import order, order_book, book
 
 register = template.Library()
 
@@ -78,3 +79,23 @@ def new_expiration(timestamp):
     # val = datetime.strptime(str(timestamp)[:10], "%Y-%m-%d %H:%M:%S")
     # aware = timezone("UTC").localize(datetime.now())
     # return timestamp < now
+
+
+@register.filter(name="string_to_dic")
+def string_to_dic(string):
+    array = string.split(";")
+    bookdetails = []
+    for i in array:
+        second = i.split("***")
+        if len(second) > 1:
+            if second[0] != "" and second[1] != "":
+                bookdetails.append([second[0].replace("_", " "), second[1]])
+    return bookdetails
+
+
+@register.filter(name="check_order_complete")
+def check_order_complete(bookid):
+    order_obj = order.objects.filter(status="delivered", order_book__product_id=bookid)
+    print(order_obj)
+    if order_obj.exists:
+        return True

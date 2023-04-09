@@ -119,6 +119,21 @@ Newtonbookshop | Checkout
                              {% elif request.user.email and addresses.count == 0 %}
                              <input type="hidden" name="address_type" id="address_type"
                                             value="user_new_address">
+                            <div class="new_user_address">
+                                <div class="card border-0 " style=" background-color:#f5f5f5;">
+                                        <div class="card-header border-0" style=" background-color:#f5f5f5;">
+                                            <h3 class="pl-0 ">Shipping address </h3>
+                                        </div>
+    
+                                        <div class="card-body">
+                                            {% include 'frontend/components/address.html' %}
+                                            <input type="hidden" name="address_type" id="address_type"
+                                                        value="new_user_address">
+                                        </div>
+                                </div>
+                                </div>
+
+                                            
                             {% else %}
 
                              <div class="new_user_address">

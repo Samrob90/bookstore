@@ -10,14 +10,14 @@ $(document).ready(function () {
 
 
 
-    const csftoken = Cookies.get('csrftoken');
-    $.ajaxSetup({
-        beforeSend: function (xhr, settings) {
-            if (!(/^http:.*/.test(settings.url))) {
-                xhr.setRequestHeader("X-CSRFToken", csftoken)
-            }
-        }
-    })
+    // const csftoken = Cookies.get('csrftoken');
+    // $.ajaxSetup({
+    //     beforeSend: function (xhr, settings) {
+    //         if (!(/^http:.*/.test(settings.url))) {
+    //             xhr.setRequestHeader("X-CSRFToken", csftoken)
+    //         }
+    //     }
+    // })
 
 
     // ================================================
@@ -42,30 +42,6 @@ $(document).ready(function () {
             $(".js-result").val(Number(input_value) + 1)
         }
     })
-
-    // =================================================
-    // detail page add to cart 
-    // ================================================
-
-    // $(".single_add_to_cart_button_detail_page").click(function (e) {
-    //     e.preventDefault();
-    //     let data = $("#details_product_form").serialize()
-    //     alert(data)
-    //     $(this).html("ADDING ..")
-
-    //     $.ajax({
-    //         type: "post",
-    //         url: "/shopacc/",
-    //         data: data,
-    //         dataType: "json",
-    //         success: function (response) {
-    //             if (response.result === "success") {
-    //                 location.reload()
-    //             }
-    //         }
-    //     })
-
-    // });
 
     // =================================================
     // Remove cart items
@@ -144,86 +120,6 @@ $(document).ready(function () {
         return "width:" + percentage + "%;"
     }
 
-    // get avarage
-    // const avg = Math.floor(Number($(".avarage_ratings").html()))
-    // let stars = $(".average_review_icone").find(".stars_yellow")
-    // stars.parent().nextAll().children('.fa-star').addClass("stars_yellow")
-
-    // book review likes 
-    // $(".book_review_likes").click(function (e) {
-    //     e.preventDefault();
-    //     let l = $(this)
-    //     const current_likes = l.find('span').html() //get current_likes value
-    //     const bookid = l.find('span').attr("bookid") // get bookid 
-    //     let types = false
-    //     const commentid = l.attr("commentid")
-    //     // check if user already liked the comment 
-    //     if (l.find("i").hasClass("text-info")) {
-
-    //     } else {
-    //         l.find('span').html(Number(current_likes) + 1) //get current like and add 1 
-    //         l.find("i").removeClass("text-dark").addClass("text-info") // change icone color to blue
-
-    //         // send ajax request
-    //         // check if user already disliked this comment ; By using  icone color
-    //         if ($(".book_review_dislikes").find("i").hasClass("text-danger")) {
-    //             //remove class text-danger and add text-dark 
-    //             let dislikes = $(".book_review_dislikes")
-    //             dislikes.find("i").removeClass("text-danger").addClass("text-dark")
-    //             // update dislike total number by remove 1 on its current number
-    //             dislikes.find("span").html(Number(dislikes.find("span").html()) - 1)
-    //             dislikes = true
-    //             // send ajax request
-    //         }
-    //         let data = {
-    //             "review_likes": "likes",
-    //             "bookid": bookid,
-    //             "Other": types,
-    //             "oposite": "dislikes",
-    //             "commentid": commentid,
-    //         }
-    //         update_likes(data)
-    //     }
-    // })
-
-
-
-    // // book review dislikes 
-    // $(".book_review_dislikes").click(function (e) {
-    //     e.preventDefault();
-    //     let d = $(this)
-    //     const current_dislikes = d.find('span').html()
-    //     const bookid = d.find('span').attr("bookid")
-
-    //     // check if user has already disliked this comment
-    //     if (d.find('i').hasClass('text-danger')) {
-    //         // pass
-    //     } else {
-    //         d.find('span').html(Number(current_dislikes) + 1)
-    //         d.find("i").removeClass("text-dark").addClass('text-danger')
-
-    //         // send ajax request
-
-    //         // check if user has already liked this comment 
-    //         if ($(".book_review_likes").find('i').hasClass("text-info")) {
-    //             let likes = $(".book_review_likes")
-    //             likes.find("i").removeClass("text-info").addClass("text-dark")
-    //             likes.find("span").html(Number(likes.find("span").html()) - 1)
-
-    //             // send ajax request 
-    //         }
-    //     }
-    // })
-
-    // function update_likes(data) {
-    //     $.post("/reviews/", data,
-    //         function (data, textStatus, jqXHR) {
-
-    //         },
-    //         "json"
-    //     );
-    // }
-
 
 
     $(".submit_review").click(function (e) {
@@ -271,27 +167,7 @@ $(document).ready(function () {
                 "json"
             );
         }
-
-
-
-
-
-
     });
-
-
-    // const star_one = $(".star_one").html()
-    // const star_two = $(".stars_two").html()
-    // const star_three = $(".star_three").html()
-    // const star_four = $(".star_four").html()
-    // const star_five = $(".stars_five").attr("id")
-    // $(".star_one").closest("li").find(".progress-bar").attr("style", multiplyer(50))
-    // $(".star_two").closest("li").find(".progress-bar").attr("style", multiplyer(star_two))
-    // $(".star_three").closest("li").find(".progress-bar").attr("style", multiplyer(star_three))
-    // $(".star_four").closest("li").find(".progress-bar").attr("style", multiplyer(star_four))
-    // $(".star_five").closest("li").find(".progress-bar").attr("style", multiplyer(star_five))
-    // alert(star_five)
-
 
     // write a review
 
@@ -306,5 +182,28 @@ $(document).ready(function () {
     $(".share_social_media").mouseleave(function () {
         $(this).fadeOut();
     });
+
+
+    // reset selected element 
+    // alert($(".book_format_on_change option:selected").val())
+    // $(".book_format_on_change option:selected").prop('selected', true);
+    // $(".book_format_on_change option:selected").attr("value", $(".default_book_price").attr("default_book_type"))
+    // // Book type price on change 
+    // $(".book_format_on_change").change(function (e) {
+    //     // alert("hello world")
+    //     const booktype = $(this).val().split(" ")
+    //     let booktypename = booktype[0]
+    //     let booktypeprice = booktype[1]
+    //     let default_bookprice = $(".default_book_price").val()
+    //     let default_booktype = $(".default_book_price").attr("default_book_type")
+    //     let has_discount = $(".default_book_price").attr("has-discount")
+
+    //     if (has_discount === "false") {
+    //         $(".default_book_price").html(booktypeprice)
+    //     } else {
+
+    //     }
+
+    // });
 
 });

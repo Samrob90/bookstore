@@ -307,6 +307,26 @@ class shopCart(TemplateView):
                                 messages.info(request, f"{product_title}")
                                 return JsonResponse({"result": "success"})
 
+        # update book quanity in cart page
+        if self.is_ajax(request) and "cart_update_qty" in request.POST:
+            qty = request.POST.get("cart_update_qty")
+            bookid = request.POST.get("bookid")
+
+            # check if user is authenticated
+            if request.user.is_authenticated:
+                # update cart model
+                models.cart.objects.filter(product_id=bookid, user=request.user).update(
+                    bookquantity=qty
+                )
+            else:
+                # get current book to update
+                book_stored = request.session["cart"][bookid]
+                book_stored["bookquantity"] = qty
+                request.session, modified = True
+            if "keypress" in request.POST:
+                messages.success(request, "Cart updated successfully !!")
+            return JsonResponse({"result": "success"})
+
     # check if request is ajax
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"
@@ -316,7 +336,9 @@ class shopCart(TemplateView):
         if request.user.is_authenticated:
             # check if the same cart already existe in db
             cart_id = models.cart.objects.filter(
-                product_id=data["product_id"], booktype=data["booktype"]
+                product_id=data["product_id"],
+                booktype=data["booktype"],
+                user=request.user,
             )
             if cart_id.exists():
                 # increase book quanitty if book already existe in db
@@ -459,9 +481,10 @@ class CheckoutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["addresses"] = cpanel_model.Addresse.objects.all().order_by(
-            "-created_at"
-        )
+        if self.request.user.is_authenticated:
+            context["addresses"] = cpanel_model.Addresse.objects.filter(
+                user=self.request.user.email
+            ).order_by("-created_at")[0:3]
         return context
 
     # recalculate here before production
