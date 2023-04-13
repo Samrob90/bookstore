@@ -467,7 +467,14 @@ class ContactView(TemplateView):
                 request,
                 "Thank you for your feedback , your message has been succeesfully sent !!",
             )
-            tasks.send_to_support(form_obj.pop)
+            data = {
+                "name": form_obj.cleaned_data["name"],
+                "email": form_obj.cleaned_data["email"],
+                "subject": form_obj.cleaned_data["subject"],
+                "message": form_obj.cleaned_data["message"],
+                "template_name": "frontend/email/sendemail_from_contact.html",
+            }
+            tasks.send_to_support.delay(data)
             # return redirect("contact")
         else:
             # for error in form_obj.errors.items():

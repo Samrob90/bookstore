@@ -7,9 +7,19 @@ from authentications.models import Account
 
 # from cpanel import models
 from frontend.models import recent_viewied_item, cart
+from rsc.SendMail import sendSelf
 
 # import random
 # import string
+
+
+# send message from contact us form to support@newtonbookshop.com
+
+
+@shared_task
+def send_to_support(data):
+    sendSelf(data=data)
+    return "done"
 
 
 @shared_task
