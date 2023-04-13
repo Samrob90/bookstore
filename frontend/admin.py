@@ -35,6 +35,7 @@ class r_category(admin.ModelAdmin):
 
 admin.site.register(models.category, r_category)
 
+
 # register subcategory
 class r_subcategory(admin.ModelAdmin):
     model = models.subcategory
@@ -70,3 +71,11 @@ class register_about_us(admin.ModelAdmin):
 
 
 admin.site.register(models.about_us, register_about_us)
+
+
+class register_contact_us(admin.ModelAdmin):
+    model = models.contact_us
+    list_display = ("name", "email", "subject", "message", "created_at")
+
+
+admin.site.register(models.contact_us, register_contact_us)

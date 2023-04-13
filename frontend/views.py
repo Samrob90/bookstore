@@ -19,6 +19,7 @@ import random, string
 from rsc.tools import timer
 from .context import grabe_children
 from django.db.models import F
+from . import form
 
 
 class HomeVIew(ListView):
@@ -148,7 +149,6 @@ class ProductView(DetailView):
         }
 
         if self.request.user.is_authenticated:
-
             tasks.save_recent.delay(self.request.user.pk, data)
             recent_view = models.recent_viewied_item.objects.filter(
                 user=self.request.user
@@ -287,7 +287,6 @@ class shopCart(TemplateView):
             else:
                 # remove cart from session
                 if request.session["cart"]:
-
                     if product_id in request.session["cart"]:
                         for index, value in enumerate(
                             request.session["cart"][str(product_id)]
@@ -366,7 +365,6 @@ class shopCart(TemplateView):
                 session = request.session["cart"]
                 # is this product already in cart session increase book quantiy
                 if str(data["product_id"]) in request.session["cart"]:
-
                     session_product_data = session[str(data["product_id"])]
                     # check if book type is the same
                     if len(session_product_data) > 0:
@@ -453,6 +451,28 @@ class AboutView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = "frontend/contact.html"
+    form_class = form.ContactForm()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["contact_us"] = cpanel_model.general_settings.objects.all().first()
+        context["form"] = form.ContactForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form_obj = form.ContactForm(request.POST)
+        if form_obj.is_valid():
+            form_obj.save()
+            messages.success(
+                request,
+                "Thank you for your feedback , your message has been succeesfully sent !!",
+            )
+            tasks.send_to_support(form_obj.pop)
+            # return redirect("contact")
+        else:
+            # for error in form_obj.errors.items():
+            messages.error(request, "Error!! Please make sure you fill all field .")
+        return redirect("contact")
 
 
 class FaqView(ListView):
@@ -490,7 +510,6 @@ class CheckoutView(TemplateView):
     # recalculate here before production
     @timer
     def post(self, request, *args, **kwargs):
-
         # ajax call calculate shipping cost
         if self.is_ajax(request) and "calculate_shipping_cost" in request.POST:
             addressid = request.POST.get("addressid")
@@ -609,7 +628,6 @@ class CheckoutView(TemplateView):
                 return JsonResponse({"result": "invalide"})
 
     def get_address(self, request):
-
         if request.user.is_authenticated:
             email = request.user.email
         else:
@@ -698,7 +716,6 @@ def OrderSuccess(request, ordernumber):
     # model = cpanel_model.order
     # context_object_name = "order"
     if request.method == "GET":
-
         context = {"ordernumber": ordernumber}
         return render(request, "frontend/ordersuccess.html", context)
 

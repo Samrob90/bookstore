@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "account",
     "blog",
     "crispy_forms",
+    "captcha",
     # "star_ratings",
 ]
 
@@ -178,3 +179,15 @@ LOGIN_URL = "login"
 # crispy form
 CRISPY_TEMPLATE_PACK = "uni_form"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+
+# recapta
+RECAPTCHA_PUBLIC_KEY = os.getenv("google_recaptcha_public_key")
+RECAPTCHA_PRIVATE_KEY = os.getenv("google_recaptcha_secret_key")
+
+
+RECAPTCHA_PROXY = {"http": "http://127.0.0.1:8000"}
+
+
+# RECAPTCHA_DOMAIN = "www.recaptcha.net"
+# RECAPTCHA_REQUIRED_SCORE = 0.85

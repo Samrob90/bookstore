@@ -6,9 +6,16 @@
 {% endblock title %}
     
 
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% comment %} <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> {% endcomment %}
+
+{% endblock stylesheets %}
+
 
 {% block header %}
     {% include 'frontend/components/header.html' %}
+
 {% endblock header %}
     
 
@@ -19,11 +26,11 @@
             <div class="py-3 py-lg-7">
                 <h6 class="font-weight-medium font-size-7 text-center my-1">About Us</h6>
             </div>
-            <img class="img-fluid" src="https://placehold.it/1920x650" alt="Image-Description">
+            <img class= "background-images-style" src="{{ASSETS_ROOT}}/static/assets/img/about.jpg" alt="Image-Description">
             <div class="container">
                 <div class="mb-lg-8">
                     <div class="col-lg-9 mx-auto">
-                        <div class="bg-white mt-n10 mt-md-n13 pt-5 pt-lg-7 px-3 px-md-5 pl-xl-10 pr-xl-4">
+                        <div class="bg-white mt-n10 mt-md-n13 pt-5 pt-lg-7 px-3 px-md-5 pl-xl-10 pr-xl-4 shadow">
                             <div class="mb-4 mb-lg-7 ml-xl-4">
                                 <h6 class="font-weight medium font-size-10 mb-4 mb-lg-7">YOU ARE WELCOME TO NEWTON BOOKS</h6>
                                 <p class="font-weight-medium ">{{about}}</p>
@@ -32,22 +39,39 @@
                                 <h6 class="font-weight-medium font-size-4 mb-4">What we really do?</h6>
                                 <p class="font-size-2">{{about.our_story|safe|linebreaks}}</p>
                             </div>
+                            <div class="mb-4 pb-xl-1 ml-xl-4">
+                                <h6 class="font-weight-medium font-size-4 mb-4">Who we are</h6>
+                                <p class="font-size-2">{{about.our_who|safe|linebreaks}}</p>
+                            </div>
+                            <div class="mb-4 pb-xl-1 ml-xl-4">
+                                <h6 class="font-weight-medium font-size-4 mb-4">Our philosophy</h6>
+                                <p class="font-size-2">{{about.our_philosophy|safe|linebreaks}}</p>
+                            </div>
+                            <div class="mb-4 pb-xl-1 ml-xl-4">
+                                <h6 class="font-weight-medium font-size-4 mb-4">Who we serve</h6>
+                                <p class="font-size-2">{{about.who_we_serve|safe|linebreaks}}</p>
+                            </div>
+                            <div class="mb-4 pb-xl-1 ml-xl-4">
+                                <h6 class="font-weight-medium font-size-4 mb-4">Our price</h6>
+                                <p class="font-size-2">{{about.our_price|safe|linebreaks}}</p>
+                            </div>
+
                             <div class="ml-xl-4">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6 class="font-weight-medium font-size-4">Our Vision</h6>
-                                        <p class="font-size-2">Pellentesque sodales augue eget ultricies ultricies. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur sagittis ultrices condimentum.</p>
+                                        <h6 class="font-weight-medium font-size-4">Our why</h6>
+                                        <p class="font-size-2">{{about.our_why|safe|linebreaks}}</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <h6 class="font-weight-medium font-size-4">Our Vision</h6>
-                                        <p class="font-size-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis diam erat. Duis velit lectus, posuere a blandit metus mauris, tristique quis sapien eu, rutrum vulputate enim.</p>
+                                        <h6 class="font-weight-medium font-size-4">Our goal</h6>
+                                        <p class="font-size-2">{{about.our_goal|safe|linebreaks}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="mb-5 mb-lg-7">
+                {% comment %} <div class="mb-5 mb-lg-7">
                     <div class="d-md-flex align-items-center justify-content-between px-xl-10">
                         <div class="text-center mb-3 mb-md-0">
                             <div class="font-size-12 font-weight-medium ml-lg-2">45M</div>
@@ -115,8 +139,8 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-                <div class="mb-10 pb-md-6 pb-lg-10">
+                </div> {% endcomment %}
+                {% comment %} <div class="mb-10 pb-md-6 pb-lg-10">
                     <h6 class="font-weight-medium font-size-7 mb-5">Our Team</h6>
                     <div class="js-slick-carousel u-slick" data-pagi-classes="text-center u-slick__pagination mt-md-8 mt-4 position-absolute right-0 left-0"
                         data-slides-show="5"
@@ -256,7 +280,7 @@
                             <img class="img-fluid" src="../../assets/img/150x32/img5.png" alt="Image-Description">
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </main>

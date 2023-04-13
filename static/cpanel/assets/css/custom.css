@@ -423,6 +423,11 @@ input::-webkit-inner-spin-button {
     text-align: left;
 }
 
+.background-images-style {
+    height: 650px;
+    width: 100%;
+}
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;

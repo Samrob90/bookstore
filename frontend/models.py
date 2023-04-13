@@ -4,6 +4,7 @@ from django.utils import timezone
 from authentications.models import Account
 from django_cleanhtmlfield.fields import HTMLField
 
+
 # Create your models here.
 class cart(models.Model):
     user = models.ForeignKey(Account, verbose_name="cart", on_delete=models.CASCADE)
@@ -85,3 +86,14 @@ class about_us(models.Model):
 
     def __str__(self) -> str:
         return self.start
+
+
+class contact_us(models.Model):
+    name = models.CharField(max_length=200, default=None)
+    email = models.EmailField(default=None)
+    subject = models.CharField(max_length=300, default=None)
+    message = models.TextField(default=None)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str(self) -> str:
+        return self.name

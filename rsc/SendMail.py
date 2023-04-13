@@ -5,7 +5,6 @@ from django.utils.html import strip_tags
 
 class SendMail:
     def __init__(self, **kwargs):
-
         self.data = kwargs["data"]["data"]
         self.email = kwargs["data"]["email"]
         self.subject = kwargs["data"]["subject"]
@@ -25,3 +24,7 @@ class SendMail:
         )
         email.attach_alternative(self.content, "text/html")
         email.send()
+
+    # def send_self(self):
+    #     self.email = "support@newtonbookshop.com"
+    #     self.send()
