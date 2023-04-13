@@ -428,6 +428,124 @@ input::-webkit-inner-spin-button {
     width: 100%;
 }
 
+.plaint_tt {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.plaint_tt .toc ol {
+    /* list-style: decimal !important; */
+    padding-left: 20px;
+    /* list-style: none !important; */
+}
+
+.plaint_tt .toc li::before {
+    content: none !important;
+}
+
+.plaint_tt .toc ol li {
+    list-style-type: decimal !important;
+}
+
+/* .plaint_tt table tr {
+    border: 1px solid lightgray;
+    text-align: left;
+    padding: 5px;
+} */
+
+
+.plaint_tt table td,
+.plaint_tt table th {
+    border: 1px solid lightgray !important;
+    padding: 5px;
+}
+
+.plaint_tt .ulm li {
+    padding-left: 45px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.plaint_tt .toc {
+    margin-bottom: 20px;
+}
+
+.plaint_tt .toc h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.plaint_tt h3 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.plaint_tt .toc ul,
+.plaint_tt .toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.plaint_tt .toc li {
+    margin-bottom: 5px;
+}
+
+.plaint_tt .toc a {
+    color: #000;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.plaint_tt .toc a:hover {
+    color: #666;
+}
+
+
+.plaint_tt h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.plaint_tt section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.plaint_tt h2 {
+    font-size: 24px;
+    margin-top: 30px;
+}
+
+.plaint_tt p {
+    margin-top: 10px;
+}
+
+.plaint_tt ul,
+.plaint_tt ol {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    list-style: none;
+    padding-left: 0;
+}
+
+.plaint_tt li:before {
+    content: "\2022";
+    margin-right: 5px;
+}
+
+.plaint_tt .highlight {
+    color: #c00;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;

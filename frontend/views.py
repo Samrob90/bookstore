@@ -814,3 +814,11 @@ class RatingsView(DetailView):
     # def get_queryset(self, *args, **kwargs):
     #     book = cpanel_model.book.objects.filter(pk=kwargs["pk"])
     #     return self.model.objects.filter(book=book).order_by("-created_at")
+
+
+class returnView(TemplateView):
+    template_name = "frontend/return_policy.html"
+
+
+class privacyView(TemplateView):
+    template_name = "frontend/privacy.html"

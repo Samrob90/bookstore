@@ -1,7 +1,7 @@
  <!-- ========== FOOTER ========== -->
  <footer>
     <div class="border-top space-top-3">
-        <div class="border-bottom pb-5 space-bottom-lg-3">
+        <div class="border-bottom">
             <div class="container">
                 <!-- Newsletter -->
                 <div class="space-bottom-2 space-bottom-md-3">
@@ -48,30 +48,30 @@
                             </div>
                             <ul class="list-unstyled mb-0 d-flex">
                                 <li class="btn pl-0">
-                                    <a class="link-black-100" href="#">
+                                    <a class="link-black-100" target="_blank" href="{{general_settings.instagram_handle}}">
                                         <span class="fab fa-instagram"></span>
                                     </a>
                                 </li>
                                 <li class="btn">
-                                    <a class="link-black-100" href="#">
+                                    <a class="link-black-100"  target="_blank" href="{{general_settings.facebook_handle}}">
                                         <span class="fab fa-facebook-f"></span>
                                     </a>
                                 </li>
                                 <li class="btn">
-                                    <a class="link-black-100" href="#">
+                                    <a class="link-black-100"  target="_blank" href="{{general_settings.youtube_handle}}">
                                         <span class="fab fa-youtube"></span>
                                     </a>
                                 </li>
                                 <li class="btn">
-                                    <a class="link-black-100" href="#">
+                                    <a class="link-black-100"  target="_blank" href="{{general_settings.twitter_handle}}">
                                         <span class="fab fa-twitter"></span>
                                     </a>
                                 </li>
-                                <li class="btn">
+                                {% comment %} <li class="btn">
                                     <a class="link-black-100" href="#">
                                         <span class="fab fa-pinterest"></span>
                                     </a>
-                                </li>
+                                </li> {% endcomment %}
                             </ul>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                         <h4 class="font-size-3 font-weight-medium mb-2 mb-xl-5 pb-xl-1">Explore</h4>
                         <ul class="list-unstyled mb-0">
                             <li class="pb-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">About as</a>
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="{% url 'about' %}">About as</a>
                             </li>
                             <li class="py-2">
                                 <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Sitemap</a>
@@ -88,7 +88,7 @@
                                 <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Bookmarks</a>
                             </li>
                             <li class="pt-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Sign in/Join</a>
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="{% url 'login' %}">Sign in/Join</a>
                             </li>
                         </ul>
                     </div>
@@ -96,11 +96,11 @@
                         <h4 class="font-size-3 font-weight-medium mb-2 mb-xl-5 pb-xl-1">Customer Service</h4>
                         <ul class="list-unstyled mb-0">
                             <li class="pb-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Help Center</a>
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="{% url 'contact' %}">Help Center</a>
                             </li>
-                            <li class="py-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Returns</a>
-                            </li>
+                            {% comment %} <li class="py-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="{% url 'return_policy' %}">Returns</a>
+                            </li> {% endcomment %}
                             <li class="py-2">
                                 <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Product Recalls</a>
                             </li>
@@ -119,7 +119,7 @@
                         <h4 class="font-size-3 font-weight-medium mb-2 mb-xl-5 pb-xl-1">Policy</h4>
                         <ul class="list-unstyled mb-0">
                             <li class="pb-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Return Policy</a>
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="{% url 'return_policy' %}">Return Policy</a>
                             </li>
                             <li class="py-2">
                                 <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Terms Of Use</a>
@@ -128,31 +128,45 @@
                                 <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Security</a>
                             </li>
                             <li class="pt-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Privacy</a>
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="{% url 'privacy' %}">Privacy</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-lg-2 mb-6 mb-lg-0">
                         <h4 class="font-size-3 font-weight-medium mb-2 mb-xl-5 pb-xl-1">Categories</h4>
                         <ul class="list-unstyled mb-0">
+                            
+                            {% comment %} {% for categorie in categories %}
+                            
+                            {% if forloop.counter > 4 %}
+                                
+                           
+                            {% endif %}
+                                
+                            {% endfor %} {% endcomment %}
                             <li class="pb-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Action</a>
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.0}}">{{categories.0}}</a>
                             </li>
-                            <li class="py-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Comedy</a>
+                            <li class="pb-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.1}}">{{categories.1}}</a>
                             </li>
-                            <li class="py-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Drama</a>
+                            <li class="pb-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.2}}">{{categories.2}}</a>
                             </li>
-                            <li class="py-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Horror</a>
+                            <li class="pb-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.3}}">{{categories.3}}</a>
                             </li>
-                            <li class="py-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Kids</a>
+                            <li class="pb-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.4}}">{{categories.4}}</a>
                             </li>
-                            <li class="pt-2">
-                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="#">Romantic Comedy</a>
+                            <li class="pb-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.5}}">{{categories.5}}</a>
                             </li>
+                            <li class="pb-2">
+                                <a class="widgets-hover transition-3d-hover font-size-2 link-black-100" href="/shop/?category={{categories.6}}">{{categories.6}}</a>
+                            </li>
+                                
+                        
                         </ul>
                     </div>
                 </div>
@@ -162,7 +176,7 @@
             <div class="container">
                 <div class="d-lg-flex text-center text-lg-left justify-content-between align-items-center">
                     <!-- Copyright -->
-                    <p class="mb-3 mb-lg-0 font-size-2">©2020 Book Worm. All rights reserved</p>
+                    <p class="mb-3 mb-lg-0 font-size-2">&copy;2023 Newtonbookshop. All rights reserved</p>
                     <!-- End Copyright -->
 
                     <div class="ml-auto d-lg-flex align-items-center">
@@ -170,7 +184,7 @@
                            <img class="img-fluid" src="{{ASSETS_ROOT}}/static/assets/img/324x38/img1.png" alt="Image-Description">
                         </div>
 
-                        <!-- Select -->
+                        {% comment %} <!-- Select -->
                         <select class="js-select selectpicker dropdown-select mb-3 mb-lg-0"
                             data-style="border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2"
                             data-dropdown-align-right="true">
@@ -179,10 +193,10 @@
                             <option value="three">Français</option>
                             <option value="four">Español</option>
                         </select>
-                        <!-- End Select -->
+                        <!-- End Select --> {% endcomment %}
 
                         <!-- Select -->
-                        <select class="js-select selectpicker dropdown-select ml-md-3"
+                        {% comment %} <select class="js-select selectpicker dropdown-select ml-md-3"
                             data-style="border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2"
                             data-dropdown-align-right="true"
                             data-width="fit">
@@ -190,7 +204,7 @@
                             <option value="two">€ EUR</option>
                             <option value="three">₺ TL</option>
                             <option value="four">₽ RUB</option>
-                        </select>
+                        </select> {% endcomment %}
                     </div>
                 </div>
             </div>
