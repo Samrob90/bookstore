@@ -26,6 +26,12 @@ urlpatterns = [
     path("reviews/<pk>/", views.RatingsView.as_view(), name="allcomment"),
     path("author/<pk>/", views.authorsDetail.as_view(), name="author_single"),
     path("categories/", views.CategoriesView.as_view(), name="categories_list"),
-    path("return-policy", views.returnView.as_view(), name="return_policy"),
-    path("privacy", views.privacyView.as_view(), name="privacy"),
+    path("return-policy/", views.returnView.as_view(), name="return_policy"),
+    path("privacy/", views.privacyView.as_view(), name="privacy"),
+    path(
+        "terms-and-conditons/", views.tems_condition.as_view(), name="terms_condition"
+    ),
+    path(
+        "shipping-delivery", views.shipping_delivery.as_view(), name="shipping_delivery"
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

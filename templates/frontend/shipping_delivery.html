@@ -1,0 +1,155 @@
+{% extends 'frontend/base/base.html' %}
+{% load poll_extras %}
+{% load static %}
+
+{% block title %}
+Newtonbookshop | shipping & Delivery policy
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+
+
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+
+<div class="plaint_tt">
+
+
+
+    <section class="">
+        <h1>SHIPPING & DELIVERY POLICY</h1>
+        <p>This Shipping & Delivery Policy is part of our <a href="{% url 'terms_condition' %}" class="highlight">Terms
+                and Conditions</a> and should be therefore read alongside our main Terms:
+            https://www.Newtonbookshop.com/terms-and-conditons/.
+        </p>
+        <p>Please carefully review our Shipping & Delivery Policy when purchasing our products. This policy will apply
+            to any order you place with us.
+        </p>
+        <h2>WHAT ARE MY SHIPPING & DELIVERY OPTIONS?
+        </h2>
+        <h2>In-Store Pickup
+        </h2>
+        <p>In-store pickup is available for all purchases. Pickups are available Monday - Friday from 9:00 AM - 5:00 PM.
+            An email confirmation will be sent to you when your order is ready for pick up. Kindly come along with your
+            order number to pick up your order.
+        </p>
+        <h2>Shipping Fees
+        </h2>
+        <p>We offer shipping at the following rates:
+        </p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Accra Expedited
+                            2 Business Days
+                        </th>
+                        <th>Tema Expedited
+                            2 Business Days
+                        </th>
+                        <th>
+                            Other Regions Expedited
+                            4 Business Days
+
+                        </th>
+                        <th>
+                            International Expedited
+                            4 Business Days
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>1.5kg</td>
+                        <td>35.00</td>
+                        <td>50.00</td>
+                        <td>60.00</td>
+                        <td>455.00</td>
+                    </tr>
+                    <tr>
+                        <td>2kg+ </td>
+                        <td>35.00</td>
+                        <td>50.00</td>
+                        <td>60.00</td>
+                        <td>655.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p> All times and dates given for delivery of the products are given in good faith but are estimates only.
+            </p>
+            <p>For EU and UK consumers: This does not affect your statutory rights. Unless specifically noted, estimated
+                delivery times reflect the earliest available delivery, and deliveries will be made within 30 days after
+                the day we accept your order. For more information please refer to our Terms.
+            </p>
+            <p>Once your order is package and ready for delivery, we will send you an email with your tracking
+                information. Although we've stated above the number of days for delivery for all the 4 destinations, we
+                assure you that we deliver earlier than that.</p>
+            <h2>DO YOU DELIVER INTERNATIONALLY?</h2>
+            <p>We offer worldwide shipping. Free shipping is not valid on international orders. </p>
+            <p>Please note, we may be subject to various rules and restrictions in relation to some international
+                deliveries and you may be subject to additional taxes and duties over which we have no control. If such
+                cases apply, you are responsible for complying with the laws applicable to the country where you live
+                and will be responsible for any such additional costs or taxes.</p>
+
+            <h2>ARE THERE OTHER SHIPPING RESTRICTIONS?</h2>
+            <p>Orders only ship on business days, which are Monday – Friday • To ensure same-day delivery, order must be
+                placed by 8am GMT</p>
+            <h2>WHAT HAPPENS IF MY ORDER IS DELAYED?</h2>
+            <p>If delivery is delayed for any reason we will let you know as soon as possible and will advise you of a
+                revised estimated date for delivery.</p>
+            <p>For EU and UK consumers: This does not affect your statutory rights. For more information please refer to
+                our <a href="{% url 'terms_condition' %}" class="highlight">Terms
+                    and Conditions</a>.
+
+            </p>
+            <h2>QUESTIONS ABOUT RETURNS?</h2>
+            <p>If you have questions about returns, please review our <a href="{% url 'return_policy' %}">Return
+                    Policy</a></p>
+            <h2>HOW CAN YOU CONTACT US ABOUT THIS POLICY?</h2>
+            <p> If you have any further questions or comments, you may contact us by:</p>
+            <ul class="ulm">
+                <li>Phone (Standard Rates Apply): {{general_settings.default_phone}}</li>
+                <li>Email: {{general_settings.default_email}}</li>
+                <li>online contact form: <a href="{% url 'contact' %}">Contact us</a></li>
+            </ul>
+
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock content %}

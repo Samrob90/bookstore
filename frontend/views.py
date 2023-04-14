@@ -224,7 +224,9 @@ class shopCart(TemplateView):
                 # return cart
                 if request.user.is_authenticated:
                     cart_ = model_to_dict(
-                        models.cart.objects.get(product_id=product_id)
+                        models.cart.objects.get(
+                            product_id=product_id, user=request.user
+                        )
                     )
                 else:
                     cart_ = request.session["cart"][str(product_id)][0]
@@ -325,6 +327,17 @@ class shopCart(TemplateView):
             if "keypress" in request.POST:
                 messages.success(request, "Cart updated successfully !!")
             return JsonResponse({"result": "success"})
+
+        # suscribe to newsletter
+        if self.is_ajax(request) and "newsletter_suscription_email" in request.POST:
+            email = request.POST.get("newsletter_suscription_email")
+            # check is this email is already suscribe to our newsletter
+            existing_email = models.newsletter.objects.filter(email=email)
+            if existing_email.exists():
+                return JsonResponse({"result": "failed"})
+            else:
+                models.newsletter.objects.create(email=email)
+                return JsonResponse({"result": "success"})
 
     # check if request is ajax
     def is_ajax(self, request):
@@ -822,3 +835,11 @@ class returnView(TemplateView):
 
 class privacyView(TemplateView):
     template_name = "frontend/privacy.html"
+
+
+class tems_condition(TemplateView):
+    template_name = "frontend/terms_of_us.html"
+
+
+class shipping_delivery(TemplateView):
+    template_name = "frontend/shipping_delivery.html"

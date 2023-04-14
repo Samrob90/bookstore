@@ -1,6 +1,8 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+
+#  from django.utils import timezone
 from authentications.models import Account
 from django_cleanhtmlfield.fields import HTMLField
 
@@ -97,3 +99,8 @@ class contact_us(models.Model):
 
     def __str(self) -> str:
         return self.name
+
+
+class newsletter(models.Model):
+    email = models.EmailField(default=None)
+    created_at = models.DateTimeField(default=timezone.now)
