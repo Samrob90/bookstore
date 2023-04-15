@@ -7,9 +7,11 @@ from django.db.models import Avg
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
 # import jsonfield
 # from django.utils.translation import gettext_lazy as _
+
 
 # Create your models here.
 class product(models.Model):

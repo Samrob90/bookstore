@@ -1,291 +1,318 @@
   <!--===== HEADER CONTENT =====-->
   <header id="site-header" class="site-header__v1">
-    <div class="topbar border-bottom d-none d-md-block">
-        <div class="container-fluid px-2 px-md-5 px-xl-8d75">
-            <div class="topbar__nav d-md-flex justify-content-between align-items-center">
-                <ul class="topbar__nav--left nav ml-md-n3">
-                    <li class="nav-item"><a href="#" class="nav-link link-black-100"><i class="glph-icon flaticon-question mr-2"></i>Can we help you?</a></li>
-                    <li class="nav-item"><a href="tel:+1246-345-0695" class="nav-link link-black-100"><i class="glph-icon flaticon-phone mr-2"></i>{{general_settings.default_phone}}</a></li>
-                </ul>
-                <ul class="topbar__nav--right nav mr-md-n3">
-                    <li class="nav-item"><a href="#" class="nav-link link-black-100"><i class="glph-icon flaticon-pin"></i></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link link-black-100"><i class="glph-icon flaticon-switch"></i></a></li>
-                    
-                    {% if request.user.email %}
-                    <li class="nav-item"><a href="{% url 'wishlist' %}" class="nav-link link-black-100"><i class="glph-icon flaticon-heart"></i></a></li>
-                    {% else %}
-                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link link-black-100"><i class="glph-icon flaticon-heart"></i></a></li>
-                    {% endif %}
-                        
-                     
-                     {% if request.user.email %}
-                     <li class="nav-item">
-                        <!-- Account Sidebar Toggle Button -->
-                        <a id="sidebarNavToggler" href="{% url 'account' %}" role="button" class="nav-link link-black-100">
-                            <i class="glph-icon flaticon-user"></i>
-                        </a>
-                        <!-- End Account Sidebar Toggle Button -->
-                    </li>
+      <div class="topbar border-bottom d-none d-md-block">
+          <div class="container-fluid px-2 px-md-5 px-xl-8d75">
+              <div class="topbar__nav d-md-flex justify-content-between align-items-center">
+                  <ul class="topbar__nav--left nav ml-md-n3">
+                      <li class="nav-item"><a href="#" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-question mr-2"></i>Can we help you?</a></li>
+                      <li class="nav-item"><a href="tel:+1246-345-0695" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-phone mr-2"></i>{{general_settings.default_phone}}</a></li>
+                  </ul>
+                  <ul class="topbar__nav--right nav mr-md-n3">
+                      <li class="nav-item"><a href="#" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-pin"></i></a></li>
+                      <li class="nav-item"><a href="#" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-switch"></i></a></li>
+
+                      {% if request.user.email %}
+                      <li class="nav-item"><a href="{% url 'wishlist' %}" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-heart"></i></a></li>
+                      {% else %}
+                      <li class="nav-item"><a href="{% url 'login' %}" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-heart"></i></a></li>
+                      {% endif %}
+
+
+                      {% if request.user.email %}
+                      <li class="nav-item">
+                          <!-- Account Sidebar Toggle Button -->
+                          <a id="sidebarNavToggler" href="{% url 'account' %}" role="button"
+                              class="nav-link link-black-100">
+                              <i class="glph-icon flaticon-user"></i>
+                          </a>
+                          <!-- End Account Sidebar Toggle Button -->
+                      </li>
                       {% else %}
                       <li class="nav-item ">
-                        <!-- Account Sidebar Toggle Button -->
-                        <a id="sidebarNavToggler" href="javascript:;" role="button" class="nav-link link-black-100 account_side_bar"
-                            aria-controls="sidebarContent"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            data-unfold-event="click"
-                            data-unfold-hide-on-scroll="false"
-                            data-unfold-target="#sidebarContent"
-                            data-unfold-type="css-animation"
-                            data-unfold-overlay='{
+                          <!-- Account Sidebar Toggle Button -->
+                          <a id="sidebarNavToggler" href="javascript:;" role="button"
+                              class="nav-link link-black-100 account_side_bar" aria-controls="sidebarContent"
+                              aria-haspopup="true" aria-expanded="false" data-unfold-event="click"
+                              data-unfold-hide-on-scroll="false" data-unfold-target="#sidebarContent"
+                              data-unfold-type="css-animation" data-unfold-overlay='{
                                 "className": "u-sidebar-bg-overlay",
                                 "background": "rgba(0, 0, 0, .7)",
                                 "animationSpeed": 500
-                            }'
-                            data-unfold-animation-in="fadeInRight"
-                            data-unfold-animation-out="fadeOutRight"
-                            data-unfold-duration="500">
-                            <i class="glph-icon flaticon-user"></i>
-                        </a>
-                        <!-- End Account Sidebar Toggle Button -->
-                    </li>
-                     {% endif %}
-                        
-                    <li class="nav-item">
-                      
-                        <a id="sidebarNavToggler1" href="javascript:;" role="button" class="nav-link link-black-100 position-relative target-of-invoker-has-unfolds " aria-controls="sidebarContent1" aria-haspopup="true" aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false" data-unfold-target="#sidebarContent1" data-unfold-type="css-animation" data-unfold-overlay="{
+                            }' data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight"
+                              data-unfold-duration="500">
+                              <i class="glph-icon flaticon-user"></i>
+                          </a>
+                          <!-- End Account Sidebar Toggle Button -->
+                      </li>
+                      {% endif %}
+
+                      <li class="nav-item">
+
+                          <a id="sidebarNavToggler1" href="javascript:;" role="button"
+                              class="nav-link link-black-100 position-relative target-of-invoker-has-unfolds "
+                              aria-controls="sidebarContent1" aria-haspopup="true" aria-expanded="false"
+                              data-unfold-event="click" data-unfold-hide-on-scroll="false"
+                              data-unfold-target="#sidebarContent1" data-unfold-type="css-animation"
+                              data-unfold-overlay="{
                             &quot;className&quot;: &quot;u-sidebar-bg-overlay&quot;,
                             &quot;background&quot;: &quot;rgba(0, 0, 0, .7)&quot;,
                             &quot;animationSpeed&quot;: 500
-                        }" data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight" data-unfold-duration="500">
-                        <span class="position-absolute bg-dark width-16 height-16 rounded-circle d-flex align-items-center justify-content-center text-white font-size-n9 right-0 cart-contents-count"> {{cart_total}}   </span>
-                        <i class="glph-icon flaticon-icon-126515"></i>
-                    </a>
-                    
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="masthead border-bottom position-relative" style="margin-bottom: -1px;">
-        <div class="container-fluid px-3 px-md-5 px-xl-8d75 py-2 py-md-0 ">
-            <div class="d-flex align-items-center position-relative flex-wrap">
-                <div class="offcanvas-toggler mr-4 mr-lg-8 headerSvg">
-                    <a id="sidebarNavToggler2" href="javascript:;" role="button" class="cat-menu"
-                    aria-controls="sidebarContent2"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    data-unfold-event="click"
-                    data-unfold-hide-on-scroll="false"
-                    data-unfold-target="#sidebarContent2"
-                    data-unfold-type="css-animation"
-                    data-unfold-overlay='{
+                        }" data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight"
+                              data-unfold-duration="500">
+                              <span
+                                  class="position-absolute bg-dark width-16 height-16 rounded-circle d-flex align-items-center justify-content-center text-white font-size-n9 right-0 cart-contents-count">
+                                  {{cart_total}} </span>
+                              <i class="glph-icon flaticon-icon-126515"></i>
+                          </a>
+
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="masthead border-bottom position-relative" style="margin-bottom: -1px;">
+          <div class="container-fluid px-3 px-md-5 px-xl-8d75 py-2 py-md-0 ">
+              <div class="d-flex align-items-center position-relative flex-wrap">
+                  <div class="offcanvas-toggler mr-4 mr-lg-8 headerSvg">
+                      <a id="sidebarNavToggler2" href="javascript:;" role="button" class="cat-menu"
+                          aria-controls="sidebarContent2" aria-haspopup="true" aria-expanded="false"
+                          data-unfold-event="click" data-unfold-hide-on-scroll="false"
+                          data-unfold-target="#sidebarContent2" data-unfold-type="css-animation" data-unfold-overlay='{
                         "className": "u-sidebar-bg-overlay",
                         "background": "rgba(0, 0, 0, .7)",
                         "animationSpeed": 100
-                    }'
-                    data-unfold-animation-in="fadeInLeft"
-                    data-unfold-animation-out="fadeOutLeft"
-                    data-unfold-duration="100">
-                        <svg width="20px" height="18px">
-                            <path fill-rule="evenodd"  fill="rgb(25, 17, 11)" d="M-0.000,-0.000 L20.000,-0.000 L20.000,2.000 L-0.000,2.000 L-0.000,-0.000 Z"/>
-                            <path fill-rule="evenodd"  fill="rgb(25, 17, 11)" d="M-0.000,8.000 L15.000,8.000 L15.000,10.000 L-0.000,10.000 L-0.000,8.000 Z"/>
-                            <path fill-rule="evenodd"  fill="rgb(25, 17, 11)" d="M-0.000,16.000 L20.000,16.000 L20.000,18.000 L-0.000,18.000 L-0.000,16.000 Z"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="site-branding pr-md-4">
-                    <a href="{% url 'home' %}" class="d-block mb-1">
-                        
-                        <img src="{{ASSETS_ROOT}}/static/assets/img/logo.png" height="40" width="95" alt="logo" style="vertical-align:middle;" class="pt-2" />
-                    </a>
-                </div>
-                <div class="site-navigation mr-auto d-none d-xl-block">
-                    <ul class="nav">
-                        <li class="nav-item dropdown">
-                            <a id="homeDropdownInvoker" href="{% url 'home' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center block {% if request.resolver_match.view_name == 'home' %} active border-bottom border-primary border-width-2 {% endif %} "
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-unfold-event="hover"
-                                data-unfold-target="#homeDropdownMenu"
-                                data-unfold-type="css-animation"
-                                data-unfold-duration="200"
-                                data-unfold-delay="50"
-                                data-unfold-hide-on-scroll="true"
-                                data-unfold-animation-in="slideInUp"
-                                data-unfold-animation-out="fadeOut">
-                                Home
-                            </a>
-                          
-                        </li>
-                        
-                        <li class="nav-item dropdown">
-                            <a id="shopDropdownInvoker" href="{% url 'shop' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'shop' %} active border-bottom border-primary border-width-2 {% endif %}"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-unfold-event="hover"
-                                data-unfold-target="#shopDropdownMenu"
-                                data-unfold-type="css-animation"
-                                data-unfold-duration="200"
-                                data-unfold-delay="50"
-                                data-unfold-hide-on-scroll="true"
-                                data-unfold-animation-in="slideInUp"
-                                data-unfold-animation-out="fadeOut">
-                                Shop
-                            </a>
-                        
-                        </li>
-                        <li class="nav-item">
-                            <a id="featuresDropdownInvoker" href="#" class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center "
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-unfold-event="hover"
-                                data-unfold-target="#featuresDropdownMenu"
-                                data-unfold-type="css-animation"
-                                data-unfold-duration="200"
-                                data-unfold-delay="50"
-                                data-unfold-hide-on-scroll="true"
-                                data-unfold-animation-in="slideInUp"
-                                data-unfold-animation-out="fadeOut">
-                                Categories
-                            </a>
-                            <div id="featuresDropdownMenu" class="p-0 dropdown-unfold dropdown-menu megamenu font-size-2 rounded-0 border-gray-900" aria-labelledby="featuresDropdownInvoker" style="width:1100px;">
-                                <div class="row no-gutters">
-                                    <div class="col-8 px-1">
-                                        <div class="px-5 py-2 pb-5">
-                                            <div class="row">
+                    }' data-unfold-animation-in="fadeInLeft" data-unfold-animation-out="fadeOutLeft"
+                          data-unfold-duration="100">
+                          <svg width="20px" height="18px">
+                              <path fill-rule="evenodd" fill="rgb(25, 17, 11)"
+                                  d="M-0.000,-0.000 L20.000,-0.000 L20.000,2.000 L-0.000,2.000 L-0.000,-0.000 Z" />
+                              <path fill-rule="evenodd" fill="rgb(25, 17, 11)"
+                                  d="M-0.000,8.000 L15.000,8.000 L15.000,10.000 L-0.000,10.000 L-0.000,8.000 Z" />
+                              <path fill-rule="evenodd" fill="rgb(25, 17, 11)"
+                                  d="M-0.000,16.000 L20.000,16.000 L20.000,18.000 L-0.000,18.000 L-0.000,16.000 Z" />
+                          </svg>
+                      </a>
+                  </div>
+                  <div class="site-branding pr-md-4">
+                      <a href="{% url 'home' %}" class="d-block mb-1">
 
-                                                <div class="col-3">
-                                                    <ul class="menu list-unstyled">
-                                                        
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.3}}</span></li>
-                                                        {% for sub in categories.3.subcategory_set.all %}
-                                                        <li><a href="/shop/?category={{categories.3}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
-                                                        {% endfor %}
-                                                            
-                                                    </ul>
-                                                </div>
-                                                
-                                              <div class="col-3">
-                                                    <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.1}}</span></li>
-                                                        {% for sub in categories.1.subcategory_set.all %}
-                                                        <li><a href="/shop/?category={{categories.1}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
-                                                        {% endfor %}
+                          <img src="{{ASSETS_ROOT}}/static/assets/img/logo.png" height="40" width="95" alt="logo"
+                              style="vertical-align:middle;" class="pt-2" />
+                      </a>
+                  </div>
+                  <div class="site-navigation mr-auto d-none d-xl-block">
+                      <ul class="nav">
+                          <li class="nav-item dropdown">
+                              <a id="homeDropdownInvoker" href="{% url 'home' %}"
+                                  class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center block {% if request.resolver_match.view_name == 'home' %} active border-bottom border-primary border-width-2 {% endif %} "
+                                  aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
+                                  data-unfold-target="#homeDropdownMenu" data-unfold-type="css-animation"
+                                  data-unfold-duration="200" data-unfold-delay="50" data-unfold-hide-on-scroll="true"
+                                  data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
+                                  Home
+                              </a>
 
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.0}}</span></li>
-                                                        {% for sub in categories.0.subcategory_set.all %}
-                                                        <li><a href="/shop/?category={{categories.0}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-                                                <div class="col-3">
-                                                    <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.2}}</span></li>
-                                                        {% for sub in categories.2.subcategory_set.all %}
-                                                        <li><a href="/shop/?category={{categories.2}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
-                                                        {% endfor %}
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.5}}</span></li>
-                                                        {% for sub in categories.5.subcategory_set.all %}
-                                                        <li><a href="/shop/?category={{categories.5}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-                                                <div class="col-3">
-                                                    <ul class="menu list-unstyled">
-                                                        <li><span class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.4}}</span></li>
-                                                        {% for sub in categories.4.subcategory_set.all %}
-                                                        <li><a href="/shop/?category={{categories.4}}" class="d-block link-black-100 py-1">{{sub}}</a></li>
-                                                        {% endfor %}
-                                                        <li><a href="{{ASSETS_ROOT}}/static/documentation/index.html" class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a></li>
-                                                        <li><a href="{{ASSETS_ROOT}}/static/starter/index.html" class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a></li>
-                                                    </ul>
-                                                </div>  
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 bg-gray-200">
-                                        <div class="banner px-8 py-5">
-                                            <div class="banner__body">
-                                                <h3 class="banner_text m-0">
-                                                    <span class="d-block mb-1 font-size-7 font-weight-regular">Deals in </span>
-                                                    <span class="d-block mb-2 font-size-10 text-primary font-weight-bold">Books</span>
-                                                </h3>
-                                                <a href="{% url 'shop' %}" class="d-block link-black-100 mb-6">Shop Now</a>
-                                                {% comment %} <div class="banner__image">
-                                                    <img src="https://placehold.it/280x210" class="img-fluid" alt="image-description">
-                                                </div> {% endcomment %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="blogDropdownInvoker" href="{% url 'blog' %}" class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'blog' %} active border-bottom border-primary border-width-2 {% endif %}"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-unfold-event="hover"
-                                data-unfold-target="#blogDropdownMenu"
-                                data-unfold-type="css-animation"
-                                data-unfold-duration="200"
-                                data-unfold-delay="50"
-                                data-unfold-hide-on-scroll="true"
-                                data-unfold-animation-in="slideInUp"
-                                data-unfold-animation-out="fadeOut">
-                                Blog
-                            </a>
-                           
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="pagesDropdownInvoker" href="#" class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'about' %} active border-bottom border-primary border-width-2 {% endif %}"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-unfold-event="hover"
-                                data-unfold-target="#pagesDropdownMenu"
-                                data-unfold-type="css-animation"
-                                data-unfold-duration="200"
-                                data-unfold-delay="50"
-                                data-unfold-hide-on-scroll="true"
-                                data-unfold-animation-in="slideInUp"
-                                data-unfold-animation-out="fadeOut">
-                                Others
-                            </a>
-                            <ul id="pagesDropdownMenu" class="dropdown-unfold dropdown-menu font-size-2 rounded-0 border-gray-900" aria-labelledby="pagesDropdownInvoker">
-                                <li><a href="{% url 'about' %}" class="dropdown-item link-black-100">About Us</a></li>
-                                
-                                <li><a href="{% url 'contact' %}" class="dropdown-item link-black-100">Contact Us</a></li>
-                                <li><a href="{% url 'faq' %}" class="dropdown-item link-black-100">FAQ</a></li>
-                              
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                          </li>
 
-                <ul class="d-md-none nav mr-md-n3 ml-auto">
-                    <li class="nav-item">
-                        <!-- Account Sidebar Toggle Button - Mobile -->
-                        <a id="sidebarNavToggler9" href="{% url 'cart' %}"  class="px-2 nav-link link-black-100"
-                           >
-                            <span class="position-absolute bg-dark width-16 height-16 rounded-circle d-flex align-items-center justify-content-center text-white font-size-n9 right-0 cart-contents-count"> {{cart_total}}   </span>
-                            <i class="glph-icon flaticon-icon-126515"></i>
-                        </a>
-                        <!-- End Account Sidebar Toggle Button - Mobile -->
-                    </li>
-                </ul>
+                          <li class="nav-item dropdown">
+                              <a id="shopDropdownInvoker" href="{% url 'shop' %}"
+                                  class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'shop' %} active border-bottom border-primary border-width-2 {% endif %}"
+                                  aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
+                                  data-unfold-target="#shopDropdownMenu" data-unfold-type="css-animation"
+                                  data-unfold-duration="200" data-unfold-delay="50" data-unfold-hide-on-scroll="true"
+                                  data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
+                                  Shop
+                              </a>
 
-                <div class="site-search ml-xl-0 ml-md-auto w-r-100 my-2 my-xl-0">
-                    <form class="form-inline">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <i class="glph-icon flaticon-loupe input-group-text py-2d75 bg-white-100 border-white-100"></i>
-                            </div>
-                            <input class="form-control bg-white-100 min-width-380 py-2d75 height-4 border-white-100" type="search" placeholder="Search for Books by Title ..." aria-label="Search">
-                        </div>
-                        <button class="btn btn-outline-success my-2 my-sm-0 sr-only" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+                          </li>
+                          <li class="nav-item">
+                              <a id="featuresDropdownInvoker" href="#"
+                                  class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center "
+                                  aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
+                                  data-unfold-target="#featuresDropdownMenu" data-unfold-type="css-animation"
+                                  data-unfold-duration="200" data-unfold-delay="50" data-unfold-hide-on-scroll="true"
+                                  data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
+                                  Categories
+                              </a>
+                              <div id="featuresDropdownMenu"
+                                  class="p-0 dropdown-unfold dropdown-menu megamenu font-size-2 rounded-0 border-gray-900"
+                                  aria-labelledby="featuresDropdownInvoker" style="width:1100px;">
+                                  <div class="row no-gutters">
+                                      <div class="col-8 px-1">
+                                          <div class="px-5 py-2 pb-5">
+                                              <div class="row">
+
+                                                  <div class="col-3">
+                                                      <ul class="menu list-unstyled">
+
+                                                          <li><span
+                                                                  class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.3}}</span>
+                                                          </li>
+                                                          {% for sub in categories.3.subcategory_set.all %}
+                                                          <li><a href="/shop/?category={{categories.3}}"
+                                                                  class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                          {% endfor %}
+
+                                                      </ul>
+                                                  </div>
+
+                                                  <div class="col-3">
+                                                      <ul class="menu list-unstyled">
+                                                          <li><span
+                                                                  class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.1}}</span>
+                                                          </li>
+                                                          {% for sub in categories.1.subcategory_set.all %}
+                                                          <li><a href="/shop/?category={{categories.1}}"
+                                                                  class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                          {% endfor %}
+
+                                                          <li><span
+                                                                  class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.0}}</span>
+                                                          </li>
+                                                          {% for sub in categories.0.subcategory_set.all %}
+                                                          <li><a href="/shop/?category={{categories.0}}"
+                                                                  class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                          {% endfor %}
+                                                      </ul>
+                                                  </div>
+                                                  <div class="col-3">
+                                                      <ul class="menu list-unstyled">
+                                                          <li><span
+                                                                  class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.2}}</span>
+                                                          </li>
+                                                          {% for sub in categories.2.subcategory_set.all %}
+                                                          <li><a href="/shop/?category={{categories.2}}"
+                                                                  class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                          {% endfor %}
+                                                          <li><span
+                                                                  class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.5}}</span>
+                                                          </li>
+                                                          {% for sub in categories.5.subcategory_set.all %}
+                                                          <li><a href="/shop/?category={{categories.5}}"
+                                                                  class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                          {% endfor %}
+                                                      </ul>
+                                                  </div>
+                                                  <div class="col-3">
+                                                      <ul class="menu list-unstyled">
+                                                          <li><span
+                                                                  class=" d-block link-black-100 py-3 font-size-3 font-weight-medium">{{categories.4}}</span>
+                                                          </li>
+                                                          {% for sub in categories.4.subcategory_set.all %}
+                                                          <li><a href="/shop/?category={{categories.4}}"
+                                                                  class="d-block link-black-100 py-1">{{sub}}</a></li>
+                                                          {% endfor %}
+                                                          <li><a href="{{ASSETS_ROOT}}/static/documentation/index.html"
+                                                                  class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a>
+                                                          </li>
+                                                          <li><a href="{{ASSETS_ROOT}}/static/starter/index.html"
+                                                                  class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a>
+                                                          </li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-4 bg-gray-200">
+                                          <div class="banner px-8 py-5">
+                                              <div class="banner__body">
+                                                  <h3 class="banner_text m-0">
+                                                      <span class="d-block mb-1 font-size-7 font-weight-regular">Deals
+                                                          in </span>
+                                                      <span
+                                                          class="d-block mb-2 font-size-10 text-primary font-weight-bold">Books</span>
+                                                  </h3>
+                                                  <a href="{% url 'shop' %}" class="d-block link-black-100 mb-6">Shop
+                                                      Now</a>
+                                                  {% comment %} <div class="banner__image">
+                                                      <img src="https://placehold.it/280x210" class="img-fluid"
+                                                          alt="image-description">
+                                                  </div> {% endcomment %}
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          <li class="nav-item dropdown">
+                              <a id="blogDropdownInvoker" href="{% url 'blog' %}"
+                                  class=" nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'blog' %} active border-bottom border-primary border-width-2 {% endif %}"
+                                  aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
+                                  data-unfold-target="#blogDropdownMenu" data-unfold-type="css-animation"
+                                  data-unfold-duration="200" data-unfold-delay="50" data-unfold-hide-on-scroll="true"
+                                  data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
+                                  Blog
+                              </a>
+
+                          </li>
+                          <li class="nav-item dropdown">
+                              <a id="pagesDropdownInvoker" href="#"
+                                  class="dropdown-toggle nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium d-flex align-items-center {% if request.resolver_match.view_name == 'about' %} active border-bottom border-primary border-width-2 {% endif %}"
+                                  aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
+                                  data-unfold-target="#pagesDropdownMenu" data-unfold-type="css-animation"
+                                  data-unfold-duration="200" data-unfold-delay="50" data-unfold-hide-on-scroll="true"
+                                  data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
+                                  Others
+                              </a>
+                              <ul id="pagesDropdownMenu"
+                                  class="dropdown-unfold dropdown-menu font-size-2 rounded-0 border-gray-900"
+                                  aria-labelledby="pagesDropdownInvoker">
+                                  <li><a href="{% url 'about' %}" class="dropdown-item link-black-100">About Us</a></li>
+
+                                  <li><a href="{% url 'contact' %}" class="dropdown-item link-black-100">Contact Us</a>
+                                  </li>
+                                  <li><a href="{% url 'faq' %}" class="dropdown-item link-black-100">FAQ</a></li>
+
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+
+                  <ul class="d-md-none nav mr-md-n3 ml-auto">
+                      <li class="nav-item">
+                          <!-- Account Sidebar Toggle Button - Mobile -->
+                          <a id="sidebarNavToggler9" href="{% url 'cart' %}" class="px-2 nav-link link-black-100">
+                              <span
+                                  class="position-absolute bg-dark width-16 height-16 rounded-circle d-flex align-items-center justify-content-center text-white font-size-n9 right-0 cart-contents-count">
+                                  {{cart_total}} </span>
+                              <i class="glph-icon flaticon-icon-126515"></i>
+                          </a>
+                          <!-- End Account Sidebar Toggle Button - Mobile -->
+                      </li>
+                  </ul>
+
+                  <div class="site-search ml-xl-0 ml-md-auto w-r-100 my-2 my-xl-0">
+                      <form class="form-inline">
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <i
+                                      class="glph-icon flaticon-loupe input-group-text py-2d75 bg-white-100 border-white-100"></i>
+                              </div>
+                              <input
+                                  class="form-control bg-white-100 min-width-380 py-2d75 height-4 border-white-100 seache_book_by_title"
+                                  type="search" placeholder="Search for Books by Title or author name ..."
+                                  aria-label="Search">
+                          </div>
+                          <button class="btn btn-outline-success my-2 my-sm-0 sr-only" type="submit">Search</button>
+
+                          <!-- book result -->
+                          <div class="seache_book_by_title_result shadow">
+                              <div class="book_result_content">
+                                  <small class="text-muted"> <i>0 result</i></small>
+                              </div>
+                          </div>
+                      </form>
+
+
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>

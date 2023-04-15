@@ -35,7 +35,9 @@ $(document).ready(function () {
         );
 
     });
-
+    // =================================================================================
+    // suscribe to newsleter
+    //================================================================================== 
 
     $(".suscribe_to_news_later").click(function (e) {
         e.preventDefault();
@@ -68,6 +70,43 @@ $(document).ready(function () {
         }
 
     });
+
+    // =================================================================================
+    // seache for book title 
+    //================================================================================== 
+    $(".seache_book_by_title").focus(function (e) {
+        e.preventDefault();
+        $(".seache_book_by_title_result").fadeIn("slow")
+        $(".seache_book_by_title").keypress(function (e) {
+            // e.preventDefault()
+            let input_value = $(this).val()
+            let data = {
+                "seache_from_seache_bar": input_value
+            }
+            $.post("/shopacc/", data,
+                function (data, textStatus, jqXHR) {
+                    if (data.url === null || data.title == null) {
+
+                    } else {
+
+                        $(".book_result_content").empty().html("<a href=' " + data.url + " '> " + data.title + " </a>")
+                    }
+
+                },
+                "json"
+            );
+        });
+    });
+
+    $(".seache_book_by_title").focusout(function (e) {
+        $(".seache_book_by_title_result").fadeOut()
+
+    })
+
+
+
+
+
 
     function validateEmail($email) {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;

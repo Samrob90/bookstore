@@ -42,7 +42,7 @@ active border-bottom border-primary border-width-2
                                     data-scs-animation-delay="300">
                                     <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of
                                         the</span>
-                                    <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                    <span class="hero__title-line-2 font-weight-bold d-block">{{featured_books_of_the_month}}</span>
                                 </h2>
                                 <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn"
                                     data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400">BUY NOW</a>
@@ -66,7 +66,7 @@ active border-bottom border-primary border-width-2
                                     data-scs-animation-delay="300">
                                     <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of
                                         the</span>
-                                    <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                    <span class="hero__title-line-2 font-weight-bold d-block">{{featured_books_of_the_month}}</span>
                                 </h2>
                                 <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn"
                                     data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400">BUY NOW</a>
@@ -90,7 +90,7 @@ active border-bottom border-primary border-width-2
                                     data-scs-animation-delay="300">
                                     <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of
                                         the</span>
-                                    <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                    <span class="hero__title-line-2 font-weight-bold d-block">{{featured_books_of_the_month}}</span>
                                 </h2>
                                 <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn"
                                     data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400">BUY NOW</a>
@@ -114,7 +114,7 @@ active border-bottom border-primary border-width-2
                                     data-scs-animation-delay="300">
                                     <span class="hero__title-line-1 font-weight-regular d-block">Featured Books of
                                         the</span>
-                                    <span class="hero__title-line-2 font-weight-bold d-block">February</span>
+                                    <span class="hero__title-line-2 font-weight-bold d-block">{{featured_books_of_the_month}}</span>
                                 </h2>
                                 <a href="../shop/v1.html" class="btn btn-dark btn-wide rounded-0 hero__btn"
                                     data-scs-animation-in="fadeInLeft" data-scs-animation-delay="400">BUY NOW</a>
@@ -2329,7 +2329,7 @@ active border-bottom border-primary border-width-2
             <li class="author col">
                 <a href="{{author.get_absolute_url}}" class="text-reset ">
                     <img src="{{ASSETS_ROOT}}/media/{{author.thumbnail}}" class="mx-auto mb-5 d-block shadow-sm"
-                        alt="image-description">
+                        alt="image-description" style>
                     <div class="author__body text-center">
                         <h2 class="author__name h6 mb-0">{{author.fullname}}</h2>
                         <div class="text-gray-700 font-size-2">{{author.nobp}} Published Books</div>

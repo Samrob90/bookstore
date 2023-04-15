@@ -18,7 +18,7 @@ from django.db.models import Sum
 import random, string
 from rsc.tools import timer
 from .context import grabe_children
-from django.db.models import F
+from django.db.models import F, Q
 from . import form
 
 
@@ -47,6 +47,8 @@ class HomeVIew(ListView):
         context["selfhelp"] = cpanel_model.book.objects.filter(
             category__contains="SELF-HELP"
         ).order_by("-created_at")[:10]
+        featured_month = datetime.now()
+        context["featured_books_of_the_month"] = featured_month.strftime("%B")
 
         # authors
         context["authors"] = cpanel_model.Authors.objects.all().order_by("-created_at")[
@@ -338,6 +340,19 @@ class shopCart(TemplateView):
             else:
                 models.newsletter.objects.create(email=email)
                 return JsonResponse({"result": "success"})
+
+        # seach from header seache bar
+        if self.is_ajax(request) and "seache_from_seache_bar" in request.POST:
+            seache_value = request.POST.get("seache_from_seache_bar")
+            model_onj = cpanel_model.book.objects.filter(
+                Q(title__contains=str(seache_value)) | Q(author__contains=seache_value)
+            )
+            title = None
+            url = None
+            if model_onj.exists():
+                title = model_onj.first().title
+                url = f"/book/{model_onj.first().slug}/{model_onj.first().product.product_id}/"
+            return JsonResponse({"title": title, "url": str(url)})
 
     # check if request is ajax
     def is_ajax(self, request):
