@@ -1,80 +1,81 @@
 <!-- ========== END FOOTER ========== -->
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/slick-carousel/slick/slick.min.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/multilevel-sliding-mobile-menu/dist/jquery.zeynep.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js" defer></script>
-    
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/slick-carousel/slick/slick.min.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/multilevel-sliding-mobile-menu/dist/jquery.zeynep.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"
+    defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyloadxt/1.1.0/jquery.lazyloadxt.min.js"></script>
 
 
-    <!-- JS HS Components -->
-    {% comment %} <script src="{{ASSETS_ROOT}}/static/assets/js/bookworm.js"></script> {% endcomment %}
 
-    <script src="{{ASSETS_ROOT}}/static/assets/js/hs.core.js"></script>
-    
-    <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.unfold.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.malihu-scrollbar.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.header.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.slick-carousel.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.selectpicker.js"></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.show-animation.js"></script>
+<!-- JS HS Components -->
+{% comment %} <script src="{{ASSETS_ROOT}}/static/assets/js/bookworm.js"></script> {% endcomment %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
-        type="text/javascript" defer></script>
-    <script src="{{ASSETS_ROOT}}/static/assets/js/main.js" defer></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/hs.core.js"></script>
+
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.unfold.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.malihu-scrollbar.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.header.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.slick-carousel.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.selectpicker.js"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/components/hs.show-animation.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" type="text/javascript" defer>
+</script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/main.js" defer></script>
 
 
-    <!-- JS Bookworm -->
-    <script>
-        $(document).on('ready', function () {
-            // initialization of unfold component
-            $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+<!-- JS Bookworm -->
+<script>
+    $(document).on('ready', function () {
+        // initialization of unfold component
+        $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
 
-            // initialization of slick carousel
-            $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+        // initialization of slick carousel
+        $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
 
-            // initialization of header
-            $.HSCore.components.HSHeader.init($('#header'));
+        // initialization of header
+        $.HSCore.components.HSHeader.init($('#header'));
 
-            // initialization of malihu scrollbar
-            $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+        // initialization of malihu scrollbar
+        $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
 
-            // initialization of show animations
-            $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+        // initialization of show animations
+        $.HSCore.components.HSShowAnimation.init('.js-animation-link');
 
-            // init zeynepjs
-            var zeynep = $('.zeynep').zeynep({
-                onClosed: function () {
-                    // enable main wrapper element clicks on any its children element
-                    $("body main").attr("style", "");
+        // init zeynepjs
+        var zeynep = $('.zeynep').zeynep({
+            onClosed: function () {
+                // enable main wrapper element clicks on any its children element
+                $("body main").attr("style", "");
 
-                    console.log('the side menu is closed.');
-                },
-                onOpened: function () {
-                    // disable main wrapper element clicks on any its children element
-                    $("body main").attr("style", "pointer-events: none;");
+                console.log('the side menu is closed.');
+            },
+            onOpened: function () {
+                // disable main wrapper element clicks on any its children element
+                $("body main").attr("style", "pointer-events: none;");
 
-                    console.log('the side menu is opened.');
-                }
-            });
-
-            // handle zeynep overlay click
-            $(".zeynep-overlay").click(function () {
-                zeynep.close();
-            });
-
-            // open side menu if the button is clicked
-            $(".cat-menu").click(function () {
-                if ($("html").hasClass("zeynep-opened")) {
-                    zeynep.close();
-                } else {
-                    zeynep.open();
-                }
-            });
+            }
         });
-    </script>
+
+        // handle zeynep overlay click
+        $(".zeynep-overlay").click(function () {
+            zeynep.close();
+        });
+
+        // open side menu if the button is clicked
+        $(".cat-menu").click(function () {
+            if ($("html").hasClass("zeynep-opened")) {
+                zeynep.close();
+            } else {
+                zeynep.open();
+            }
+        });
+    });
+</script>

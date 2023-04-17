@@ -70,7 +70,6 @@ class authorsDetail(DetailView):
         context["author_books"] = cpanel_model.book.objects.filter(
             author=self.model.fullname
         )
-        print(context)
         return context
 
 
@@ -89,6 +88,7 @@ class ShopView(ListView):
         category = self.request.GET.get("category", None)
         sub = self.request.GET.get("sub", None)
         the_request = self.request.GET
+        q_seache = self.request.GET.get("q", None)
         # should probably find a better way to minimize this code
         if "format" in the_request:
             category = the_request.get("category")
@@ -109,11 +109,14 @@ class ShopView(ListView):
             # then get category from subcatero
             category = sub_obj.category
             # return category related books
-            return cpanel_model.book.objects.filter(category__contains=category[0:10])
+            return cpanel_model.book.objects.filter(category__contains=category[0:30])
         elif category is not None:
-            return cpanel_model.book.objects.filter(category__contains=category)[0:10]
-        elif sortby is not None:
-            pass
+            return cpanel_model.book.objects.filter(category__contains=category)[0:30]
+        elif q_seache is not None:
+            query = q_seache.replace("+", " ")
+            return cpanel_model.book.objects.filter(
+                Q(title__contains=query) | Q(author__contains=query)
+            )[0:30]
         else:
             return super().get_queryset()
 
@@ -189,7 +192,6 @@ class shopCart(TemplateView):
 
     def post(self, request, *args, **kwargs):
         if "bookdetails_page" in request.POST:
-            print(request.POST)
             Qty = request.POST.get("quantity")
             bookid = request.POST.get("book_id")
             book_type_info = request.POST.get("booktype_price").split(" ")
@@ -347,12 +349,13 @@ class shopCart(TemplateView):
             model_onj = cpanel_model.book.objects.filter(
                 Q(title__contains=str(seache_value)) | Q(author__contains=seache_value)
             )
-            title = None
-            url = None
+            data_array = []
             if model_onj.exists():
-                title = model_onj.first().title
-                url = f"/book/{model_onj.first().slug}/{model_onj.first().product.product_id}/"
-            return JsonResponse({"title": title, "url": str(url)})
+                for index, val in enumerate(model_onj):
+                    if index <= 5:
+                        url = f"/book/{val.slug}/{val.product.product_id}/"
+                        data_array.append({"title": val.title, "url": url})
+            return JsonResponse({"data": data_array})
 
     # check if request is ajax
     def is_ajax(self, request):
@@ -406,7 +409,6 @@ class shopCart(TemplateView):
                                 current_dict = int(value["bookquantity"]) + int(
                                     data["bookquantity"]
                                 )
-                                print(current_dict)
 
                                 # del session_product_data[index]
                                 session_product_data.pop(index)

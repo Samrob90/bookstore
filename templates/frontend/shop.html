@@ -749,7 +749,7 @@ aria-labelledby="pills-one-example1-tab">
 class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-xl-5 border-top border-left mb-6">
 
 {% for book in books %}
-<li class="product col">
+<li class="product col seache_found_one_">
     {% if book.onsale_set.all.count > 0 and book.onsale_set.all.0.periode|new_expiration == True %}
 
     <h5 class="onsale"><span
@@ -763,15 +763,15 @@ class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-x
             <div class="woocommerce-loop-product__thumbnail">
                 <a href="{{book.get_absolute_url}}"
                     class="d-block">
-                    <img src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}"
-                        class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid shadow-lg"
-                        alt="image-description" width="120" height="183">
+                    <img src="/static/assets/img/placeholder.gif" data-src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}"
+                        class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid "
+                        alt="{{book.title}}" width="120" height="183">
                 </a>
             </div>
 
 
 
-            <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
+            <div class="woocommerce-loop-product__body product__body pt-3 bg-white product_seach_found_on">
                 <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
                         href="{{book.get_absolute_url}}" id="booktype">{{book.default_type}}</a>
                 </div>
@@ -853,8 +853,8 @@ aria-labelledby="pills-two-example1-tab">
                 class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative img-thumbnail-shop-newtonbookshop">
                 <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
                     <a href="{{book.get_absolute_url}}" class="d-block"><img
-                            src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}"
-                            class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
+                            img="/static/assets/img/placeholder.gif" data-src="{{ASSETS_ROOT}}/media/thumbnail/{{book.thumbnail}}"
+                            class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid "
                             alt="image-description"></a>
                 </div>
                 <div
@@ -952,8 +952,8 @@ aria-hidden="true" style="z-index:1999!important;">
         class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative border-0">
         <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
             <a href="" class="d-block"><img
-                    src=""
-                    class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
+                    img="/static/assets/img/placeholder.gif" data-src=""
+                    class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid lazyloading"
                     alt="image-description" id="product_added_img" style="width:80px!important; height:120px!important;"></a>
         </div>
         <div class="col-md woocommerce-loop-product__body product__body bg-white mb-md-0">

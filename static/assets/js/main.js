@@ -80,17 +80,29 @@ $(document).ready(function () {
         $(".seache_book_by_title").keypress(function (e) {
             // e.preventDefault()
             let input_value = $(this).val()
+            if (e.which == 13) {
+                e.preventDefault()
+                let url = `/shop/?q=${input_value.replace("", "+")}`
+                window.location.href = url
+            }
+            $(".book_result_content").empty()
+
             let data = {
                 "seache_from_seache_bar": input_value
             }
             $.post("/shopacc/", data,
                 function (data, textStatus, jqXHR) {
-                    if (data.url === null || data.title == null) {
 
-                    } else {
 
-                        $(".book_result_content").empty().html("<a href=' " + data.url + " '> " + data.title + " </a>")
+                    for (let index = 0; index < data.data.length; index++) {
+                        let result = data.data[index]
+                        // console.log(result)
+                        $(".book_result_content").append("<small class='seach_result_display'> <a class='text-dark' href=' " + result.url + " '> " + result.title + " </a> </small> <br>")
+                        console.log(index)
+
                     }
+
+                    // }
 
                 },
                 "json"
@@ -104,6 +116,13 @@ $(document).ready(function () {
     })
 
 
+
+    // ====================================================================================
+    // lazy loader
+    // ====================================================================================
+    $('img').lazyLoadXT({
+        /* custom settings */
+    });
 
 
 
