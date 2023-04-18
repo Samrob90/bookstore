@@ -711,7 +711,7 @@ Newtonbookshop | {{book.title}}
                                     class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                     <div class="woocommerce-loop-product__thumbnail img-thumbnail-shop-newtonbookshop">
                                         <a href="{{item.get_absolute_url}}" class="d-block"><img
-                                                src="{{ASSETS_ROOT}}/media/thumbnail/{{item.bookthumbnail}}"
+                                               scr="/static/assets/img/placeholder.gif"  data-src="{{ASSETS_ROOT}}/media/thumbnail/{{item.bookthumbnail}}"
                                                 class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
                                                 alt="image-description"></a>
                                     </div>
@@ -724,7 +724,7 @@ Newtonbookshop | {{book.title}}
                                             <a href="{{item.get_absolute_url}}">{{item.booktitle}}</a>
                                         </h2>
                                         <div class="font-size-2  mb-1 text-truncate"><a
-                                                href="../others/authors-single.html"
+                                                href="#"
                                                 class="text-gray-700">{{item.author}}</a></div>
                                         <div class="price d-flex align-items-center font-weight-medium font-size-3">
                                             <span class="woocommerce-Price-amount amount"><span
@@ -732,7 +732,7 @@ Newtonbookshop | {{book.title}}
                                                 </span>{{item.bookprice}}</span>
                                         </div>
                                     </div>
-                                    <div class="product__hover d-flex align-items-center">
+                                    {% comment %} <div class="product__hover d-flex align-items-center">
                                         <a href="{{item.get_absolute_url}}"
                                             class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
                                             <span class="product__add-to-cart">ADD TO CART</span>
@@ -747,7 +747,7 @@ Newtonbookshop | {{book.title}}
                                             class="h-p-bg btn btn-outline-primary border-0">
                                             <i class="flaticon-heart"></i>
                                         </a>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
                         </div>

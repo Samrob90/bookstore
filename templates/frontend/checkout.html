@@ -66,10 +66,10 @@ Newtonbookshop | Checkout
         <div id="primary" class="content-area">
             <main id="main" class="site-main">
                 <form action="" method="post" id="checkout_form">
-                    <div class="row p-4" style="margin: 0 auto;">
+                    <div class="row p-4 checkout-mobile" style="margin: 0 auto;">
 
                         <!-- first seconde -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 check_out_mobile">
                             <!-- <h4 class="text-left">Checkout</h4> -->
                             {% if request.user.email and addresses.count > 0 %}
                             <div class="card  border-0 fetch_address">
@@ -128,8 +128,11 @@ Newtonbookshop | Checkout
                                         <div class="card-body">
                                             {% include 'frontend/components/address.html' %}
                                             <input type="hidden" name="address_type" id="address_type"
-                                                        value="new_user_address">
-                                        </div>
+                                                        value="user_new_address">
+                                                <p class="col-12 mb-1 form-row form-row-last validate-required validate-email" id="billing_email_field" data-priority="110">
+                            <input type="hidden" class="input-text form-control" name="billing_email" id="billing_email" placeholder="" value="{{request.user.email}}" autocomplete="email">
+        </p> 
+                                            </div>
                                 </div>
                                 </div>
 
@@ -207,7 +210,7 @@ Newtonbookshop | Checkout
 
 
 
-                        <div class="col-lg-6 mt-4">
+                        <div class="col-lg-6 mt-4 check_out_mobile">
                             <div class="card shadow-sm">
                                 <div class="card-header bg-white">
                                     Your order

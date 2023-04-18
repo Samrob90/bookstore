@@ -91,7 +91,7 @@ $(document).ready(function () {
                     window.location.href = "/login"
                 } else {
                     let img = "/media/thumbnail/" + data.data['bookthumbnail']
-                    $(".action_added").html("Added to cart ")
+                    $(".action_added").html("Added to wishlist ")
                     $("#product_added_img").attr("src", img)
                     $("#title").html(data.data['booktitle'])
                     $("#bookprice_").html("<span class='woocommerce-Price-currencySymbol'>GHS </span>" + data.data['bookprice'])

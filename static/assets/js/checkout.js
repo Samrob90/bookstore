@@ -12,7 +12,7 @@ $(document).ready(function () {
     })
     // if user account section is displayed (if user is authenticated)
     if ($(".fetch_address").css("display") == "none") {
-
+        alert("hello world")
         // pass
     } else {
         // get selected user address id if address changed 
@@ -112,7 +112,7 @@ $(document).ready(function () {
         $(".country_error").addClass("d-none") // hide country error 
         const country = $(this).val() // get country value to calculate shipping fee
         const city = $("#billing_city").val() // get city value to calculate shipping fee
-        let shippingFee = 0 // declare empty shipping fee 
+        let shippingFee = 0 // declare empty shipping fee
         // check if country and cirty are not empty 
         if (country !== "") {
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
                         shippingFee = delivery_fee_in_ghana($(this).val())
                         $(".city_error").addClass("d-none")
                         // ?
-                        set_totals(shippingFee)
+                        set_totals(shippingFee, country)
                     });
                 } else {
                     shippingFee = delivery_fee_in_ghana(city)
@@ -170,10 +170,12 @@ $(document).ready(function () {
             const phone_number = $("#billing_phone").val()
             const email = $("#billing_email").val()
 
+
             if (valide_billing_value(first_name, ".first_name_error") === false || valide_billing_value(last_name, ".last_name_error") === false || valide_billing_value(country, ".country_error") === false || valide_billing_value(address1, ".address1_error") === false || valide_billing_value(city, ".city_error") === false || valide_billing_value(region, ".region_error") === false || valide_billing_value(phone_number, ".phone_error") === false) {
                 continue_step_loader("hide")
 
-            } else if ($(".email_field").css("display") !== "none" && valide_billing_value(email, ".email_error") === false) {
+            } else if ($(".email_field").css("display") != "none" && valide_billing_value(email, ".email_error") === false) {
+                alert("email is not none")
                 continue_step_loader("hide")
             } else {
                 proccess()
@@ -246,12 +248,13 @@ $(document).ready(function () {
     }
 
 
-    function set_totals(shippincost) {
+    function set_totals(shippincost, country) {
+        console.log(shippincost)
         let subtotal = $("#subtotal").attr("subtotal")
         let percentage = $(".getdiscount").attr("discount")
         // alert(discount)
         let fees = shippincost
-        if (Number(subtotal) >= 300) {
+        if (Number(subtotal) >= 300 && country === "Ghana") {
             fees = 0
         }
 

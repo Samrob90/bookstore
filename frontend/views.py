@@ -20,6 +20,7 @@ from rsc.tools import timer
 from .context import grabe_children
 from django.db.models import F, Q
 from . import form
+from pandas import to_datetime as pd_datetime
 
 
 class HomeVIew(ListView):
@@ -191,6 +192,7 @@ class shopCart(TemplateView):
         pass
 
     def post(self, request, *args, **kwargs):
+        # single view page add to cart function
         if "bookdetails_page" in request.POST:
             Qty = request.POST.get("quantity")
             bookid = request.POST.get("book_id")
@@ -200,12 +202,13 @@ class shopCart(TemplateView):
             bookpk = request.POST.get("bookpk")
             # product = cpanel_model.product.objects.get(product_id=bookid)
             book = cpanel_model.book.objects.get(pk=bookpk)
+
             cart = {
                 "product_id": bookid,
                 "booktitle": book.title,
                 "bookquantity": Qty,
                 "bookthumbnail": book.thumbnail,
-                "bookprice": float(bookprice),
+                "bookprice": float(self.book_on_discount(book)),
                 "booktype": booktype,
                 "bookauthor": book.author,
                 "bookslug": book.slug,
@@ -357,6 +360,35 @@ class shopCart(TemplateView):
                         data_array.append({"title": val.title, "url": url})
             return JsonResponse({"data": data_array})
 
+    # check if book is onsale or is deal of the week
+    def book_on_discount(self, book):
+        book_on_sale = book.onsale_set.all()
+        book_in_deals_of_week = book.dealofweek_set.all()
+        bookprice = book.default_price
+        print(book_in_deals_of_week)
+        print(book_on_sale)
+        now_datetime = datetime.now(timezone.utc)
+        if book_on_sale.exists():
+            if pd_datetime(book_on_sale.first().periode) > now_datetime:
+                bookprice = int(
+                    float(bookprice)
+                    - (float(bookprice) * int(book_on_sale.first().discount) / 100)
+                )
+                return bookprice
+        elif book_in_deals_of_week.exists():
+            if pd_datetime(book_in_deals_of_week.first().periode) > now_datetime:
+                bookprice = int(
+                    float(bookprice)
+                    - (
+                        float(bookprice)
+                        * int(book_in_deals_of_week.first().discount)
+                        / 100
+                    )
+                )
+                return bookprice
+
+        return bookprice
+
     # check if request is ajax
     def is_ajax(self, request):
         return request.headers.get("x-requested-with") == "XMLHttpRequest"
@@ -451,7 +483,7 @@ class shopCart(TemplateView):
             "booktitle": book.title,
             "bookquantity": 1,
             "bookthumbnail": book.thumbnail,
-            "bookprice": float(book.default_price),
+            "bookprice": float(self.book_on_discount(book)),
             "booktype": book.default_type,
             "bookauthor": book.author,
             "bookslug": book.slug,
@@ -692,7 +724,7 @@ class CheckoutView(TemplateView):
         shipping_cost = 0
         discount = 0
         # get shipping fees
-        if sub_total >= 300:
+        if sub_total >= 300 and country.lower() == "ghana":
             shipping_cost = 0
         else:
             shipping_cost = float(self.shipping_calculator(country, city))

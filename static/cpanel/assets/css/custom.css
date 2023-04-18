@@ -636,6 +636,10 @@ input::-webkit-inner-spin-button {
     display: none;
 }
 
+.book_format_on_change {
+    width: 40% !important;
+}
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;
@@ -654,6 +658,12 @@ input::-webkit-inner-spin-button {
         color: gray;
         font-size: 13px;
     }
+
+    .book_format_on_change {
+        width: 60% !important;
+    }
+
+
 
 }
 

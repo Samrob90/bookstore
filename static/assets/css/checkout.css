@@ -30,9 +30,20 @@
 
 }
 
+@media screen and (max-width: 1200px) {
+    .checkout-mobile {
+        padding: 0px !important;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .proccessing_content {
         padding: 5%;
         margin-top: 30vh;
     }
+
+    .check_out_mobile {
+        padding: 0px !important;
+    }
+
 }

@@ -75,7 +75,6 @@ def save_order(data):
         obj = coupon.objects.filter(code=data["coupon"])
         if obj.exists():
             coupon_obj = obj.first()
-
     if data["address_type"] == "user_select_address":
         address = Addresse.objects.filter(pk=data["addressid"]).first()
     elif data["address_type"] == "user_new_address":
