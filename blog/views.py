@@ -14,7 +14,7 @@ class BlogIndex(ListView):
     template_name = "frontend/blog/index.html"
     model = blog
     context_object_name = "blog"
-    paginate_by = 1
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,7 +41,6 @@ class BlogDetail(TemplateView):
         if form.is_valid():
             email = form.cleaned_data.get("email")
             if self.validateEmail(email):
-
                 fullname = form.cleaned_data.get("fullname")
                 comment = form.cleaned_data.get("comment")
                 blog_ = blog.objects.filter(blogid=kwargs["uuid"]).first()

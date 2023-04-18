@@ -8,7 +8,7 @@ class Comments(forms.Form):
             attrs={
                 "placeholder": "Enter your comment",
                 "class": "form-control rounded-0 px-4",
-                "rows": "8",
+                "rows": "4",
             }
         )
     )
