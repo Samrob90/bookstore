@@ -655,6 +655,10 @@ input::-webkit-inner-spin-button {
     width: 100% !important;
 }
 
+.shop_seache_result {
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;
@@ -713,6 +717,7 @@ input::-webkit-inner-spin-button {
     .blog_details_post {
         margin-top: 20px !important;
     }
+
 }
 
 
@@ -761,5 +766,13 @@ input::-webkit-inner-spin-button {
 
     .blog-index- .blog_time {
         font-size: 13px;
+    }
+
+    .empty_seach_result p {
+        padding: 15px;
+    }
+
+    .shop_seache_result {
+        padding: 15px;
     }
 }

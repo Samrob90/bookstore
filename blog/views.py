@@ -15,14 +15,23 @@ class BlogIndex(ListView):
     model = blog
     context_object_name = "blog"
     paginate_by = 3
+    ordering = ["created_at"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        category = self.request.GET.get("category")
-        if category is not None:
-            context["blog"] = blog.objects.filter(category__contains=str(category))
-
+        context["recent_post"] = blog.objects.all().order_by("-created_at")[:3]
         return context
+
+    def get_queryset(self):
+        query = self.request.GET.get("q", None)
+        categorie = self.request.GET.get("categorie", None)
+
+        if query is not None:
+            return blog.objects.filter(title__contains=query)
+        elif categorie is not None:
+            return blog.objects.filter(category__contains=categorie)
+        else:
+            return super().get_queryset()
 
 
 class BlogDetail(TemplateView):

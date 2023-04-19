@@ -38,7 +38,7 @@ Newtonbookshop | shop
 <div class="site-content" id="content">
 <div class="container">
 <div class="row">
-<div id="primary" class="content-area order-2">
+<div id="primary" class="content-area order-2 {% if books.count  == 0  %} shop_seache_result {% endif %} text-left">
 <div
 class="shop-control-bar d-lg-flex justify-content-between align-items-center mb-5 text-center text-md-left">
 <div class="shop-control-bar__left mb-4 m-lg-0">
@@ -740,9 +740,13 @@ aria-labelledby="sidebarNavToggler4">
 </div>
 </div>
 
+
+{% if books.count > 0 %}
 <!-- Tab Content -->
-<div class="tab-content" id="pills-tabContent">
-<div class="tab-pane fade show active" id="pills-one-example1" role="tabpanel"
+<div class="tab-content " id="pills-tabContent">
+ 
+ 
+ <div class="tab-pane fade show active" id="pills-one-example1" role="tabpanel"
 aria-labelledby="pills-one-example1-tab">
 <!-- Mockup Block -->
 <ul
@@ -900,9 +904,25 @@ aria-labelledby="pills-two-example1-tab">
 </ul>
 <!-- End Mockup Block -->
 </div>
+ 
+    
 </div>
 <!-- End Tab Content -->
+{% else %}
+ <div class="text-center mt-5 empty_seach_result" style="margin:0 auto;">
 
+    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"
+        fill="none" stroke="gray" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+
+    <h4 class="text-muted text-center mt-4"> Sorry we couldn't find any results</h4>
+    <p class="text-muted">Make sure all the words are spelled correctly, try to refine your
+        keywords</p>
+</div>
+ {% endif %}
 
 <nav aria-label="Page navigation example">
 <ul
