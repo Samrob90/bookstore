@@ -603,23 +603,23 @@ input::-webkit-inner-spin-button {
     background-color: #ffffff !important;
 }
 
-.woocommerce-loop-product__thumbnail {
-    /* background-image: url("/static/assets/img/placeholder.gif");
+/* .woocommerce-loop-product__thumbnail { */
+/* background-image: url("/static/assets/img/placeholder.gif");
     background-repeat: no-repeat;
     background-position: center; */
 
-    /* background-color: lightgray; */
-    /* background-size: cover;
+/* background-color: lightgray; */
+/* background-size: cover;
     background-position: center;
     background-color: #ccc; */
-    /* background-color: #ddd;
+/* background-color: #ddd;
     background-image: linear-gradient(45deg, #f9f9f9 25%, transparent 25%, transparent 75%, #f9f9f9 75%, #f9f9f9), linear-gradient(45deg, #f9f9f9 25%, #ccc 25%, #ccc 75%, #f9f9f9 75%, #f9f9f9);
     background-size: 20px 20px;
     background-position: 0 0, 10px 10px; */
-    /* background-color: #f9f9f9;
+/* background-color: #f9f9f9;
     background-image: none;
     position: relative; */
-}
+/* } */
 
 .image-placeholder::before {
     content: "NB";
@@ -659,6 +659,10 @@ input::-webkit-inner-spin-button {
     margin: 0 auto;
 }
 
+.order-mobile-details {
+    display: none;
+}
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;
@@ -672,7 +676,6 @@ input::-webkit-inner-spin-button {
         display: none;
     }
 
-
     .mobile_view_size a {
         color: gray;
         font-size: 13px;
@@ -685,8 +688,6 @@ input::-webkit-inner-spin-button {
     .change_container {
         max-width: 1200px !important;
     }
-
-
 
 }
 
@@ -718,6 +719,22 @@ input::-webkit-inner-spin-button {
         margin-top: 20px !important;
     }
 
+    .account_base_left {
+        display: none;
+    }
+
+    .account_dashboard {
+        padding-bottom: 10px !important;
+    }
+
+    .order-mobile-details {
+        display: block;
+    }
+
+    .order-desktop-view {
+        display: none;
+    }
+
 }
 
 
@@ -733,10 +750,6 @@ input::-webkit-inner-spin-button {
     .showing_page {
         display: none;
     }
-
-
-
-
 
     .bookloader .three,
     .bookloader .four,

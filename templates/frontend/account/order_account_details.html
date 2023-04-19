@@ -99,7 +99,7 @@ newtonbookshop | #{{order.orderid}}
 
 
                         {% for books in order.order_book_set.all %}
-                        <div class="d-flex align-items-center mb-4 shadow-sm">
+                        <div class="d-flex align-items-center mb-4 ">
                             <a href="#">
                                 <img src="{{ASSETS_ROOT}}/media/thumbnail/{{books.bookthumbnail}}"
                                     class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="bookimage"

@@ -9,10 +9,10 @@ newtonbookshop | My orders
 
 {% block account_content %}
 
-<div class="col-md-9">
+<div class="col-md-9"> 
 
     <div class="tab-content" id="pills-tabContent">
-        <div>
+        <div class="order-desktop-view">
             <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-2 mb-lg-4"  style="padding-left:0px!important">
                 <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-lg-8 pb-xl-1">My orders</h6>
                 <table class="table">
@@ -58,6 +58,64 @@ newtonbookshop | My orders
 
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div class="order-mobile-details">
+            <div class="card mb-4 p-0 border-0">
+                <div class="card-header border-0 mb-2">
+                    Your orders
+                    <div class="" style="float:right;">
+                        {% comment %} <button class="btn btn-sm btn-dark">Track order</button> {% endcomment %}
+                    </div>
+                </div>
+                <div class="card-body p-0">
+
+
+                    {% for order in account_orders %}
+
+                    
+                    {% comment %} {% for books in order.order_book_set.all.0 %} {% endcomment %}
+                        
+                    <div class="d-flex align-items-center mb-4 shadow-sm">
+                        {% comment %} <a href="#">
+                            <img src="{{ASSETS_ROOT}}/media/thumbnail/{{order.order_book_set.all.0.bookthumbnail}}"
+                                class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="bookimage"
+                                width="80" height="120">
+                        </a> {% endcomment %}
+                        <div class="ml-3 m-w-200-lg-down p-2">
+                            <a
+                                href="{% url 'account_order_views' order.orderid %}" class="text-dark" style="font-size:13px;"><b>Order Id :</b> #{{order.orderid}}</a>
+                            <a href="{% url 'account_order_views' order.orderid %}"
+                                class="text-gray-700 font-size-2 d-block pt-1 pb-1" tabindex="0"><span class=""><b>Placed on :</b> </span>{{order.created_at}}</a>
+
+                            {% comment %} <a href="{% url 'book-detail' books.bookslug books.product_id  %}"
+                                class="text-gray-700 font-size-2 d-block" tabindex="0">{{books.booktype}}</a> {% endcomment %}
+                            <a href="#" class="text-gray-700 font-size-2 d-block" tabindex="0">
+                                <b>status:</b>
+                                {% if order.status == "pending" %}
+                                <span class="p-1 bg-info text-white rounded" style="font-size:
+                                11px">PENDING CONFIRMATION</span>
+                                {% elif order.status == "confirmed" %}
+                                <span class="p-1 bg-info text-white rounded" style="font-size:
+                                11px">OUT FOR DELIVERY</span>
+                                {% elif order.status == "delivered" %}
+                                <span class="p-1 bg-success text-white rounded" style="font-size:
+                                11px">DELIVERED </span>
+                                {% elif order.status == "canceled" %}
+                                <span class="p-1 bg-danger text-white rounded" style="font-size:
+                                11px">CANCELED</span>
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    {% comment %} {% endfor %} {% endcomment %}
+                        
+                    </td>
+                    {% endfor %}
+
+
+                </div>
             </div>
         </div>
     </div>
