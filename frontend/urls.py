@@ -34,4 +34,9 @@ urlpatterns = [
     path(
         "shipping-delivery", views.shipping_delivery.as_view(), name="shipping_delivery"
     ),
+    path(
+        "complete_payment/<reference>/",
+        views.complete_payment.as_view(),
+        name="verify_transaction",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

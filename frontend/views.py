@@ -21,6 +21,8 @@ from .context import grabe_children
 from django.db.models import F, Q
 from . import form
 from pandas import to_datetime as pd_datetime
+from django.conf import settings
+from rsc.verify_transaction import VerifyTransaction
 
 
 class HomeVIew(ListView):
@@ -603,6 +605,7 @@ class CheckoutView(TemplateView):
                 # get cart sub_toal
                 cart_obj = models.cart.objects.filter(user=request.user)
                 for i in cart_obj:
+                    del i["user"]
                     sub_total += float(i.bookquantity) * float(i.bookprice)
                     items.append(model_to_dict(i))
             else:
@@ -636,7 +639,7 @@ class CheckoutView(TemplateView):
                 if coupon_obj.exists():
                     coupon = coupon_obj.first()
             total = self.get_total(shipping_address, sub_total, coupon)
-            Ordernumner = "".join(random.choices(string.digits, k=10))
+            Ordernumner = generate_unique_number()
 
             # should check this code before production
 
@@ -657,7 +660,18 @@ class CheckoutView(TemplateView):
 
             if payment_method == "pay_with_momo":
                 # make api call here
-                pass
+                # save order details then send User information back to javascripts for pop-up
+                tasks.save_order.delay(data)
+                return_dat = {
+                    "email": email,
+                    "reference": Ordernumner,
+                    "amount": total[0],
+                    "pk": settings.PAYSTACK_PUBLIC_KEY,
+                }
+                # create transaction status
+                return JsonResponse(
+                    {"result": "success", "type": "PO", "obj": return_dat}
+                )
             else:
                 # send data to task to save
                 tasks.save_order.delay(data)
@@ -666,7 +680,9 @@ class CheckoutView(TemplateView):
                     del request.session["cart"]
                     request.session.modified = True
 
-                return JsonResponse({"result": "success", "orderNumber": Ordernumner})
+                return JsonResponse(
+                    {"result": "success", "type": "COD", "orderNumber": Ordernumner}
+                )
 
             # send total and address and payment_method to task
 
@@ -892,3 +908,41 @@ class tems_condition(TemplateView):
 
 class shipping_delivery(TemplateView):
     template_name = "frontend/shipping_delivery.html"
+
+
+class complete_payment(TemplateView):
+    def get(self, request, *args, **kwargs):
+        reference = kwargs["reference"]
+
+        nos = self.request.GET.get("np", None)
+        if nos is not None and nos == "cls":
+            try:
+                order = cpanel_model.order.objects.filter(orderid=reference)
+                cpanel_model.transaction.objects.filter(order=order).update(
+                    status="canceled"
+                )
+            except:
+                pass
+            return redirect("checkout")
+        else:
+            if VerifyTransaction(reference):
+                if request.user.is_authenticated:
+                    models.cart.objects.filter(user=request.user).delete()
+                elif request.session["cart"]:
+                    del request.session["cart"]
+                    request.session.modified = True
+
+                return redirect("ordersuccess", reference)
+
+
+def generate_unique_number():
+    # Get current timestamp in milliseconds
+    current_time = int(time.time() * 1000)
+
+    # Generate a random number between 0 and 9999
+    random_number = random.randint(0, 9999)
+
+    # Combine the current timestamp and random number to create an 8-digit ID
+    unique_id = str(current_time) + str(random_number).zfill(4)
+
+    return unique_id[-10:]

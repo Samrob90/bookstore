@@ -223,6 +223,15 @@ class order(models.Model):
         return reverse("cpanel_order_detials", kwargs={"pk": self.pk})
 
 
+class transaction(models.Model):
+    order = models.ForeignKey(
+        "order", verbose_name="order transaction status", on_delete=models.CASCADE
+    )
+    status = models.CharField(max_length=100, default=None)
+    data = models.TextField(default=None)
+    created_at = models.DateTimeField(default=timezone.now)
+
+
 class order_book(models.Model):
     ordernumber = models.ForeignKey(
         "order", verbose_name="cart", on_delete=models.CASCADE

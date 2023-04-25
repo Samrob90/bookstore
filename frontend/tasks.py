@@ -2,7 +2,7 @@ from celery import shared_task
 
 # from . import models
 from authentications.models import Account
-from cpanel.models import book, order, Addresse, order_book, coupon
+from cpanel.models import book, order, Addresse, order_book, coupon, transaction
 from authentications.models import Account
 
 # from cpanel import models
@@ -95,14 +95,22 @@ def save_order(data):
         discount=data["discount"],
     )
 
+    if data["payment_method"] == "pay_with_momo":
+        transaction.objects.create(order=new_order, status="pending", data="")
+
     for i in data["items"]:
-        del i["user"]
         order_book.objects.create(ordernumber=new_order, **i)
 
-    if user.exists():
-        cart.objects.filter(user=user.first()).delete()
-    else:
-        pass  # delete cookie from brownser
+    if data["payment_method"] != "pay_with_momo":
+        if user.exists():
+            cart.objects.filter(user=user).delete()
+        else:
+            pass
+
+    # if user.exists():
+    #     cart.objects.filter(user=user.first()).delete()
+    # else:
+    #     pass  # delete cookie from brownser
 
     send_mail_after_save(data["email"], data["items"])
     return "done"

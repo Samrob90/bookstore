@@ -188,6 +188,9 @@ RECAPTCHA_PRIVATE_KEY = os.getenv("google_recaptcha_secret_key")
 
 RECAPTCHA_PROXY = {"http": "http://127.0.0.1:8000"}
 
-
 # RECAPTCHA_DOMAIN = "www.recaptcha.net"
 # RECAPTCHA_REQUIRED_SCORE = 0.85
+
+
+# PAYSTACK PUBLIC KEY
+PAYSTACK_PUBLIC_KEY = os.getenv("paystack_publickey_text")

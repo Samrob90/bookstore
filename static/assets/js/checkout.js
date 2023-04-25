@@ -38,7 +38,7 @@ $(document).ready(function () {
             // display error incase it was hidden 
             $(".select_address_error").removeClass("d-none")
             $("body").scrollTop(0); //scroll page back to top 
-            $(".select_address_error").html("Please select address to preceed !")
+            $(".select_address_error").html("Please select address to proceed !")
         } else if (typeof address === "undefined" && $("#billing_country").val() === "") {
             $(".country_error").removeClass("d-none")
             $(".country_error").html("Please select country")
@@ -159,7 +159,7 @@ $(document).ready(function () {
             continue_step_loader("hide")
             $("body").scrollTop(0); //scroll page back to top 
             $(".select_address_error").removeClass("d-none")
-            $(".select_address_error").html("Please select address to preceed !")
+            $(".select_address_error").html("Please select address to proceed !")
         } else if ($(".add_address_section").css("display") !== "none") {
             const first_name = $("#billing_first_name").val()
             const last_name = $("#billing_last_name").val()
@@ -193,14 +193,18 @@ $(document).ready(function () {
         // alert(data)
         $.post(url, data,
             function (data, textStatus, xhr) {
-                if (data.result === "success") {
+                if (data.result === "success" && data.type === "COD") {
                     window.location.replace("/order/success/" + data.orderNumber + "/")
                     continue_step_loader("hide")
+                } else if (data.result === "success" && data.type === "PO") {
+                    continue_step_loader("hide")
+                    payWithPaystack(data.obj)
+
                 }
             },
             "json"
         ).fail(function () {
-            continue_step_loader("hide")
+            // continue_step_loader("hide")
             $(".proccess_error").removeClass("d-none")
             window.scrollTo(0, 0);
             $(".proccess_error").html("<strong> Somthing went wrong !!</strong> Try again in few minutes. If this persist, Please contact support to place your order manually  <strong>info@Newtonbookshop.com</strong>")
@@ -328,6 +332,50 @@ $(document).ready(function () {
     });
 
 
+
+
+
+
+    // ===================================================
+    // checkout
+    // ===================================================
+
+
+    // const paymentForm = document.getElementById('paymentForm');
+
+    // paymentForm.addEventListener("submit", payWithPaystack, false);
+
+    function payWithPaystack(data) {
+        let handler = PaystackPop.setup({
+
+            key: data.pk,
+
+            email: data.email,
+
+            amount: Number(data.amount) * 100,
+
+            ref: data.reference,
+
+            currency: "GHS",
+
+
+            onClose: function () {
+
+                window.location = `/complete_payment/${data.reference}/?np=cls`
+            },
+
+            callback: function (response) {
+                console.log(response)
+                window.location = `/complete_payment/${response.reference}/`
+            }
+
+        });
+
+
+
+        handler.openIframe();
+
+    }
 
 
 });

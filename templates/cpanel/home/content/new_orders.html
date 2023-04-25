@@ -72,7 +72,14 @@
                         {% if order.payment_method == "pay_with_cash_on_delivery" %}
                             <span class="text-light rounded-1 shadow p-2 bg-warning">Cash on delivery</span>
                          {% else %}
-                          <span class="text-success rounded-1 shadow p-2 bg-warning">Paid online</span>
+                          <span class="text-white rounded-1 shadow p-2 bg-success">
+                            {% if order.transaction_set.all.0.status == "success" %}
+                            (MOMO PAY) PAID
+                             {% else %}
+                             (MOMO PAY) {{order.transaction_set.all.0.status}}
+                            {% endif %}
+                                
+                          </span>
                         {% endif %}
                             
                     </span>
@@ -94,7 +101,11 @@
                                 {% csrf_token %}
 
                                 <input type="hidden" name="orderid" value="{{order}}">
-                                <button name="confirm_order" class="dropdown-item bg-white text-success border-0" style="margin-left:10px!important;"> Confirm</button>
+                                <button name="confirm_order" class="dropdown-item bg-white {% if order.transaction_set.all.0.status != 'success' %} text-muted{% else %}text-success  {% endif %} border-0" style="margin-left:10px!important;" 
+                                {% if order.transaction_set.all.0.status != 'success' %}
+                                disabled
+                                {% endif %}
+                                    > Confirm</button>
 
                                 <button name="cancel_order" class="dropdown-item bg-white text-danger border-0" style="margin-left:10px!important;"> Cancel</button>
                             </form> 

@@ -30,6 +30,12 @@
 
 }
 
+
+#app {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+
 @media screen and (max-width: 1200px) {
     .checkout-mobile {
         padding: 0px !important;

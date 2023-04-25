@@ -3,6 +3,7 @@ from . import models
 
 # Register your models here.
 
+
 # register_products
 class product(admin.ModelAdmin):
     model = models.product
@@ -151,6 +152,14 @@ class register_author(admin.ModelAdmin):
 
 
 admin.site.register(models.Authors, register_author)
+
+
+class register_transaction(admin.ModelAdmin):
+    model: models.transaction
+    list_display = ("order", "status", "data", "created_at")
+
+
+admin.site.register(models.transaction, register_transaction)
 
 
 admin.site.register(models.OnSale)
