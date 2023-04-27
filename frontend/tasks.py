@@ -113,7 +113,7 @@ def save_order(data):
         data["address_"] = address
         data_obj = {
             "data": data,
-            "email": "bukarishams90@gmail.com",
+            "email": data["email"],
             "subject": "Invoice for your Newtonbooks order",
             "template_name": "frontend/email/orderEmail.html",
             "send_from": "no-reply@newtonbookshop.com",
@@ -141,31 +141,22 @@ def save_address(data, user_type):
     )
 
 
-# @shared_task
-# def save_order(data):
-#     user = Account.objects.filter(email=data["email"])
-#     address = 0
+def pay_with_momo_email(reference):
+    order_obj = order.objects.filter(orderid=reference).first()
+    data_ = {
+        "orderid": reference,
+        "payment_method": order_obj.payment_method,
+        "shipping_fee": order_obj.shipping_fee,
+        "total": order_obj.total,
+        "items": order_obj.order_book_set.all(),
+        "address_": order_obj.address_set.all(),
+    }
+    obj_data = {
+        "data": data_,
+        "email": order_obj.email,
+        "subject": "Invoice for your Newtonbooks order",
+        "template_name": "frontend/email/orderEmail.html",
+        "send_from": "no-reply@newtonbookshop.com",
+    }
 
-#     if data["address_type"] == "user_select_address":
-#         address = Addresse.objects.filter(pk=data["addressid"]).first()
-#     elif data["address_type"] == "user_new_address":
-#         # creare address
-#         address = save_address(data["address"], "user")
-#     else:
-#         address = save_address(data["address"], "guest")
-
-#     order.objects.create(
-#         orderid=data["orderid"],
-#         email=data["email"],
-#         items=data["items"],
-#         address=address,
-#         payment_method=data["payment_method"],
-#     )
-
-#     if user.exists():
-#         cart.objects.filter(user=user.first()).delete()
-#     else:
-#         pass  # delete cookie from brownser
-
-#     send_mail_after_save(data["email"], data["items"])
-#     return "done"
+    send_mail_after_save(obj_data)

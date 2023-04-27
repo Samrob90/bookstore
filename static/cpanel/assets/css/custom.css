@@ -701,13 +701,13 @@ input::-webkit-inner-spin-button {
 .tracking-result-content li:before {
     content: "";
     height: 100%;
-    width: 2px;
+    width: 5px;
     background-color: #E0E0E0;
     position: absolute;
-    left: -11px;
-    /* adjust the position of the line based on your circle size */
+    left: 11px;
     top: 0;
     z-index: -1;
+    margin-top: 40px;
 }
 
 .tracking-result-content .circle {
@@ -717,10 +717,21 @@ input::-webkit-inner-spin-button {
     background-color: #E0E0E0;
     margin-right: 20px;
     z-index: 1;
+
 }
 
 .tracking-result-content .step-description {
     flex: 1;
+}
+
+.tracking-result-content li:last-child::before {
+    height: 0px !important;
+}
+
+.tracking-result-content .last_step :before {
+    content: unset !important;
+    height: unset !important;
+    width: unset !important;
 }
 
 .tracking-result-content h3 {
@@ -736,6 +747,13 @@ input::-webkit-inner-spin-button {
 
 .tracking-result-content .completed .circle {
     background-color: #1ABC9C;
+    background-image: url("/static/assets/img/checked_steps.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 99;
+    background-size: 20px 20px;
+
+
 }
 
 .tracking-result-content .current .circle {
@@ -745,6 +763,18 @@ input::-webkit-inner-spin-button {
 .tracking-result-content li:last-child:before {
     height: calc(50% + 11px);
     /* adjust the height to center the line at the last item */
+}
+
+.empty-result {
+    margin-top: 10vh;
+    padding: 40px;
+    text-align: center;
+    background-color: #F0F0F0;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 400px;
+    line-height: 100px;
+
 }
 
 

@@ -41,9 +41,11 @@ Newtonbookshop | Track order
     </form>
 </div>
 
-
-<!-- tracking result  -->
-
+{% if reference is not None and tracking is None %}
+<div class="empty-result">
+    <p>Package not found</p>
+</div>
+{% elif reference is not None and tracking is not None %}
 <div class="tracking-result">
     <ul class="tracking-result-content">
         <li class="completed">
@@ -67,7 +69,7 @@ Newtonbookshop | Track order
                 <p>Expected Delivery: April 25, 2023</p>
             </div>
         </li>
-        <li>
+        <li class="last_step">
             <div class="circle"></div>
             <div class="step-description">
                 <h3>Order Delivered</h3>
@@ -77,6 +79,8 @@ Newtonbookshop | Track order
     </ul>
 
 </div>
+{% endif %}
+
 
 
 {% endblock content %}

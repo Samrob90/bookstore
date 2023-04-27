@@ -926,6 +926,8 @@ class complete_payment(TemplateView):
             return redirect("checkout")
         else:
             if VerifyTransaction(reference):
+                # send user verification email
+
                 if request.user.is_authenticated:
                     models.cart.objects.filter(user=request.user).delete()
                 elif request.session["cart"]:
@@ -950,3 +952,19 @@ def generate_unique_number():
 
 class TrackOrder(TemplateView):
     template_name = "frontend/trackorder.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tracking_number = self.request.GET.get("tracking-number", None)
+        if tracking_number is not None:
+            order_obj = cpanel_model.order.objects.filter(orderid=tracking_number)
+            if order_obj.exists():
+                context["order_status"] = order_obj.first().status
+                context["order_created_at"] = order_obj.first().created_at
+            else:
+                context["tracking"] = None
+
+        else:
+            context["loading_page"] = None
+        context["reference"] = tracking_number
+        return context

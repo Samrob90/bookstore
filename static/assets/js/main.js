@@ -131,4 +131,13 @@ $(document).ready(function () {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         return emailReg.test($email);
     }
+
+
+
+    // tracking numbe r
+    const track_pathname = window.location.pathname
+    if (track_pathname === "/track-packages/") {
+        $(".news_letter_content_").addClass("d-none")
+    }
+
 });
