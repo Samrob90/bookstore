@@ -7,7 +7,7 @@ from authentications.models import Account
 
 # from cpanel import models
 from frontend.models import recent_viewied_item, cart
-from rsc.SendMail import sendSelf
+from rsc.SendMail import sendSelf, SendMail
 
 # import random
 # import string
@@ -69,19 +69,24 @@ def save_order(data):
     user = Account.objects.filter(email=data["email"])
     address = None
     coupon_obj = None
+    user_type = ""
 
     # check if coupon is not emtpty
     if data["coupon"] is not None:
         obj = coupon.objects.filter(code=data["coupon"])
         if obj.exists():
             coupon_obj = obj.first()
-    if data["address_type"] == "user_select_address":
-        address = Addresse.objects.filter(pk=data["addressid"]).first()
+    if data["address_type"] == "user_add_new_address":
+        user_type = "user"
     elif data["address_type"] == "user_new_address":
-        # creare address
-        address = save_address(data["address"], "user")
+        user_type = "user"
     else:
-        address = save_address(data["address"], "guest")
+        user_type = "guest"
+
+    if data["address_type"] == "user_select_address" and int(data["addressid"]) > 0:
+        address = Addresse.objects.filter(pk=data["addressid"]).first()
+    else:
+        address = save_address(data["address"], user_type)
 
     new_order = order.objects.create(
         orderid=data["orderid"],
@@ -103,21 +108,22 @@ def save_order(data):
 
     if data["payment_method"] != "pay_with_momo":
         if user.exists():
-            cart.objects.filter(user=user).delete()
-        else:
-            pass
-
-    # if user.exists():
-    #     cart.objects.filter(user=user.first()).delete()
-    # else:
-    #     pass  # delete cookie from brownser
-
-    send_mail_after_save(data["email"], data["items"])
+            cart.objects.filter(user=user.first()).delete()
+        # confirmation order email data
+        data["address_"] = address
+        data_obj = {
+            "data": data,
+            "email": "bukarishams90@gmail.com",
+            "subject": "Invoice for your Newtonbooks order",
+            "template_name": "frontend/email/orderEmail.html",
+            "send_from": "no-reply@newtonbookshop.com",
+        }
+        send_mail_after_save(data=data_obj)
     return "done"
 
 
-def send_mail_after_save(email, items):
-    pass
+def send_mail_after_save(data):
+    SendMail(data=data)
 
 
 def save_address(data, user_type):

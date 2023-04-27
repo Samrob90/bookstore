@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newtonbookshop | Order Receipt</title>
+  <style>
+    /* CSS styles go here */
+    body {
+      background-color: #f7f7f7;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin: 0 auto;
+      max-width: 600px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+
+    }
+
+    .billing_address,
+    .payment-method {
+      border: 1px solid lightgray;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .billing_address span,
+    .payment-method {
+      font-size: 14px !important;
+      font-family: Arial, sans-serif;
+      line-height: 1.3rem;
+    }
+
+    .content {
+
+      padding: 20px
+    }
+
+    h1 {
+      width: 100%;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      text-align: left;
+      background-color: #01036b;
+      color: white;
+      font-size: 19px;
+      padding-left: 10px;
+      padding-right: 10px;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      color: #01036b;
+      font-size: 15px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    th {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+      color: dark;
+    }
+
+    td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 24px;
+      text-align: left;
+      padding: 8px;
+      color: black;
+    }
+
+    .info {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .track-btn {
+      display: inline-block;
+      background-color: black;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    a {
+      color: white !important;
+    }
+
+    /* Responsive design */
+    @media only screen and (max-width: 600px) {
+      .container {
+        max-width: 100%;
+        padding: 10px;
+      }
+
+      table {
+        font-size: 14px;
+      }
+
+      .total {
+        font-size: 20px;
+        padding: 4px;
+      }
+
+      .info {
+        font-size: 14px;
+      }
+
+      .track-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Thank you for your order</h1>
+    <div class="content">
+      <p>Your order has been received and is now being proccessed. Your order details are shown below for your reference
+      </p>
+      <h3>Order #{{data.orderid}} </h3>
+      <table>
+        <tr>
+          <th>Book Title</th>
+          <th>Price</th>
+        </tr>
+
+
+        {% for items in data.items %}
+        <tr>
+          <td>{{items.booktitle}} <br>
+            <small style="padding-top:5px;"><b>{{items.bookauthor}}</b></small><br>
+            <small style="padding-top:5px;">Qty x {{items.bookquantity}}</small>
+          </td>
+
+          <td> <small>GHS </small>{{items.bookprice}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <!-- <p class="total">Total: $34.97</p> -->
+      <h3>Shipping address </h3>
+      <div class="billing_address">
+        <address class="" style="font-size:13px">
+          <span>{{data.address_.first_name}} {{data.address_.last_name}}</span><br>
+          <span>{{data.address_.phonenumber}}</span><br>
+          <span>{{data.address_.address1}}</span><br>
+          <span>{{data.address_.country}} </span>
+        </address>
+      </div>
+
+      <h3>Payment method</h3>
+      <div class="payment-method">
+        {% if data.payment_method == "pay_with_momo" %}
+        <span>Momo-card</span> <br>
+        <span>Shipping fees : GHS {{data.shipping_fee}}</span><br>
+        <span>Total paid : GHS {{data.total}}</span>
+        {% else %}
+        <span>Pay cash on delivery</span><br>
+        <span>Shipping fees : GHS {{data.shipping_fee}}</span><br>
+        <span>Total : GHS {{data.total}}</span>
+        {% endif %}
+      </div>
+      <a href="https://newtonbookshop.com/track-packages/" class="track-btn">Track Order Status</a>
+      <br>
+      <br>
+      Thank you, Newtonbookshop!
+    </div>
+    <div style="padding:20px;font-size:12px;">
+      This email is confidential and may also be privileged. If you are not the intended recipient,
+      please delete and notify us immediately. You should not copy or use it for any purpose nor disclose its contents
+      to any other person.
+      Any views or opinions expressed are solely those of the author and do not necessarily represent those of Melcom
+      Group.
+    </div>
+  </div>
+</body>
+
+</html>

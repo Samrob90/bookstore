@@ -600,14 +600,18 @@ class CheckoutView(TemplateView):
             data = dict()
             address_type = request.POST.get("address_type")
             items = []
+            print(address_type)
 
             if request.user.is_authenticated:
                 # get cart sub_toal
                 cart_obj = models.cart.objects.filter(user=request.user)
                 for i in cart_obj:
-                    del i["user"]
                     sub_total += float(i.bookquantity) * float(i.bookprice)
-                    items.append(model_to_dict(i))
+                    dic_obj = model_to_dict(i)
+                    # print(dic_obj)
+                    del dic_obj["user"]
+                    del dic_obj["id"]
+                    items.append(dic_obj)
             else:
                 list = grabe_children(request.session["cart"])
                 sub_total = list[1]
@@ -615,23 +619,19 @@ class CheckoutView(TemplateView):
                     items.append(i)
 
             # check if addressid is not underfined
-            if addressid is not None and request.user.is_authenticated:
-                email = request.user.email
 
-                shipping_address = cpanel_model.Addresse.objects.filter(
-                    pk=addressid
-                ).first()
+            if addressid is not None and address_type == "user_add_new_address":
+                address = self.get_address(request)
+
+            if addressid is not None and request.user.is_authenticated:
+                address_type = "user_select_address"
             elif addressid is None and request.user.is_authenticated:
-                email = request.user.email
-                shipping_address = self.get_address(request)
-                addressid = 0
                 address_type = "user_new_address"
 
-            else:
-                email = request.POST.get("billing_email")
-                shipping_address = self.get_address(request)
+            email = request.POST.get("billing_email")
+            shipping_address = self.get_address(request)
 
-                # get cart total and cart content from value
+            # get cart total and cart content from value
 
             # check if coupon existe and get coupon code cariblar
             if couponcode != "" or couponcode is not None:
@@ -946,3 +946,7 @@ def generate_unique_number():
     unique_id = str(current_time) + str(random_number).zfill(4)
 
     return unique_id[-10:]
+
+
+class TrackOrder(TemplateView):
+    template_name = "frontend/trackorder.html"

@@ -88,6 +88,7 @@ Newtonbookshop | Checkout
                                 </div>
                                 <div class="card-body p-0" style="background-color:#f5f5f5;">
                                     <div class="select_address_section">
+                                        {{addresses}}
                                         {% for address in addresses %}
 
                                         <div class="p-2 mb-2  shadow-sm bg-white border-1">
@@ -110,7 +111,8 @@ Newtonbookshop | Checkout
                                     <div class="add_address_section d-none">
                                         {% include 'frontend/components/address.html' %}
                                         <input type="hidden" name="address_type" id="address_type"
-                                            value="user_select_address">
+                                            value="user_add_new_address">
+                                        <input type="hidden" class="input-text form-control" name="billing_email" id="billing_email" placeholder="" value="{{request.user.email}}" autocomplete="email">
                                     </div>
                                 </div>
 

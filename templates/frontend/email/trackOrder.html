@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Order Tracking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      /* CSS styles go here */
+      body {
+        background-color: #f7f7f7;
+        font-family: Arial, sans-serif;
+      }
+      
+      .container {
+        margin: 0 auto;
+        max-width: 600px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1f3a93;
+      }
+      
+      form {
+        margin-bottom: 20px;
+      }
+      
+      label {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+      
+      input[type="submit"] {
+        background-color: #1f3a93;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .result {
+        font-size: 18px;
+        color: #333;
+      }
+
+      /* Responsive design */
+      @media only screen and (max-width: 600px) {
+        .container {
+          max-width: 100%;
+          padding: 10px;
+        }
+
+        input[type="text"] {
+          font-size: 16px;
+          padding: 8px;
+        }
+
+        input[type="submit"] {
+          font-size: 16px;
+          padding: 8px;
+        }
+
+        .result {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Order Tracking</h1>
+      <form>
+        <label for="order-number">Enter your order number:</label>
+        <input type="text" id="order-number" name="order-number">
+        <input type="submit" value="Track Order">
+      </form>
+      <div class="result">
+        <p>Your order status is:</p>
+        <p>Shipped on April 25, 2023</p>
+        <p>Expected delivery date: April 30, 2023</p>
+        <p>Tracking number: 1234567890</p>
+      </div>
+    </div>
+  </body>
+</html>

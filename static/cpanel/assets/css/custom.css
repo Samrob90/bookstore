@@ -663,6 +663,94 @@ input::-webkit-inner-spin-button {
     display: none;
 }
 
+
+/* start track order  */
+
+.package-tracking {
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+}
+
+.package-tracking h2 {
+    text-align: center;
+}
+
+
+
+
+.tracking-result {
+    margin: 0px auto;
+    max-width: 300px;
+    text-align: left;
+}
+
+/* order tracking result  */
+.tracking-result-content {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tracking-result-content li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.tracking-result-content li:before {
+    content: "";
+    height: 100%;
+    width: 2px;
+    background-color: #E0E0E0;
+    position: absolute;
+    left: -11px;
+    /* adjust the position of the line based on your circle size */
+    top: 0;
+    z-index: -1;
+}
+
+.tracking-result-content .circle {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #E0E0E0;
+    margin-right: 20px;
+    z-index: 1;
+}
+
+.tracking-result-content .step-description {
+    flex: 1;
+}
+
+.tracking-result-content h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+.tracking-result-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+.tracking-result-content .completed .circle {
+    background-color: #1ABC9C;
+}
+
+.tracking-result-content .current .circle {
+    background-color: #F39C12;
+}
+
+.tracking-result-content li:last-child:before {
+    height: calc(50% + 11px);
+    /* adjust the height to center the line at the last item */
+}
+
+
+/* end order tracking result  */
+/* end track orders */
+
 @media screen and (max-width: 1200px) {
     .headerSvg {
         display: block;

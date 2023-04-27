@@ -1,0 +1,90 @@
+{% extends 'frontend/base/base.html' %}
+
+
+{% block title %}
+Newtonbookshop | Track order
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="package-tracking">
+    <h2>Track Your Package</h2> <br>
+    <form action="" method="get">
+        <div class="form-row justify-content-center">
+
+
+            <div class="col-md-5 mb-3 mb-md-2">
+                <div class="js-form-message">
+
+                    <div class="input-group">
+                        <input type="number" class="form-control px-5 height-60 border-dark" name="tracking-number"
+                            placeholder="Enter order number or tracking number" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 ml-md-2">
+                <button type="submit" class="btn btn-dark rounded-0 btn-wide py-3 font-weight-medium ">Track package
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- tracking result  -->
+
+<div class="tracking-result">
+    <ul class="tracking-result-content">
+        <li class="completed">
+            <div class="circle"></div>
+            <div class="step-description">
+                <h3>Order Placed</h3>
+                <p>April 20, 2023</p>
+            </div>
+        </li>
+        <li class="completed">
+            <div class="circle"></div>
+            <div class="step-description">
+                <h3>Payment Received</h3>
+                <p>April 21, 2023</p>
+            </div>
+        </li>
+        <li class="current">
+            <div class="circle"></div>
+            <div class="step-description">
+                <h3>Order Shipped</h3>
+                <p>Expected Delivery: April 25, 2023</p>
+            </div>
+        </li>
+        <li>
+            <div class="circle"></div>
+            <div class="step-description">
+                <h3>Order Delivered</h3>
+                <p>Not yet delivered</p>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
+    type="text/javascript"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script> {% endcomment %}
+{% endblock javascripts %}

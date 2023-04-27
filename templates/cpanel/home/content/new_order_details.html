@@ -175,7 +175,38 @@
 
                 Client will pay cash on delivery
                 {% else %}
-                PAID ONLINE WITH THIRD PARTY
+                <table class="table table-responsive bg-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">payment status</th>
+                            <th scope="col">Created_at</th>
+                            {% comment %} <th scope="col">Phone Number</th>
+                            <th scope="col">Address1</th>
+                            <th scope="col">Address2</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">State</th>
+                            <th scope="col">city</th> {% endcomment %}
+                            <!-- <th scope="col">user type</th> -->
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{order_detail.transaction_set.all.0.status}}</td>
+                            <td>{{order_detail.transaction_set.all.0.created_at}}</td>
+                            {% comment %} <td>{{order_detail.address.phonenumber}}</td>
+                            <td>{{order_detail.address.address1}}</td>
+                            <td>{{order_detail.address.address2}}</td>
+                            <td>{{order_detail.address.country}}</td>
+                            <td>{{order_detail.address.region_or_state}}</td>
+                            <td>{{order_detail.address.city}}</td> {% endcomment %}
+                            <!-- <td>{{order_detail.address.user_type}}</td> -->
+
+
+                        </tr>
+                    </tbody>
+                </table>
                 {% endif %}
             </div>
         </div>

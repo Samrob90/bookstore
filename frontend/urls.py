@@ -39,4 +39,5 @@ urlpatterns = [
         views.complete_payment.as_view(),
         name="verify_transaction",
     ),
+    path("track-packages/", views.TrackOrder.as_view(), name="trackorder"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
