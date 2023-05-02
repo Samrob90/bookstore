@@ -17,16 +17,43 @@ Newtonbookshop | Track order
 
 
 {% block content %}
+<div class="mt-10">
+
+</div>
 
 <div class="package-tracking">
+
+   
+   {% if messages %}
+   <div class="error-content-tracking"> 
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error !!</h4>
+        
+        {% for message in messages %}
+        <p>{{message}} <a href="{% url 'trackorder' %}"> Try again</a> </p>
+            
+        {% endfor %}
+            
+        <hr>
+        <p class="mb-0">If you have any questions or need assistance, please contact us <b>{{general_settings.default_email}}</b>. </p>
+      </div>
+      <br>      <br>
+      <br>
+      <br>
+
+</div>
+    {% else %}
+
     <h2>Track Your Package</h2> <br>
-    <form action="" method="get">
+    
+    <form action="" method="post">
+        {% csrf_token %}
         <div class="form-row justify-content-center">
-
-
+ 
+ 
             <div class="col-md-5 mb-3 mb-md-2">
                 <div class="js-form-message">
-
+ 
                     <div class="input-group">
                         <input type="number" class="form-control px-5 height-60 border-dark" name="tracking-number"
                             placeholder="Enter order number or tracking number" required>
@@ -39,51 +66,14 @@ Newtonbookshop | Track order
             </div>
         </div>
     </form>
+   {% endif %}
+    
+    
 </div>
-
-{% if reference is not None and tracking is None %}
-<div class="empty-result">
-    <p>Package not found</p>
-</div>
-{% elif reference is not None and tracking is not None %}
-<div class="tracking-result">
-    <ul class="tracking-result-content">
-        <li class="completed">
-            <div class="circle"></div>
-            <div class="step-description">
-                <h3>Order Placed</h3>
-                <p>April 20, 2023</p>
-            </div>
-        </li>
-        <li class="completed">
-            <div class="circle"></div>
-            <div class="step-description">
-                <h3>Payment Received</h3>
-                <p>April 21, 2023</p>
-            </div>
-        </li>
-        <li class="current">
-            <div class="circle"></div>
-            <div class="step-description">
-                <h3>Order Shipped</h3>
-                <p>Expected Delivery: April 25, 2023</p>
-            </div>
-        </li>
-        <li class="last_step">
-            <div class="circle"></div>
-            <div class="step-description">
-                <h3>Order Delivered</h3>
-                <p>Not yet delivered</p>
-            </div>
-        </li>
-    </ul>
-
-</div>
-{% endif %}
-
 
 
 {% endblock content %}
+
 
 
 

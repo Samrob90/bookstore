@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -45,12 +44,46 @@ INSTALLED_APPS = [
     "cpanel",
     "authentications",
     "celery",
-    "account",
+    "user_account",
     "blog",
     "crispy_forms",
     "captcha",
     # "star_ratings",
+    # "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    }
+}
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/GOOGLE_AUTHENTICATION"
+
+# Additional configuration settings
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -194,3 +227,7 @@ RECAPTCHA_PROXY = {"http": "http://127.0.0.1:8000"}
 
 # PAYSTACK PUBLIC KEY
 PAYSTACK_PUBLIC_KEY = os.getenv("paystack_publickey_text")
+
+
+# django all auth
+# loginw ith google

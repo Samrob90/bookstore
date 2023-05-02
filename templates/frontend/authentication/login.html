@@ -1,5 +1,6 @@
 {% extends 'frontend/base/base.html' %}
 
+{% load socialaccount %} 
 
 {% block title %}
 newtonbookshop | login
@@ -65,9 +66,14 @@ newtonbookshop | login
                                     </svg></strong> {{message}}
                             </div>
                             {% else %}
-                            <div class="alert alert-danger">
-                                <strong> <i class="flaticon-error"></i></strong> {{message}}
+
+                            <div class="alert alert-danger mb-2" role="alert">
+                                <h4 class="alert-heading">Error !!</h4>
+                                <p>{{message}}</p>
+                                {% comment %} <hr> {% endcomment %}
+                                {% comment %} <p class="mb-0">If you need any assistance contacts us at {{general_settings.default_email}}</p> {% endcomment %}
                             </div>
+
                             {% endif %}
             
             
@@ -113,7 +119,7 @@ newtonbookshop | login
                             </div>
                             <!-- End Form Group -->
 
-                            <div class="d-flex justify-content-between mb-5 align-items-center">
+                            <div class="d-flex justify-content-between mb-4 align-items-center">
                                 <!-- Checkbox -->
                                 <div class="js-form-message">
                                     <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
@@ -133,28 +139,35 @@ newtonbookshop | login
                                     data-animation-in="fadeIn">Forgot Password?</a>
                             </div>
 
-                            <div class="mb-4d75">
+                            <div class="mb-2d75">
                                 <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Sign In</button>
                             </div>
+                           
 
-                            <div class="mb-2">
+                         <hr class="seperator">
+                            
+                          <div class="mb-2">
+                                <a href="{% provider_login_url 'google'%}?next=/"
+                                    class=" btn btn-block py-3 rounded-0 shadow font-weight-medium border"
+                                     > 
+                                    
+                                     <img src="/static/assets/img/google.png" style="vertical-align:middle;"/>
+                                    <span class=""> &nbsp; Continue with Google</span>
+                                    
+                                    </a>
+
+                                   
+                            </div>
+
+
+                            <div class="mb-2 mt-4">
                                 Don't have an account ?<a href="{% url 'signup' %}"
                                     class=""
                                     data-target="{% url 'signup' %}" data-link-group="idForm" data-animation-in="fadeIn"> Create
                                     Account</a>
                             </div>
-                            {% comment %} <div class="mb-2">
-                                <a href="javascript:;"
-                                    class="js-animation-link btn btn-block py-3 rounded-0 btn-outline-dark font-weight-medium"
-                                    data-target="#signup" data-link-group="idForm" data-animation-in="fadeIn">Create
-                                    Account</a>
-                            </div>
-                            <div class="mb-2">
-                                <a href="javascript:;"
-                                    class="js-animation-link btn btn-block py-3 rounded-0 btn-outline-dark font-weight-medium"
-                                    data-target="#signup" data-link-group="idForm" data-animation-in="fadeIn">Create
-                                    Account</a>
-                            </div> {% endcomment %}
+                            
+                            
                         </div>
                     </div>
 

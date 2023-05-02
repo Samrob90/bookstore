@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
@@ -23,6 +24,7 @@ from . import form
 from pandas import to_datetime as pd_datetime
 from django.conf import settings
 from rsc.verify_transaction import VerifyTransaction
+from allauth import socialaccount
 
 
 class HomeVIew(ListView):
@@ -953,18 +955,80 @@ def generate_unique_number():
 class TrackOrder(TemplateView):
     template_name = "frontend/trackorder.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        tracking_number = self.request.GET.get("tracking-number", None)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     tracking_number = self.request.POST.get("tracking-number", None)
+    #     if tracking_number is not None:
+
+    #     order_obj = cpanel_model.order.objects.filter(orderid=tracking_number)
+    #     if order_obj.exists():
+    #         context["order_status"] = order_obj.first().status
+    #         context["order_created_at"] = order_obj.first().created_at
+    #         context["tracking"] = order_obj.first().status
+    #     else:
+    #         context["tracking"] = None
+
+    # else:
+    #     context["loading_page"] = None
+    # context["reference"] = tracking_number
+    # return context
+
+    def post(self, request, *args, **kwargs):
+        tracking_number = request.POST.get("tracking-number", None)
         if tracking_number is not None:
             order_obj = cpanel_model.order.objects.filter(orderid=tracking_number)
             if order_obj.exists():
-                context["order_status"] = order_obj.first().status
-                context["order_created_at"] = order_obj.first().created_at
+                return redirect("trackorder-details", tracking_number)
             else:
-                context["tracking"] = None
+                messages.error(
+                    request,
+                    f"Sorry !! We did not find any package with order number {tracking_number} in our system. Please check your order number and ",
+                )
+                return redirect("trackorder")
 
-        else:
-            context["loading_page"] = None
-        context["reference"] = tracking_number
+
+class TrackOrderDetails(TemplateView):
+    template_name = "frontend/trackorderdetails.html"
+    model = cpanel_model.order
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["package"] = cpanel_model.order.objects.filter(
+            orderid=self.kwargs["reference"]
+        ).first()
         return context
+
+
+class GOOGLE_AUTHENTICATION(TemplateView):
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if request.user:
+            #  check if user is in social account (if user is authenticated from social account)
+            account_obj = cpanel_model.Account.objects.filter(user=request.user.email)
+            if account_obj.exists:
+                if account_obj.first().email_verify == False:
+                    account_obj.update(email_verify=True)
+
+        return redirect("home")
+
+
+# google account login ovverite if google account email is already in database
+def account_social_sigup(request):
+    messages.error(
+        request,
+        "An account already exists with this e-mail address. Please sign in with that email, or Continue with different Google account.",
+    )
+    return redirect("login")
+
+
+# google callback redirect
+def account_google_callback(request):
+    # state = request.GET.get("state", None)
+    # print(state)
+    # if state is not None:
+    #     return redirect("home")
+    print(request.user.email)
+
+
+# http://127.0.0.1:8000/accounts/social/signup/

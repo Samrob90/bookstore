@@ -675,13 +675,36 @@ input::-webkit-inner-spin-button {
     text-align: center;
 }
 
+.seperator {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #000;
+    /* border: 2px solid gray; */
+
+}
+
+.seperator::before {
+    content: "OR";
+    /* width: 65%; */
+    color: #333;
+    position: absolute;
+    text-align: center;
+    margin-top: -13px;
+    z-index: 99;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 35%;
+
+}
+
 
 
 
 .tracking-result {
-    margin: 0px auto;
     max-width: 300px;
     text-align: left;
+    margin-top: 5vh;
 }
 
 /* order tracking result  */
@@ -769,17 +792,28 @@ input::-webkit-inner-spin-button {
     margin-top: 10vh;
     padding: 40px;
     text-align: center;
-    background-color: #F0F0F0;
     max-width: 900px;
     margin: 0 auto;
-    height: 400px;
-    line-height: 100px;
-
+    margin-bottom: 25vh;
 }
 
 
 /* end order tracking result  */
 /* end track orders */
+.package-tracking .error-content-tracking {
+    width: 60%;
+    margin-top: 10px;
+    margin-bottom: 25vh;
+    margin: 0 auto;
+
+}
+
+.track-details {
+    width: 80%;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 5vh;
+}
 
 @media screen and (max-width: 1200px) {
     .headerSvg {
@@ -807,9 +841,19 @@ input::-webkit-inner-spin-button {
         max-width: 1200px !important;
     }
 
+    .package-tracking .error-content-tracking {
+        width: 80%;
+
+    }
+
+
 }
 
 @media screen and (max-width:800px) {
+    .package-tracking {
+        padding: 15px;
+    }
+
     .cart_pop_up_mobile {
         margin-top: -30vh !important;
     }
@@ -853,10 +897,20 @@ input::-webkit-inner-spin-button {
         display: none;
     }
 
+    .package-tracking .error-content-tracking {
+        width: 90%;
+
+    }
+
+
 }
 
 
 @media screen and (max-width: 600px) {
+    .package-tracking .error-content-tracking {
+        width: 95%;
+
+    }
 
     .django_messages_error {
         width: 90% !important;
@@ -905,5 +959,9 @@ input::-webkit-inner-spin-button {
 
     .shop_seache_result {
         padding: 15px;
+    }
+
+    .track-details {
+        width: 95%;
     }
 }

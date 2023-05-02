@@ -1,0 +1,106 @@
+{% extends 'frontend/base/base.html' %}
+
+
+{% block title %}
+Newtonbookshop | Track order
+{% endblock title %}
+
+
+
+{% block header %}
+{% include 'frontend/components/header.html' %}
+{% endblock header %}
+
+{% block stylesheets %}
+<link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="track-details">
+
+    <div class="card">
+        <div class="d-flex align-items-center mb-4 mobile_view_size p-1">
+            <a href="#">
+                <img src="/media/thumbnail/17a561b6-ad40-4741-aa18-427639f835cbthumbnail.webp"
+                    class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image lazy-hidden" alt="cart-image"
+                    style="height:120px!important; width:80px!important;">
+            </a>
+            <div class="ml-3 m-w-200-lg-down">
+                <a href="/book/think-again-the-power-of-knowing-what-you-dont-know/279ddf3d-bbb9-4494-a367-f1a3ecfdccac/"
+                    class="text-dark">Think Again - The Power of Knowing What You Don't Know</a>
+                <!-- <a href="/book/think-again-the-power-of-knowing-what-you-dont-know/279ddf3d-bbb9-4494-a367-f1a3ecfdccac/"
+                    class="text-gray-700 font-size-2 d-block text-dark pt-1"
+                    tabindex="0">Adam Grant</a> -->
+
+                <a href="/book/think-again-the-power-of-knowing-what-you-dont-know/279ddf3d-bbb9-4494-a367-f1a3ecfdccac/"
+                    class="text-gray-700 font-size-2 d-block text-danger pt-1" tabindex="0">PAPERBACK</a>
+
+
+                <div class="cart-mobile-version">
+                    <span class="woocommerce-Price-amount amount">
+                        Qty X 1&nbsp;</span>
+                </div>
+            </div>
+
+            <!-- add mobile version -->
+
+
+        </div>
+    </div>
+
+    <div class="tracking-result">
+        <ul class="tracking-result-content">
+            <li class="
+            {% if  package.status == 'confirmed' or package.status == 'delivered' %}
+            completed
+            {% elif package.status == 'pending' %}
+            current
+            {% endif %}
+            ">
+                <div class="circle"></div>
+                <div class="step-description">
+                    <h3>Order Placed</h3>
+                    <p>{{package.created_at}}</p>
+                </div>
+            </li>
+            <li class="completed ">
+                <div class="circle"></div>
+                <div class="step-description">
+                    <h3>Payment Received</h3>
+                    <p>April 21, 2023</p>
+                </div>
+            </li>
+            <li class="current">
+                <div class="circle"></div>
+                <div class="step-description">
+                    <h3>Order Shipped</h3>
+                    <p>Expected Delivery: April 25, 2023</p>
+                </div>
+            </li>
+            <li class="last_step">
+                <div class="circle"></div>
+                <div class="step-description">
+                    <h3>Order Delivered</h3>
+                    <p>Not yet delivered</p>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+
+
+
+{% block javascripts %}
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
+    type="text/javascript"></script>
+<script src="{{ASSETS_ROOT}}/static/assets/js/bookdetails.js"></script> {% endcomment %}
+{% endblock javascripts %}

@@ -4,11 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class LoginForm(forms.Form):
-
     email = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Email",
+                "placeholder": "Enter your email",
                 "class": "form-control rounded-0 height-4 px-4",
             }
         )

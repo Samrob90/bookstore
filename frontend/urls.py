@@ -40,4 +40,18 @@ urlpatterns = [
         name="verify_transaction",
     ),
     path("track-packages/", views.TrackOrder.as_view(), name="trackorder"),
+    path(
+        "track-order/<reference>/",
+        views.TrackOrderDetails.as_view(),
+        name="trackorder-details",
+    ),
+    path(
+        "GOOGLE_AUTHENTICATION/",
+        views.GOOGLE_AUTHENTICATION.as_view(),
+        name="GOOGLE_AUTHENTICATION",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# http://127.0.0.1:8000/accounts/social/signup/
+# http://127.0.0.1:8000/accounts/google/login/callback/?state=YTPrnXkj3SkD&code=4%2F0AbUR2VMfsMAri_M08ACLBGfZD8X0VX1_8mj6YcxbfcYhtVspnlqzBzt2wHLukXu76zU0xg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=2&prompt=consent

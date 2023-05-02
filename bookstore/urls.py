@@ -15,13 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from frontend.views import account_social_sigup, account_google_callback
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # path(
+    #     "accounts/google/login/callback/",
+    #     account_google_callback,
+    #     name="google_account_callback_redirect",
+    # ),
     path("", include("frontend.urls")),
+    path(
+        "accounts/social/signup/",
+        account_social_sigup,
+        name="account_signup_redirect",
+    ),
     path("", include("authentications.urls")),
+    path("accounts/", include("allauth.urls")),
     path("cpanel/", include("cpanel.urls")),
-    path("account/", include("account.urls")),
+    path("account/", include("user_account.urls")),
     path("blog/", include("blog.urls")),
     # path("ratings/", include("star_ratings.urls", namespace="ratings")),
 ]

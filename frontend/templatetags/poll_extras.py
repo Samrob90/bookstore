@@ -75,10 +75,6 @@ def substration(val, obj):
 def new_expiration(timestamp):
     now = datetime.now(timezone.utc)
     return pd_datetime(timestamp) > now
-    # return timestamp < now
-    # val = datetime.strptime(str(timestamp)[:10], "%Y-%m-%d %H:%M:%S")
-    # aware = timezone("UTC").localize(datetime.now())
-    # return timestamp < now
 
 
 @register.filter(name="string_to_dic")

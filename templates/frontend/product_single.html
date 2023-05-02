@@ -133,6 +133,11 @@ Newtonbookshop | {{book.title}}
                                     {% if book.onsale_set.all.count > 0 %}
                                     <span class="default_book_price" default_book_type ="{{book.default_type}}" has-discount="true"> {{book.default_price|deal_of_the_weak_percentage:book.onsale_set.all.0.discount}} </span>
                                     <del class="text-danger" style="font-size:14px;">GHS {{book.default_price}} </del>
+                                    {% elif book.dealofweek_set.all.count > 0  and  book.dealofweek_set.all.0.periode|new_expiration %}
+                                     
+                                    <span class="default_book_price" default_book_type ="{{book.default_type}}" has-discount="true"> {{book.default_price|deal_of_the_weak_percentage:book.dealofweek_set.all.0.discount}} </span>
+                                    <del class="text-danger" style="font-size:14px;">GHS {{book.default_price}} </del>
+
                                     {% else %}
                                      <span class="default_book_price" default_book_type ="{{book.default_type}}" has-discount="false"> {{book.default_price}}  </span>
                                     {% endif %}
