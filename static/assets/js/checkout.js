@@ -123,7 +123,7 @@ $(document).ready(function () {
                     // show error 
                     // then when user filled city input get value and process shipping cost 
                     $(".city_error").removeClass("d-none")
-                    $(".city_error").html("This field can't not be empty")
+                    $(".city_error").html("This field can't be empty")
                     $("#billing_city").focusout(function (e) {
                         shippingFee = delivery_fee_in_ghana($(this).val())
                         $(".city_error").addClass("d-none")
