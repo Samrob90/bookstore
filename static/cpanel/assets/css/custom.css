@@ -698,8 +698,17 @@ input::-webkit-inner-spin-button {
 
 }
 
+.account_dashboard_active {}
 
+.account_dashboard_active a span {
+    color: #c00 !important;
+    font-weight: bold;
+}
 
+.account_base_left a span:hover {
+    color: #c00 !important;
+    font-weight: bold;
+}
 
 .tracking-result {
     max-width: 300px;
@@ -850,6 +859,8 @@ input::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width:800px) {
+
+
     .package-tracking {
         padding: 15px;
     }
@@ -897,9 +908,25 @@ input::-webkit-inner-spin-button {
         display: none;
     }
 
+    .ebook_card_back {
+        display: block !important;
+    }
+
+    .d-mobile-d-g {
+        display: none;
+    }
+
     .package-tracking .error-content-tracking {
         width: 90%;
 
+    }
+
+    .wishlist-d-view {
+        display: none;
+    }
+
+    .wishlist-mobile-view {
+        display: block !important;
     }
 
 
@@ -964,4 +991,6 @@ input::-webkit-inner-spin-button {
     .track-details {
         width: 95%;
     }
+
+
 }

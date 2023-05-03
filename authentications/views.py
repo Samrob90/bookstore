@@ -19,9 +19,12 @@ from django.utils import timezone
 from datetime import timedelta
 from frontend import tasks as frontend_tasks
 from django.utils.http import url_has_allowed_host_and_scheme
+from django.contrib.auth.backends import ModelBackend
 
 
 load_dotenv()
+
+
 # Create your views here.
 class LoginView(TemplateView):
     template_name = "frontend/authentication/login.html"
@@ -47,7 +50,11 @@ class LoginView(TemplateView):
                         frontend_tasks.check_recent_view(
                             request.session["recent_view"], user.pk
                         )
-                    login(request, user)
+                    login(
+                        request,
+                        user,
+                        backend="django.contrib.auth.backends.ModelBackend",
+                    )
 
                     return self.redirect_after_login(request)
                 else:
@@ -78,14 +85,16 @@ class SignUpView(TemplateView):
     class_form = forms.RegisterForm()
 
     def get(self, request, *args, **kwargs):
-        print(print(request.GET.get("next")))
         return render(request, self.template_name, {"form": forms.RegisterForm()})
 
     def post(self, request, *args, **kwargs):
         form = forms.RegisterForm(request.POST)
 
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.is_google_auth = False
+            user.email_verify = False
+            user.save()
             email = form.cleaned_data.get("email")
             data = {
                 "last_name": user.last_name,
@@ -102,7 +111,7 @@ class SignUpView(TemplateView):
                 "send_from": os.getenv("SECURITY_EMAIL_SENDER"),
             }
             tasks.registration_verify_email.delay(mail_data)
-            login(request, user)
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             messages.success(
                 request,
                 f"Your account has been successfully created. A confirmation link has been sent to {email}. Please confirm it to complete your registration",
@@ -175,7 +184,6 @@ class VerifyEmailView(TemplateView):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-
         email = request.user.email
         data = {
             "last_name": str(request.user.last_name),
@@ -214,7 +222,6 @@ class ChangeEmail(TemplateView):
             if models.Account.objects.filter(email=email).exists():
                 messages.error(request, "This this email address is aready taken ")
             else:
-
                 user = models.Account.objects.filter(email=request.user.email).update(
                     email=email
                 )

@@ -1,4 +1,6 @@
 {% extends 'frontend/base/base.html' %}
+{% load socialaccount %} 
+
 
 
 {% block title %}
@@ -126,7 +128,23 @@ newtonbookshop | signup
                                 <button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create Account</button>
                             </div>
 
-                            <div class="mb-2">
+
+                            <hr class="seperator">
+                            
+                          <div class="mb-2">
+                                <a href="{% provider_login_url 'google' %}?next=/"
+                                    class=" btn btn-block py-3 rounded-0 shadow font-weight-medium border"
+                                     > 
+                                    
+                                     <img src="/static/assets/img/google.png" style="vertical-align:middle;"/>
+                                    <span class=""> &nbsp; Continue with Google</span>
+                                    
+                                    </a>
+
+                                   
+                            </div>
+
+                            <div class="mb-2 mt-5">
                                 Already have an account ? <a href="{% url 'login' %}"
                                     class=""
                                     data-target="#signup" data-link-group="idForm" data-animation-in="fadeIn">Login</a>

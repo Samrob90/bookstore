@@ -203,11 +203,12 @@ Newtonbookshop | FAQ
 
 
                     {% for mobile_view in cart %}
+                    {% comment %} <hr> {% endcomment %}
 
                     <div class="d-flex align-items-center mb-4 mobile_view_size">
                         <a href="#">
                             <img src="{{ASSETS_ROOT}}/media/thumbnail/{{mobile_view.bookthumbnail}}"
-                                class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="cart-image"
+                                class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image shadow" alt="cart-image"
                                 style="height:120px!important; width:80px!important;">
                         </a>
                         <div class="ml-3 m-w-200-lg-down">
@@ -229,11 +230,13 @@ Newtonbookshop | FAQ
                                     </span>{{mobile_view.bookprice}}</span>
                             </div>
                         </div>
+                        
 
                         <!-- add mobile version -->
 
 
                     </div>
+                    <hr>
                     {% endfor %}
 
                 </div>

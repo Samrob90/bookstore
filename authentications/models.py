@@ -42,7 +42,6 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
-
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = models.CharField(max_length=60, null=True, blank=True)
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
@@ -50,11 +49,14 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_google_auth = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     first_name = models.CharField(max_length=60, null=True, blank=True)
     last_name = models.CharField(max_length=60, null=True, blank=True)
     phone_number = models.CharField(max_length=9, null=True, blank=True)
-    email_verify = models.BooleanField(default=False)
+    email_verify = models.BooleanField(
+        default=True
+    )  # sfor google authentication fro verify google account no need to verify account again (set this field to false when signing up with django ModalBackend to verify user )
     is_number_verify = models.BooleanField(default=False, null=True, blank=True)
     last_updated = models.DateTimeField(default=timezone.now)
 

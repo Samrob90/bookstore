@@ -42,6 +42,17 @@
     }
 }
 
+
+@media screen and (max-width: 750px) {
+    #coupon_code1 {
+        width: 95% !important;
+    }
+
+    #apply_coupon {
+        margin-left: 31px !important;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .proccessing_content {
         padding: 5%;
@@ -51,5 +62,6 @@
     .check_out_mobile {
         padding: 0px !important;
     }
+
 
 }

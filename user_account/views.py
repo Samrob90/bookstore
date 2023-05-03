@@ -1,3 +1,6 @@
+from typing import Any
+from django import http
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
@@ -11,12 +14,20 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
 
-# Create your views here.
-class AccountHomeView(TemplateView):
+# redirect user if email is not verify
+class RedirectIfemailNotVerify:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and not request.user.email_verify:
+            return redirect("verify_email")
+        else:
+            return super().dispatch(request, *args, **kwargs)
+
+
+class AccountHomeView(RedirectIfemailNotVerify, TemplateView):
     template_name: str = "frontend/account/dashboard.html"
 
 
-class OrderView(ListView):
+class OrderView(RedirectIfemailNotVerify, ListView):
     model = order
     template_name: str = "frontend/account/orders.html"
     context_object_name = "account_orders"
@@ -30,7 +41,7 @@ class OrderView(ListView):
         )[0:20]
 
 
-class order_account_details(TemplateView):
+class order_account_details(RedirectIfemailNotVerify, TemplateView):
     template_name = "frontend/account/order_account_details.html"
 
     def get_context_data(self, **kwargs):
@@ -43,11 +54,11 @@ class order_account_details(TemplateView):
     #     # return order.objects.filter(orderid=kwargs["orderid"])
 
 
-class DownloadsView(TemplateView):
+class DownloadsView(RedirectIfemailNotVerify, TemplateView):
     template_name: str = "frontend/account/downloads.html"
 
 
-class AddressesView(ListView):
+class AddressesView(RedirectIfemailNotVerify, ListView):
     model = Addresse
     template_name: str = "frontend/account/addresses.html"
     context_object_name = "address"
@@ -75,7 +86,7 @@ class AddressesView(ListView):
             return redirect("addresses")
 
 
-class AccountDetails(TemplateView):
+class AccountDetails(RedirectIfemailNotVerify, TemplateView):
     template_name: str = "frontend/account/account-detailes.html"
 
     def post(self, request, *args, **kwargs):
@@ -134,11 +145,16 @@ class AccountDetails(TemplateView):
             return redirect("profile")
 
 
-class WishlistView(ListView):
+class WishlistView(RedirectIfemailNotVerify, ListView):
     model = frontend_wishlist
     ordering = ["-created_at"]
     template_name: str = "frontend/account/wishlist.html"
     context_object_name = "wishlist"
+
+    def get_queryset(self):
+        return frontend_wishlist.objects.filter(user=self.request.user).order_by(
+            "-created_at"
+        )
 
     def post(self, request, *args, **kwargs):
         if "user_account_add_to_cart" in request.POST:

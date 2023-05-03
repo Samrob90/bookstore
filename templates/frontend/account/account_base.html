@@ -20,6 +20,12 @@
 {% block stylesheets %}
 <link type="text/css" href="{{ ASSETS_ROOT }}/static/cpanel/assets/css/custom.css" rel="stylesheet">
 
+
+{% comment %} {% if not request.user.email_verify %}
+<meta http-equiv="refresh" content="0; URL={% url 'verify_email' %}" />
+{% endif %} {% endcomment %}
+    
+
 {% endblock stylesheets %}
 
 
@@ -46,61 +52,73 @@
                     </div>
                     <div class="card-body user_account_base">
                         <ul class="my__account-nav nav flex-column mb-0 " role="tablist" id="pills-tab">
-                            <li class="nav-item mx-0">
+                            <li class="nav-item mx-0 {% if request.resolver_match.view_name == 'account' %} account_dashboard_active {% endif %}">
                                 <a class="nav-link d-flex align-items-center px-0 active" href="{% url 'account' %}">
-                                    <span class="font-weight-normal text-gray-600"><img
+                                    <span class="font-weight-normal text-gray-600">
+                                        {% comment %} <img
                                             src="{{ASSETS_ROOT}}/static/assets/img/account/dashboard.png"
-                                            alt="dashboard" style="vertical-align:middle;"> Dashboard</span>
+                                            alt="dashboard" style="vertical-align:middle;">  {% endcomment %}
+                                            Dashboard</span>
                                 </a>
                             </li>
                             <hr style="width:95%" />
 
-                            <li class="nav-item mx-0">
-                                <a class="nav-link d-flex align-items-center px-0" id="pills-two-example1-tab"
+                            <li class="nav-item mx-0  {% if request.resolver_match.view_name == 'orders' %} account_dashboard_active {% endif %}">
+                                <a class="nav-link d-flex align-items-center px-0 " id="pills-two-example1-tab"
                                     href="{% url 'orders' %}">
-                                    <span class="font-weight-normal text-gray-600"><img
+                                    <span class="font-weight-normal text-gray-600">
+                                        {% comment %} <img
                                             src="{{ASSETS_ROOT}}/static/assets/img/account/shopping-bag.png"
-                                            alt="orders" style="vertical-align:middle;"> Orders</span>
+                                            alt="orders" style="vertical-align:middle;"> {% endcomment %}
+                                             Orders</span>
                                 </a>
                             </li>
                             <hr style="width:95%" />
 
-                            <li class="nav-item mx-0">
+                            <li class="nav-item mx-0 {% if request.resolver_match.view_name == 'downloads' %} account_dashboard_active {% endif %}">
                                 <a class="nav-link d-flex align-items-center px-0" id="pills-three-example1-tab"
                                     href="{% url 'downloads' %}">
-                                    <span class="font-weight-normal text-gray-600"><img
+                                    <span class="font-weight-normal text-gray-600">
+                                        {% comment %} <img
                                             src="{{ASSETS_ROOT}}/static/assets/img/account/cloud-computing.png"
-                                            alt="downloads" style="vertical-align:middle;"> Downloads</span>
+                                            alt="downloads" style="vertical-align:middle;"> {% endcomment %}
+                                             Downloads</span>
                                 </a>
                             </li>
                             <hr style="width:95%" />
 
-                            <li class="nav-item mx-0">
+                            <li class="nav-item mx-0 {% if request.resolver_match.view_name == 'addresses' %} account_dashboard_active {% endif %}">
                                 <a class="nav-link d-flex align-items-center px-0" id="pills-four-example1-tab"
                                     href="{% url 'addresses' %}">
-                                    <span class="font-weight-normal text-gray-600"><img
+                                    <span class="font-weight-normal text-gray-600">
+                                        {% comment %} <img
                                             src="{{ASSETS_ROOT}}/static/assets/img/account/phone-book.png"
-                                            alt="phone-book" style="vertical-align:middle;"> Addresses</span>
+                                            alt="phone-book" style="vertical-align:middle;"> {% endcomment %}
+                                             Addresses</span>
                                 </a>
                             </li>
                             <hr style="width:95%" />
 
-                            <li class="nav-item mx-0">
+                            <li class="nav-item mx-0 {% if request.resolver_match.view_name == 'profile' %} account_dashboard_active {% endif %}">
                                 <a class="nav-link d-flex align-items-center px-0" id="pills-five-example1-tab"
                                     href="{% url 'profile' %}">
-                                    <span class="font-weight-normal text-gray-600"><img
+                                    <span class="font-weight-normal text-gray-600">
+                                        {% comment %} <img
                                             src="{{ASSETS_ROOT}}/static/assets/img/account/user.png" alt="user"
-                                            style="vertical-align:middle;"> Account details</span>
+                                            style="vertical-align:middle;">  {% endcomment %}
+                                            Account details</span>
                                 </a>
                             </li>
                             <hr style="width:95%" />
 
-                            <li class="nav-item mx-0">
+                            <li class="nav-item mx-0 {% if request.resolver_match.view_name == 'wishlist' %} account_dashboard_active {% endif %}">
                                 <a class="nav-link d-flex align-items-center px-0" id="pills-six-example1-tab"
                                     href="{% url 'wishlist' %}">
-                                    <span class="font-weight-normal text-gray-600"><img
+                                    <span class="font-weight-normal text-gray-600">
+                                        {% comment %} <img
                                             src="{{ASSETS_ROOT}}/static/assets/img/account/wishlist.png" alt="wishlist"
-                                            style="vertical-align:middle;"> Wishlist</span>
+                                            style="vertical-align:middle;">  {% endcomment %}
+                                            Wishlist</span>
                                 </a>
                             </li>
                             <hr style="width:95%" />

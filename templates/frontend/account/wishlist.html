@@ -13,7 +13,18 @@ newtonbookshop | Wishlist
         <div>
 
             {% if wishlist.count > 0  %}
-            <div class="pt-5 pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-3 " style="padding-left:0px!important">
+            <div class=" pl-md-5 pt-lg-8 pl-lg-9 space-bottom-lg-3 " style="padding-left:0px!important">
+                <div class="card-header border-0 mb-5  mt-2 d-none ebook_card_back">
+                    <a href="{% url 'account' %}" class="back-btn mr-2">
+                        <i class="fas fa-arrow-left text-dark"></i>
+                        {% comment %} <span>Back</span> {% endcomment %}
+                      </a>
+                      
+                   <span> Wishlist</span>
+                    <div class="" style="float:right;">
+                        {% comment %} <button class="btn btn-sm btn-dark">Track order</button> {% endcomment %}
+                    </div>
+                </div>
                 {% if messages %}
 
                 {% for message in messages %}
@@ -44,67 +55,134 @@ newtonbookshop | Wishlist
                 {% endfor %}
 
                 {% endif %}
-                <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-lg-8 pb-xl-1">Wishlist</h6>
-                <table class="table mb-0">
-                    <thead>
-                        <tr class="border">
-                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium pl-3 pl-md-5">Prouct</th>
-                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Price</th>
-                            {% comment %} <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Stock Status
-                            </th> {% endcomment %}
-                            <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        {% for item in wishlist %}
-
-                        <tr class="border">
-                            <th class="pl-3 pl-md-5 font-weight-normal align-middle py-3">
-                                <div class="d-flex align-items-center">
-                                    <a class="d-block" href="{% url 'book-detail' item.bookslug item.product_id  %}">
-                                        <img class="img-fluid"
-                                            src="{{ASSETS_ROOT}}/media/thumbnail/{{item.bookthumbnail}}"
-                                            alt="Image-Description" style="height:100px;width:70px;">
-                                    </a>
-                                    <div class="ml-xl-4">
-                                        <div class="font-weight-normal">
-                                            <a href="{% url 'book-detail' item.bookslug item.product_id  %}"
-                                                style="font-size:14px;">{{item.booktitle|slice:"50"}}</a>
+                <h6 class="font-weight-medium font-size-7 ml-lg-1 mb-lg-8 pb-xl-1 d-mobile-d-g">Wishlist</h6>
+               
+                <div class="table-responsive wishlist-d-view">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr class="border">
+                                <th scope="col" class="py-3 border-bottom-0 font-weight-medium pl-3 pl-md-5">Prouct</th>
+                                <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Price</th>
+                                {% comment %} <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Stock Status
+                                </th> {% endcomment %}
+                                <th scope="col" class="py-3 border-bottom-0 font-weight-medium">Actions</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody>
+    
+                            {% for item in wishlist %}
+    
+                            <tr class="border">
+                                <th class="pl-3 pl-md-5 font-weight-normal align-middle py-3">
+                                    <div class="d-flex align-items-center">
+                                        <a class="d-block" href="{% url 'book-detail' item.bookslug item.product_id  %}">
+                                            <img class="img-fluid"
+                                                src="{{ASSETS_ROOT}}/media/thumbnail/{{item.bookthumbnail}}"
+                                                alt="Image-Description" style="height:100px;width:70px;">
+                                        </a>
+                                        <div class="ml-xl-4">
+                                            <div class="font-weight-normal">
+                                                <a href="{% url 'book-detail' item.bookslug item.product_id  %}"
+                                                    style="font-size:14px;">{{item.booktitle|slice:"50"}}</a>
+                                            </div>
+                                            <div class="font-size-2"><a
+                                                    href="{% url 'book-detail' item.bookslug item.product_id %}"
+                                                    class="text-gray-700" tabindex="0">{{item.bookauthor}}</a></div>
+                                            <div class="font-size-2"><a
+                                                    href="{% url 'book-detail' item.bookslug item.product_id %}"
+                                                    class="text-gray-700" tabindex="0">{{item.booktype}}</a></div>
                                         </div>
-                                        <div class="font-size-2"><a
-                                                href="{% url 'book-detail' item.bookslug item.product_id %}"
-                                                class="text-gray-700" tabindex="0">{{item.bookauthor}}</a></div>
-                                        <div class="font-size-2"><a
-                                                href="{% url 'book-detail' item.bookslug item.product_id %}"
-                                                class="text-gray-700" tabindex="0">{{item.booktype}}</a></div>
                                     </div>
-                                </div>
-                            </th>
-                            <td class="align-middle py-5">GHS {{item.bookprice}}</td>
-                            {% comment %} <td class="align-middle py-5">In Stock</td> {% endcomment %}
-                            <td class="align-middle py-5">
-                                <form action="" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="wishlistpk" value="{{item.pk}}">
-                                    <button type="submit"
-                                        class="btn btn-sm btn-dark rounded-0 btn-wide font-weight-medium text-center"
-                                        name="user_account_add_to_cart">ADD TO CART</button>
-                                    <!-- <span class=""
-                                        style="cursor:pointer">ADD TO CART</span> -->
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                                </th>
+                                <td class="align-middle py-5">GHS {{item.bookprice}}</td>
+                                {% comment %} <td class="align-middle py-5">In Stock</td> {% endcomment %}
+                                <td class="align-middle py-5">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="wishlistpk" value="{{item.pk}}">
+                                        <button type="submit"
+                                            class="btn btn-sm btn-dark rounded-0 btn-wide font-weight-medium text-center"
+                                            name="user_account_add_to_cart">ADD TO CART</button>
+                                        <!-- <span class=""
+                                            style="cursor:pointer">ADD TO CART</span> -->
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+    
+    
+                        </tbody>
+                    </table>
+                </div>
 
 
-                    </tbody>
-                </table>
+                <div class="wishlist-mobile-view d-none mt-10 pb-10">
+                    
+                    
+
+                    {% for mobile_view in wishlist %}
+                    {% comment %} <hr> {% endcomment %}
+
+                    <div class="d-flex align-items-center mb-4 mobile_view_size">
+                        <a href="#">
+                            <img src="{{ASSETS_ROOT}}/media/thumbnail/{{mobile_view.bookthumbnail}}"
+                                class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image shadow" alt="cart-image"
+                                style="height:120px!important; width:80px!important;">
+                        </a>
+                        <div class="ml-3 m-w-200-lg-down">
+                            <a href="{% url 'book-detail' mobile_view.bookslug mobile_view.product_id  %}"
+                                class="text-dark">{{mobile_view.booktitle}}</a>
+                            <!-- <a href="{% url 'book-detail' mobile_view.bookslug mobile_view.product_id  %}"
+                                class="text-gray-700 font-size-2 d-block text-dark pt-1"
+                                tabindex="0">{{mobile_view.bookauthor}}</a> -->
+
+                            <a href="{% url 'book-detail' mobile_view.bookslug mobile_view.product_id  %}"
+                                class="text-gray-700 font-size-2 d-block text-danger pt-1"
+                                tabindex="0">{{mobile_view.booktype}}</a>
+
+
+                            <div class="cart-mobile-version">
+                                <span class="woocommerce-Price-amount amount">
+                                    {{mobile_view.bookquantity}}&nbsp; <span
+                                        class="woocommerce-Price-currencySymbol">GHS
+                                    </span>{{mobile_view.bookprice}}</span>
+                            </div>
+                            <form action="" method="post" class="mt-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="wishlistpk" value="{{mobile_view.pk}}">
+                                        <button type="submit"
+                                            class="btn btn-dark btn-sm rounded-0  text-center"
+                                            name="user_account_add_to_cart">Add to cart</button>
+                                 
+                            </form>
+                        </div>
+                        
+
+                        <!-- add mobile version -->
+
+
+                    </div>
+                    <hr>
+                    {% endfor %}
+
+                </div>
             </div>
             {% else %}
 
-            <div class="text-center" style="margin-top:20vh;">
+            <div class="card-header border-0 mb-2 mt-2">
+                <a href="{% url 'account' %}" class="back-btn mr-2">
+                    <i class="fas fa-arrow-left text-dark"></i>
+                    {% comment %} <span>Back</span> {% endcomment %}
+                  </a>
+                  
+               <span>  wishlist</span>
+                <div class="" style="float:right;">
+                    {% comment %} <button class="btn btn-sm btn-dark">Track order</button> {% endcomment %}
+                </div>
+            </div>
+
+            <div class="text-center pt-10 mb-10" >
 
                 <img src="{{ASSETS_ROUTE}}/static/assets/img/icon/wishlist.png" alt="wishlist">
                 <p class="text-muted pt-3 ">No products in your wishlist.</p>

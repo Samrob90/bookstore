@@ -45,11 +45,6 @@ urlpatterns = [
         views.TrackOrderDetails.as_view(),
         name="trackorder-details",
     ),
-    path(
-        "GOOGLE_AUTHENTICATION/",
-        views.GOOGLE_AUTHENTICATION.as_view(),
-        name="GOOGLE_AUTHENTICATION",
-    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
