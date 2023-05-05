@@ -16,7 +16,7 @@ newtonbookshop | Verify your email address
 
 
 <br>
-<div class="col-lg-4 col-md-6 col-sm-6 shadow mb-8 mt-6" style="margin: 0 auto;">
+<div class="col-lg-4 col-md-6 col-sm-6  border mb-8 mt-6" style="margin: 0 auto;">
 
 
     <div class="u-header-sidebar__footer-offset">
@@ -47,8 +47,11 @@ newtonbookshop | Verify your email address
                                 {% endfor %}
 
                                 {% elif request.user.email %}
+                              
+                                <p> Your account is not verify , we kindly request that you confirm your email address to continue.</p>
+                                {% comment %} {% else %}
                                 <p>In order to have have access to the platform you need to confirm your email address
-                                </p>
+                                </p>{{request.user}} {% endcomment %}
                                 {% endif %}
 
 

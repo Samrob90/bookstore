@@ -20,6 +20,7 @@ from datetime import timedelta
 from frontend import tasks as frontend_tasks
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.contrib.auth.backends import ModelBackend
+from django.conf import settings
 
 
 load_dotenv()
@@ -43,6 +44,12 @@ class LoginView(TemplateView):
             password = form.cleaned_data.get("password")
             user = authenticate(request, email=email, password=password)
             if user is not None:
+                login(
+                    request,
+                    user,
+                    backend="django.contrib.auth.backends.ModelBackend",
+                )
+
                 if user.email_verify:
                     if "cart" in request.session:
                         tasks.check_cart.delay(request.session["cart"], user.pk)
@@ -50,12 +57,6 @@ class LoginView(TemplateView):
                         frontend_tasks.check_recent_view(
                             request.session["recent_view"], user.pk
                         )
-                    login(
-                        request,
-                        user,
-                        backend="django.contrib.auth.backends.ModelBackend",
-                    )
-
                     return self.redirect_after_login(request)
                 else:
                     return redirect("verify_email")
@@ -107,7 +108,7 @@ class SignUpView(TemplateView):
                 "data": data,
                 "email": email,
                 "subject": "Please verify your email address",
-                "template_name": "frontend/email/verification_email_link.html",
+                "template_name": "frontend/email/verify_email.html",
                 "send_from": os.getenv("SECURITY_EMAIL_SENDER"),
             }
             tasks.registration_verify_email.delay(mail_data)
@@ -165,7 +166,6 @@ class ActivateView(TemplateView):
             user.save()
             account_verify = True
 
-        print(account_invalide, account_already_verify, account_invalide)
         context = {
             "account_verify": account_verify,
             "account_already_verify": account_already_verify,
@@ -179,8 +179,10 @@ class VerifyEmailView(TemplateView):
     template_name: str = "frontend/email_verification/verify_email.html"
 
     def get(self, request, *args, **kwargs):
-        if request.user and request.user.email_verify == True:
-            return redirect("account")
+        if request.user.is_authenticated:
+            if request.user.email_verify:
+                return redirect("account")
+
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
@@ -196,7 +198,7 @@ class VerifyEmailView(TemplateView):
             "data": data,
             "email": email,
             "subject": "Please verify your email address",
-            "template_name": "frontend/email/verification_email_link.html",
+            "template_name": "frontend/email/verify_email.html",
             "send_from": os.getenv("SECURITY_EMAIL_SENDER"),
         }
         tasks.registration_verify_email.delay(mail_data, request.user.pk)

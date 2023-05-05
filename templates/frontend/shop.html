@@ -325,7 +325,7 @@ class="products list-unstyled row no-gutters row-cols-2 row-cols-lg-3 row-cols-x
 
     {% elif book.dealofweek_set.all.count > 0 and book.dealofweek_set.all.0.periode|new_expiration %}
     <h5 class="onsale"><span
-        class="badge badge-danger">-{{book.onsale_set.all.0.discount}}%</span>
+        class="badge badge-danger">-{{book.dealofweek_set.all.0.discount}}%</span>
     </h5>
 
     {% endif %}
@@ -425,7 +425,7 @@ aria-labelledby="pills-two-example1-tab">
     
         {% elif book.dealofweek_set.all.count > 0 and book.dealofweek_set.all.0.periode|new_expiration %}
         <h5 class="onsale"><span
-            class="badge badge-danger">-{{book.onsale_set.all.0.discount}}%</span>
+            class="badge badge-danger">-{{book.dealofweek.all.0.discount}}%</span>
         </h5>
     
         {% endif %}

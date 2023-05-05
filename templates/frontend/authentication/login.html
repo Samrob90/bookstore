@@ -25,7 +25,7 @@ newtonbookshop | login
 
 
 
-<div class="col-lg-4 col-md-6 col-sm-4 shadow mb-8 mt-4" style="margin: 0 auto;overflow-y:hidden;">
+<div class="col-lg-4 col-md-6 col-sm-4 border mb-8 mt-4" style="margin: 0 auto;overflow-y:hidden;">
 
 
     <div class="u-header-sidebar__footer-offset">
@@ -50,7 +50,7 @@ newtonbookshop | login
                         </header>
                         <!-- End Title -->
 
-                        <div class="p-4 p-md-6">
+                        <div class="p-4 p-md-6 ">
 
                             {% if messages %}
 
@@ -67,7 +67,7 @@ newtonbookshop | login
                             </div>
                             {% else %}
 
-                            <div class="alert alert-danger mb-2" role="alert">
+                            <div class="alert alert-danger mb-4" role="alert">
                                 <h4 class="alert-heading">Error !!</h4>
                                 <p>{{message}}</p>
                                 {% comment %} <hr> {% endcomment %}
@@ -122,8 +122,8 @@ newtonbookshop | login
                             <div class="d-flex justify-content-between mb-4 align-items-center">
                                 <!-- Checkbox -->
                                 <div class="js-form-message">
-                                    <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                                        <input type="checkbox" class="custom-control-input" id="termsCheckbox"
+                                    <div class="custom-control custom-checkbox d-flex align-items-center ">
+                                        <input type="checkbox" class="custom-control-input" style="z-index:1;" id="termsCheckbox"
                                             name="termsCheckbox" >
                                         <label class="custom-control-label" for="termsCheckbox">
                                             <span class="font-size-2 text-secondary-gray-700">
@@ -134,8 +134,8 @@ newtonbookshop | login
                                 </div>
                                 <!-- End Checkbox -->
 
-                                <a class="js-animation-link text-dark font-size-2 t-d-u link-muted font-weight-medium"
-                                    href="#" data-target="#forgotPassword" data-link-group="idForm"
+                                <a class="text-dark font-size-2 t-d-u  font-weight-medium link-muteds"
+                                    href="{% url 'password-reset' %}" data-target="#forgotPassword" data-link-group="idForm"
                                     data-animation-in="fadeIn">Forgot Password?</a>
                             </div>
 

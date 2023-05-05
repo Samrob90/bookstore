@@ -10,10 +10,10 @@
                                   class="glph-icon flaticon-phone mr-2"></i>{{general_settings.default_phone}}</a></li>
                   </ul>
                   <ul class="topbar__nav--right nav mr-md-n3">
-                      <li class="nav-item"><a href="#" class="nav-link link-black-100"><i
+                      <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link link-black-100"><i
                                   class="glph-icon flaticon-pin"></i></a></li>
-                      <li class="nav-item"><a href="#" class="nav-link link-black-100"><i
-                                  class="glph-icon flaticon-switch"></i></a></li>
+                      {% comment %} <li class="nav-item"><a href="#" class="nav-link link-black-100"><i
+                                  class="glph-icon flaticon-switch"></i></a></li> {% endcomment %}
 
                       {% if request.user.email %}
                       <li class="nav-item"><a href="{% url 'wishlist' %}" class="nav-link link-black-100"><i
@@ -36,16 +36,8 @@
                       {% else %}
                       <li class="nav-item ">
                           <!-- Account Sidebar Toggle Button -->
-                          <a id="sidebarNavToggler" href="javascript:;" role="button"
-                              class="nav-link link-black-100 account_side_bar" aria-controls="sidebarContent"
-                              aria-haspopup="true" aria-expanded="false" data-unfold-event="click"
-                              data-unfold-hide-on-scroll="false" data-unfold-target="#sidebarContent"
-                              data-unfold-type="css-animation" data-unfold-overlay='{
-                                "className": "u-sidebar-bg-overlay",
-                                "background": "rgba(0, 0, 0, .7)",
-                                "animationSpeed": 500
-                            }' data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight"
-                              data-unfold-duration="500">
+                          <a id="sidebarNavToggler" href="{% url 'login' %}" role="button"
+                              class="nav-link link-black-100 account_side_bar">
                               <i class="glph-icon flaticon-user"></i>
                           </a>
                           <!-- End Account Sidebar Toggle Button -->

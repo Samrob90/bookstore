@@ -29,7 +29,7 @@ newtonbookshop | signup
 {% include 'cpanel/includes/error.html' %}
 
 <br>
-<div class="col-lg-4 col-md-6 col-sm-6 shadow mb-8" style="margin: 0 auto;overflow-y:hidden;">
+<div class="col-lg-4 col-md-6 col-sm-6 border mb-8" style="margin: 0 auto;overflow-y:hidden;">
 
 
     <div class="u-header-sidebar__footer-offset">
@@ -63,38 +63,34 @@ newtonbookshop | signup
                                   {% if form.errors.last_name %}
                                   <span class="form_error"> {{form.errors.last_name}}</span>
                                {% endif %}
-                                  {% comment %} <input type="text" class="form-control rounded-0 height-4 px-4" id="inputPassword4" placeholder="Last name" name="last_name"> {% endcomment %}
                                 </div>
                               </div>
 
-
-                            <!-- Form Group -->
-                            <div class="form-group mb-2">
+                              <div class="form-group mb-2">
                                 <div class="js-form-message js-focus-state">
                                     <label id="signinEmailLabel" class="form-label" for="signinEmail">Email
                                         *</label>
                                         {{form.email}}
-                                        
-                                        {% if form.errors.email %}
-                                           <span class="form_error"> {{form.errors.email}}</span>
-                                        {% endif %}
-                                            
                                     {% comment %} <input type="email" class="form-control rounded-0 height-4 px-4" name="email"
                                         id="signinEmail" placeholder="Enter your email"
                                         aria-label="creativelayers088@gmail.com" aria-describedby="signinEmailLabel"
                                         required> {% endcomment %}
+{% comment %} 
+                                        {% if form.errors.email %}
+                                           <span class="form_error"> {{form.errors.email}}</span>
+                                        {% endif %} {% endcomment %}
+
                                 </div>
                             </div>
-                            <!-- End Form Group -->
+
+                            
 
                             <!-- Form Group -->
                             <div class="form-group mb-2">
                                 <div class="js-form-message js-focus-state">
                                     <label id="signinPasswordLabel" class="form-label" for="signinPassword">Password
                                         *</label>
-                                    {% comment %} <input type="password" class="form-control rounded-0 height-4 px-4" name="password"
-                                        id="signinPassword" placeholder="Enter your password" aria-label=""
-                                        aria-describedby="signinPasswordLabel" required> {% endcomment %}
+                                  
                                         {{form.password1}}
                                         {% if form.errors.password1  or form.errors.password2 %}
                                         <span class="form_error"> {{form.errors.password1}}</span>
@@ -112,14 +108,10 @@ newtonbookshop | signup
                                 <div class="js-form-message js-focus-state">
                                     <label id="signinPasswordLabel" class="form-label" for="signinPassword">Retype Password
                                         *</label>
-                                    {% comment %} <input type="password" class="form-control rounded-0 height-4 px-4" name="password"
-                                        id="signinPassword" placeholder="Retype your password" aria-label=""
-                                        aria-describedby="signinPasswordLabel" required> {% endcomment %}
+                                   
 
                                         {{form.password2}}
-                                        {% comment %} {% if form.errors.password2 %}
-                                        <span class="form_error"> {{form.errors.password2}}</span>
-                                     {% endif %}  {% endcomment %}
+                                        
                                 </div>
                             </div>
                             <!-- End Form Group -->

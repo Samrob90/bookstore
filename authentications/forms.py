@@ -27,6 +27,16 @@ class RegisterForm(UserCreationForm):
         model = Account
         fields = ("first_name", "last_name", "email", "password1", "password2")
 
+    email = forms.CharField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "Enter your email",
+                "class": "form-control rounded-0 height-4 px-4",
+            }
+        ),
+    )
+
 
 class ChangeEmail(forms.Form):
     email = forms.CharField(
